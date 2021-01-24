@@ -91,7 +91,7 @@ export default {
       legacy &&
         babel({
           extensions: ['.js', '.ts', '.mjs', '.html', '.svelte'],
-          runtimeHelpers: true,
+          babelHelpers: 'runtime',
           exclude: ['node_modules/@babel/**'],
           presets: ['@babel/preset-env'],
           plugins: [
