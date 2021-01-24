@@ -1,0 +1,47 @@
+$tabs-toggle-link-active-background-color: $success;
+$tabs-toggle-link-active-border-color: $success;
+$tabs-link-active-border-bottom-color: $success;
+$tabs-link-active-color: $success;
+
+$tabs-border: change-color($turquoise, $lightness: 95%);
+$tabs-border-hover: change-color($turquoise, $lightness: 85%);
+$all-tabs-hover-background-color: change-color($turquoise, $lightness: 97%);
+
+$tabs-border-bottom-color: $tabs-border;
+$tabs-link-hover-border-bottom-color: $tabs-border-hover;
+
+$tabs-boxed-link-active-border-color: $tabs-border-hover;
+$tabs-boxed-link-hover-background-color: $all-tabs-hover-background-color;
+$tabs-boxed-link-hover-border-bottom-color: $tabs-border-hover;
+
+$tabs-toggle-link-border-color: $tabs-border;
+$tabs-toggle-link-hover-border-color: $tabs-border-hover;
+$tabs-toggle-link-hover-background-color: $all-tabs-hover-background-color;
+$tabs-toggle-link-active-background-color: $green;
+$tabs-toggle-link-active-border-color: $green;
+
+@import 'bulma/sass/components/tabs.sass';
+
+.tabs {
+  text-transform: uppercase;
+
+  &.is-boxed ul {
+    border-bottom-color: $tabs-border-hover;
+  }
+
+  &.sticky {
+    @include z(sticky-tabs);
+
+    position: sticky;
+    top: 0;
+    padding-top: 10px;
+    background-color: hsla(0, 0%, 100%, 0.9);
+  }
+}
+
+.tab-content {
+  padding: 1em 0.7em;
+
+  border: 1px solid $tabs-border-hover;
+  border-top: none;
+}

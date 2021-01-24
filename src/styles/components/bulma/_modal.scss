@@ -1,0 +1,36 @@
+$modal-background-background-color: hsla(0, 0%, 100%, 0.315);
+
+@import 'bulma/sass/components/modal.sass';
+
+.modal-background {
+  background-color: change-color($modal-background-background-color, $alpha: 0.9);
+
+  @supports (backdrop-filter: blur(1px)) {
+    background-color: $modal-background-background-color;
+    backdrop-filter: blur(9px);
+  }
+}
+
+.modal-content {
+  overflow: scroll;
+}
+
+.modal-card {
+  @include mq($until: tablet) {
+    max-width: 95%;
+  }
+}
+
+.modal-card-head,
+.modal-card-foot {
+  border: $modal-card-head-border-bottom;
+}
+
+.modal-card-body {
+  border-left: $modal-card-head-border-bottom;
+  border-right: $modal-card-head-border-bottom;
+}
+
+.modal-close {
+  background-color: $grey-light;
+}

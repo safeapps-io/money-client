@@ -1,0 +1,100 @@
+/// Set padding according to safearea
+/// @access public
+/// @param {String} $direction — top, bottom, left or right
+/// @param {Number} $pixels — number of pixels by default
+/// @param {Number} $non-safe-area-pixels — number of pixels, that will be set on non-safe-area devices
+@mixin safeAreaPaddingMixin($direction, $pixels, $non-safe-area-pixels: $pixels) {
+  padding-#{$direction}: $non-safe-area-pixels;
+
+  @supports (padding: unquote('max(0px)')) {
+    padding-#{$direction}: unquote('calc(env(safe-area-inset-#{$direction}) + #{$pixels})');
+  }
+}
+
+/// Set position (top, bottom) according to safearea
+/// @access public
+/// @param {String} $position — top, bottom, left or right
+/// @param {Number} $pixels — number of pixels by default
+@mixin safeAreaPositionPropertyMixin($position, $pixels) {
+  #{$position}: $pixels;
+
+  @supports (top: unquote('max(0px)')) {
+    #{$position}: unquote('max(#{$pixels}, env(safe-area-inset-#{$position}))');
+  }
+}
+
+/// Mixin to make object come from opacity 0 to opacity 1 slowly
+@mixin appearFromTransparancy($duration: 1s, $animation: ease-in) {
+  opacity: 1;
+  transition: opacity $duration $animation;
+
+  &--hidden {
+    opacity: 0;
+  }
+}
+
+/// Z-indexes map, gathering all Z layers of the application
+/// @access private
+/// @type Map
+/// @prop {String} key - Layer’s name
+/// @prop {Number} value - Z value mapped to the key
+$z-indexes: (
+  'onboarding': 100,
+  'notification-toast': 60,
+  'loading-button': 50,
+  'menu-back-and-trigger-button': 20,
+  'settings-button-popover': 5,
+  'sticky-tabs': 2,
+  'tooltip-content': 2,
+  'tag-choices-dropdown': 2,
+  'hover-box': 2,
+);
+
+/// Get a z-index prop from a layer name
+/// @access public
+/// @param {String} $layer - Layer’s name
+/// @require $z-indexes
+@mixin z($layer) {
+  @if not map-has-key($z-indexes, $layer) {
+    @error 'There is no layer named `#{$layer}` in $z-indexes. '
+         + 'Layer should be one of #{map-keys($z-indexes)}.';
+  }
+
+  z-index: map-get($z-indexes, $layer);
+}
+
+/// Build slight rotation animation with some preset transform values
+@mixin slight-rotation($name, $prevTransform: null) {
+  @keyframes #{$name} {
+    0% {
+      transform: $prevTransform rotate(5deg);
+    }
+    59% {
+      transform: $prevTransform rotate(5deg);
+    }
+    60% {
+      transform: $prevTransform rotate(-5deg);
+    }
+    100% {
+      transform: $prevTransform rotate(-5deg);
+    }
+  }
+}
+
+/// Build slight pulsation animation with some preset transform values
+@mixin slight-pulsation($name, $prevTransform: null) {
+  @keyframes #{$name} {
+    0% {
+      transform: $prevTransform scale(0.9);
+    }
+    59% {
+      transform: $prevTransform scale(0.9);
+    }
+    60% {
+      transform: $prevTransform scale(1.1);
+    }
+    100% {
+      transform: $prevTransform scale(1.1);
+    }
+  }
+}

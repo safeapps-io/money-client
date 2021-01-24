@@ -1,0 +1,47 @@
+// The container horizontal gap, which acts as the offset for breakpoints
+$gap: 32px;
+// 960, 1152, and 1344 have been chosen because they are divisible by both 12 and 16
+$tablet: 769px;
+// 960px container + 4rem
+$desktop: 960px + (2 * $gap);
+
+$mq-breakpoints: (
+  tablet: $tablet,
+  desktop: $desktop,
+);
+@import 'sass-mq/mq';
+
+$turquoise: rgb(27, 27, 27);
+$green: hsl(115, 43%, 70%);
+$red: hsl(0, 43%, 70%);
+$blue: hsl(231, 42%, 70%);
+$yellow: hsl(60, 42%, 70%);
+
+$hacky-green: hsl(120, 82%, 58%);
+$hacky-cyan: hsl(180, 82%, 58%);
+$hacky-purple: hsl(303, 82%, 58%);
+$hacky-yellow: hsl(61, 82%, 58%);
+
+$loader-colors: $hacky-green $hacky-cyan $hacky-purple $hacky-yellow;
+
+$focus-shadow-size: 0.3em;
+$focus-shadow-style: 0em 0em 0em $focus-shadow-size;
+
+$visual-transition-settings: ease-in-out 0.225s;
+
+$border-width: 2px;
+
+$overlay-background: rgba(hsl(0, 0%, 100%), 0.86);
+
+// Copypasted from bulma spacing helpers
+$spacing-values: (
+  '0': 0,
+  '1': 0.25rem,
+  '2': 0.5rem,
+  '3': 0.75rem,
+  '4': 1rem,
+  '5': 1.5rem,
+  '6': 3rem,
+);
+
+$scrollbar-size: 7px;

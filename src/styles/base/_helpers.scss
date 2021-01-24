@@ -1,0 +1,33 @@
+.clickable {
+  cursor: pointer;
+}
+
+.fullwidth-absolute {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.is-flex {
+  display: flex;
+}
+.flex-columns {
+  flex-direction: column;
+}
+.flex-centered {
+  justify-content: center;
+}
+.flex-full {
+  flex: 1;
+}
+.space-between {
+  justify-content: space-between;
+}
+
+.centered {
+  margin: 0 auto;
+}
+
+.invisible {
+  visibility: hidden;
+}

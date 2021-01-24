@@ -1,0 +1,483 @@
+{
+  "common": {
+    "errors": {
+      "generic": "Something went wrong, please reload the page",
+      "unknown": "Unknown error",
+      "tryLater": "Some error occured. Try later.",
+      "field": {
+        "array": {
+          "lessThan": "Must be less than {than, plural, one {# item} other {# items}}",
+          "moreThan": "Must be more than {than, plural, one {# item} other {# items}}"
+        },
+        "bool": "You must agree",
+        "number": {
+          "invalid": "Invalid number",
+          "lessThan": "Must be less than {than}",
+          "moreThan": "Must be more than {than}"
+        },
+        "date": {
+          "before": "Must be before {than, date, short}",
+          "after": "Must be after {than, date, short}"
+        },
+        "object": {
+          "invalid": "Invalid JSON",
+          "invalidArray": "Should be array",
+          "wrongKey": "Wrong key: {key}",
+          "wrongValue": "Wrong data: {key} → {value}"
+        },
+        "string": {
+          "username": "You can use only letters, numbers, dot, underscode and dash",
+          "email": "Must be a valid email address",
+          "hexColor": "Must look like this: #123abc",
+          "number": "Can only use digits",
+          "minLength": "Must be more than {than, plural, one {# symbol} other {# symbols}}",
+          "maxLength": "Must be less than {than, plural, one {# symbol} other {# symbols}}",
+          "choice": "Invalid choice: {choice}"
+        }
+      }
+    },
+    "form": {
+      "set": "Set",
+      "save": "Save",
+      "change": "Change",
+      "update": "Update",
+      "create": "Create",
+      "cancel": "Cancel",
+      "continue": "Continue",
+      "submit": "Submit",
+      "name": "Name",
+      "color": {
+        "name": "Color",
+        "random": "Random color!"
+      },
+      "close": "Close",
+      "okNotif": "Everything went ok!",
+      "ok": "Ok",
+      "noChoices": "I have nothing to offer"
+    },
+    "dangerZone": "Danger zone",
+    "tryLater": "Try later",
+    "or": "Or",
+    "yes": "Yes",
+    "no": "No",
+    "next": "Next",
+    "letsStart": "Let's start!",
+    "allClear": "All clear",
+    "okDok": "Okey dokey",
+    "date": {
+      "yesterday": "Yesterday",
+      "today": "Today"
+    }
+  },
+  "cmps": {
+    "masterPassword": {
+      "setNew": {
+        "onboarding": {
+          "header": "The most important password",
+          "main": "We use your master-password to encrypt your data. {boldO}It cannot be restored{boldC}, so do remember it!"
+        },
+        "help": {
+          "common": "6 chars minimum, but we recommend using longer and varied passwords.",
+          "invite": "All unaccapted wallet invites will become obsolete once you change your master-password."
+        }
+      },
+      "old": {
+        "pin": {
+          "help": "Pin code is a 6-digit password, that you can enter each time you open the app instead of the master-password. It is only stored on the device, so it does not mitigate the security of your data.",
+          "enter": "Enter pin-code",
+          "invalid": "Incorrect pin-code",
+          "label": "Pin-code",
+          "setOkNotification": "Pin-code is set successfully",
+          "onboarding": {
+            "header": "Simplify sign-ins",
+            "main": "Pin-code allows you to sign in by using a simple 6-digit password instead of master-password. Very handy on mobile devices.",
+            "device": "Pin-code never leaves the device, so you'd need to set it on other devices as well."
+          }
+        },
+        "hey": "Hey there, {username}!",
+        "openSafe": "Open safe",
+        "pass": {
+          "enter": "Enter master-password",
+          "invalid": "Incorrect password",
+          "label": "Your master-password",
+          "set": "Set master-password"
+        }
+      }
+    },
+    "wallet": {
+      "common": {
+        "wallet": "Wallet",
+        "wallets": "Wallets",
+        "jointWallet": "Joint wallet"
+      },
+      "form": {
+        "currency": "Wallet currency",
+        "defCategories": "Create a set of default categories",
+        "jointWalletsWarning": "You can create joint wallets once you have 2 or more wallets with the same currency. Joint wallet will allow you to analyze data from all the wallets at once.",
+        "singleCurrencyError": "Wallets should have the same currency"
+      },
+      "create": {
+        "wallet": "Create wallet",
+        "jointWallet": "Create joint wallet"
+      },
+      "delete": {
+        "nameCheck": "Names does not match",
+        "walletName": "You're about to delete the wallet {tagO}{walletName}{tagC}.",
+        "cannotRestore": "Bear in mind all the data will be wiped immediately. {tagO}It cannot be restored{tagC}.",
+        "verification": "Please enter wallet's name here to verify your decision."
+      },
+      "user": {
+        "createNew": "Create new user"
+      },
+      "userAccess": {
+        "owner": "Owner",
+        "dateJoined": "Join date: {date, date, short}",
+        "deleteConfirmation": "Are you sure? The user will lose their access to the wallet completely.",
+        "invite": {
+          "create": "Create invite",
+          "limit": "You've exhausted the limit for new invites this month",
+          "oneTime": "The link is a one-time use.",
+          "sendIt": "Send it to the person you want to join the wallet. They will be able to read, create, update and delete stuff in this wallet.",
+          "beOnline": "You will need to be online when the user will start the joining process to make a safe encryption key exchange.",
+          "keySecurity": "This operation is secured by an encryption key. Here's its emoji representation:",
+          "owner": {
+            "allow": "Allow",
+            "disallow": "Disallow",
+            "title": "Permission to join a wallet",
+            "userData": "User {tagO}{username}{tagC} wants to join your wallet {tagO}{walletName}{tagC}."
+          },
+          "join": {
+            "accept": {
+              "cta": "To the new adventures",
+              "main": "Wallet owner has added you",
+              "title": "Everything is ok!"
+            },
+            "ask": {
+              "callOwner": "Contact the wallet owner",
+              "expl": "The wallet owner should be online for you to join the wallet. Make sure they are and launch the process!",
+              "go": "Let's go!"
+            },
+            "error": {
+              "main": "Cannot tell you any details. Please try later.",
+              "title": "Some error occured"
+            },
+            "notWallet": {
+              "main": "This is not a wallet invite, so you cannot redeem it.",
+              "title": "No can do"
+            },
+            "waitOwnerConfirm": "Waiting for wallet owner's decision",
+            "reject": {
+              "title": "The wallet owner refused to add you",
+              "expl": "Settle your stuff somewhere and come with a new invite later, because this one is invalid now."
+            },
+            "validate": "Validating the invitation"
+          }
+        }
+      },
+      "onboarding": {
+        "main": "We do not use accounts in out app. The main entity is a wallet. Wallet unites all the accounts, assets and debts that correspond to a single idea: family, business, individual.",
+        "importFile": {
+          "title": "Find a file",
+          "main": "Upload a statement from your bank. We accept {tagO}.csv{tagC} files."
+        },
+        "importButton": {
+          "itsEasy": "It works best when you create transactions by uploading bank statements. Works fast, doesn't make any errors, and makes most of the work automatically after a while.",
+          "decision": "Press the \"{tagO}{buttonText}{tagC}\" button now or try later."
+        }
+      }
+    },
+    "category": {
+      "common": {
+        "category": "Category",
+        "noCategory": "No category",
+        "categories": "Categories"
+      },
+      "zeroData": "No categories has been created yet",
+      "namePlaceholder": "Subscriptions for various web services",
+      "delete": {
+        "title": "Delete category",
+        "categoryAssignedTo": "This category is assigned to {count, plural, one {# transaction} other {# transactions}}. You can replace it with another category.",
+        "replace": "Replace",
+        "newCategory": "New category"
+      }
+    },
+    "transaction": {
+      "common": {
+        "amount": "Amount",
+        "date": "Date",
+        "count": "{count, plural, =0 {No transactions} one {# transaction} other {# transactions}}",
+        "incomes": "Incomes",
+        "income": "Income",
+        "expenses": "Expenses",
+        "expense": "Expense",
+        "transactions": "Transactions",
+        "noUser": "No user"
+      },
+      "correction": {
+        "header": "Balance correction",
+        "new": "New balance",
+        "correctFull": "Correct",
+        "correctShort": "Corr."
+      },
+      "reference": {
+        "active": "Active",
+        "activate": "Activate",
+        "unsetBalance": "Balance is not set just yet. You need to calculate what your net worth is now or at any point in time.",
+        "balanceOn": "Balance is turned on",
+        "seeDynamics": "Balance lets you see your net worth in dynamic, whether it goes up or down."
+      },
+      "form": {
+        "saveDraft": "Save as draft",
+        "originalAmount": "Original amount",
+        "originalCurrency": "Original currency",
+        "description": {
+          "label": "Description",
+          "placeholder": "What, where, why?"
+        },
+        "tags": {
+          "label": "Tags",
+          "placeholder": "Vacation 2020, masks, …"
+        },
+        "user": "User",
+        "mcc": "MCC code",
+        "merchant": "Merchant name",
+        "account": "Account",
+        "category": {
+          "All": "All",
+          "popular": "Popular",
+          "suggested": "Suggested"
+        }
+      },
+      "add": "Add transaction",
+      "zeroData": "There's no transactions during that period",
+      "import": "Import CSV"
+    },
+    "deleteEntity": {
+      "delete": "Delete",
+      "confirmation": "Are you sure?",
+      "irreversible": "This process is irreversible, you won't be able to restore data after deletion!",
+      "success": "✅ Deleted successfully",
+      "error": "❌ Something went wrong"
+    },
+    "export": {
+      "cta": "Export data",
+      "columns": {
+        "draft": "Is draft"
+      }
+    },
+    "searchFilter": {
+      "period": {
+        "year": "Year",
+        "quater": "Quater",
+        "month": "Month",
+        "alltime": "All time"
+      },
+      "form": {
+        "wTag": "With these tags",
+        "wCat": "With these categories",
+        "saveAsNew": "Save as new",
+        "nwTag": "Without these tags",
+        "nwCat": "With these categories"
+      },
+      "allTransactions": "All transactions"
+    },
+    "dashboard": {
+      "zeroData": "No transactions were created yet. Go ahead and do that!",
+      "categoryChart": {
+        "showLess": "Show less",
+        "showAll": "Show all",
+        "rest": "Rest categories",
+        "zeroData": "Here will be a chart of transactions by category"
+      },
+      "balanceChart": "Balance"
+    },
+    "nav": {
+      "404": {
+        "title": "Whoah!",
+        "main": "You've come to a place you shouldn't be! Try another link."
+      },
+      "menu": {
+        "users": "Users",
+        "settings": "Settings",
+        "security": "Security",
+        "filters": "Search filters",
+        "drafts": "Drafts"
+      },
+      "loading": "Loading…"
+    },
+    "user": {
+      "email": {
+        "notSet": "You haven't set any email yet.",
+        "setNew": "Enter your new email address. We have this email saved: {email}.",
+        "toVerifyNotif": "You'll get a verification email. Press the only huge button there and that'll be it.",
+        "verifiedNotif": "Email is verified!",
+        "verifyFail": "Email is not verified. The link is either incorrect or expired."
+      },
+      "invites": {
+        "hasInvited": "You can still invite someone this month",
+        "noInvitedYet": "You haven't invited anyone this month",
+        "send": "Send this link to the person you want to invite. They can use it to sign up!"
+      },
+      "language": "Choose language",
+      "logout": "Logout",
+      "password": {
+        "changed": "Password is successfully changed",
+        "new": "New password",
+        "old": "Old password"
+      },
+      "username": {
+        "changedNotif": "Username is successfully changed",
+        "label": "Username"
+      },
+      "logs": {
+        "label": "Logs for debugging",
+        "noLogs": "No logs saved yet",
+        "help": "Log data is saved upon many different actions. It is always wiped after you close the tab/app. It never has any personal data or data you expect to be encrypted."
+      }
+    },
+    "csv": {
+      "cache": {
+        "prevFile": "You haven't finished importing a file {tagO}{filename}{tagC} on {date, date, short}.",
+        "decision": "Do you wish to continue your work or drop it and upload a new file?",
+        "drop": "Drop previous and start new"
+      },
+      "scheme": {
+        "errors": {
+          "noParse": "Some fields cannot be parsed",
+          "needSet": "Need to set these fields: {fields}",
+          "row": "Row {num}",
+          "invalidDate": "Invalid date format",
+          "invalidCurrency": "Invalid currency",
+          "invalidNum": "Invalid number format",
+          "example": "Valid example: {tagO}{example}{tagC}.",
+          "andNErrors": "and {count, plural, one {# error} other {# errors}} more."
+        },
+        "settings": {
+          "encoding": "Encoding",
+          "hasHeader": "Has a header row",
+          "decimal": "Decimal delimiter"
+        },
+        "columnMatcher": {
+          "date": {
+            "label": "Date format",
+            "help": "Specify the date format",
+            "formatInfo": "Specify the format of the date. {tagO}dd{tagC} — day of month; {tagO}MM{tagC} — month; {tagO}yyyy{tagC} — year; {tagO}HH{tagC} — hour; {tagO}mm{tagC} — minutes; {tagO}ss{tagC} — seconds.",
+            "formatExample": "For example, {tagO}2020-12-24{tagC} would have {tagO}yyyy-MM-dd{tagC} as format.",
+            "docs": "For more options to specify date parts please {tagO}go here{tagC}."
+          }
+        },
+        "noDetected": {
+          "isBank": "Is it an exported bank statement?",
+          "decision": {
+            "header": "Wait or try?",
+            "options": "We didn't manage to parse your file automatically. You have two options:",
+            "try": {
+              "header": "Try it for yourself",
+              "main": "Try to setup the parsing scheme for yourself — it's not hard, you'll just need to tell us what column is associated to what data type.",
+              "cta": "Let's try!"
+            },
+            "wait": {
+              "header": "Just wait",
+              "main": "You also can wait for {tagO}24 hours{tagC} and we'll make the scheme for your statement ourselves!",
+              "cta": "Let's wait"
+            }
+          },
+          "instructions": {
+            "header": "We're happy to help you!",
+            "lead": "The instructions are simple:",
+            "first": "{tagItalicO}(optional){tagC} open your file in any text editor and remove the data you don't want to share with us openly. We'll need at least {tagBoldO}6 lines of the statement{tagC}, including the header if it is present. Please do not change the format of dates or amounts.",
+            "second": "{tagO}send it to us via email{tagC}. Click on this link and fill in the gaps in the email and attach your statement.",
+            "fin": "We'll try our best to finish in 24 hours. We'll write you back when we finish or when we have any questions."
+          }
+        },
+        "automation": {
+          "header": "Automatic resolving settings",
+          "successNotif": "Settings will be used when you start a new import",
+          "power": {
+            "label": "Power",
+            "help": "Defines how often we will try to automatically resolve transactions based on your previous data. The higher it is the higher are the chances of errors in category or user assignment."
+          },
+          "disableLabel": "Disable automatic resolving"
+        }
+      },
+      "queue": {
+        "unresolved": "Unresolved",
+        "ignore": "Ignore",
+        "draft": "Draft",
+        "zeroData": "You've done it!",
+        "autoOnly": "Show auto resolved only",
+        "onboarding": {
+          "tabs": {
+            "save": "{tagO}{tab}{tagC} is what will be saved as a regular transaction, income or expense.",
+            "queue": "{tagO}{tab}{tagC} is all the records that needs to be resolved.",
+            "ignore": "{tagO}{tab}{tagC} are transactions that shouldn't be shown in future. E.g. transfers between your accounts.",
+            "draft": "{tagO}{tab}{tagC} are unclear transactions. E.g. if it was made by your partner and you don't know what category it should belong. It will be saved into a separate section, but won't affect the balance."
+          },
+          "saveTransactions": "When you made your decision about this transaction, press one of these buttons. You can also use keyboard shortcuts on desktops.",
+          "parsed": {
+            "main": "Click on the card if we had a wrong guess with the category or you just want to make changes.",
+            "header": "This is what we parsed"
+          },
+          "final": {
+            "savePlace": "Don't be afraid to accidentally close the tab or save a small part of work — we'll offer you to pick up where you left off!",
+            "clickWhenSave": "Click this button when you just want to save what you've already resolved."
+          },
+          "automation": {
+            "main": "The import is smart. It'll catch all the duplicate transactions, try to guess the category and even automatically resolve most of the transactions after a while.",
+            "header": "Automation. A hell of a lot of it."
+          }
+        }
+      },
+      "file": {
+        "drag": "or drag it into the window",
+        "notCsv": "The chosen file is not a CSV file. Please choose another one.",
+        "press": "Press to choose file",
+        "noParsedData": "File has no data to parse"
+      }
+    },
+    "elements": {
+      "copy": "Copy",
+      "pagination": {
+        "next": "Next",
+        "prev": "Previous",
+        "page": "Page {curr} of {last}"
+      },
+      "defZeroData": "Nothing here yet"
+    }
+  },
+  "routes": {
+    "wallet": {
+      "walletUsers": {
+        "title": "Whose transactions is can be",
+        "help": "Here's a list of people to whom transactions can be linked — who can spend or earn."
+      },
+      "walletAccess": {
+        "title": "Wallet access",
+        "help": "Here's a list of people who has access to this wallet's data."
+      },
+      "addTr": "Create transaction",
+      "balance": "Balance",
+      "changeCorr": "Change correction",
+      "changeTr": "Change transaction",
+      "common": "General",
+      "delete": "Delete wallet",
+      "export": "Export",
+      "import": "Import transactions",
+      "settings": "Wallet settings"
+    },
+    "category": {
+      "change": "Change category",
+      "create": "Create category"
+    },
+    "user": {
+      "email": "Change email",
+      "generalTitle": "User settings",
+      "invites": "Invites",
+      "masterPass": "Change master-password",
+      "masterPassOk": "Master-password was changed successfully",
+      "pass": "Change account password",
+      "pin": "Set pin-code",
+      "username": "Change username"
+    }
+  }
+}

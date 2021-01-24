@@ -1,0 +1,18 @@
+* {
+  &::selection {
+    color: white;
+    background-color: $success;
+  }
+}
+
+.fullheight {
+  min-height: 100vh;
+}
+
+body {
+  @extend .fullheight;
+}
+
+#app {
+  @extend .fullheight;
+}

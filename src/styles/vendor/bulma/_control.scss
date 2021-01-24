@@ -1,0 +1,15 @@
+@import 'bulma/sass/form/tools';
+.control {
+  &.is-loading {
+    &::after {
+      top: 0.7em;
+    }
+  }
+}
+
+.input,
+select,
+.textarea,
+.button {
+  transition: box-shadow $visual-transition-settings, border $visual-transition-settings !important;
+}

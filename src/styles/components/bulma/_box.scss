@@ -1,0 +1,21 @@
+@import 'bulma/sass/elements/box';
+
+// $box-shadow is available in bulma
+$hover-box-shadow: 0 0.5em 2em -0.25em rgba($scheme-invert, 0.1),
+  0 0px 1em 4px rgba($scheme-invert, 0.02);
+
+.box {
+  border-radius: 0;
+  transition: transform $visual-transition-settings, box-shadow $visual-transition-settings;
+
+  &--hoverable {
+    @include mq($from: desktop) {
+      &:hover {
+        @include z(hover-box);
+
+        transform: scale(1.03);
+        box-shadow: $hover-box-shadow;
+      }
+    }
+  }
+}

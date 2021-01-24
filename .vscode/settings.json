@@ -1,0 +1,26 @@
+{
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#f0b698",
+    "activityBar.activeBackground": "#f0b698",
+    "activityBar.activeBorder": "#148b3d",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#148b3d",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "titleBar.activeBackground": "#ea966b",
+    "titleBar.inactiveBackground": "#ea966b99",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveForeground": "#15202b99",
+    "statusBar.background": "#ea966b",
+    "statusBarItem.hoverBackground": "#e4763e",
+    "statusBar.foreground": "#15202b"
+  },
+  "peacock.color": "#ea966b",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "jest.autoEnable": false,
+  "i18n-ally.localesPaths": "src/core/i18n/locales",
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.sourceLanguage": "en"
+}

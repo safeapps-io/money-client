@@ -1,0 +1,40 @@
+<script>
+  import UserCard from './userCard.svelte';
+  import NewInvite from './newInvite.svelte';
+
+  import { getNotificationsContext } from 'svelte-notifications/src/context';
+  import { _ } from 'svelte-i18n';
+
+  import { notification } from '@/core/notification';
+  import { AccessLevels, selectedWalletStore, walletStore } from '@/stores/wallet';
+  import { userEncrStore } from '@/stores/user';
+
+  const { addNotification } = getNotificationsContext();
+
+  $: wallet = $walletStore![$selectedWalletStore!];
+  $: user = $userEncrStore!;
+  $: isOwner = wallet.users.some(
+    u => u.id == user.id && u.WalletAccess.accessLevel == AccessLevels.owner,
+  );
+
+  const onDelete = () => addNotification(notification({ text: $_('cmps.deleteEntity.success') }));
+</script>
+
+<ul class="my-4">
+  {#each wallet.users as user, index (user.id)}
+    <li>
+      {#if index > 0}
+        <hr />
+      {/if}
+      <UserCard
+        {user}
+        isCurrentUserOwner={isOwner}
+        isOwnerCard={user.WalletAccess.accessLevel == AccessLevels.owner}
+        walletId={wallet.id}
+        on:delete={onDelete} />
+    </li>
+  {/each}
+</ul>
+{#if isOwner}
+  <NewInvite walletId={wallet.id} userId={user.id} monthlyLimit={user.inviteMonthlyLimit} />
+{/if}

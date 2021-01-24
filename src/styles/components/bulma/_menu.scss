@@ -1,0 +1,14 @@
+$delimiter-color: change-color($border, $alpha: 0.2);
+$menu-list-border-left: dashed 0.5px $delimiter-color;
+$menu-item-active-color: $text;
+$menu-item-active-background-color: $success-light;
+$menu-item-radius: 0;
+
+@import 'bulma/sass/components/menu';
+
+.menu {
+  hr.menu-delimiter {
+    height: 0.5px;
+    background-color: $delimiter-color;
+  }
+}

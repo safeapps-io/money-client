@@ -1,0 +1,7 @@
+/// Component, that imports all the variables and does not produce any CSS code,
+/// therefore can be imported in Svelte-components safely
+
+@import './helpers/mixins';
+@import './helpers/variables';
+
+@import './vendor/bulma/variables';

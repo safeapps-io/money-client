@@ -1,0 +1,29 @@
+$dropdown-item-active-background-color: $success;
+
+@import 'bulma/sass/components/dropdown';
+
+.dropdown-menu.centered {
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.dropdown.fullwidth {
+  display: block;
+
+  .dropdown-trigger {
+    display: block;
+
+    button {
+      width: 100%;
+    }
+  }
+}
+
+div.dropdown-item {
+  cursor: pointer;
+
+  &:hover {
+    background-color: $background;
+    color: $scheme-invert;
+  }
+}

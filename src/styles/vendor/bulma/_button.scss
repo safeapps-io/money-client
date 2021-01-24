@@ -1,0 +1,19 @@
+$button-hover-border-color: $hover-dimmed;
+$button-focus-border-color: $focus-border-color;
+$button-focus-box-shadow-size: $focus-shadow-style;
+
+@import 'bulma/sass/elements/button';
+.button {
+  text-transform: uppercase;
+
+  &.is-color-loading {
+    color: transparent !important;
+    pointer-events: none;
+
+    &::after {
+      @extend %loader;
+      @include center(1em);
+      position: absolute !important;
+    }
+  }
+}

@@ -1,0 +1,38 @@
+$family-monospace: 'Anonymous Pro', monospace, monospace;
+$family-primary: $family-monospace;
+$radius: 0;
+
+@import 'bulma/sass/utilities/_all';
+
+$border: $turquoise;
+$hover-dimmed: adjust-color($turquoise, $lightness: 30%);
+$focus-border-color: $turquoise;
+
+$input-shadow: none;
+$input-arrow: $turquoise;
+$input-focus-border-color: $focus-border-color;
+$input-hover-border-color: $hover-dimmed;
+$input-focus-box-shadow-size: $focus-shadow-style;
+$control-border-width: $border-width;
+$control-radius: $radius;
+$control-radius-small: 0;
+
+@import 'bulma/sass/utilities/_all';
+
+%arrow {
+  @include arrow;
+  border-radius: 0px;
+  border-width: 0.75 * $control-border-width;
+}
+
+%loader {
+  @include loader;
+
+  border-radius: 7px;
+  animation: spinAround 0.7s infinite ease-in-out;
+  border: 2px solid;
+  border-color: $loader-colors !important;
+}
+$hr-margin: 1em auto;
+
+$box-shadow: 0 0.5em 1em -0.125em rgba($scheme-invert, 0.1), 0 0px 0 1px rgba($scheme-invert, 0.02);

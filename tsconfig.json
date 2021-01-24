@@ -1,0 +1,32 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "include": [
+    "src/**/*",
+    "src/node_modules/**/*"
+  ],
+  "exclude": [
+    "node_modules/*",
+    "__sapper__/*",
+    "static/*",
+  ],
+  "compilerOptions": {
+    "lib": [
+      "DOM",
+      "ES2020",
+      "WebWorker"
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    // Overriding the Svelte config, because it is easier to migrate now
+    "importsNotUsedAsValues": "preserve",
+    "target": "ES2020",
+    "module": "esnext",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "resolveJsonModule": true,
+  }
+}

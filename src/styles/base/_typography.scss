@@ -1,0 +1,14 @@
+.overflow-ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.is-underlined {
+  text-decoration: underline;
+}
+
+.has-text-dotted {
+  @extend .is-underlined;
+  text-decoration-style: dotted;
+}

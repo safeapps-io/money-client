@@ -1,0 +1,8 @@
+User-agent: *
+
+Disallow: /app
+Disallow: /goto
+
+Clean-param: invite
+
+Host: https://money.safeapps.io

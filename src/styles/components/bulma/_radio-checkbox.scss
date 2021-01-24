@@ -1,0 +1,114 @@
+$size: 1.4em;
+
+$checkmark-height: $size / 2;
+$checkmark-width: $checkmark-height / 2;
+
+$radio-size: $size / 3;
+
+$base-disabled-color: $grey-lighter;
+
+$background: $white-bis;
+$background-checked: $turquoise;
+
+$box-shadow-focus: $focus-shadow-style change-color($link, $alpha: 0.25);
+
+label.checkbox,
+label.radio {
+  display: block;
+  position: relative;
+  // If we add multiple checkboxes and radios after each other they would otherwise touch each other
+  margin-bottom: $focus-shadow-size;
+  padding-left: $size * 1.8;
+  cursor: pointer;
+
+  /* Hide the browser's default radio button */
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  /* You cannot style parent based on child, so we move from <input disabled /> to a separate class */
+  &.is-disabled {
+    cursor: not-allowed;
+  }
+
+  /* On mouse-over, add a grey background color */
+  &:hover > .check {
+    border-color: $input-hover-border-color;
+  }
+
+  input {
+    & ~ .check {
+      background-color: $background;
+      border: $border-width solid $border;
+    }
+
+    &:focus ~ .check {
+      box-shadow: $box-shadow-focus;
+    }
+
+    &:checked ~ .check {
+      background-color: $background-checked;
+
+      /* Show the checkmark when checked */
+      &:after {
+        display: block;
+      }
+    }
+
+    &:disabled ~ .check {
+      background-color: mix($background, $base-disabled-color, $weight: 30%);
+      border-color: mix($border, $base-disabled-color, $weight: 30%);
+    }
+  }
+
+  .check {
+    position: absolute;
+    left: 0;
+    height: $size;
+    width: $size;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    transition: $visual-transition-settings;
+
+    &:after {
+      content: '';
+      position: absolute;
+      display: none;
+    }
+  }
+}
+
+label.checkbox .check:after {
+  // Some magic almost random numbers
+  top: $checkmark-height / 5;
+  left: $checkmark-height / 2;
+
+  height: $checkmark-height;
+  width: $checkmark-width;
+
+  border: solid $background;
+  border-width: 0 $border-width $border-width 0;
+
+  transform: rotate(45deg);
+}
+
+label.radio .check {
+  border-radius: 50%;
+
+  &:after {
+    top: calc(50% - #{$radio-size} / 2);
+    left: calc(50% - #{$radio-size} / 2);
+
+    height: $radio-size;
+    width: $radio-size;
+
+    border-radius: 50%;
+    background: $background;
+  }
+}
