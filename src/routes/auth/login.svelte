@@ -1,5 +1,5 @@
 <script>
-  import LoginForm from '@/components/auth/forms/login.svelte';
+  import LoginForm from '@/components/auth/login.svelte';
 
   import { goto, stores } from '@sapper/app';
 

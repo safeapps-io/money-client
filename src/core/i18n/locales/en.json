@@ -4,6 +4,7 @@
       "generic": "Something went wrong, please reload the page",
       "unknown": "Unknown error",
       "tryLater": "Some error occured. Try later.",
+      "linkExpired": "The link is either incorrect or expired",
       "field": {
         "array": {
           "lessThan": "Must be less than {than, plural, one {# item} other {# items}}",
@@ -135,7 +136,6 @@
         "deleteConfirmation": "Are you sure? The user will lose their access to the wallet completely.",
         "invite": {
           "create": "Create invite",
-          "limit": "You've exhausted the limit for new invites this month",
           "oneTime": "The link is a one-time use.",
           "sendIt": "Send it to the person you want to join the wallet. They will be able to read, create, update and delete stuff in this wallet.",
           "beOnline": "You will need to be online when the user will start the joining process to make a safe encryption key exchange.",
@@ -314,20 +314,34 @@
         "verifyFail": "Email is not verified. The link is either incorrect or expired."
       },
       "invites": {
-        "hasInvited": "You can still invite someone this month",
-        "noInvitedYet": "You haven't invited anyone this month",
-        "send": "Send this link to the person you want to invite. They can use it to sign up!"
+        "send": "Send this link to the person you want to invite. They can use it to sign up!",
+        "help": "This link can be used multiple times, but it changes every time you visit this page. Don't panic, old links will still work."
       },
       "language": "Choose language",
       "logout": "Logout",
+      "signup": {
+        "cta": "Sign up",
+        "whyEmail": "We need email so you can restore access to the account in case you forget the password. it is unnecessary though. In future we'll ask you if you want to get promo-emails.",
+        "agree": "By creating an account you agree with the {tagO}terms and conditions{tagC}."
+      },
+      "signIn": "Sign in",
       "password": {
+        "label": "Password",
         "changed": "Password is successfully changed",
         "new": "New password",
-        "old": "Old password"
+        "old": "Old password",
+        "forgot": "Forgot password?",
+        "restore": {
+          "title": "Restore password",
+          "cta": "Get the link",
+          "notification": "We've sent an email. Follow the instructions there.",
+          "emailHelp": "If you added an email address to your account, then you'll get an email with instructions on how to restore password."
+        }
       },
       "username": {
         "changedNotif": "Username is successfully changed",
-        "label": "Username"
+        "label": "Username",
+        "usernameOrEmail": "Username or email"
       },
       "logs": {
         "label": "Logs for debugging",

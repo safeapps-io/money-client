@@ -1,10 +1,10 @@
 <script>
+  import Modal from '@/components/elements/modal.svelte';
+  import ResetPassword from '@/components/auth/resetPassword.svelte';
+
   import { goto, stores } from '@sapper/app';
 
   import { loginPath } from '@/core/routes';
-
-  import Modal from '@/components/elements/modal.svelte';
-  import ResetPassword from '@/components/auth/forms/resetPassword.svelte';
 
   const { page } = stores(),
     redirect = () => goto(loginPath);

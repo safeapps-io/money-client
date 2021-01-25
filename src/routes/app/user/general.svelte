@@ -14,7 +14,7 @@
 
 <Page title={$_('routes.user.generalTitle')} nestColumnClass="is-8">
   <h2 class="title has-text-centered">{$_('routes.user.invites')}</h2>
-  <InviteSettings userId={user.id} monthlyLimit={user.inviteMonthlyLimit} />
+  <InviteSettings />
   <hr />
   <h2 class="subtitle">{$_('routes.user.username')}</h2>
   <UsernameSettings />

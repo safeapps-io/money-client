@@ -1,11 +1,12 @@
 <script>
+  import { Form, PasswordField } from '@/components/strict/index';
+
+  import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
   import { getNotificationsContext } from 'svelte-notifications/src/context';
 
   import { AuthService } from '@/services/auth/authService';
   import { notification, NotificationStyles } from '@/core/notification';
-
-  import { Form, PasswordField } from '@/components/strict/index';
 
   export let token: string;
 
@@ -15,7 +16,7 @@
       await AuthService.setPasswordFromToken({ ...data, token });
       addNotification(
         notification({
-          text: 'Пароль успешно установлен',
+          text: $_('cmps.user.password.changed'),
         }),
       );
       dispatch('success');
@@ -28,7 +29,7 @@
       isValid = false;
       addNotification(
         notification({
-          text: 'Ссылка неверная или уже истекла',
+          text: $_('common.errors.linkExpired'),
           type: NotificationStyles.danger,
         }),
       );
@@ -36,6 +37,6 @@
     });
 </script>
 
-<Form {success} buttonText="Установить пароль" formDisabled={!isValid}>
-  <PasswordField label="Новый пароль" />
+<Form {success} buttonText={$_('common.form.change')} formDisabled={!isValid}>
+  <PasswordField label={$_('cmps.user.password.new')} />
 </Form>
