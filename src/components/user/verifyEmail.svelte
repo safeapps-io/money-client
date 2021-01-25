@@ -6,25 +6,18 @@
   import { getNotificationsContext } from 'svelte-notifications/src/context';
 
   import { AuthService } from '@/services/auth/authService';
-  import { WaitlistService } from '@/services/auth/waitlistService';
   import { notification, NotificationStyles } from '@/core/notification';
 
   const { addNotification } = getNotificationsContext(),
     dispatch = createEventDispatcher();
 
-  export let emailToken: string,
-    isWaitlist: boolean = false;
+  export let emailToken: string;
 
   onMount(async () => {
     let encryptedUserId: string | undefined = undefined,
       alreadyVerified = false;
     try {
-      if (isWaitlist) {
-        const res = (await WaitlistService.validateEmail(emailToken)).json;
-        encryptedUserId = res.encryptedUserId;
-        alreadyVerified = res.alreadyVerified;
-        if (!encryptedUserId) throw new Error();
-      } else await AuthService.validateEmail(emailToken);
+      await AuthService.validateEmail(emailToken);
 
       if (!alreadyVerified)
         addNotification(
@@ -36,7 +29,7 @@
     } catch (error) {
       addNotification(
         notification({
-          text: $_('cmps.user.email.verifyFail'),
+          text: $_('common.errors.linkExpired'),
           type: NotificationStyles.danger,
         }),
       );

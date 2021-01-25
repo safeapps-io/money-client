@@ -8,7 +8,6 @@
   $: field = {
     name: 'username',
     label: $_('cmps.user.username.label'),
-    placeholder: 'whitfield.hellman',
     clean: [ensureString, trim],
     validate: [minLength(4), maxLength(50)],
     required: true,
@@ -16,5 +15,5 @@
 </script>
 
 <Field {field}>
-  <Text autocomplete="username" />
+  <Text autocomplete="username" placeholder="whitfield.hellman" />
 </Field>

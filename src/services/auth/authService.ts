@@ -8,33 +8,19 @@ import { resetEncryptedStore } from '@/stores/encr/store';
 import { resetEncryptionKeysState } from '@/stores/encr/keysState';
 
 export enum InviteStringTypes {
-  prelaunch = 'prelaunch',
-  launch = 'launch',
   service = 'service',
   wallet = 'wallet',
 }
-
 export enum InvitePurpose {
-  waitlist = 'waitlist',
   signup = 'signup',
   walletJoin = 'walletJoin',
 }
 
-type PrelaunchInvitePayload = { userInviterId: string };
-type LaunchInvitePayload = { userId: string; email: string };
-type ServiceInvitePayload = PrelaunchInvitePayload & { inviteId: string };
+type ServiceInvitePayload = { userInviterId: string; inviteId: string };
 type WalletInviteObject = ServiceInvitePayload & {
   walletId: string;
 };
 type InvitePayload =
-  | {
-      type: InviteStringTypes.prelaunch;
-      payload: PrelaunchInvitePayload;
-    }
-  | {
-      type: InviteStringTypes.launch;
-      payload: LaunchInvitePayload;
-    }
   | {
       type: InviteStringTypes.service;
       payload: ServiceInvitePayload;
@@ -62,9 +48,9 @@ export class AuthService {
 
   static async signUp(data: {
     username: string;
-    email?: string;
-    invite: string;
     password: string;
+    email?: string;
+    invite?: string;
   }) {
     const { user, isWalletInvite, ...tokens } = (
       await request<{ user: UserEncrState; isWalletInvite: boolean } & TokenState>({
@@ -85,14 +71,6 @@ export class AuthService {
       method: 'POST',
       path: `${this.prefix}invite/isValid`,
       data: { invite, purpose },
-    });
-  }
-
-  static defaultMonthlyLimit = 5;
-  static currentMonthlyUsage() {
-    return request<{ usage: number }>({
-      method: 'GET',
-      path: `${this.prefix}invite/usage`,
     });
   }
 

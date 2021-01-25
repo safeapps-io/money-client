@@ -5,10 +5,12 @@
   import { goto, stores } from '@sapper/app';
   import { onMount } from 'svelte';
   import { scale } from 'svelte/transition';
+  import { _ } from 'svelte-i18n';
   import { quintOut } from 'svelte/easing';
 
   import { tokenStore } from '@/stores/token';
   import { appPath, loginPath, signupPath } from '@/core/routes';
+  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
 
   export let segment: string;
 
@@ -35,16 +37,20 @@
       <div class="columns is-centered">
         <div class="column is-8">
           <h2 class="title is-4">
-            {#if segment != 'signup'}
-              <Link href={signupPath + queryParams}>Sign up</Link>
-            {:else}Sign up{/if}
-            <span class="px-2 is-unselectable">|</span>
             {#if segment != 'login'}
-              <Link href={loginPath + queryParams}>Sign in</Link>
-            {:else}Sign in{/if}
+              <Link href={loginPath + queryParams}>{$_('cmps.user.signIn')}</Link>
+            {:else}{$_('cmps.user.signIn')}{/if}
+            <span class="px-2 is-unselectable">|</span>
+            {#if segment != 'signup'}
+              <Link href={signupPath + queryParams}>{$_('cmps.user.signup.cta')}</Link>
+            {:else}{$_('cmps.user.signup.cta')}{/if}
           </h2>
 
-          <slot />
+          <CrossfadeWrapper replayAnimationKey={segment}>
+            <div class="py-1 px-1">
+              <slot />
+            </div>
+          </CrossfadeWrapper>
         </div>
       </div>
     </div>
