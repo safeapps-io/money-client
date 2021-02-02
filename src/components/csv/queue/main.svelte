@@ -255,9 +255,24 @@
 </script>
 
 <style lang="scss">
-  .settings,
-  .submit {
-    align-self: flex-end;
+  .settings {
+    justify-self: end;
+
+    @include mq($until: tablet) {
+      grid-area: var(--small-settings-area);
+    }
+    @include mq($from: tablet) {
+      grid-area: var(--big-settings-area);
+    }
+  }
+
+  .main {
+    grid-area: var(--main-area);
+  }
+
+  .submit-wrapper {
+    justify-self: end;
+    grid-area: var(--big-submit-area);
   }
 
   .tab-container {
@@ -279,17 +294,16 @@
   <div slot="text">
     <Text header>{$_('cmps.csv.queue.onboarding.automation.header')}</Text>
     <Text>{$_('cmps.csv.queue.onboarding.automation.main')}</Text>
-    <button
-      class="button mt-3"
-      on:click={() => (currentStep = 'tabsUnS')}>{$_('common.letsStart')}</button>
+    <button class="button mt-3" on:click={() => (currentStep = 'tabsUnS')}
+      >{$_('common.letsStart')}</button>
   </div>
 </Onboarding>
 
-<div class="is-flex flex-columns">
-  <div class="settings mb-3">
-    <AutomationSettings />
-  </div>
+<div class="settings mb-3">
+  <AutomationSettings />
+</div>
 
+<div class="main">
   <Onboarding preventSlotClick bottom {textSlotWidth} shouldShow={currentStep.startsWith('tabs')}>
     <Tabs sticky classes="is-centered is-small" {tabs} bind:activeTab let:tab>
       <span class="tag mr-2">{getCount(state, tab.value)}</span>
@@ -309,27 +323,24 @@
               values: { ...accentTags, tab: $_('common.form.save') },
             })}
           </Text>
-          <button
-            class="button mt-3"
-            on:click={() => (currentStep = 'tabsD')}>{$_('common.next')}</button>
+          <button class="button mt-3" on:click={() => (currentStep = 'tabsD')}
+            >{$_('common.next')}</button>
         {:else if currentStep == 'tabsD'}
           <Text>
             {@html $_('cmps.csv.queue.onboarding.tabs.draft', {
               values: { ...accentTags, tab: $_('cmps.csv.queue.draft') },
             })}
           </Text>
-          <button
-            class="button mt-3"
-            on:click={() => (currentStep = 'tabsI')}>{$_('common.okDok')}</button>
+          <button class="button mt-3" on:click={() => (currentStep = 'tabsI')}
+            >{$_('common.okDok')}</button>
         {:else if currentStep == 'tabsI'}
           <Text>
             {@html $_('cmps.csv.queue.onboarding.tabs.ignore', {
               values: { ...accentTags, tab: $_('cmps.csv.queue.ignore') },
             })}
           </Text>
-          <button
-            class="button mt-3"
-            on:click={() => (currentStep = 'transaction')}>{$_('common.allClear')}</button>
+          <button class="button mt-3" on:click={() => (currentStep = 'transaction')}
+            >{$_('common.allClear')}</button>
         {/if}
       </CrossfadeWrapper>
     </div>
@@ -364,17 +375,21 @@
       {/if}
     </CrossfadeWrapper>
   </div>
+</div>
 
+<div class="submit-wrapper">
   <Onboarding right {textSlotWidth} {key} shouldShow={currentStep == 'final'} let:finishOnboarding>
     <button class="submit button is-success" disabled={submitDisabled} on:click={submitState}>
       <span>{$_('common.form.submit')}</span>
       <!-- © https://teenyicons.com/ arrow-right -->
-      <span class="icon"><svg
+      <span class="icon"
+        ><svg
           viewBox="0 0 15 15"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           width="15"
-          height="15"><path d="M13.5 7.5l-4-4m4 4l-4 4m4-4H1" stroke="currentColor" /></svg></span>
+          height="15"><path d="M13.5 7.5l-4-4m4 4l-4 4m4-4H1" stroke="currentColor" /></svg
+        ></span>
     </button>
 
     <div slot="text">

@@ -1,7 +1,7 @@
 <script>
   import type { FileParsedToBinary } from './types';
-  import type { BaseSimpleScheme } from '@/stores/scheme';
   import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
+  import type { BaseSimpleScheme } from '@/core/csv/types';
 
   import FileForm from './fileForm.svelte';
   import SetScheme from './setScheme/main.svelte';
@@ -129,6 +129,38 @@
   };
 </script>
 
+<style lang="scss">
+  .prev-cache {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    place-content: center;
+    text-align: center;
+
+    height: 400px;
+  }
+
+  .filename-wrapper {
+    display: grid;
+    grid-template-columns: 4fr repeat(2, 1fr);
+
+    --small-settings-area: 1 / 3 / 2 / 4;
+    --big-settings-area: 1 / 2 / 2 / 4;
+    --main-area: 2 / 1 / 3 / 4;
+    --small-submit-area: 3 / 3 / 4 / 4;
+    --big-submit-area: 3 / 1 / 4 / 4;
+  }
+
+  .filename {
+    @include mq($until: tablet) {
+      grid-area: 1 / 1 / 2 / 3;
+    }
+    @include mq($from: tablet) {
+      grid-area: 1 / 1 / 2 / 2;
+    }
+  }
+</style>
+
 <div class="is-relative">
   <CrossfadeWrapper replayAnimationKey={state}>
     {#if state == State.hasCache}
@@ -149,8 +181,7 @@
           <button class="button" on:click={useCache}>{$_('common.form.continue')}</button>
 
           <button class="button is-danger is-outlined" on:click={useFileUpload}
-            >{$_('cmps.csv.cache.drop')}</button
-          >
+            >{$_('cmps.csv.cache.drop')}</button>
         </div>
       </div>
     {:else if state == State.fileUpload}
@@ -161,8 +192,7 @@
           on:binaryData={async e => {
             await finishOnboarding();
             getBinaryData(e);
-          }}
-        />
+          }} />
 
         <div slot="text">
           <Text header>{$_('cmps.wallet.onboarding.importFile.title')}</Text>
@@ -176,35 +206,18 @@
     {:else if state == State.userDecides}
       <NoSchemeDetected on:needScheme={() => (state = State.needScheme)} />
     {:else}
-      <h3 class="subtitle filename overflow-ellipsis"><code>{filename}</code></h3>
-      {#if state == State.needScheme}
-        <SetScheme {currentWalletCurrency} {encodedData} on:success={setScheme} />
-      {:else if state == State.resultParsed}
-        <ParsedTransactionQueue
-          dataSource={shouldPassCacheData ? shouldPassCacheData : parsedData.parsedRows}
-          on:cacheState={setCache}
-          on:dropCache={dropCache}
-          on:submit={finalSubmit}
-        />
-      {/if}
+      <div class="filename-wrapper">
+        <h3 class="subtitle filename overflow-ellipsis">{filename}</h3>
+        {#if state == State.needScheme}
+          <SetScheme {currentWalletCurrency} {encodedData} on:success={setScheme} />
+        {:else if state == State.resultParsed}
+          <ParsedTransactionQueue
+            dataSource={shouldPassCacheData ? shouldPassCacheData : parsedData.parsedRows}
+            on:cacheState={setCache}
+            on:dropCache={dropCache}
+            on:submit={finalSubmit} />
+        {/if}
+      </div>
     {/if}
   </CrossfadeWrapper>
 </div>
-
-<style lang="scss">
-  .prev-cache {
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-    place-content: center;
-    text-align: center;
-
-    height: 400px;
-  }
-
-  .filename {
-    @include mq($from: tablet) {
-      width: 70%;
-    }
-  }
-</style>
