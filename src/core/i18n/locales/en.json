@@ -380,30 +380,6 @@
             "docs": "For more options to specify date parts please {tagO}go here{tagC}."
           }
         },
-        "noDetected": {
-          "isBank": "Is it an exported bank statement?",
-          "decision": {
-            "header": "Wait or try?",
-            "options": "We didn't manage to parse your file automatically. You have two options:",
-            "try": {
-              "header": "Try it for yourself",
-              "main": "Try to setup the parsing scheme for yourself — it's not hard, you'll just need to tell us what column is associated to what data type.",
-              "cta": "Let's try!"
-            },
-            "wait": {
-              "header": "Just wait",
-              "main": "You also can wait for {tagO}24 hours{tagC} and we'll make the scheme for your statement ourselves!",
-              "cta": "Let's wait"
-            }
-          },
-          "instructions": {
-            "header": "We're happy to help you!",
-            "lead": "The instructions are simple:",
-            "first": "{tagItalicO}(optional){tagC} open your file in any text editor and remove the data you don't want to share with us openly. We'll need at least {tagBoldO}6 lines of the statement{tagC}, including the header if it is present. Please do not change the format of dates or amounts.",
-            "second": "{tagO}send it to us via email{tagC}. Click on this link and fill in the gaps in the email and attach your statement.",
-            "fin": "We'll try our best to finish in 24 hours. We'll write you back when we finish or when we have any questions."
-          }
-        },
         "automation": {
           "header": "Automatic resolving settings",
           "successNotif": "Settings will be used when you start a new import",

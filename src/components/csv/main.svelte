@@ -1,15 +1,14 @@
 <script>
   import type { FileParsedToBinary } from './types';
   import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
-  import type { BaseSimpleScheme } from '@/core/csv/types';
+  import type { BaseSimpleScheme, CustomScheme } from '@/core/csv/types';
+  import type { ParseDataReturn } from '@/core/csv/parseData';
 
   import FileForm from './fileForm.svelte';
-  import SetScheme from './setScheme/main.svelte';
-  import ParsedTransactionQueue from './queue/main.svelte';
   import WalletSelectFromJoint from '@/components/wallet/walletSelectFromJoint.svelte';
-  import NoSchemeDetected from './noSchemeDetected.svelte';
-  import { Onboarding, Text } from '@/components/onboarding/index';
+  import { Onboarding, Text } from '@/components/onboarding';
   import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
+  import Loader from '@/components/elements/loader.svelte';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher, onDestroy } from 'svelte';
@@ -29,7 +28,6 @@
   import { allLocalSchemes } from '@/stores/scheme';
   import { defaultAssetStore } from '@/stores/decr/asset';
 
-  import { guessParsingScheme, parseData } from '@/core/csv/parseData';
   import { CsvParsedTransactionResolution } from '@/core/csv/constants';
   import { notification } from '@/core/notification';
 
@@ -62,7 +60,6 @@
   const enum State {
     hasCache,
     fileUpload,
-    userDecides,
     needScheme,
     resultParsed,
   }
@@ -74,13 +71,13 @@
 
   let filename: string,
     encodedData: ArrayBuffer,
-    parsedData: ThenArg<ReturnType<typeof parseData>>,
+    parsedData: ParseDataReturn,
     noDataParsed = false;
 
-  const runSchemeAgainstData = async (
-    scheme: BooleanCheck<ThenArg<ReturnType<typeof guessParsingScheme>>>,
-  ) => {
-    parsedData = await parseData({
+  const runSchemeAgainstData = async (scheme: BaseSimpleScheme | CustomScheme) => {
+    const module = await import('@/core/csv/parseData');
+
+    parsedData = await module.parseData({
       ignoredTransactionHashSet: $ignoredTransactionHashSetStore,
       scheme,
       currentWalletCurrency,
@@ -91,17 +88,18 @@
   };
 
   const getBinaryData = async ({ detail }: CustomEvent<FileParsedToBinary>) => {
-      noDataParsed = false;
+      const module = await import('@/core/csv/guessParsingScheme');
 
+      noDataParsed = false;
       filename = detail.filename;
       encodedData = detail.data;
-      const scheme = await guessParsingScheme({
+      const scheme = await module.guessParsingScheme({
         data: detail.data,
         schemes: $allLocalSchemes,
         currentWalletCurrency,
       });
       if (scheme) await runSchemeAgainstData(scheme);
-      else state = State.userDecides;
+      else state = State.needScheme;
     },
     setScheme = async ({ detail }: CustomEvent<BaseSimpleScheme>) => {
       await addUserScheme(detail);
@@ -159,6 +157,10 @@
       grid-area: 1 / 1 / 2 / 2;
     }
   }
+
+  .loader-block {
+    grid-area: var(--main-area);
+  }
 </style>
 
 <div class="is-relative">
@@ -203,19 +205,29 @@
           </Text>
         </div>
       </Onboarding>
-    {:else if state == State.userDecides}
-      <NoSchemeDetected on:needScheme={() => (state = State.needScheme)} />
     {:else}
       <div class="filename-wrapper">
         <h3 class="subtitle filename overflow-ellipsis">{filename}</h3>
         {#if state == State.needScheme}
-          <SetScheme {currentWalletCurrency} {encodedData} on:success={setScheme} />
+          {#await import('./setScheme/main.svelte')}
+            <div class="loader-block">
+              <Loader height={250} />
+            </div>
+          {:then SetScheme}
+            <SetScheme.default {currentWalletCurrency} {encodedData} on:success={setScheme} />
+          {/await}
         {:else if state == State.resultParsed}
-          <ParsedTransactionQueue
-            dataSource={shouldPassCacheData ? shouldPassCacheData : parsedData.parsedRows}
-            on:cacheState={setCache}
-            on:dropCache={dropCache}
-            on:submit={finalSubmit} />
+          {#await import('./queue/main.svelte')}
+            <div class="loader-block">
+              <Loader height={250} />
+            </div>
+          {:then ParsedTransactionQueue}
+            <ParsedTransactionQueue.default
+              dataSource={shouldPassCacheData ? shouldPassCacheData : parsedData.parsedRows}
+              on:cacheState={setCache}
+              on:dropCache={dropCache}
+              on:submit={finalSubmit} />
+          {/await}
         {/if}
       </div>
     {/if}
