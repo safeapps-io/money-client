@@ -1,5 +1,5 @@
 <script>
-  import type { SimpleScheme } from '@/stores/scheme';
+  import type { SimpleScheme } from '@/core/csv/types';
 
   import {
     Field,

@@ -3,8 +3,7 @@
 
   export let href: string,
     targetBlank = false as boolean,
-    nofollow = false as boolean,
-    prefetch = true as boolean;
+    nofollow = false as boolean;
 
   $: externalUrl = href.indexOf('://') !== -1;
 
@@ -13,11 +12,7 @@
 
   let rel = '';
   $: {
-    if (externalUrl) {
-      rel = 'noopener noreferrer';
-    } else if (prefetch) {
-      rel = 'prefetch';
-    }
+    if (externalUrl) rel = 'noopener noreferrer';
     if (nofollow) rel += ' nofollow';
   }
 
