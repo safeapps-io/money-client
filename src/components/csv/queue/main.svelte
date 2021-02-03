@@ -9,6 +9,7 @@
   import AutomationSettings from './automationSettings.svelte';
   import ResolvedTransactionList from './resolved/transactionList.svelte';
   import ResolvedAutoTransactionList from './resolved/autoTransactionList.svelte';
+  import Troubleshoot from '@/components/elements/dropdown/troubleshoot.svelte';
 
   import { _ } from 'svelte-i18n';
   import { media } from 'svelte-match-media';
@@ -256,12 +257,15 @@
 
 <style lang="scss">
   .settings {
+    display: flex;
     justify-self: end;
 
     @include mq($until: tablet) {
+      --dropdown-min-width: 90vw;
       grid-area: var(--small-settings-area);
     }
     @include mq($from: tablet) {
+      --dropdown-min-width: 320px;
       grid-area: var(--big-settings-area);
     }
   }
@@ -300,6 +304,28 @@
 </Onboarding>
 
 <div class="settings mb-3">
+  <div class="mr-2 is-size-7">
+    <Troubleshoot right>
+      <div class="px-4">
+        <p class="is-size-6 mb-2">{$_('cmps.csv.queue.troubleshoot.question')}</p>
+        <!-- FIXME: forum link -->
+        <p>
+          {@html $_('cmps.csv.queue.troubleshoot.goToForum', {
+            values: {
+              tagO: `<a href="/" target="_blank" rel="noopener">`,
+              tagC: '</a>',
+            },
+          })}
+        </p>
+      </div>
+      <hr class="dropdown-divider" />
+      <div class="px-4">
+        <p>{$_('cmps.csv.queue.troubleshoot.resetIfSure')}</p>
+        <button class="button is-small mt-3 is-fullwidth" on:click={() => dispatch('resetScheme')}
+          >{$_('cmps.csv.queue.troubleshoot.reset')}</button>
+      </div>
+    </Troubleshoot>
+  </div>
   <AutomationSettings />
 </div>
 

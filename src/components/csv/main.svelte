@@ -104,6 +104,10 @@
     setScheme = async ({ detail }: CustomEvent<BaseSimpleScheme>) => {
       await addUserScheme(detail);
       runSchemeAgainstData(detail);
+    },
+    resetScheme = () => {
+      dropCache();
+      state = State.needScheme;
     };
 
   const finalSubmit = async ({
@@ -207,7 +211,7 @@
       </Onboarding>
     {:else}
       <div class="filename-wrapper">
-        <h3 class="subtitle filename overflow-ellipsis">{filename}</h3>
+        <h3 class="subtitle filename overflow-ellipsis" title={filename}>{filename}</h3>
         {#if state == State.needScheme}
           {#await import('./setScheme/main.svelte')}
             <div class="loader-block">
@@ -224,6 +228,7 @@
           {:then ParsedTransactionQueue}
             <ParsedTransactionQueue.default
               dataSource={shouldPassCacheData ? shouldPassCacheData : parsedData.parsedRows}
+              on:resetScheme={resetScheme}
               on:cacheState={setCache}
               on:dropCache={dropCache}
               on:submit={finalSubmit} />
