@@ -3,7 +3,6 @@
   import StartPasswordRequest from '@/components/user/startPasswordRequest.svelte';
   import WalletModalCreate from '@/components/wallet/modalCreate.svelte';
   import ExpandableMenu from '@/components/nav/expandableMenu.svelte';
-  import CurrentWalletDropdown from '@/components/wallet/currentWalletDropdown.svelte';
   import Logo from '@/components/nav/logo.svelte';
   import Menu from '@/components/nav/menu.svelte';
   import JoiningFlow from '@/components/wallet/joinWallet/joiningFlow.svelte';
@@ -67,8 +66,6 @@
             <div class="columns pt-5 fullheight" in:fade={{ duration: 1200 }}>
               <div class="column is-3 aside">
                 <a href={appPath}><Logo /></a>
-
-                <CurrentWalletDropdown />
                 <Menu />
               </div>
               <div class="column is-9">

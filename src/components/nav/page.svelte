@@ -1,8 +1,8 @@
 <script>
-  import { media } from 'svelte-match-media';
-
+  import GenericTroubleshoot from '@/components/elements/genericTroubleshoot.svelte';
   import Profile from './profile.svelte';
-  import TransactionAdd from '@/components/transaction/add.svelte';
+
+  import { media } from 'svelte-match-media';
 
   export let title: string | undefined = undefined,
     boxedView: boolean = true,
@@ -18,6 +18,11 @@
     @include mq($from: tablet) {
       margin-left: 0.75em;
     }
+  }
+
+  .profile {
+    display: flex;
+    place-items: center;
   }
 
   .wrapper {
@@ -73,10 +78,11 @@
       </div>
     </slot>
     {#if !$media.mobile}
-      <div class="mr-2">
-        <TransactionAdd />
-      </div>
-      <div class="mr-2">
+      <div class="profile mr-2">
+        <div class="mr-2">
+          <GenericTroubleshoot right />
+        </div>
+
         <Profile />
       </div>
     {/if}

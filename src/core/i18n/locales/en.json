@@ -296,6 +296,21 @@
         "title": "Whoah!",
         "main": "You've come to a place you shouldn't be! Try another link."
       },
+      "feedback": {
+        "cta": "Feedback",
+        "bug": {
+          "title": "Found a bug?",
+          "main": "We'd really appreciate if you reported it here. Help us become better!"
+        },
+        "help": {
+          "title": "Don't understand something?",
+          "main": "Don't hesitate to drop a message here. We'll help."
+        },
+        "featureReq": {
+          "title": "Enhancement proposal",
+          "main": "We value all your ideas. Please share all of them with us here."
+        }
+      },
       "menu": {
         "users": "Users",
         "settings": "Settings",

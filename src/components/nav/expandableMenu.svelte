@@ -1,7 +1,5 @@
 <script>
   import Menu from './menu.svelte';
-  import CurrentWalletDropdown from '@/components/wallet/currentWalletDropdown.svelte';
-  import TransactionAdd from '@/components/transaction/add.svelte';
 
   import { fade } from 'svelte/transition';
   import { media } from 'svelte-match-media';
@@ -18,38 +16,6 @@
   $: if (!$hasUserSeenOnboarding('howToAdd') && $media.mobile)
     setTimeout(() => (showMenu = true), 500);
 </script>
-
-<div class="page-content fullheight">
-  <slot />
-</div>
-
-{#if showMenu}
-  <div class="modal-background menu-z" transition:fade on:click={() => (showMenu = false)} />
-{/if}
-
-<button
-  class="button is-rounded trigger-button"
-  class:show-menu={showMenu}
-  on:click={() => (showMenu = !showMenu)}>
-  <span class="icon">
-    <!-- © https://teenyicons.com/ menu -->
-    <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-      <path d="M0 5.5h15m-15-4h15m-15 8h15m-15 4h15" stroke="currentColor" />
-    </svg>
-  </span>
-</button>
-
-<div
-  class="menu-content has-background-white-bis"
-  class:show-menu={showMenu}
-  aria-hidden={!showMenu}
->
-  <div class="pt-2 pb-4 px-2" use:restrictBodyScroll={showMenu}>
-    <CurrentWalletDropdown />
-    <TransactionAdd shouldShowOnboarding={showMenu} />
-    <Menu />
-  </div>
-</div>
 
 <style lang="scss">
   $button-size: 3.5em;
@@ -114,3 +80,32 @@
     @include z(menu-back-and-trigger-button);
   }
 </style>
+
+<div class="page-content fullheight">
+  <slot />
+</div>
+
+{#if showMenu}
+  <div class="modal-background menu-z" transition:fade on:click={() => (showMenu = false)} />
+{/if}
+
+<button
+  class="button is-rounded trigger-button"
+  class:show-menu={showMenu}
+  on:click={() => (showMenu = !showMenu)}>
+  <span class="icon">
+    <!-- © https://teenyicons.com/ menu -->
+    <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+      <path d="M0 5.5h15m-15-4h15m-15 8h15m-15 4h15" stroke="currentColor" />
+    </svg>
+  </span>
+</button>
+
+<div
+  class="menu-content has-background-white-bis"
+  class:show-menu={showMenu}
+  aria-hidden={!showMenu}>
+  <div class="pt-2 pb-4 px-2" use:restrictBodyScroll={showMenu}>
+    <Menu {showMenu} />
+  </div>
+</div>
