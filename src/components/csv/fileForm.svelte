@@ -9,6 +9,8 @@
   import { media } from 'svelte-match-media';
   import { noop } from 'svelte/internal';
 
+  import { debugLog } from '@/core/logger';
+
   const dispatch = createEventDispatcher();
 
   export let noDataParsed: boolean;
@@ -31,6 +33,8 @@
 
       const file = fileList[0],
         reader = new FileReader();
+
+      debugLog('[csv] uploaded file type', { type: file.type });
 
       if (!['text/csv', 'application/vnd.ms-excel'].includes(file.type)) {
         notCsvError = true;
