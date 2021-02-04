@@ -14,6 +14,7 @@
   import { _ } from 'svelte-i18n';
   import { media } from 'svelte-match-media';
   import { createEventDispatcher, tick } from 'svelte';
+  import arrowRightIcon from 'teenyicons/outline/arrow-right.svg';
 
   import { CsvParsedTransactionResolution } from '@/core/csv/constants';
   import {
@@ -407,15 +408,8 @@
   <Onboarding right {textSlotWidth} {key} shouldShow={currentStep == 'final'} let:finishOnboarding>
     <button class="submit button is-success" disabled={submitDisabled} on:click={submitState}>
       <span>{$_('common.form.submit')}</span>
-      <!-- © https://teenyicons.com/ arrow-right -->
       <span class="icon"
-        ><svg
-          viewBox="0 0 15 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          width="15"
-          height="15"><path d="M13.5 7.5l-4-4m4 4l-4 4m4-4H1" stroke="currentColor" /></svg
-        ></span>
+        ><img src={arrowRightIcon} alt="arrow right" height="15" width="15" /></span>
     </button>
 
     <div slot="text">

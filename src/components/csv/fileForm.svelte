@@ -8,6 +8,7 @@
   import { slide } from 'svelte/transition';
   import { media } from 'svelte-match-media';
   import { noop } from 'svelte/internal';
+  import uploadIcon from 'teenyicons/outline/upload.svg';
 
   import { debugLog } from '@/core/logger';
 
@@ -119,15 +120,7 @@
       {#if state == State.loading}
         <Loader />
       {:else}
-        <svg
-          viewBox="0 0 15 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          width="25"
-          height="25"
-          ><path
-            d="M7.5 1.5l3.25 3m-3.25-3l-3 3m3-3V11m6-4v6.5h-12V7"
-            stroke="currentColor" /></svg>
+        <img src={uploadIcon} alt="loader icon" height="25" width="25" />
         <div class="is-size-5">{$_('cmps.csv.file.press')}</div>
 
         {#if !$media.mobile}

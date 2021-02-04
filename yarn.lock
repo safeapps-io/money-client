@@ -3414,6 +3414,11 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+teenyicons@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/teenyicons/-/teenyicons-0.4.1.tgz#b8d1df14024d2bf903ef0efdba92a14d140f09fb"
+  integrity sha512-cr3CJy0ai7CbED2Ao9DgEevz9HPB2D/PaNewPuSlHIyRTQyxgEpFl0DzpjtcL4ygeIrRBZzW2aDXxm5TZEPetg==
+
 terser@^5.0.0:
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/terser/-/terser-5.5.1.tgz#540caa25139d6f496fdea056e414284886fb2289"
