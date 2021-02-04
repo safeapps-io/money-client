@@ -127,38 +127,6 @@
   }
 </script>
 
-<svelte:window bind:innerWidth bind:innerHeight />
-
-<div class="slot-original" bind:this={originalSlotEl}>
-  <slot />
-</div>
-
-{#if show}
-  <div class="overlay" transition:fade|local use:restrictBodyScroll />
-  <div class="figures" class:centered={noSlot} transition:scale|local={{ delay: 300 }}>
-    <div class="circle" use:cssVars={circleVars} />
-    <div class="square" use:cssVars={squareVars} />
-  </div>
-  <div
-    class="text"
-    class:centered={noSlot}
-    class:has-text-right={right}
-    class:has-text-left={!right}
-    bind:this={textSlotEl}
-    use:cssVars={{ ...textVars, width: `${textSlotWidth}px` }}
-    in:fly|local={{ delay: 600, y: 100 }}
-    out:fade|local
-  >
-    <slot name="text" />
-  </div>
-  <div class="slot-copy" use:cssVars={slotCopyVars}>
-    <slot {finishOnboarding} />
-  </div>
-  {#if preventSlotClick}
-    <div class="slot-copy" use:cssVars={slotCopyVars} />
-  {/if}
-{/if}
-
 <style lang="scss">
   .slot-original {
     display: contents;
@@ -256,3 +224,34 @@
     animation: square-anim 5s ease-in-out infinite;
   }
 </style>
+
+<svelte:window bind:innerWidth bind:innerHeight />
+
+<div class="slot-original" bind:this={originalSlotEl}>
+  <slot />
+</div>
+
+{#if show}
+  <div class="overlay" transition:fade|local use:restrictBodyScroll />
+  <div class="figures" class:centered={noSlot} transition:scale|local={{ delay: 300 }}>
+    <div class="circle" use:cssVars={circleVars} />
+    <div class="square" use:cssVars={squareVars} />
+  </div>
+  <div
+    class="text"
+    class:centered={noSlot}
+    class:has-text-right={right}
+    class:has-text-left={!right}
+    bind:this={textSlotEl}
+    use:cssVars={{ ...textVars, width: `${textSlotWidth}px` }}
+    in:fly|local={{ delay: 600, y: 100 }}
+    out:fade|local>
+    <slot name="text" />
+  </div>
+  <div class="slot-copy" use:cssVars={slotCopyVars}>
+    <slot {finishOnboarding} />
+  </div>
+  {#if preventSlotClick}
+    <div class="slot-copy" use:cssVars={slotCopyVars} />
+  {/if}
+{/if}

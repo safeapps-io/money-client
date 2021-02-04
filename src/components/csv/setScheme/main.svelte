@@ -1,7 +1,11 @@
 <script>
   import type { ParsingResult } from '@/core/csv/types';
   import type { AllowedSchemeFields, BaseSimpleScheme } from '@/core/csv/types';
+  import type { SetSchemeOnboardingSteps } from '../types';
 
+  import { Onboarding, Text } from '@/components/onboarding';
+  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
+  import Troubleshoot from '@/components/elements/dropdown/troubleshoot.svelte';
   import SchemaSettings from './settings.svelte';
   import ColumnMatcher from './columnMatcher.svelte';
   import Table from './table.svelte';
@@ -46,6 +50,9 @@
   let columnMatch: string[] = [],
     dateFormat: string = '',
     error: string | undefined;
+
+  let currentStep: SetSchemeOnboardingSteps = 'unknown';
+  const key = 'setScheme';
 </script>
 
 <style lang="scss">
@@ -89,17 +96,6 @@
     );
   }
 
-  .settings {
-    justify-self: end;
-
-    @include mq($until: tablet) {
-      grid-area: var(--small-settings-area);
-    }
-    @include mq($from: tablet) {
-      grid-area: var(--big-settings-area);
-    }
-  }
-
   .submit {
     display: flex;
     place-items: center;
@@ -113,14 +109,83 @@
   }
 </style>
 
-<div class="settings mb-4" use:longpress={{ cb: () => console.log(JSON.stringify(getScheme())) }}>
-  <SchemaSettings bind:encoding bind:header bind:decimal />
+<Onboarding
+  noSlot
+  {key}
+  shouldShow={currentStep == 'unknown' ||
+    currentStep == 'isBank' ||
+    currentStep == 'notBank' ||
+    currentStep == 'finish'}
+  let:finishOnboarding>
+  <div slot="text">
+    <CrossfadeWrapper replayAnimationKey={currentStep}>
+      {#if currentStep == 'unknown'}
+        <Text header>{$_('cmps.csv.scheme.onboarding.unknown.title')}</Text>
+        <Text>{$_('cmps.csv.scheme.onboarding.unknown.main')}</Text>
+        <button class="button is-small mt-3" on:click={() => (currentStep = 'isBank')}
+          >{$_('cmps.csv.scheme.onboarding.unknown.cta')}</button>
+      {:else if currentStep == 'isBank'}
+        <Text header>{$_('cmps.csv.scheme.onboarding.isBank.title')}</Text>
+        <Text>{$_('cmps.csv.scheme.onboarding.isBank.main1')}</Text>
+        <Text>{$_('cmps.csv.scheme.onboarding.isBank.main2')}</Text>
+        <button class="button is-small mt-3" on:click={() => (currentStep = 'notBank')}
+          >{$_('common.allClear')}</button>
+      {:else if currentStep == 'notBank'}
+        <Text header>{$_('cmps.csv.scheme.onboarding.notBank.title')}</Text>
+        <Text
+          >{@html $_('cmps.csv.scheme.onboarding.notBank.main', {
+            values: { tagO: '<span class="has-text-weight-bold">', tagC: '</span>' },
+          })}</Text>
+        <button class="button is-small mt-3" on:click={() => (currentStep = 'settings')}
+          >{$_('cmps.csv.scheme.onboarding.notBank.cta')}</button>
+      {:else}
+        <Text>{$_('cmps.csv.scheme.onboarding.finish.main')}</Text>
+        <button class="button is-small mt-3" on:click={finishOnboarding}
+          >{$_('cmps.csv.scheme.onboarding.finish.cta')}</button>
+      {/if}
+    </CrossfadeWrapper>
+  </div>
+</Onboarding>
+
+<div
+  class="settings-area mb-4"
+  use:longpress={{ cb: () => console.log(JSON.stringify(getScheme())) }}>
+  <div class="mr-2 is-size-7">
+    <Troubleshoot right text={$_('cmps.csv.scheme.bankStatement.button')}>
+      <div class="px-4">
+        <p class="mb-3">
+          {$_('cmps.csv.scheme.bankStatement.main')}
+        </p>
+        <p>
+          <!-- FIXME: forum link -->
+          {@html $_('cmps.csv.scheme.bankStatement.link', {
+            values: {
+              linkO: '<a href="/">',
+              linkC: '</a>',
+              tagO: '<span class="has-text-weight-bold">',
+              tagC: '</span>',
+            },
+          })}
+        </p>
+      </div>
+    </Troubleshoot>
+  </div>
+
+  <Onboarding right bottom preventSlotClick shouldShow={currentStep == 'settings'}>
+    <SchemaSettings bind:encoding bind:header bind:decimal />
+    <div slot="text">
+      <Text header>{$_('cmps.csv.scheme.onboarding.settings.title')}</Text>
+      <Text>{$_('cmps.csv.scheme.onboarding.settings.main')}</Text>
+      <button class="button is-small mt-3" on:click={() => (currentStep = 'main')}
+        >{$_('common.allClear')}</button>
+    </div>
+  </Onboarding>
 </div>
 
 {#if decodedData && columnCount}
   <div class="main-wrapper">
     <div class="main py-3 px-4 custom-scrollbar" use:cssVars={{ columnCount }}>
-      <ColumnMatcher {columnCount} bind:columnMatch bind:dateFormat />
+      <ColumnMatcher {columnCount} bind:currentStep bind:columnMatch bind:dateFormat />
       <Table
         bind:error
         bind:dateFormat
@@ -138,6 +203,6 @@
   {#if error}
     <div class="has-text-danger is-size-7 mx-4 my-4">{error}</div>
   {/if}
-  <button class="button is-success is-outlined" on:click={success} disabled={!!error}
+  <button class="button is-success" on:click={success} disabled={!!error}
     >{$_('common.form.ok')}</button>
 </div>

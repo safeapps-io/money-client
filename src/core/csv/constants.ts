@@ -120,14 +120,14 @@ export enum FieldResolution {
   accountNumber = 'accountNumber',
 }
 export const fieldChoices = [
-  { value: FieldResolution.ignore, label: 'Ignore' },
-  { value: FieldResolution.amount, label: 'Amount' },
-  { value: FieldResolution.datetime, label: 'Date' },
-  { value: FieldResolution.originalAmount, label: 'Original amount' },
-  { value: FieldResolution.currency, label: 'Original currency' },
-  { value: FieldResolution.accountNumber, label: 'Account' },
-  { value: FieldResolution.mcc, label: 'MCC code' },
-  { value: FieldResolution.merchant, label: 'Merchant' },
+  { value: FieldResolution.ignore, label: 'cmps.csv.scheme.ignore' },
+  { value: FieldResolution.amount, label: 'cmps.transaction.common.amount' },
+  { value: FieldResolution.datetime, label: 'cmps.transaction.common.date' },
+  { value: FieldResolution.originalAmount, label: 'cmps.transaction.form.originalAmount' },
+  { value: FieldResolution.currency, label: 'cmps.transaction.form.originalCurrency' },
+  { value: FieldResolution.accountNumber, label: 'cmps.transaction.form.account' },
+  { value: FieldResolution.mcc, label: 'cmps.transaction.form.mcc' },
+  { value: FieldResolution.merchant, label: 'cmps.transaction.form.merchant' },
 ];
 
 export enum CsvParsedTransactionResolution {

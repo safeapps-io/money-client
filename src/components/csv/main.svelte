@@ -24,12 +24,12 @@
   } from '@/stores/decr/ignoredTransaction';
   import { transactionBulkAdd } from '@/stores/decr/transaction';
   import { selectedWalletStore } from '@/stores/wallet';
-  import { addUserScheme } from '@/stores/decr/user';
+  import { addUserScheme, hasUserSeenOnboarding } from '@/stores/decr/user';
   import { allLocalSchemes } from '@/stores/scheme';
   import { defaultAssetStore } from '@/stores/decr/asset';
 
   import { CsvParsedTransactionResolution } from '@/core/csv/constants';
-  import { notification } from '@/core/notification';
+  import { notification, NotificationStyles } from '@/core/notification';
 
   const dispatch = createEventDispatcher(),
     { addNotification } = getNotificationsContext();
@@ -99,7 +99,16 @@
         currentWalletCurrency,
       });
       if (scheme) await runSchemeAgainstData(scheme);
-      else state = State.needScheme;
+      else {
+        if ($hasUserSeenOnboarding('setScheme'))
+          addNotification(
+            notification({
+              text: $_('cmps.csv.scheme.onboarding.unknown.title'),
+              type: NotificationStyles.danger,
+            }),
+          );
+        state = State.needScheme;
+      }
     },
     setScheme = async ({ detail }: CustomEvent<BaseSimpleScheme>) => {
       await addUserScheme(detail);
@@ -142,7 +151,7 @@
     height: 400px;
   }
 
-  .filename-wrapper {
+  .main-wrapper {
     display: grid;
     grid-template-columns: 4fr repeat(2, 1fr);
 
@@ -151,6 +160,20 @@
     --main-area: 2 / 1 / 3 / 4;
     --small-submit-area: 3 / 3 / 4 / 4;
     --big-submit-area: 3 / 1 / 4 / 4;
+
+    :global(.settings-area) {
+      display: flex;
+      justify-self: end;
+
+      @include mq($until: tablet) {
+        --dropdown-min-width: 90vw;
+        grid-area: var(--small-settings-area);
+      }
+      @include mq($from: tablet) {
+        --dropdown-min-width: 320px;
+        grid-area: var(--big-settings-area);
+      }
+    }
   }
 
   .filename {
@@ -210,7 +233,7 @@
         </div>
       </Onboarding>
     {:else}
-      <div class="filename-wrapper">
+      <div class="main-wrapper">
         <h3 class="subtitle filename overflow-ellipsis" title={filename}>{filename}</h3>
         {#if state == State.needScheme}
           {#await import('./setScheme/main.svelte')}

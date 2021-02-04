@@ -257,20 +257,6 @@
 </script>
 
 <style lang="scss">
-  .settings {
-    display: flex;
-    justify-self: end;
-
-    @include mq($until: tablet) {
-      --dropdown-min-width: 90vw;
-      grid-area: var(--small-settings-area);
-    }
-    @include mq($from: tablet) {
-      --dropdown-min-width: 320px;
-      grid-area: var(--big-settings-area);
-    }
-  }
-
   .main {
     grid-area: var(--main-area);
   }
@@ -304,7 +290,7 @@
   </div>
 </Onboarding>
 
-<div class="settings mb-3">
+<div class="settings-area mb-3">
   <div class="mr-2 is-size-7">
     <Troubleshoot right>
       <div class="px-4">
