@@ -2,7 +2,7 @@
   import Modal from '@/components/elements/modal.svelte';
   import WalletForm from './forms/wallet.svelte';
   import JointWalletForm from './forms/jointWallet.svelte';
-  import { Onboarding, Text } from '@/components/onboarding/index';
+  import { Onboarding, Text } from '@/components/onboarding';
   import Tabs from '@/components/elements/tabs.svelte';
 
   import { goto } from '@sapper/app';
@@ -37,7 +37,10 @@
     <Tabs
       classes="is-centered"
       bind:activeTab={mode}
-      tabs={[{ value: WalletCreateModes.wallet, label: $_('cmps.wallet.common.wallet') }, { value: WalletCreateModes.jointWallet, label: $_('cmps.wallet.common.jointWallet') }]} />
+      tabs={[
+        { value: WalletCreateModes.wallet, label: $_('cmps.wallet.common.wallet') },
+        { value: WalletCreateModes.jointWallet, label: $_('cmps.wallet.common.jointWallet') },
+      ]} />
   {/if}
 
   {#if mode == WalletCreateModes.wallet}

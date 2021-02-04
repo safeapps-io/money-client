@@ -1,6 +1,6 @@
 <script>
-  import { Form, PinCodeField } from '@/components/strict/index';
-  import { Onboarding, Text } from '@/components/onboarding/index';
+  import { Form, PinCodeField } from '@/components/strict';
+  import { Onboarding, Text } from '@/components/onboarding';
 
   import { _ } from 'svelte-i18n';
 

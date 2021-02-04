@@ -4,7 +4,7 @@
   import Level from '@/components/elements/level.svelte';
   import WalletField from '@/components/wallet/walletField.svelte';
   import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
-  import { Field, Form, TextInput } from '@/components/strict/index';
+  import { Field, Form, TextInput } from '@/components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -79,8 +79,7 @@
       <div class="column is-narrow" slot="left">
         <slot name="left">
           <button class="button is-success is-outlined"
-            >{ent ? $_('common.form.update') : $_('common.form.create')}</button
-          >
+            >{ent ? $_('common.form.update') : $_('common.form.create')}</button>
         </slot>
       </div>
       <div class="column is-narrow" slot="right">

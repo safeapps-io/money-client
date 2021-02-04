@@ -11,7 +11,7 @@
   import ParsedTransactionData from './parsedTransactionData.svelte';
   import SubmitButtons from './submitButtons.svelte';
   import ZeroData from '@/components/elements/zeroData.svelte';
-  import { Onboarding, Text } from '@/components/onboarding/index';
+  import { Onboarding, Text } from '@/components/onboarding';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
@@ -60,9 +60,8 @@
 
       <div slot="text">
         <Text>{$_('cmps.csv.queue.onboarding.saveTransactions')}</Text>
-        <button
-          class="button mt-3"
-          on:click={() => dispatch('onboardingFinish')}>{$_('common.allClear')}</button>
+        <button class="button mt-3" on:click={() => dispatch('onboardingFinish')}
+          >{$_('common.allClear')}</button>
       </div>
     </Onboarding>
 
@@ -81,9 +80,8 @@
         <div slot="text">
           <Text header>{$_('cmps.csv.queue.onboarding.parsed.header')}</Text>
           <Text>{$_('cmps.csv.queue.onboarding.parsed.main')}</Text>
-          <button
-            class="button mt-3"
-            on:click={() => (currentStep = 'submit')}>{$_('common.form.ok')}</button>
+          <button class="button mt-3" on:click={() => (currentStep = 'submit')}
+            >{$_('common.form.ok')}</button>
         </div>
       </Onboarding>
     </CrossfadeWrapper>

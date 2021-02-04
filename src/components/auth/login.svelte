@@ -1,5 +1,5 @@
 <script>
-  import { Form, Field, TextInput, PasswordField } from '@/components/strict/index';
+  import { Form, Field, TextInput, PasswordField } from '@/components/strict';
   import ResetPasswordRequest from './resetPasswordRequest.svelte';
   import Modal from '@/components/elements/modal.svelte';
 
@@ -43,5 +43,7 @@
     role="button"
     tabindex="0"
     on:click={() => (active = true)}
-    use:focusableShortcut>{$_('cmps.user.password.forgot')}</div>
+    use:focusableShortcut>
+    {$_('cmps.user.password.forgot')}
+  </div>
 </Form>

@@ -4,7 +4,7 @@ config();
 import express from 'express';
 import * as sapper from '@sapper/server';
 
-import { i18nInit } from '@/core/i18n/index';
+import { i18nInit } from '@/core/i18n';
 
 const { PORT } = process.env;
 

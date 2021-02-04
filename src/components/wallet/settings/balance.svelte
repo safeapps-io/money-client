@@ -2,7 +2,7 @@
   import type { FullEntity, WalletData } from '@/stores/decr/types';
 
   import ReferenceTransactionList from './referenceTransactionList.svelte';
-  import { Onboarding, Text } from '@/components/onboarding/index';
+  import { Onboarding, Text } from '@/components/onboarding';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';

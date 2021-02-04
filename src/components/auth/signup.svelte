@@ -1,5 +1,5 @@
 <script>
-  import { Form, EmailField, PasswordField, UsernameField } from '@/components/strict/index';
+  import { Form, EmailField, PasswordField, UsernameField } from '@/components/strict';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';

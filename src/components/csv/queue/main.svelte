@@ -2,7 +2,7 @@
   import type { ParsedTransaction } from '@/core/csv/types';
   import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
 
-  import { Onboarding, Text } from '@/components/onboarding/index';
+  import { Onboarding, Text } from '@/components/onboarding';
   import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
   import Tabs from '@/components/elements/tabs.svelte';
   import Unresolved from './unresolved.svelte';

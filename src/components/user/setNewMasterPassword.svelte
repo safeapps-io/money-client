@@ -1,10 +1,10 @@
 <script>
   import { _ } from 'svelte-i18n';
 
-  import { Onboarding, Text } from '@/components/onboarding/index';
+  import { Onboarding, Text } from '@/components/onboarding';
 
   import { FormError } from '@/services/errors';
-  import { Form, MasterPasswordField } from '@/components/strict/index';
+  import { Form, MasterPasswordField } from '@/components/strict';
 
   import { currentChestsStore } from '@/stores/wallet';
   import { setNewMasterPassword } from '@/services/crypto/masterPassword';

@@ -1,5 +1,5 @@
 <script>
-  import { Onboarding, Text } from '@/components/onboarding/index';
+  import { Onboarding, Text } from '@/components/onboarding';
 
   import { _ } from 'svelte-i18n';
   import { goto } from '@sapper/app';
@@ -44,14 +44,12 @@
         })}
       </Text>
 
-      <button
-        class="button is-small my-3"
-        on:click={finishOnboarding}>{$_('common.tryLater')}</button>
+      <button class="button is-small my-3" on:click={finishOnboarding}
+        >{$_('common.tryLater')}</button>
     </div>
   </Onboarding>
   <div class={manualAddClasses}>
-    <a
-      class={'is-size-7 is-underlined ' + manualAddClasses}
-      href={$addTransactionPath}>{$_('cmps.transaction.add')}</a>
+    <a class={'is-size-7 is-underlined ' + manualAddClasses} href={$addTransactionPath}
+      >{$_('cmps.transaction.add')}</a>
   </div>
 </div>

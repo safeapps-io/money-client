@@ -2,7 +2,7 @@
   import type { SearchFilter, FullEntity, OmitCommonFields } from '@/stores/decr/types';
   import type { FormStore } from '@/components/strict/base';
 
-  import { Form, FieldContext, NameField, TagsField } from '@/components/strict/index';
+  import { Form, FieldContext, NameField, TagsField } from '@/components/strict';
   import Level from '@/components/elements/level.svelte';
   import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
 
@@ -147,8 +147,7 @@
         {#if $selectedWalletStore}
           {#if !isProtected}
             <button class="button" class:is-color-loading={loading} {disabled}
-              >{$_('common.form.save')}</button
-            >
+              >{$_('common.form.save')}</button>
           {/if}
 
           <button
@@ -165,8 +164,7 @@
         {#if !isProtected}
           <DeleteEntityButton
             entityMap={{ [searchFilter.walletId]: [searchFilter.id] }}
-            on:delete
-          />
+            on:delete />
         {/if}
         <button
           class="button"
