@@ -36,6 +36,17 @@
           "maxLength": "Must be less than {than, plural, one {# symbol} other {# symbols}}",
           "choice": "Invalid choice: {choice}"
         }
+      },
+      "cmp": {
+        "user": {
+          "emailTaken": "Email is already taken",
+          "usernameTaken": "Username is already taken",
+          "unknownUser": "There's no such user"
+        },
+        "password": {
+          "incorrectPassword": "Password is incorrect",
+          "resetNoEmail": "There's no such email"
+        }
       }
     },
     "form": {
