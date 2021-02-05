@@ -133,6 +133,18 @@ export class AuthService {
     });
   }
 
+  static async updateIsSubscribed(isSubscribed: boolean) {
+    const user = (
+      await request<UserEncrState>({
+        method: 'POST',
+        path: `${this.prefix}updateIsSubscribed`,
+        data: { isSubscribed },
+      })
+    ).json;
+
+    userEncrStore.set(user);
+  }
+
   static async setMasterPassword(data: {
     b64salt: string;
     b64InvitePublicKey: string;
@@ -148,6 +160,13 @@ export class AuthService {
     ).json;
 
     userEncrStore.set(user);
+  }
+
+  static async unsubscribe(unsubscribeToken: string) {
+    return request({
+      method: 'POST',
+      path: `${this.prefix}unsubscribe/${unsubscribeToken}`,
+    });
   }
 
   static async logout() {

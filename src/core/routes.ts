@@ -13,7 +13,8 @@ const authRootPath = `/auth`;
 export const loginPath = `${authRootPath}/login`,
   signupPath = `${authRootPath}/signup`;
 
-export const verifyEmailPath = (token: string) => `/verify-email/${token}`;
+export const verifyEmailPath = (token: string) => `/verify-email/${token}`,
+  unsubscribePath = (token: string) => `/unsubscribe/${token}`;
 
 export const appPath = '/app';
 

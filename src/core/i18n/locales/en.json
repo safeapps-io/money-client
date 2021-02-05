@@ -5,6 +5,7 @@
       "unknown": "Unknown error",
       "tryLater": "Some error occured. Try later.",
       "linkExpired": "The link is either incorrect or expired",
+      "badLink": "The link is incorrect",
       "field": {
         "array": {
           "lessThan": "Must be less than {than, plural, one {# item} other {# items}}",
@@ -336,8 +337,9 @@
       "logout": "Logout",
       "signup": {
         "cta": "Sign up",
-        "whyEmail": "We need email so you can restore access to the account in case you forget the password. it is unnecessary though. In future we'll ask you if you want to get promo-emails.",
-        "agree": "By creating an account you agree with the {tagO}terms and conditions{tagC}."
+        "whyEmail": "We need email so you can restore access to the account in case you forget the password. it is unnecessary though.",
+        "agree": "By creating an account you agree with the {tagO}terms and conditions{tagC}.",
+        "subscribe": "I want to get updates on the project (~1 email a month)"
       },
       "signIn": "Sign in",
       "password": {

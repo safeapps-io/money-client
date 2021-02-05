@@ -5,6 +5,7 @@
   import EmailSettings from '@/components/user/settings/email.svelte';
   import UsernameSettings from '@/components/user/settings/username.svelte';
   import LogsSettings from '@/components/user/settings/getLogs.svelte';
+  import SubscriptionSettings from '@/components/user/settings/subscription.svelte';
 
   import { _ } from 'svelte-i18n';
 
@@ -21,6 +22,8 @@
   <hr />
   <h2 class="subtitle">{$_('routes.user.email')}</h2>
   <EmailSettings {user} />
+  <hr />
+  <SubscriptionSettings />
   <hr />
   <LocaleSettings />
   <hr />

@@ -1,17 +1,25 @@
 <script>
-  import { Form, EmailField, PasswordField, UsernameField } from '@/components/strict';
+  import {
+    Form,
+    Field,
+    EmailField,
+    PasswordField,
+    UsernameField,
+    CheckboxInput,
+  } from '@/components/strict';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
+
+  import { ensureBoolean } from '@/core/strict/boolean';
 
   import { AuthService } from '@/services/auth/authService';
 
   export let invite: string | undefined = undefined;
 
   const dispatch = createEventDispatcher(),
-    success = async (data: { email?: string; username: string; password: string; agree: true }) => {
-      const { agree, ...authData } = data,
-        { isWalletInvite } = await AuthService.signUp({ ...authData, invite });
+    success = async (data: { email?: string; username: string; password: string }) => {
+      const { isWalletInvite } = await AuthService.signUp({ ...data, invite });
       dispatch('success', isWalletInvite);
     };
 </script>
@@ -19,6 +27,14 @@
 <Form {success} buttonText={$_('cmps.user.signup.cta')}>
   <UsernameField />
   <EmailField help={$_('cmps.user.signup.whyEmail')} />
+  <Field
+    field={{
+      name: 'isSubscribed',
+      label: $_('cmps.user.signup.subscribe'),
+      clean: [ensureBoolean],
+    }}>
+    <CheckboxInput />
+  </Field>
   <PasswordField label={$_('cmps.user.password.label')} />
 </Form>
 
