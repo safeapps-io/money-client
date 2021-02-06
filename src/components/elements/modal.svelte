@@ -33,16 +33,14 @@
       class="modal-background"
       on:click={() => canBeVoluntarilyClosed && close()}
       use:shortcut={{ code: 'Escape' }}
-      transition:fade
-    />
+      transition:fade />
     <div
       class="modal-content"
       class:no-box={noBox || isMobile}
       class:box={!noBox}
       class:mobile-content={isMobile}
       use:restrictBodyScroll
-      transition:transition
-    >
+      transition:transition>
       <slot />
     </div>
 
@@ -52,8 +50,7 @@
         class="modal-close is-large"
         aria-label="close"
         on:click={close}
-        transition:fade
-      />
+        transition:fade />
     {/if}
   </div>
 {/if}

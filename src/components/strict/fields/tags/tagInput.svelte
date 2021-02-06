@@ -32,6 +32,16 @@
     };
 </script>
 
+<input
+  {id}
+  {placeholder}
+  bind:this={ref}
+  bind:value={inputValue}
+  on:keydown={onInput}
+  on:change={onInput}
+  on:blur={onBlur}
+  on:focus={onFocus} />
+
 <style lang="scss">
   input {
     width: 100% !important;
@@ -42,13 +52,3 @@
     outline: none;
   }
 </style>
-
-<input
-  {id}
-  {placeholder}
-  bind:this={ref}
-  bind:value={inputValue}
-  on:keydown={onInput}
-  on:change={onInput}
-  on:blur={onBlur}
-  on:focus={onFocus} />

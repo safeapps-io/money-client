@@ -27,6 +27,22 @@
     unset = () => (noOverflow = false);
 </script>
 
+<div class="wrapper" class:no-overflow={noOverflow} style={`height: ${setHeight}`}>
+  {#key replayAnimationKey}
+    <div
+      class="slot"
+      in:fade={{ easing: sineInOut, duration: inDuration }}
+      out:fade|local={{ easing: sineInOut }}
+      on:introstart={set}
+      on:outrostart={set}
+      on:introend={unset}
+      on:outroend={unset}
+      bind:clientHeight={slotHeight}>
+      <slot />
+    </div>
+  {/key}
+</div>
+
 <style lang="scss">
   .wrapper {
     position: relative;
@@ -44,19 +60,3 @@
     right: 0;
   }
 </style>
-
-<div class="wrapper" class:no-overflow={noOverflow} style={`height: ${setHeight}`}>
-  {#key replayAnimationKey}
-    <div
-      class="slot"
-      in:fade={{ easing: sineInOut, duration: inDuration }}
-      out:fade|local={{ easing: sineInOut }}
-      on:introstart={set}
-      on:outrostart={set}
-      on:introend={unset}
-      on:outroend={unset}
-      bind:clientHeight={slotHeight}>
-      <slot />
-    </div>
-  {/key}
-</div>

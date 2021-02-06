@@ -140,56 +140,6 @@
   };
 </script>
 
-<style lang="scss">
-  .prev-cache {
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-    place-content: center;
-    text-align: center;
-
-    height: 400px;
-  }
-
-  .main-wrapper {
-    display: grid;
-    grid-template-columns: 4fr repeat(2, 1fr);
-
-    --small-settings-area: 1 / 3 / 2 / 4;
-    --big-settings-area: 1 / 2 / 2 / 4;
-    --main-area: 2 / 1 / 3 / 4;
-    --small-submit-area: 3 / 3 / 4 / 4;
-    --big-submit-area: 3 / 1 / 4 / 4;
-
-    :global(.settings-area) {
-      display: flex;
-      justify-self: end;
-
-      @include mq($until: tablet) {
-        --dropdown-min-width: 90vw;
-        grid-area: var(--small-settings-area);
-      }
-      @include mq($from: tablet) {
-        --dropdown-min-width: 320px;
-        grid-area: var(--big-settings-area);
-      }
-    }
-  }
-
-  .filename {
-    @include mq($until: tablet) {
-      grid-area: 1 / 1 / 2 / 3;
-    }
-    @include mq($from: tablet) {
-      grid-area: 1 / 1 / 2 / 2;
-    }
-  }
-
-  .loader-block {
-    grid-area: var(--main-area);
-  }
-</style>
-
 <div class="is-relative">
   <CrossfadeWrapper replayAnimationKey={state}>
     {#if state == State.hasCache}
@@ -261,3 +211,53 @@
     {/if}
   </CrossfadeWrapper>
 </div>
+
+<style lang="scss">
+  .prev-cache {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    place-content: center;
+    text-align: center;
+
+    height: 400px;
+  }
+
+  .main-wrapper {
+    display: grid;
+    grid-template-columns: 4fr repeat(2, 1fr);
+
+    --small-settings-area: 1 / 3 / 2 / 4;
+    --big-settings-area: 1 / 2 / 2 / 4;
+    --main-area: 2 / 1 / 3 / 4;
+    --small-submit-area: 3 / 3 / 4 / 4;
+    --big-submit-area: 3 / 1 / 4 / 4;
+
+    :global(.settings-area) {
+      display: flex;
+      justify-self: end;
+
+      @include mq($until: tablet) {
+        --dropdown-min-width: 90vw;
+        grid-area: var(--small-settings-area);
+      }
+      @include mq($from: tablet) {
+        --dropdown-min-width: 320px;
+        grid-area: var(--big-settings-area);
+      }
+    }
+  }
+
+  .filename {
+    @include mq($until: tablet) {
+      grid-area: 1 / 1 / 2 / 3;
+    }
+    @include mq($from: tablet) {
+      grid-area: 1 / 1 / 2 / 2;
+    }
+  }
+
+  .loader-block {
+    grid-area: var(--main-area);
+  }
+</style>

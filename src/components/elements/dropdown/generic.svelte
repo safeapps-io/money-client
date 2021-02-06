@@ -15,12 +15,6 @@
     hide = () => (show = false);
 </script>
 
-<style lang="scss">
-  .dropdown-content {
-    min-width: var(--dropdown-min-width);
-  }
-</style>
-
 <div
   class="dropdown is-active"
   class:fullwidth
@@ -53,3 +47,9 @@
     </div>
   {/if}
 </div>
+
+<style lang="scss">
+  .dropdown-content {
+    min-width: var(--dropdown-min-width);
+  }
+</style>

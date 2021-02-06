@@ -160,13 +160,6 @@
   };
 </script>
 
-<style lang="scss">
-  /* This way we fight with ultra-lengthy category/owner names, and force the selects to fit on mobile in one row */
-  .narrow-column {
-    max-width: 50%;
-  }
-</style>
-
 <Field field={{ name: '', label: $_('cmps.transaction.common.amount'), required: true }}>
   <div class="field has-addons mb-0" slot="control">
     <FieldContext field={transactionSignField}>
@@ -215,3 +208,10 @@
     <TagsField placeholder={$_('cmps.transaction.form.tags.placeholder')} allowCreate />
   </FieldContext>
 </div>
+
+<style lang="scss">
+  /* This way we fight with ultra-lengthy category/owner names, and force the selects to fit on mobile in one row */
+  .narrow-column {
+    max-width: 50%;
+  }
+</style>

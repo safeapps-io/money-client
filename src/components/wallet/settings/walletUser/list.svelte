@@ -13,15 +13,6 @@
     ent: FullEntity<WalletUser> | undefined = undefined;
 </script>
 
-<style lang="scss">
-  li {
-    border: none;
-    border-left: 3px solid var(--userColor);
-
-    align-items: center;
-  }
-</style>
-
 <Modal bind:active>
   <WalletUserForm {ent} on:close={() => (active = false)} />
 </Modal>
@@ -44,3 +35,12 @@
 <button class="button is-success is-outlined" on:click={() => ((ent = undefined), (active = true))}>
   {$_('cmps.wallet.user.createNew')}
 </button>
+
+<style lang="scss">
+  li {
+    border: none;
+    border-left: 3px solid var(--userColor);
+
+    align-items: center;
+  }
+</style>

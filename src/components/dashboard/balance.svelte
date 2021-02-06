@@ -39,8 +39,7 @@
           role="button"
           tabindex="0"
           on:click={() => dispatch('correctBalance')}
-          use:focusableShortcut
-        >
+          use:focusableShortcut>
           {$_(
             $media.mobile
               ? 'cmps.transaction.correction.correctShort'

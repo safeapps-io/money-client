@@ -55,60 +55,6 @@
   const key = 'setScheme';
 </script>
 
-<style lang="scss">
-  :root {
-    --columnCount: 0;
-    --borderColor: hsla(0, 0%, 53%, 0.2);
-  }
-
-  $background-color: hsl(0, 0%, 98.5%);
-
-  .main-wrapper {
-    position: relative;
-    grid-area: var(--main-area);
-  }
-
-  .main {
-    display: grid;
-    place-items: stretch;
-    grid-template-columns: repeat(var(--columnCount), max-content);
-
-    overflow-x: scroll;
-
-    font-size: 90%;
-    background-color: $background-color;
-  }
-
-  .overlay {
-    position: absolute;
-    right: 0;
-    left: 0;
-    bottom: $scrollbar-size;
-    height: 100px;
-
-    // Bug of rendering. Cannot use transparent, so need to use something very similar
-    // https://stackoverflow.com/questions/11829410/css3-gradient-rendering-issues-from-transparent-to-white
-    background: linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.01),
-      ease-in-out,
-      $background-color
-    );
-  }
-
-  .submit {
-    display: flex;
-    place-items: center;
-    place-content: flex-end;
-
-    grid-area: var(--big-submit-area);
-
-    @include mq($until: tablet) {
-      flex-direction: column-reverse;
-    }
-  }
-</style>
-
 <Onboarding
   noSlot
   {key}
@@ -206,3 +152,57 @@
   <button class="button is-success" on:click={success} disabled={!!error}
     >{$_('common.form.ok')}</button>
 </div>
+
+<style lang="scss">
+  :root {
+    --columnCount: 0;
+    --borderColor: hsla(0, 0%, 53%, 0.2);
+  }
+
+  $background-color: hsl(0, 0%, 98.5%);
+
+  .main-wrapper {
+    position: relative;
+    grid-area: var(--main-area);
+  }
+
+  .main {
+    display: grid;
+    place-items: stretch;
+    grid-template-columns: repeat(var(--columnCount), max-content);
+
+    overflow-x: scroll;
+
+    font-size: 90%;
+    background-color: $background-color;
+  }
+
+  .overlay {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: $scrollbar-size;
+    height: 100px;
+
+    // Bug of rendering. Cannot use transparent, so need to use something very similar
+    // https://stackoverflow.com/questions/11829410/css3-gradient-rendering-issues-from-transparent-to-white
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.01),
+      ease-in-out,
+      $background-color
+    );
+  }
+
+  .submit {
+    display: flex;
+    place-items: center;
+    place-content: flex-end;
+
+    grid-area: var(--big-submit-area);
+
+    @include mq($until: tablet) {
+      flex-direction: column-reverse;
+    }
+  }
+</style>

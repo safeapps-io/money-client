@@ -72,7 +72,10 @@
 
 <Tabs
   classes="is-toggle is-centered is-small"
-  tabs={[{ value: false, label: $_('cmps.transaction.common.expenses') }, { value: true, label: $_('cmps.transaction.common.incomes') }]}
+  tabs={[
+    { value: false, label: $_('cmps.transaction.common.expenses') },
+    { value: true, label: $_('cmps.transaction.common.incomes') },
+  ]}
   bind:activeTab={isIncome} />
 
 {#if dataset.data.length}

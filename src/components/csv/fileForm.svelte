@@ -69,6 +69,39 @@
   const click = () => ref?.click();
 </script>
 
+<div class="wrapper is-relative has-text-centered" on:click={click}>
+  <div
+    class="dropzone"
+    class:hover={state == State.hover}
+    class:loading={state == State.loading}
+    on:dragover|preventDefault|stopPropagation={noop}
+    on:drag|preventDefault|stopPropagation={noop}
+    on:dragenter|preventDefault|stopPropagation={dragEnter}
+    on:dragleave|preventDefault|stopPropagation={resetState}
+    on:drop|preventDefault|stopPropagation={drop}>
+    <div class="messages">
+      {#if state == State.loading}
+        <Loader />
+      {:else}
+        <img src={uploadIcon} alt="loader icon" height="25" width="25" />
+        <div class="is-size-5">{$_('cmps.csv.file.press')}</div>
+
+        {#if !$media.mobile}
+          <div>{$_('cmps.csv.file.drag')}</div>
+        {/if}
+      {/if}
+
+      {#if noDataParsed}
+        <p class="errors has-text-danger is-size-7" in:slide>{$_('cmps.csv.file.noParsedData')}</p>
+      {:else if notCsvError}
+        <p class="errors has-text-danger is-size-7" in:slide>{$_('cmps.csv.file.notCsv')}</p>
+      {/if}
+    </div>
+  </div>
+
+  <input type="file" hidden bind:this={ref} on:change={onChange} />
+</div>
+
 <style lang="scss">
   .wrapper {
     min-height: 400px;
@@ -105,36 +138,3 @@
     border-color: $success;
   }
 </style>
-
-<div class="wrapper is-relative has-text-centered" on:click={click}>
-  <div
-    class="dropzone"
-    class:hover={state == State.hover}
-    class:loading={state == State.loading}
-    on:dragover|preventDefault|stopPropagation={noop}
-    on:drag|preventDefault|stopPropagation={noop}
-    on:dragenter|preventDefault|stopPropagation={dragEnter}
-    on:dragleave|preventDefault|stopPropagation={resetState}
-    on:drop|preventDefault|stopPropagation={drop}>
-    <div class="messages">
-      {#if state == State.loading}
-        <Loader />
-      {:else}
-        <img src={uploadIcon} alt="loader icon" height="25" width="25" />
-        <div class="is-size-5">{$_('cmps.csv.file.press')}</div>
-
-        {#if !$media.mobile}
-          <div>{$_('cmps.csv.file.drag')}</div>
-        {/if}
-      {/if}
-
-      {#if noDataParsed}
-        <p class="errors has-text-danger is-size-7" in:slide>{$_('cmps.csv.file.noParsedData')}</p>
-      {:else if notCsvError}
-        <p class="errors has-text-danger is-size-7" in:slide>{$_('cmps.csv.file.notCsv')}</p>
-      {/if}
-    </div>
-  </div>
-
-  <input type="file" hidden bind:this={ref} on:change={onChange} />
-</div>

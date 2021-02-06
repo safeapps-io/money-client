@@ -108,44 +108,6 @@
   }
 </script>
 
-<style lang="scss">
-  $cell-padding: 0.9em 1.1em;
-
-  .header-row {
-    padding: $cell-padding;
-    margin: 1em 0;
-
-    border-bottom: 1px dotted var(--borderColor);
-    border-top: 1px dotted var(--borderColor);
-
-    text-transform: uppercase;
-    font-size: 80%;
-    font-weight: bold;
-    color: #888;
-  }
-
-  .error-emoji {
-    display: inline;
-  }
-
-  .trigger {
-    border: 1px black solid;
-    background-color: white;
-    padding: 2px 3px;
-  }
-
-  .tooltip-content {
-    > p {
-      margin-bottom: 0.75em;
-    }
-  }
-
-  .data-row {
-    padding: $cell-padding;
-    border-right: 1px dotted var(--borderColor);
-  }
-</style>
-
 {#each header as { value, state, displayErrors, errorsMore }}
   <div class="header-row">
     {value}
@@ -195,3 +157,41 @@
     {/if}
   </div>
 {/each}
+
+<style lang="scss">
+  $cell-padding: 0.9em 1.1em;
+
+  .header-row {
+    padding: $cell-padding;
+    margin: 1em 0;
+
+    border-bottom: 1px dotted var(--borderColor);
+    border-top: 1px dotted var(--borderColor);
+
+    text-transform: uppercase;
+    font-size: 80%;
+    font-weight: bold;
+    color: #888;
+  }
+
+  .error-emoji {
+    display: inline;
+  }
+
+  .trigger {
+    border: 1px black solid;
+    background-color: white;
+    padding: 2px 3px;
+  }
+
+  .tooltip-content {
+    > p {
+      margin-bottom: 0.75em;
+    }
+  }
+
+  .data-row {
+    padding: $cell-padding;
+    border-right: 1px dotted var(--borderColor);
+  }
+</style>

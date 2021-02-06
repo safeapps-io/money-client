@@ -9,19 +9,6 @@
   $: mcc = autocomplete.mcc ? $getMccDescription(autocomplete.mcc) : null;
 </script>
 
-<style lang="scss">
-  .table {
-    font-size: 0.75rem;
-    width: 100%;
-  }
-
-  td:first-child {
-    font-weight: bold;
-    padding-right: 0.3em;
-    width: 120px;
-  }
-</style>
-
 <table class="table">
   <tbody>
     {#if mcc}
@@ -44,3 +31,16 @@
     {/if}
   </tbody>
 </table>
+
+<style lang="scss">
+  .table {
+    font-size: 0.75rem;
+    width: 100%;
+  }
+
+  td:first-child {
+    font-weight: bold;
+    padding-right: 0.3em;
+    width: 120px;
+  }
+</style>

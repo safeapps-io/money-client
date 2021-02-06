@@ -47,22 +47,6 @@
   $: setChoiceOptionsAvailability(state);
 </script>
 
-<style lang="scss">
-  .main {
-    padding: 0.7em;
-  }
-
-  .help {
-    display: inline;
-  }
-
-  .tooltip-content {
-    > p {
-      margin-bottom: 0.75em;
-    }
-  }
-</style>
-
 {#each state as columnData, i}
   <div class="main">
     <div class="control">
@@ -133,3 +117,19 @@
     {/if}
   </div>
 {/each}
+
+<style lang="scss">
+  .main {
+    padding: 0.7em;
+  }
+
+  .help {
+    display: inline;
+  }
+
+  .tooltip-content {
+    > p {
+      margin-bottom: 0.75em;
+    }
+  }
+</style>

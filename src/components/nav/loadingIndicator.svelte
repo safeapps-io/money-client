@@ -13,6 +13,10 @@
   }
 </script>
 
+{#if realShow}
+  <button class="button is-rounded is-color-loading is-static is-large" transition:fade />
+{/if}
+
 <style lang="scss">
   button {
     position: fixed;
@@ -33,7 +37,3 @@
     @include z(loading-button);
   }
 </style>
-
-{#if realShow}
-  <button class="button is-rounded is-color-loading is-static is-large" transition:fade />
-{/if}

@@ -6,6 +6,20 @@
   export let searchFilter: FullEntity<SearchFilter>, edit: boolean;
 </script>
 
+<div class="main">
+  <div class="title-block">
+    <h1 class="title overflow-ellipsis">
+      {searchFilter.decr.protected
+        ? $_('cmps.searchFilter.allTransactions')
+        : searchFilter.decr.name}
+    </h1>
+  </div>
+  <div class="edit-button">
+    <button class="button is-text" on:click={() => (edit = !edit)}
+      >{$_('common.form.change')}</button>
+  </div>
+</div>
+
 <style lang="scss">
   .main {
     display: flex;
@@ -27,16 +41,3 @@
     flex: none;
   }
 </style>
-
-<div class="main">
-  <div class="title-block">
-    <h1 class="title overflow-ellipsis">
-      {searchFilter.decr.protected ? $_('cmps.searchFilter.allTransactions') : searchFilter.decr.name}
-    </h1>
-  </div>
-  <div class="edit-button">
-    <button
-      class="button is-text"
-      on:click={() => (edit = !edit)}>{$_('common.form.change')}</button>
-  </div>
-</div>

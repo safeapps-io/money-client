@@ -65,8 +65,7 @@
           on:click={() => (group = value)}
           role="button"
           tabindex="0"
-          use:focusableShortcut
-        >
+          use:focusableShortcut>
           {label}
         </div>
       {/each}

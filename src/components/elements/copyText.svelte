@@ -13,6 +13,13 @@
   };
 </script>
 
+<figure class="py-3 px-0 is-relative">
+  <pre class="px-3 py-4">
+    <code bind:this={ref}>{text}</code>
+  </pre>
+  <button class="button is-small copy" on:click={copy}>{$_('cmps.elements.copy')}</button>
+</figure>
+
 <style lang="scss">
   figure {
     // Making it so it doesn't stretch the parent
@@ -32,10 +39,3 @@
     transform: translateY(-50%);
   }
 </style>
-
-<figure class="py-3 px-0 is-relative">
-  <pre class="px-3 py-4">
-    <code bind:this={ref}>{text}</code>
-  </pre>
-  <button class="button is-small copy" on:click={copy}>{$_('cmps.elements.copy')}</button>
-</figure>

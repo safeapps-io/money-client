@@ -10,31 +10,6 @@
     nestColumnClass: string | undefined = undefined;
 </script>
 
-<style lang="scss">
-  .title-block {
-    @include mq($until: tablet) {
-      margin: 1em 0.75em;
-    }
-    @include mq($from: tablet) {
-      margin-left: 0.75em;
-    }
-  }
-
-  .profile {
-    display: flex;
-    place-items: center;
-  }
-
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-
-    min-height: 100%;
-
-    padding-bottom: var(--buttonBottomPadding);
-  }
-</style>
-
 <!-- 
   IDEA:
 
@@ -104,3 +79,28 @@
     </slot>
   {/if}
 </div>
+
+<style lang="scss">
+  .title-block {
+    @include mq($until: tablet) {
+      margin: 1em 0.75em;
+    }
+    @include mq($from: tablet) {
+      margin-left: 0.75em;
+    }
+  }
+
+  .profile {
+    display: flex;
+    place-items: center;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100%;
+
+    padding-bottom: var(--buttonBottomPadding);
+  }
+</style>

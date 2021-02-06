@@ -33,14 +33,12 @@
     <TransactionForm
       ent={assertUsual(formTransaction)}
       on:success={hideModal}
-      on:delete={hideModal}
-    />
+      on:delete={hideModal} />
   {:else}
     <CorrectionTransactionForm
       ent={assertCorrection(formTransaction)}
       on:success={hideModal}
-      on:delete={hideModal}
-    />
+      on:delete={hideModal} />
   {/if}
 </Modal>
 
@@ -50,16 +48,14 @@
   let:category
   let:walletUser
   let:originalIndex
-  let:showDelimiter
->
+  let:showDelimiter>
   <div
     class="wrapper box--hoverable p-2 clickable"
     class:no-border={!showDelimiter}
     role="button"
     tabindex="0"
     on:click={() => toggleModal(originalIndex)}
-    use:focusableShortcut
-  >
+    use:focusableShortcut>
     <TransactionCard {transaction} {category} {walletUser} />
   </div>
 </TransactionList>

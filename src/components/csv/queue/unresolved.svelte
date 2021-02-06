@@ -41,16 +41,6 @@
   let currentStep: OnboardingSteps = 'card';
 </script>
 
-<style lang="scss">
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-
-    padding: 1em;
-  }
-</style>
-
 {#if transactionToResolve}
   <div class="wrapper">
     <Onboarding preventSlotClick bottom shouldShow={showOnboarding && currentStep == 'submit'}>
@@ -91,3 +81,13 @@
     <ZeroData text={$_('cmps.csv.queue.zeroData') + ' 👍'} />
   </div>
 {/if}
+
+<style lang="scss">
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+
+    padding: 1em;
+  }
+</style>

@@ -256,27 +256,6 @@
       id ? $currentWalletUserStore[id] : undefined;
 </script>
 
-<style lang="scss">
-  .main {
-    grid-area: var(--main-area);
-  }
-
-  .submit-wrapper {
-    justify-self: end;
-    grid-area: var(--big-submit-area);
-  }
-
-  .tab-container {
-    @include mq($until: tablet) {
-      width: 100%;
-    }
-    @include mq($from: tablet) {
-      width: 80%;
-    }
-    margin: 0 auto;
-  }
-</style>
-
 <Onboarding
   noSlot
   {textSlotWidth}
@@ -405,3 +384,24 @@
     </div>
   </Onboarding>
 </div>
+
+<style lang="scss">
+  .main {
+    grid-area: var(--main-area);
+  }
+
+  .submit-wrapper {
+    justify-self: end;
+    grid-area: var(--big-submit-area);
+  }
+
+  .tab-container {
+    @include mq($until: tablet) {
+      width: 100%;
+    }
+    @include mq($from: tablet) {
+      width: 80%;
+    }
+    margin: 0 auto;
+  }
+</style>

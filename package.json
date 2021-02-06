@@ -71,7 +71,7 @@
     "semi": true,
     "singleQuote": true,
     "printWidth": 100,
-    "svelteSortOrder": "scripts-styles-options-markup",
+    "svelteSortOrder": "scripts-options-markup-styles",
     "svelteStrictMode": false,
     "svelteBracketNewLine": false,
     "svelteAllowShorthand": true,

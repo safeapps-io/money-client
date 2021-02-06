@@ -5,17 +5,6 @@
   import { _ } from 'svelte-i18n';
 </script>
 
-<style lang="scss">
-  .wrapper {
-    --dropdown-min-width: 340px;
-
-    :global(a) {
-      /* Resetting bulma's behavoir */
-      white-space: normal !important;
-    }
-  }
-</style>
-
 <div class="wrapper is-size-7">
   <Troubleshoot text={$_('cmps.nav.feedback.cta')} {...$$restProps}>
     <!-- FIXME: forum link -->
@@ -75,3 +64,14 @@
     </Link>
   </Troubleshoot>
 </div>
+
+<style lang="scss">
+  .wrapper {
+    --dropdown-min-width: 340px;
+
+    :global(a) {
+      /* Resetting bulma's behavoir */
+      white-space: normal !important;
+    }
+  }
+</style>

@@ -7,6 +7,10 @@
   $: loaderHeight = height ? `${height}px` : 'auto';
 </script>
 
+<div use:cssVars={{ loaderHeight }}>
+  <img src={loaderIcon} alt="loader" width="25" height="25" />
+</div>
+
 <style>
   div {
     display: flex;
@@ -33,7 +37,3 @@
     animation: loading-svg 2s infinite;
   }
 </style>
-
-<div use:cssVars={{ loaderHeight }}>
-  <img src={loaderIcon} alt="loader" width="25" height="25" />
-</div>
