@@ -4,7 +4,7 @@
   import { _ } from 'svelte-i18n';
   import { copy } from '@/utils/object';
 
-  import { runSimpleScheme } from '@/core/csv/simpleSchemes/index';
+  import { runSimpleScheme } from '@/core/csv/simpleSchemes';
   import { ParseErrorCodes } from '@/core/csv/types';
   import { FieldResolution } from '@/core/csv/constants';
   import { guessDateFormat } from '@/core/csv/guessDateFormat';

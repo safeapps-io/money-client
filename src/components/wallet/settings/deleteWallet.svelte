@@ -1,6 +1,6 @@
 <script>
   import Modal from '@/components/elements/modal.svelte';
-  import { Form, Field, TextInput } from '@/components/strict/index';
+  import { Form, Field, TextInput } from '@/components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -47,14 +47,11 @@
     </Field>
 
     <div class="field" slot="submit" let:loading let:disabled>
-      <button
-        class="button is-danger is-outlined"
-        class:is-color-loading={loading}
-        {disabled}>{$_('cmps.deleteEntity.delete')}</button>
+      <button class="button is-danger is-outlined" class:is-color-loading={loading} {disabled}
+        >{$_('cmps.deleteEntity.delete')}</button>
     </div>
   </Form>
 </Modal>
 
-<button
-  class="button is-danger is-outlined"
-  on:click={() => (active = true)}>{$_('cmps.deleteEntity.delete')}</button>
+<button class="button is-danger is-outlined" on:click={() => (active = true)}
+  >{$_('cmps.deleteEntity.delete')}</button>

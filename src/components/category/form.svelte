@@ -2,7 +2,7 @@
   import type { FullEntity, Category } from '@/stores/decr/types';
 
   import Level from '@/components/elements/level.svelte';
-  import { Form, NameField, ColorField } from '@/components/strict/index';
+  import { Form, NameField, ColorField } from '@/components/strict';
   import WalletField from '@/components/wallet/walletField.svelte';
   import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
   import CategorySwitchModal from './categorySwitchModal.svelte';

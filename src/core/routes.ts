@@ -13,7 +13,8 @@ const authRootPath = `/auth`;
 export const loginPath = `${authRootPath}/login`,
   signupPath = `${authRootPath}/signup`;
 
-export const verifyEmailPath = (token: string) => `/verify-email/${token}`;
+export const verifyEmailPath = (token: string) => `/verify-email/${token}`,
+  unsubscribePath = (token: string) => `/unsubscribe/${token}`;
 
 export const appPath = '/app';
 
@@ -91,3 +92,18 @@ export const adminEntityListPath = (entity: string) => `${adminPath}/${entity}`,
   adminEntityPath = (entity: string, id: string) => `${adminEntityListPath(entity)}/${id}`;
 
 export const adminSettingsPath = `${adminPath}/settings`;
+
+// Root Site --------------
+const rootSite = 'https://safeapps.io';
+export const pricingPath = `${rootSite}/pricing`,
+  howItWorksPath = `${rootSite}/how-it-works`;
+
+const content = `${rootSite}/content`;
+export const aboutPath = `${content}/about`,
+  termsPath = `${content}/terms`;
+
+export const forumPath = 'https://forum.safeapps.io',
+  forumHelpPath = `${forumPath}/c/help/6`,
+  forumBugsPath = `${forumPath}/c/bugs/5`,
+  forumIdeasPath = `${forumPath}/c/ideas/7`,
+  forumBankHelpPath = `${forumPath}/c/support-for-banks/8`;

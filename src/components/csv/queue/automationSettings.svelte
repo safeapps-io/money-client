@@ -2,13 +2,7 @@
   import type { AutomationSettings } from '@/core/csv/types';
   import type { FormStore } from '@/components/strict/base';
 
-  import {
-    Form,
-    Field,
-    FieldContext,
-    RangeInput,
-    CheckboxInput,
-  } from '@/components/strict/index';
+  import { Form, Field, FieldContext, RangeInput, CheckboxInput } from '@/components/strict';
   import SettingsDropdown from '@/components/elements/dropdown/settings.svelte';
 
   import { _ } from 'svelte-i18n';

@@ -147,8 +147,7 @@
     bind:this={textSlotEl}
     use:cssVars={{ ...textVars, width: `${textSlotWidth}px` }}
     in:fly|local={{ delay: 600, y: 100 }}
-    out:fade|local
-  >
+    out:fade|local>
     <slot name="text" />
   </div>
   <div class="slot-copy" use:cssVars={slotCopyVars}>

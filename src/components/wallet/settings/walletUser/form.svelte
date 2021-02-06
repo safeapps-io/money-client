@@ -1,7 +1,7 @@
 <script>
   import type { FullEntity, WalletUser } from '@/stores/decr/types';
 
-  import { Form, NameField, ColorField } from '@/components/strict/index';
+  import { Form, NameField, ColorField } from '@/components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -28,14 +28,12 @@
 
   <div class="is-flex space-between" slot="submit">
     <button class="button is-success is-outlined"
-      >{ent ? $_('common.form.change') : $_('common.form.create')}</button
-    >
+      >{ent ? $_('common.form.change') : $_('common.form.create')}</button>
     <button
       class="button"
       role="button"
       tabindex="0"
       on:click={() => dispatch('close')}
-      use:focusableShortcut>{$_('common.form.cancel')}</button
-    >
+      use:focusableShortcut>{$_('common.form.cancel')}</button>
   </div>
 </Form>

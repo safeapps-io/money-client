@@ -4,7 +4,7 @@
 
   import Modal from '@/components/elements/modal.svelte';
   import CategoryForm from './form.svelte';
-  import { Field, SelectInput } from '@/components/strict/index';
+  import { Field, SelectInput } from '@/components/strict';
 
   import { _ } from 'svelte-i18n';
   import { tick, getContext } from 'svelte';
@@ -46,7 +46,6 @@
       role="button"
       tabindex="0"
       on:click={() => (active = true)}
-      use:focusableShortcut>{$_('common.form.create')}</span
-    >
+      use:focusableShortcut>{$_('common.form.create')}</span>
   </p>
 </Field>

@@ -70,48 +70,6 @@
   let balanceFormActive = false;
 </script>
 
-<style lang="scss">
-  .wrapper {
-    display: grid;
-
-    min-height: 0;
-    min-width: 0;
-
-    > div {
-      min-width: 0;
-      margin: 0.75rem;
-    }
-  }
-
-  @include mq($from: tablet) {
-    .wrapper {
-      grid-template-columns: 2fr 2fr 3fr;
-      grid-template-rows: auto auto 1fr;
-    }
-    .balance {
-      grid-area: 1 / 1 / 2 / 3;
-    }
-    .expense {
-      grid-area: 2 / 1 / 3 / 2;
-    }
-    .income {
-      grid-area: 2 / 2 / 3 / 3;
-    }
-    .category-split {
-      grid-area: 3 / 1 / 4 / 3;
-      align-self: start;
-    }
-    .transactions {
-      grid-area: 1 / 3 / 4 / 4;
-      align-self: start;
-    }
-
-    .full {
-      grid-area: 1 / 1 / 1 / 4;
-    }
-  }
-</style>
-
 <div class="wrapper">
   {#if balance}
     <div class="balance" transition:slide|local>
@@ -159,3 +117,45 @@
     </div>
   {/if}
 </div>
+
+<style lang="scss">
+  .wrapper {
+    display: grid;
+
+    min-height: 0;
+    min-width: 0;
+
+    > div {
+      min-width: 0;
+      margin: 0.75rem;
+    }
+  }
+
+  @include mq($from: tablet) {
+    .wrapper {
+      grid-template-columns: 2fr 2fr 3fr;
+      grid-template-rows: auto auto 1fr;
+    }
+    .balance {
+      grid-area: 1 / 1 / 2 / 3;
+    }
+    .expense {
+      grid-area: 2 / 1 / 3 / 2;
+    }
+    .income {
+      grid-area: 2 / 2 / 3 / 3;
+    }
+    .category-split {
+      grid-area: 3 / 1 / 4 / 3;
+      align-self: start;
+    }
+    .transactions {
+      grid-area: 1 / 3 / 4 / 4;
+      align-self: start;
+    }
+
+    .full {
+      grid-area: 1 / 1 / 1 / 4;
+    }
+  }
+</style>

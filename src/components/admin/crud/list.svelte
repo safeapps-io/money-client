@@ -6,15 +6,6 @@
   $: getItems = () => adminRequest<any[]>({ path: `/${prefix}` });
 </script>
 
-<style lang="scss">
-  .loading {
-    width: 100%;
-
-    text-align: center;
-    padding: 3em 0;
-  }
-</style>
-
 <div class="is-flex">
   <h1 class="title">{header}</h1>
   <a class="button is-success is-light ml-3" href={addLink}>Add new</a>
@@ -52,3 +43,12 @@
     </tbody>
   {/await}
 </table>
+
+<style lang="scss">
+  .loading {
+    width: 100%;
+
+    text-align: center;
+    padding: 3em 0;
+  }
+</style>

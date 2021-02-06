@@ -150,8 +150,7 @@
         on:up={upArrow}
         on:down={downArrow}
         on:focus={() => (showChoices = true)}
-        on:blur={blur}
-      />
+        on:blur={blur} />
     </div>
     {#if choices}
       <TagChoices
@@ -159,8 +158,7 @@
         {enableScroll}
         bind:showChoices
         bind:hoveredItemIndex
-        on:click={click}
-      />
+        on:click={click} />
     {/if}
   </div>
   {#if field.errors.length}

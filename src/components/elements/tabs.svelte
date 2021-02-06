@@ -19,8 +19,7 @@
           role="button"
           tabindex="0"
           on:click={() => (activeTab = tab.value)}
-          use:focusableShortcut><slot {tab}>{tab.label || tab.value}</slot></a
-        >
+          use:focusableShortcut><slot {tab}>{tab.label || tab.value}</slot></a>
       </li>
     {/each}
   </ul>

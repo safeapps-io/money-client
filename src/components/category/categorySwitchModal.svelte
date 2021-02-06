@@ -2,7 +2,7 @@
   import type { Category, FullEntity } from '@/stores/decr/types';
 
   import Modal from '@/components/elements/modal.svelte';
-  import { Form, Field, SelectInput } from '@/components/strict/index';
+  import { Form, Field, SelectInput } from '@/components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -75,9 +75,8 @@
           <p>{$_('common.or').toLowerCase()}</p>
         {/if}
         <div>
-          <button
-            class="button is-danger is-outlined"
-            on:click={launchDelete}>{$_('cmps.deleteEntity.delete')}</button>
+          <button class="button is-danger is-outlined" on:click={launchDelete}
+            >{$_('cmps.deleteEntity.delete')}</button>
         </div>
       </div>
       <div class="column is-narrow">

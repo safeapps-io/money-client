@@ -21,16 +21,12 @@
 
 {#if lastPage > 1}
   <nav class="is-flex mt-3">
-    <button
-      class="button is-small"
-      disabled={page == 1}
-      on:click={() => page--}>{$_('cmps.elements.pagination.prev')}</button>
+    <button class="button is-small" disabled={page == 1} on:click={() => page--}
+      >{$_('cmps.elements.pagination.prev')}</button>
     <p class="flex-full is-size-7 has-text-grey has-text-centered">
       {$_('cmps.elements.pagination.page', { values: { curr: page, last: lastPage } })}
     </p>
-    <button
-      class="button is-small"
-      disabled={page == lastPage}
-      on:click={() => page++}>{$_('cmps.elements.pagination.next')}</button>
+    <button class="button is-small" disabled={page == lastPage} on:click={() => page++}
+      >{$_('cmps.elements.pagination.next')}</button>
   </nav>
 {/if}

@@ -18,6 +18,13 @@
   }
 </script>
 
+<div class="is-relative" use:cssVars={{ bgColor }}>
+  <slot />
+  {#if show}
+    <div class="fullwidth-absolute blink-overlay" transition:fade|local={{ duration }} />
+  {/if}
+</div>
+
 <style lang="scss">
   .blink-overlay {
     top: 0;
@@ -26,10 +33,3 @@
     background-color: var(--bgColor);
   }
 </style>
-
-<div class="is-relative" use:cssVars={{ bgColor }}>
-  <slot />
-  {#if show}
-    <div class="fullwidth-absolute blink-overlay" transition:fade|local={{ duration }} />
-  {/if}
-</div>

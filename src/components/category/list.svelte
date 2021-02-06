@@ -15,12 +15,6 @@
   export let categories: FullEntity<Category>[];
 </script>
 
-<style lang="scss">
-  .box {
-    border-left: 5px solid var(--categoryColor);
-  }
-</style>
-
 {#if categories.length}
   <div class="columns is-multiline">
     {#each categories as category (category.id)}
@@ -41,3 +35,9 @@
 {:else}
   <ZeroData text={$_('cmps.category.zeroData') + '😒'} />
 {/if}
+
+<style lang="scss">
+  .box {
+    border-left: 5px solid var(--categoryColor);
+  }
+</style>

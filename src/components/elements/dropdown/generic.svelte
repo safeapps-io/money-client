@@ -1,5 +1,6 @@
 <script>
   import { fly } from 'svelte/transition';
+  import caretVerticalSmallIcon from 'teenyicons/outline/caret-vertical-small.svg';
 
   import { clickOutside } from '@/utils/actions/clickOutside';
 
@@ -18,8 +19,7 @@
   class="dropdown is-active"
   class:fullwidth
   class:is-right={right}
-  use:clickOutside={{ cb: hide, enabled: show }}
->
+  use:clickOutside={{ cb: hide, enabled: show }}>
   <div class="dropdown-trigger">
     <slot name="trigger" {id} {onTriggerClick}>
       <button
@@ -29,19 +29,7 @@
         on:click={onTriggerClick}>
         <span>{triggerText}</span>
         <span class="icon is-small">
-          <!-- © https://teenyicons.com/ caret-vertical-small -->
-          <svg
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            width="18"
-            height="18">
-            <path
-              d="M10 9l-2.5 2L5 9m0-3l2.5-2L10 6"
-              stroke="currentColor"
-              stroke-linecap="square"
-            />
-          </svg>
+          <img src={caretVerticalSmallIcon} alt="down" height="18" width="18" />
         </span>
       </button>
     </slot>
@@ -52,8 +40,7 @@
       class:centered
       {id}
       role="menu"
-      transition:fly|local={{ y: -10, duration: 200 }}
-    >
+      transition:fly|local={{ y: -10, duration: 200 }}>
       <div class="dropdown-content">
         <slot {hide} />
       </div>

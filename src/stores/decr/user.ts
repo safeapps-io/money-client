@@ -14,6 +14,7 @@ export type OnboardingSteps =
   | 'firstWallet'
   | 'howToAdd'
   | 'fileImport'
+  | 'setScheme'
   | 'csvQueue'
   | 'balance'
   | 'pinCode';

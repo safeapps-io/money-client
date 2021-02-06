@@ -1,6 +1,8 @@
 <script>
   import Link from '@/components/elements/link.svelte';
   import Logout from '@/components/user/logout.svelte';
+  import TransactionAdd from '@/components/transaction/add.svelte';
+  import CurrentWalletDropdown from '@/components/wallet/currentWalletDropdown.svelte';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
@@ -25,6 +27,8 @@
   import { draftTransactionStore } from '@/stores/decr/transaction';
   import { AdminEntityPrefixes } from '@/core/admin/routes';
 
+  export let showMenu = true;
+
   $: username = $userEncrStore?.username || '';
   $: isAdmin = $userEncrStore?.isAdmin;
 
@@ -32,6 +36,14 @@
 </script>
 
 <aside class="menu">
+  <CurrentWalletDropdown />
+
+  <hr class="menu-delimiter" />
+
+  <div class="my-5">
+    <TransactionAdd shouldShowOnboarding={showMenu} />
+  </div>
+
   {#if $draftTransactionStore.length}
     <p class="menu-label">{$_('cmps.transaction.common.transactions')}</p>
     <ul class="menu-list">

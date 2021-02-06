@@ -82,9 +82,15 @@
         if (e instanceof FormError) {
           if (e.errors.fieldErrors)
             Object.entries(e.errors.fieldErrors).forEach(
-              ([fieldname, fieldErrors]) => ($formStore.fields[fieldname].errors = fieldErrors),
+              ([fieldname, fieldErrors]) =>
+                ($formStore.fields[fieldname].errors = fieldErrors.map(code =>
+                  $_(`common.errors.cmp.${code}`),
+                )),
             );
-          else $formStore.error = e.errors.message || null;
+          else
+            $formStore.error = e.errors.message
+              ? $_(`common.errors.cmp.${e.errors.message}`)
+              : null;
         } else {
           console.error(e);
           $formStore.error = $_('common.errors.unknown');

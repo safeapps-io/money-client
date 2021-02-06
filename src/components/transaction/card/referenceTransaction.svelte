@@ -42,8 +42,7 @@
           tabindex="0"
           on:click={setActiveStatus}
           on:click={hide}
-          use:focusableShortcut
-        >
+          use:focusableShortcut>
           {$_('cmps.transaction.reference.activate')}
         </div>
       {/if}
@@ -53,16 +52,14 @@
       <DeleteEntityButton
         entityMap={{ [referenceTransaction.walletId]: [referenceTransaction.id] }}
         let:click
-        let:buttonText
-      >
+        let:buttonText>
         <div
           class="dropdown-item has-text-danger"
           role="button"
           tabindex="0"
           on:click={click}
           on:click={hide}
-          use:focusableShortcut
-        >
+          use:focusableShortcut>
           {buttonText}
         </div>
       </DeleteEntityButton>

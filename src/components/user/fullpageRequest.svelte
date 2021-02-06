@@ -5,31 +5,26 @@
   import { createEventDispatcher, onMount } from 'svelte';
   import { getNotificationsContext } from 'svelte-notifications/src/context';
 
-  import { AuthService } from '@/services/auth/authService';
   import { notification, NotificationStyles } from '@/core/notification';
 
   const { addNotification } = getNotificationsContext(),
     dispatch = createEventDispatcher();
 
-  export let emailToken: string;
+  export let req: () => Promise<any>, successMessage: string, errorMessage: string;
 
   onMount(async () => {
-    let encryptedUserId: string | undefined = undefined,
-      alreadyVerified = false;
     try {
-      await AuthService.validateEmail(emailToken);
-
-      if (!alreadyVerified)
-        addNotification(
-          notification({
-            text: $_('cmps.user.email.verifiedNotif'),
-          }),
-        );
-      dispatch('success', encryptedUserId);
+      await req();
+      addNotification(
+        notification({
+          text: successMessage,
+        }),
+      );
+      dispatch('success');
     } catch (error) {
       addNotification(
         notification({
-          text: $_('common.errors.linkExpired'),
+          text: errorMessage,
           type: NotificationStyles.danger,
         }),
       );

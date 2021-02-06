@@ -1,5 +1,5 @@
 <script>
-  import { Field, SelectInput } from '@/components/strict/index';
+  import { Field, SelectInput } from '@/components/strict';
 
   import { _ } from 'svelte-i18n';
 

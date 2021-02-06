@@ -1,8 +1,10 @@
 <script>
   import { horizontalSlide } from '@/utils/horizontalSlide';
 
+  export let showAnimation = false;
+
   let hovered = false;
-  const mouseover = () => (hovered = true),
+  const mouseover = () => (hovered = showAnimation && true),
     mouseleave = () => (hovered = false);
 </script>
 
