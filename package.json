@@ -1,6 +1,6 @@
 {
   "name": "money-client",
-  "private": true,
+  "license": "AGPL-3.0",
   "scripts": {
     "dev": "open http://localhost:3000/app/ & sapper dev",
     "type": "tsc --noEmit && svelte-check --ignore \"src/node_modules\"",
