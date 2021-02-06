@@ -8,6 +8,7 @@ type BaseUserState = {
   updated: number;
 
   isAdmin?: boolean;
+  isSubscribed?: boolean;
 
   clientUpdated?: number;
 

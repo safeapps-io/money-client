@@ -1,5 +1,7 @@
 <script>
   import Dropdown from './generic.svelte';
+
+  import moreVerticalIcon from 'teenyicons/outline/more-vertical.svg';
 </script>
 
 <Dropdown right let:hide>
@@ -10,18 +12,7 @@
       aria-controls={id}
       on:click={onTriggerClick}>
       <span class="icon is-small">
-        <!-- © https://teenyicons.com/ more-vertical -->
-        <svg
-          viewBox="0 0 15 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          width="15"
-          height="15">
-          <path
-            d="M7.5 3a.5.5 0 110-1 .5.5 0 010 1zm0 5a.5.5 0 110-1 .5.5 0 010 1zm0 5a.5.5 0 110-1
-            .5.5 0 010 1z"
-            stroke="currentColor" />
-        </svg>
+        <img src={moreVerticalIcon} alt="more" width="15" height="15" />
       </span>
     </button>
   </div>

@@ -1,7 +1,7 @@
 <script>
   import type { JointWallet } from '@/stores/decr/types';
 
-  import { Form, FieldContext, NameField, TagsField } from '@/components/strict/index';
+  import { Form, FieldContext, NameField, TagsField } from '@/components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';

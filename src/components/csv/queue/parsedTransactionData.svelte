@@ -22,7 +22,7 @@
   import TransactionFields from '@/components/transaction/form/fields.svelte';
   import AutocompleteTable from '@/components/transaction/card/autocompleteTable.svelte';
   import TransactionCard from '@/components/transaction/card/transactionCard.svelte';
-  import { Form } from '@/components/strict/index';
+  import { Form } from '@/components/strict';
 
   import { setCorrectAmount } from '@/core/transaction/setCorrectAmount';
 

@@ -90,28 +90,6 @@
   }
 </script>
 
-<style lang="scss">
-  .item {
-    @include mq($until: tablet) {
-      width: 95%;
-    }
-    @include mq($from: tablet) {
-      width: 350px;
-    }
-
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  h2 {
-    font-weight: bold;
-  }
-
-  p {
-    margin: 1.2em 0;
-  }
-</style>
-
 <Modal canBeVoluntarilyClosed={false} bind:active noBox forceScale>
   <CrossfadeWrapper replayAnimationKey={stage}>
     {#if stage == JoinStages.validatingInvite}
@@ -129,9 +107,8 @@
       <div class="item">
         <h2>{$_('cmps.wallet.userAccess.invite.join.ask.callOwner')}</h2>
         <p>{$_('cmps.wallet.userAccess.invite.join.ask.expl')}</p>
-        <button
-          class="button is-outlined is-success"
-          on:click={launchJoin}>{$_('cmps.wallet.userAccess.invite.join.ask.go')}</button>
+        <button class="button is-outlined is-success" on:click={launchJoin}
+          >{$_('cmps.wallet.userAccess.invite.join.ask.go')}</button>
       </div>
     {:else if stage == JoinStages.joinLaunched}
       <div class="item">
@@ -156,10 +133,31 @@
       <div class="item">
         <h2>{$_('cmps.wallet.userAccess.invite.join.accept.title')}</h2>
         <p>{$_('cmps.wallet.userAccess.invite.join.accept.main')} 👌</p>
-        <button
-          class="button is-success is-outlined"
-          on:click={finish}>{$_('cmps.wallet.userAccess.invite.join.accept.cta')}</button>
+        <button class="button is-success is-outlined" on:click={finish}
+          >{$_('cmps.wallet.userAccess.invite.join.accept.cta')}</button>
       </div>
     {/if}
   </CrossfadeWrapper>
 </Modal>
+
+<style lang="scss">
+  .item {
+    @include mq($until: tablet) {
+      width: 95%;
+    }
+    @include mq($from: tablet) {
+      width: 350px;
+    }
+
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  h2 {
+    font-weight: bold;
+  }
+
+  p {
+    margin: 1.2em 0;
+  }
+</style>

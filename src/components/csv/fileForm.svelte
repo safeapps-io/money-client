@@ -1,11 +1,16 @@
 <script>
   import type { FileParsedToBinary } from './types';
 
+  import Loader from '@/components/elements/loader.svelte';
+
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
   import { media } from 'svelte-match-media';
   import { noop } from 'svelte/internal';
+  import uploadIcon from 'teenyicons/outline/upload.svg';
+
+  import { debugLog } from '@/core/logger';
 
   const dispatch = createEventDispatcher();
 
@@ -29,6 +34,8 @@
 
       const file = fileList[0],
         reader = new FileReader();
+
+      debugLog('[csv] uploaded file type', { type: file.type });
 
       if (!['text/csv', 'application/vnd.ms-excel'].includes(file.type)) {
         notCsvError = true;
@@ -61,6 +68,39 @@
   let ref: HTMLInputElement | undefined;
   const click = () => ref?.click();
 </script>
+
+<div class="wrapper is-relative has-text-centered" on:click={click}>
+  <div
+    class="dropzone"
+    class:hover={state == State.hover}
+    class:loading={state == State.loading}
+    on:dragover|preventDefault|stopPropagation={noop}
+    on:drag|preventDefault|stopPropagation={noop}
+    on:dragenter|preventDefault|stopPropagation={dragEnter}
+    on:dragleave|preventDefault|stopPropagation={resetState}
+    on:drop|preventDefault|stopPropagation={drop}>
+    <div class="messages">
+      {#if state == State.loading}
+        <Loader />
+      {:else}
+        <img src={uploadIcon} alt="loader icon" height="25" width="25" />
+        <div class="is-size-5">{$_('cmps.csv.file.press')}</div>
+
+        {#if !$media.mobile}
+          <div>{$_('cmps.csv.file.drag')}</div>
+        {/if}
+      {/if}
+
+      {#if noDataParsed}
+        <p class="errors has-text-danger is-size-7" in:slide>{$_('cmps.csv.file.noParsedData')}</p>
+      {:else if notCsvError}
+        <p class="errors has-text-danger is-size-7" in:slide>{$_('cmps.csv.file.notCsv')}</p>
+      {/if}
+    </div>
+  </div>
+
+  <input type="file" hidden bind:this={ref} on:change={onChange} />
+</div>
 
 <style lang="scss">
   .wrapper {
@@ -98,39 +138,3 @@
     border-color: $success;
   }
 </style>
-
-<div class="wrapper is-relative has-text-centered" on:click={click}>
-  <div
-    class="dropzone"
-    class:hover={state == State.hover}
-    class:loading={state == State.loading}
-    on:dragover|preventDefault|stopPropagation={noop}
-    on:drag|preventDefault|stopPropagation={noop}
-    on:dragenter|preventDefault|stopPropagation={dragEnter}
-    on:dragleave|preventDefault|stopPropagation={resetState}
-    on:drop|preventDefault|stopPropagation={drop}>
-    <div class="messages">
-      <svg
-        viewBox="0 0 15 15"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        width="25"
-        height="25"><path
-          d="M7.5 1.5l3.25 3m-3.25-3l-3 3m3-3V11m6-4v6.5h-12V7"
-          stroke="currentColor" /></svg>
-      <div class="is-size-5">{$_('cmps.csv.file.press')}</div>
-
-      {#if !$media.mobile}
-        <div>{$_('cmps.csv.file.drag')}</div>
-      {/if}
-
-      {#if noDataParsed}
-        <p class="errors has-text-danger is-size-7" in:slide>{$_('cmps.csv.file.noParsedData')}</p>
-      {:else if notCsvError}
-        <p class="errors has-text-danger is-size-7" in:slide>{$_('cmps.csv.file.notCsv')}</p>
-      {/if}
-    </div>
-  </div>
-
-  <input type="file" hidden bind:this={ref} on:change={onChange} />
-</div>

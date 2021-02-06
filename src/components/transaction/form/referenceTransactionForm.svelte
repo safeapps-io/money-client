@@ -1,5 +1,5 @@
 <script>
-  import { Form, Field, TextInput } from '@/components/strict/index';
+  import { Form, Field, TextInput } from '@/components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';

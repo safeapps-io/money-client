@@ -32,7 +32,10 @@
     <Tabs
       sticky
       classes="is-centered"
-      tabs={[{ value: CategoryType.expense, label: $_('cmps.transaction.common.expense') }, { value: CategoryType.income, label: $_('cmps.transaction.common.income') }]}
+      tabs={[
+        { value: CategoryType.expense, label: $_('cmps.transaction.common.expense') },
+        { value: CategoryType.income, label: $_('cmps.transaction.common.income') },
+      ]}
       bind:activeTab={selectedType} />
 
     <div class="flex-full">

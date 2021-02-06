@@ -4,7 +4,7 @@
   import type { TransactionFieldsForm } from '@/core/transaction/setCorrectAmount';
 
   import Level from '@/components/elements/level.svelte';
-  import { Form } from '@/components/strict/index';
+  import { Form } from '@/components/strict';
   import TransactionFields from './fields.svelte';
   import WalletField from '@/components/wallet/walletField.svelte';
   import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
@@ -82,10 +82,8 @@
   <div slot="submit" class="field mt-5" let:disabled let:loading let:buttonText>
     <Level>
       <div class="column is-narrow" slot="left">
-        <button
-          class="button is-success"
-          class:is-color-loading={loading}
-          {disabled}>{buttonText}</button>
+        <button class="button is-success" class:is-color-loading={loading} {disabled}
+          >{buttonText}</button>
       </div>
       <div class="column is-narrow" slot="left">
         {#if !ent || ent.decr.isDraft}

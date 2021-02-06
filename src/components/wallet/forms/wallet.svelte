@@ -8,7 +8,7 @@
     TextInput,
     SelectInput,
     CheckboxInput,
-  } from '@/components/strict/index';
+  } from '@/components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -72,7 +72,11 @@
 
   {#if ent}
     <Field
-      field={{ name: 'currency', label: $_('cmps.wallet.form.currency'), inputValue: $defaultAssetStore?.decr.code }}>
+      field={{
+        name: 'currency',
+        label: $_('cmps.wallet.form.currency'),
+        inputValue: $defaultAssetStore?.decr.code,
+      }}>
       <TextInput readonly={true} />
     </Field>
   {:else}
@@ -82,7 +86,11 @@
     {#if !alwaysCreateDefaultCategories}
       <div class="my-5">
         <Field
-          field={{ name: 'addCategories', label: $_('cmps.wallet.form.defCategories'), inputValue: true }}>
+          field={{
+            name: 'addCategories',
+            label: $_('cmps.wallet.form.defCategories'),
+            inputValue: true,
+          }}>
           <CheckboxInput />
         </Field>
       </div>

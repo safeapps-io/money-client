@@ -5,6 +5,7 @@
       "unknown": "Unknown error",
       "tryLater": "Some error occured. Try later.",
       "linkExpired": "The link is either incorrect or expired",
+      "badLink": "The link is incorrect",
       "field": {
         "array": {
           "lessThan": "Must be less than {than, plural, one {# item} other {# items}}",
@@ -34,6 +35,17 @@
           "minLength": "Must be more than {than, plural, one {# symbol} other {# symbols}}",
           "maxLength": "Must be less than {than, plural, one {# symbol} other {# symbols}}",
           "choice": "Invalid choice: {choice}"
+        }
+      },
+      "cmp": {
+        "user": {
+          "emailTaken": "Email is already taken",
+          "usernameTaken": "Username is already taken",
+          "unknownUser": "There's no such user"
+        },
+        "password": {
+          "incorrectPassword": "Password is incorrect",
+          "resetNoEmail": "There's no such email"
         }
       }
     },
@@ -71,6 +83,15 @@
     }
   },
   "cmps": {
+    "footer": {
+      "about": "About",
+      "pricing": "Pricing",
+      "howItWorks": "How it works",
+      "openSource": "Open source",
+      "terms": "Terms of use",
+      "copy": "Made by {tagO}@dkzlv{tagC}",
+      "forum": "Forum"
+    },
     "masterPassword": {
       "setNew": {
         "onboarding": {
@@ -296,6 +317,21 @@
         "title": "Whoah!",
         "main": "You've come to a place you shouldn't be! Try another link."
       },
+      "feedback": {
+        "cta": "Feedback",
+        "bug": {
+          "title": "Found a bug?",
+          "main": "We'd really appreciate if you reported it here. Help us become better!"
+        },
+        "help": {
+          "title": "Don't understand something?",
+          "main": "Don't hesitate to drop a message here. We'll help."
+        },
+        "featureReq": {
+          "title": "Enhancement proposal",
+          "main": "We value all your ideas. Please share all of them with us here."
+        }
+      },
       "menu": {
         "users": "Users",
         "settings": "Settings",
@@ -321,8 +357,9 @@
       "logout": "Logout",
       "signup": {
         "cta": "Sign up",
-        "whyEmail": "We need email so you can restore access to the account in case you forget the password. it is unnecessary though. In future we'll ask you if you want to get promo-emails.",
-        "agree": "By creating an account you agree with the {tagO}terms and conditions{tagC}."
+        "whyEmail": "We need email so you can restore access to the account in case you forget the password. it is unnecessary though.",
+        "agree": "By creating an account you agree with the {tagO}terms and conditions{tagC}.",
+        "subscribe": "I want to get updates on the project (~1 email a month)"
       },
       "signIn": "Sign in",
       "password": {
@@ -366,6 +403,7 @@
           "example": "Valid example: {tagO}{example}{tagC}.",
           "andNErrors": "and {count, plural, one {# error} other {# errors}} more."
         },
+        "ignore": "Ignore",
         "settings": {
           "encoding": "Encoding",
           "hasHeader": "Has a header row",
@@ -380,30 +418,6 @@
             "docs": "For more options to specify date parts please {tagO}go here{tagC}."
           }
         },
-        "noDetected": {
-          "isBank": "Is it an exported bank statement?",
-          "decision": {
-            "header": "Wait or try?",
-            "options": "We didn't manage to parse your file automatically. You have two options:",
-            "try": {
-              "header": "Try it for yourself",
-              "main": "Try to setup the parsing scheme for yourself — it's not hard, you'll just need to tell us what column is associated to what data type.",
-              "cta": "Let's try!"
-            },
-            "wait": {
-              "header": "Just wait",
-              "main": "You also can wait for {tagO}24 hours{tagC} and we'll make the scheme for your statement ourselves!",
-              "cta": "Let's wait"
-            }
-          },
-          "instructions": {
-            "header": "We're happy to help you!",
-            "lead": "The instructions are simple:",
-            "first": "{tagItalicO}(optional){tagC} open your file in any text editor and remove the data you don't want to share with us openly. We'll need at least {tagBoldO}6 lines of the statement{tagC}, including the header if it is present. Please do not change the format of dates or amounts.",
-            "second": "{tagO}send it to us via email{tagC}. Click on this link and fill in the gaps in the email and attach your statement.",
-            "fin": "We'll try our best to finish in 24 hours. We'll write you back when we finish or when we have any questions."
-          }
-        },
         "automation": {
           "header": "Automatic resolving settings",
           "successNotif": "Settings will be used when you start a new import",
@@ -412,6 +426,42 @@
             "help": "Defines how often we will try to automatically resolve transactions based on your previous data. The higher it is the higher are the chances of errors in category or user assignment."
           },
           "disableLabel": "Disable automatic resolving"
+        },
+        "bankStatement": {
+          "button": "This is a bank statement",
+          "link": "{linkO}Visit out forum{linkC} and ask for help. Most of the time we {tagO}only need 24 hours{tagC} to handle the problem.",
+          "main": "If the uploaded file is a bank statement then we'd be glad to add support for it! You and other clients of this bank will be able to upload their statements and get the transactions automatically."
+        },
+        "onboarding": {
+          "finish": {
+            "cta": "Let's start!",
+            "main": "Once you've marked all the columns with useful data, save the scheme and start sorting out the transactions."
+          },
+          "isBank": {
+            "main1": "We can (and very much want) to support bank statements from all over the world.",
+            "main2": "If you downloaded a bank statement, then contact us. We'll support it in 24 hours.",
+            "title": "Is it a bank statement?"
+          },
+          "unknown": {
+            "title": "Couldn't parse automatically",
+            "main": "We couldn't parse this file automatically. But don't worry, there're some solutions to this.",
+            "cta": "Like what?"
+          },
+          "settings": {
+            "title": "Here are the settings",
+            "main": "If you see gibberish in the table below, your table doesn't have a header row or the numbers are not correct, then you should go here."
+          },
+          "main": {
+            "title": "Match the columns with the data",
+            "main2": "The data will be parsed immediately. If there will be no errors, you'll see {emoji}.",
+            "main1": "Choose what data the column has in the dropdown list.",
+            "cta": "Ok {emoji}"
+          },
+          "notBank": {
+            "main": "In this case you only need to set the so-called {tagO}data scheme{tagC}.",
+            "title": "What if it's not from a bank?",
+            "cta": "Let's see"
+          }
         }
       },
       "queue": {
@@ -420,6 +470,13 @@
         "draft": "Draft",
         "zeroData": "You've done it!",
         "autoOnly": "Show auto resolved only",
+        "troubleshoot": {
+          "title": "Troubleshoot",
+          "question": "Is something incorrect?",
+          "goToForum": "Get help {tagO}on our open forum{tagC}.",
+          "resetIfSure": "If you know for sure what you're doing, try resetting the scheme.",
+          "reset": "Reset scheme"
+        },
         "onboarding": {
           "tabs": {
             "save": "{tagO}{tab}{tagC} is what will be saved as a regular transaction, income or expense.",

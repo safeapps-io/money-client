@@ -2,17 +2,19 @@
   import type { ParsedTransaction } from '@/core/csv/types';
   import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
 
-  import { Onboarding, Text } from '@/components/onboarding/index';
+  import { Onboarding, Text } from '@/components/onboarding';
   import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
   import Tabs from '@/components/elements/tabs.svelte';
   import Unresolved from './unresolved.svelte';
   import AutomationSettings from './automationSettings.svelte';
   import ResolvedTransactionList from './resolved/transactionList.svelte';
   import ResolvedAutoTransactionList from './resolved/autoTransactionList.svelte';
+  import Troubleshoot from '@/components/elements/dropdown/troubleshoot.svelte';
 
   import { _ } from 'svelte-i18n';
   import { media } from 'svelte-match-media';
   import { createEventDispatcher, tick } from 'svelte';
+  import arrowRightIcon from 'teenyicons/outline/arrow-right.svg';
 
   import { CsvParsedTransactionResolution } from '@/core/csv/constants';
   import {
@@ -29,6 +31,7 @@
   import { getInitialParsingState } from '@/core/csv/getInitialParsingState';
   import { shouldTransactionBeAutoResolved } from '@/core/csv/autoResolve';
   import { currentWalletCategoryStore } from '@/stores/decr/category';
+  import { forumHelpPath } from '@/core/routes';
 
   const dispatch = createEventDispatcher(),
     unresolvedTab = 'Unresolved';
@@ -254,23 +257,6 @@
       id ? $currentWalletUserStore[id] : undefined;
 </script>
 
-<style lang="scss">
-  .settings,
-  .submit {
-    align-self: flex-end;
-  }
-
-  .tab-container {
-    @include mq($until: tablet) {
-      width: 100%;
-    }
-    @include mq($from: tablet) {
-      width: 80%;
-    }
-    margin: 0 auto;
-  }
-</style>
-
 <Onboarding
   noSlot
   {textSlotWidth}
@@ -279,17 +265,37 @@
   <div slot="text">
     <Text header>{$_('cmps.csv.queue.onboarding.automation.header')}</Text>
     <Text>{$_('cmps.csv.queue.onboarding.automation.main')}</Text>
-    <button
-      class="button mt-3"
-      on:click={() => (currentStep = 'tabsUnS')}>{$_('common.letsStart')}</button>
+    <button class="button mt-3" on:click={() => (currentStep = 'tabsUnS')}
+      >{$_('common.letsStart')}</button>
   </div>
 </Onboarding>
 
-<div class="is-flex flex-columns">
-  <div class="settings mb-3">
-    <AutomationSettings />
+<div class="settings-area mb-3">
+  <div class="mr-2 is-size-7">
+    <Troubleshoot right>
+      <div class="px-4">
+        <p class="is-size-6 mb-2">{$_('cmps.csv.queue.troubleshoot.question')}</p>
+        <p>
+          {@html $_('cmps.csv.queue.troubleshoot.goToForum', {
+            values: {
+              tagO: `<a href="${forumHelpPath}" target="_blank" rel="noopener">`,
+              tagC: '</a>',
+            },
+          })}
+        </p>
+      </div>
+      <hr class="dropdown-divider" />
+      <div class="px-4">
+        <p>{$_('cmps.csv.queue.troubleshoot.resetIfSure')}</p>
+        <button class="button is-small mt-3 is-fullwidth" on:click={() => dispatch('resetScheme')}
+          >{$_('cmps.csv.queue.troubleshoot.reset')}</button>
+      </div>
+    </Troubleshoot>
   </div>
+  <AutomationSettings />
+</div>
 
+<div class="main">
   <Onboarding preventSlotClick bottom {textSlotWidth} shouldShow={currentStep.startsWith('tabs')}>
     <Tabs sticky classes="is-centered is-small" {tabs} bind:activeTab let:tab>
       <span class="tag mr-2">{getCount(state, tab.value)}</span>
@@ -309,27 +315,24 @@
               values: { ...accentTags, tab: $_('common.form.save') },
             })}
           </Text>
-          <button
-            class="button mt-3"
-            on:click={() => (currentStep = 'tabsD')}>{$_('common.next')}</button>
+          <button class="button mt-3" on:click={() => (currentStep = 'tabsD')}
+            >{$_('common.next')}</button>
         {:else if currentStep == 'tabsD'}
           <Text>
             {@html $_('cmps.csv.queue.onboarding.tabs.draft', {
               values: { ...accentTags, tab: $_('cmps.csv.queue.draft') },
             })}
           </Text>
-          <button
-            class="button mt-3"
-            on:click={() => (currentStep = 'tabsI')}>{$_('common.okDok')}</button>
+          <button class="button mt-3" on:click={() => (currentStep = 'tabsI')}
+            >{$_('common.okDok')}</button>
         {:else if currentStep == 'tabsI'}
           <Text>
             {@html $_('cmps.csv.queue.onboarding.tabs.ignore', {
               values: { ...accentTags, tab: $_('cmps.csv.queue.ignore') },
             })}
           </Text>
-          <button
-            class="button mt-3"
-            on:click={() => (currentStep = 'transaction')}>{$_('common.allClear')}</button>
+          <button class="button mt-3" on:click={() => (currentStep = 'transaction')}
+            >{$_('common.allClear')}</button>
         {/if}
       </CrossfadeWrapper>
     </div>
@@ -364,17 +367,14 @@
       {/if}
     </CrossfadeWrapper>
   </div>
+</div>
 
+<div class="submit-wrapper">
   <Onboarding right {textSlotWidth} {key} shouldShow={currentStep == 'final'} let:finishOnboarding>
     <button class="submit button is-success" disabled={submitDisabled} on:click={submitState}>
       <span>{$_('common.form.submit')}</span>
-      <!-- © https://teenyicons.com/ arrow-right -->
-      <span class="icon"><svg
-          viewBox="0 0 15 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          width="15"
-          height="15"><path d="M13.5 7.5l-4-4m4 4l-4 4m4-4H1" stroke="currentColor" /></svg></span>
+      <span class="icon"
+        ><img src={arrowRightIcon} alt="arrow right" height="15" width="15" /></span>
     </button>
 
     <div slot="text">
@@ -384,3 +384,24 @@
     </div>
   </Onboarding>
 </div>
+
+<style lang="scss">
+  .main {
+    grid-area: var(--main-area);
+  }
+
+  .submit-wrapper {
+    justify-self: end;
+    grid-area: var(--big-submit-area);
+  }
+
+  .tab-container {
+    @include mq($until: tablet) {
+      width: 100%;
+    }
+    @include mq($from: tablet) {
+      width: 80%;
+    }
+    margin: 0 auto;
+  }
+</style>

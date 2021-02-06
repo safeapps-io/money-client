@@ -10,7 +10,7 @@
     TextInput,
     TagsField,
     SelectInput,
-  } from '@/components/strict/index';
+  } from '@/components/strict';
 
   import { _ } from 'svelte-i18n';
   import { getContext } from 'svelte';

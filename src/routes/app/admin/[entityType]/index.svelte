@@ -12,23 +12,6 @@
   $: prefix = $page.params.entityType;
 </script>
 
-<style lang="scss">
-  $swatch-size: 15px;
-
-  .color {
-    display: flex;
-    place-items: center;
-  }
-
-  .swatch {
-    width: $swatch-size;
-    height: $swatch-size;
-
-    border-radius: 2px;
-    margin-right: 5px;
-  }
-</style>
-
 <List
   {prefix}
   header={prefix == AdminEntityPrefixes.category ? 'Meta category' : 'Scheme'}
@@ -65,3 +48,20 @@
     <td><input type="checkbox" checked={item.published} disabled /></td>
   {/if}
 </List>
+
+<style lang="scss">
+  $swatch-size: 15px;
+
+  .color {
+    display: flex;
+    place-items: center;
+  }
+
+  .swatch {
+    width: $swatch-size;
+    height: $swatch-size;
+
+    border-radius: 2px;
+    margin-right: 5px;
+  }
+</style>

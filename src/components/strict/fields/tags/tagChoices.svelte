@@ -57,6 +57,22 @@
   }
 </script>
 
+<ul class="choices" class:is-hidden={!showChoices} bind:this={ulRef}>
+  {#each choices as { label, value }, index (value)}
+    <li
+      class="py-2 px-2"
+      class:is-hovered={index === hoveredItemIndex}
+      on:mouseover={() => (hoveredItemIndex = index)}
+      on:mouseout={() => hoveredItemIndex === index && (hoveredItemIndex = null)}
+      on:click={() => dispatch('click', index)}
+      bind:this={liRefs[index]}>
+      {label || value}
+    </li>
+  {:else}
+    <li class="py-2 px-2">{$_('common.form.noChoices')}</li>
+  {/each}
+</ul>
+
 <style lang="scss">
   .choices {
     position: absolute;
@@ -86,19 +102,3 @@
     }
   }
 </style>
-
-<ul class="choices" class:is-hidden={!showChoices} bind:this={ulRef}>
-  {#each choices as { label, value }, index (value)}
-    <li
-      class="py-2 px-2"
-      class:is-hovered={index === hoveredItemIndex}
-      on:mouseover={() => (hoveredItemIndex = index)}
-      on:mouseout={() => hoveredItemIndex === index && (hoveredItemIndex = null)}
-      on:click={() => dispatch('click', index)}
-      bind:this={liRefs[index]}>
-      {label || value}
-    </li>
-  {:else}
-    <li class="py-2 px-2">{$_('common.form.noChoices')}</li>
-  {/each}
-</ul>

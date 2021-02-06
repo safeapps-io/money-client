@@ -1,11 +1,10 @@
 <script>
   import Menu from './menu.svelte';
-  import CurrentWalletDropdown from '@/components/wallet/currentWalletDropdown.svelte';
-  import TransactionAdd from '@/components/transaction/add.svelte';
 
   import { fade } from 'svelte/transition';
   import { media } from 'svelte-match-media';
   import { stores } from '@sapper/app';
+  import menuIcon from 'teenyicons/outline/menu.svg';
 
   import { restrictBodyScroll } from '@/utils/actions/restrictBodyScroll';
 
@@ -31,23 +30,15 @@
   class="button is-rounded trigger-button"
   class:show-menu={showMenu}
   on:click={() => (showMenu = !showMenu)}>
-  <span class="icon">
-    <!-- © https://teenyicons.com/ menu -->
-    <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-      <path d="M0 5.5h15m-15-4h15m-15 8h15m-15 4h15" stroke="currentColor" />
-    </svg>
-  </span>
+  <span class="icon"> <img src={menuIcon} alt="menu" height="20" width="20" /> </span>
 </button>
 
 <div
   class="menu-content has-background-white-bis"
   class:show-menu={showMenu}
-  aria-hidden={!showMenu}
->
+  aria-hidden={!showMenu}>
   <div class="pt-2 pb-4 px-2" use:restrictBodyScroll={showMenu}>
-    <CurrentWalletDropdown />
-    <TransactionAdd shouldShowOnboarding={showMenu} />
-    <Menu />
+    <Menu {showMenu} />
   </div>
 </div>
 

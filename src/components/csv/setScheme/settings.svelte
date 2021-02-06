@@ -1,6 +1,6 @@
 <script>
   import SettingsDropdown from '@/components/elements/dropdown/settings.svelte';
-  import { Field, FieldContext, SelectInput, CheckboxInput } from '@/components/strict/index';
+  import { Field, FieldContext, SelectInput, CheckboxInput } from '@/components/strict';
 
   import { _ } from 'svelte-i18n';
   import { setContext } from 'svelte';

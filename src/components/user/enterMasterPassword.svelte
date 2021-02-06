@@ -1,6 +1,6 @@
 <script>
   import { FormError } from '@/services/errors';
-  import { Form, MasterPasswordField, PinCodeField } from '@/components/strict/index';
+  import { Form, MasterPasswordField, PinCodeField } from '@/components/strict';
 
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -54,8 +54,7 @@
     tabindex="0"
     class="is-size-7 has-text-dotted has-text-link clickable"
     on:click={() => (enteringPin = !enteringPin)}
-    use:focusableShortcut
-  >
+    use:focusableShortcut>
     {#if enteringPin}
       {$_('cmps.masterPassword.old.pass.enter')}
     {:else}{$_('cmps.masterPassword.old.pin.enter')}{/if}

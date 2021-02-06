@@ -16,14 +16,6 @@
   };
 </script>
 
-<style lang="scss">
-  .form {
-    @include mq($until: tablet) {
-      background-color: change-color($border, $lightness: 95%);
-    }
-  }
-</style>
-
 {#if edit}
   <div class="form is-clipped" transition:slide|local>
     <div class="py-3 px-3">
@@ -36,3 +28,11 @@
     </div>
   </div>
 {/if}
+
+<style lang="scss">
+  .form {
+    @include mq($until: tablet) {
+      background-color: change-color($border, $lightness: 95%);
+    }
+  }
+</style>

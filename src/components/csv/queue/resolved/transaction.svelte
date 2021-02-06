@@ -35,32 +35,6 @@
     };
 </script>
 
-<style lang="scss">
-  .hide-all-borders {
-    border-color: transparent !important;
-  }
-
-  .hide-delimiter {
-    border-top-color: transparent !important;
-  }
-
-  .wrapper {
-    padding: 0.4em;
-
-    border-top: 1px dotted var(--delimiterColor);
-    border-left: var(--categoryBorder);
-    background-color: $scheme-main;
-
-    transition: margin, padding, box-shadow, border-color, border, transform 0.3s ease-in-out;
-  }
-
-  .submit {
-    display: flex;
-    flex-direction: column;
-    place-items: center;
-  }
-</style>
-
 <div
   class="wrapper"
   class:box={showEdit}
@@ -88,3 +62,29 @@
     </div>
   </ParsedTransactionData>
 </div>
+
+<style lang="scss">
+  .hide-all-borders {
+    border-color: transparent !important;
+  }
+
+  .hide-delimiter {
+    border-top-color: transparent !important;
+  }
+
+  .wrapper {
+    padding: 0.4em;
+
+    border-top: 1px dotted var(--delimiterColor);
+    border-left: var(--categoryBorder);
+    background-color: $scheme-main;
+
+    transition: margin, padding, box-shadow, border-color, border, transform 0.3s ease-in-out;
+  }
+
+  .submit {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+  }
+</style>

@@ -36,5 +36,5 @@
   {/each}
 </ul>
 {#if isOwner}
-  <NewInvite walletId={wallet.id} userId={user.id} monthlyLimit={user.inviteMonthlyLimit} />
+  <NewInvite walletId={wallet.id} userId={user.id} />
 {/if}

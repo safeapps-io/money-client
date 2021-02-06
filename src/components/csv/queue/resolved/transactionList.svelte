@@ -28,7 +28,8 @@
     {walletUser}
     {showDelimiter}
     defaultWalletUserId={$defaultWalletUserIdStore}
-    on:success={e => dispatch('success', {
+    on:success={e =>
+      dispatch('success', {
         ...e.detail,
         // The list is reversed. To calculate real index we subtract the index of the item in the resersed
         // list from list's length. E.g., [0, 1, 2], length: 3, 2 has index 0. 3 - (2 + 1) = index 0 in the

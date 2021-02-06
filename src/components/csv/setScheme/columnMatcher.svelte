@@ -1,20 +1,29 @@
 <script>
-  import Tooltip from '@/components/elements/tooltip.svelte';
+  import type { SetSchemeOnboardingSteps } from '../types';
 
+  import { Onboarding, Text } from '@/components/onboarding';
+  import Tooltip from '@/components/elements/tooltip.svelte';
   import Choice from '@/components/strict/inputs/select/choice.svelte';
+
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
 
-  import { copy } from '@/utils/object';
-
   import { FieldResolution, fieldChoices } from '@/core/csv/constants';
 
-  export let columnCount: number, columnMatch: Array<string | null>, dateFormat: string;
+  export let columnCount: number,
+    columnMatch: Array<string | null>,
+    dateFormat: string,
+    currentStep: SetSchemeOnboardingSteps;
+
+  $: localizedFieldChoices = fieldChoices.map(choice => ({
+    value: choice.value,
+    label: $_(choice.label),
+  }));
 
   $: columnMatch = state.map(({ value }) => (value == FieldResolution.ignore ? null : value));
 
   $: state = [...Array(columnCount).keys()].map(() => ({
-    choices: copy(fieldChoices),
+    choices: localizedFieldChoices,
     value: FieldResolution.ignore,
   }));
 
@@ -38,14 +47,33 @@
   $: setChoiceOptionsAvailability(state);
 </script>
 
-{#each state as columnData}
+{#each state as columnData, i}
   <div class="main">
     <div class="control">
-      <div class="select is-small is-fullwidth">
-        <select bind:value={columnData.value}>
-          <Choice choices={columnData.choices} />
-        </select>
-      </div>
+      {#if i}
+        <div class="select is-small is-fullwidth">
+          <select bind:value={columnData.value}>
+            <Choice choices={columnData.choices} />
+          </select>
+        </div>
+      {:else}
+        <!-- We only show onboarding on the first item -->
+        <Onboarding bottom preventSlotClick shouldShow={currentStep == 'main'}>
+          <div class="select is-small is-fullwidth">
+            <select bind:value={columnData.value}>
+              <Choice choices={columnData.choices} />
+            </select>
+          </div>
+
+          <div slot="text">
+            <Text header>{$_('cmps.csv.scheme.onboarding.main.title')}</Text>
+            <Text>{$_('cmps.csv.scheme.onboarding.main.main1')}</Text>
+            <Text>{$_('cmps.csv.scheme.onboarding.main.main2', { values: { emoji: '👌' } })}</Text>
+            <button class="button is-small mt-3" on:click={() => (currentStep = 'finish')}
+              >{$_('cmps.csv.scheme.onboarding.main.cta', { values: { emoji: '👌' } })}</button>
+          </div>
+        </Onboarding>
+      {/if}
     </div>
     {#if columnData.value == FieldResolution.datetime}
       <div class="field pt-4" transition:slide|local>
@@ -55,8 +83,7 @@
             type="text"
             placeholder="yyyy-MM-dd"
             aria-label={$_('cmps.csv.scheme.columnMatcher.date.label')}
-            bind:value={dateFormat}
-          />
+            bind:value={dateFormat} />
         </div>
 
         <div>

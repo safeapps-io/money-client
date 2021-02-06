@@ -1,34 +1,14 @@
 <script>
-  import { media } from 'svelte-match-media';
-
+  import GenericTroubleshoot from '@/components/elements/genericTroubleshoot.svelte';
   import Profile from './profile.svelte';
-  import TransactionAdd from '@/components/transaction/add.svelte';
+
+  import { media } from 'svelte-match-media';
 
   export let title: string | undefined = undefined,
     boxedView: boolean = true,
     stretchContent: boolean = false,
     nestColumnClass: string | undefined = undefined;
 </script>
-
-<style lang="scss">
-  .title-block {
-    @include mq($until: tablet) {
-      margin: 1em 0.75em;
-    }
-    @include mq($from: tablet) {
-      margin-left: 0.75em;
-    }
-  }
-
-  .wrapper {
-    display: flex;
-    flex-direction: column;
-
-    min-height: 100%;
-
-    padding-bottom: var(--buttonBottomPadding);
-  }
-</style>
 
 <!-- 
   IDEA:
@@ -73,10 +53,11 @@
       </div>
     </slot>
     {#if !$media.mobile}
-      <div class="mr-2">
-        <TransactionAdd />
-      </div>
-      <div class="mr-2">
+      <div class="profile mr-2">
+        <div class="mr-2">
+          <GenericTroubleshoot right />
+        </div>
+
         <Profile />
       </div>
     {/if}
@@ -98,3 +79,28 @@
     </slot>
   {/if}
 </div>
+
+<style lang="scss">
+  .title-block {
+    @include mq($until: tablet) {
+      margin: 1em 0.75em;
+    }
+    @include mq($from: tablet) {
+      margin-left: 0.75em;
+    }
+  }
+
+  .profile {
+    display: flex;
+    place-items: center;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100%;
+
+    padding-bottom: var(--buttonBottomPadding);
+  }
+</style>

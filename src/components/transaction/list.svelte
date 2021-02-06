@@ -1,9 +1,5 @@
 <script>
-  import type {
-    Transaction,
-    CorrectionTransaction,
-    OmitCommonFields,
-  } from '@/stores/decr/types';
+  import type { Transaction, CorrectionTransaction, OmitCommonFields } from '@/stores/decr/types';
 
   import Pagination from '@/components/elements/pagination.svelte';
   import ZeroData from '@/components/elements/zeroData.svelte';
@@ -24,12 +20,17 @@
 
 <Pagination items={transactions} let:item={transaction} let:index let:originalIndex>
   <div
-    use:cssVars={{ categoryBorder: `4px solid ${categories[transaction.categoryId]?.decr.color || '#f0f0f0'}`, delimiterColor: '#dbdbdb' }}>
+    use:cssVars={{
+      categoryBorder: `4px solid ${categories[transaction.categoryId]?.decr.color || '#f0f0f0'}`,
+      delimiterColor: '#dbdbdb',
+    }}>
     <slot
       {transaction}
       {index}
       {originalIndex}
-      category={'categoryId' in transaction && transaction.categoryId ? categories[transaction.categoryId] : undefined}
+      category={'categoryId' in transaction && transaction.categoryId
+        ? categories[transaction.categoryId]
+        : undefined}
       walletUser={'walletUserId' in transaction ? walletUsers[transaction.walletUserId] : undefined}
       showDelimiter={index} />
   </div>

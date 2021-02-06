@@ -1,13 +1,7 @@
 <script>
   import type { MetaCategory } from '@/stores/metaCategory';
 
-  import {
-    NameField,
-    ColorField,
-    Field,
-    CheckboxInput,
-    TextareaInput,
-  } from '@/components/strict/index';
+  import { NameField, ColorField, Field, CheckboxInput, TextareaInput } from '@/components/strict';
 
   import { ensureJson } from '@/core/strict/object';
   import { ensureBoolean } from '@/core/strict/boolean';
@@ -37,7 +31,12 @@
 
 <ColorField inputValue={ent?.color} />
 <Field
-  field={{ name: 'isIncome', label: 'Is income category?', clean: [ensureBoolean], inputValue: ent?.isIncome }}>
+  field={{
+    name: 'isIncome',
+    label: 'Is income category?',
+    clean: [ensureBoolean],
+    inputValue: ent?.isIncome,
+  }}>
   <CheckboxInput />
 </Field>
 <Field field={assignedMccField}>

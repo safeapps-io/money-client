@@ -1,13 +1,7 @@
 <script>
-  import type { SimpleScheme } from '@/stores/scheme';
+  import type { SimpleScheme } from '@/core/csv/types';
 
-  import {
-    Field,
-    TextInput,
-    CheckboxInput,
-    TextareaInput,
-    SelectInput,
-  } from '@/components/strict/index';
+  import { Field, TextInput, CheckboxInput, TextareaInput, SelectInput } from '@/components/strict';
 
   import { ensureString, minLength, optionalString, trim } from '@/core/strict/string';
   import { ensureJson } from '@/core/strict/object';

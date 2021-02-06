@@ -34,6 +34,12 @@
   };
 </script>
 
+<div class="field">
+  <Field {field}>
+    <Text type="text" placeholder="correct-horse-staple-battery" />
+  </Field>
+</div>
+
 <style lang="scss">
   .field {
     :global(input) {
@@ -41,9 +47,3 @@
     }
   }
 </style>
-
-<div class="field">
-  <Field {field}>
-    <Text type="text" placeholder="correct-horse-staple-battery" />
-  </Field>
-</div>

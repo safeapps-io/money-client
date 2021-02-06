@@ -3,6 +3,7 @@
   import WalletCreateModal from '@/components/wallet/modalCreate.svelte';
 
   import { _ } from 'svelte-i18n';
+  import layersSubtractIcon from 'teenyicons/outline/layers-subtract.svg';
 
   import { focusableShortcut } from '@/utils/actions/shortcut';
 
@@ -33,19 +34,7 @@
         on:click={hide}>
         <div class="is-flex">
           <span class="icon is-small mr-3">
-            <!-- © https://teenyicons.com/ layers-subtract -->
-            <svg
-              viewBox="0 0 15 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              width="15"
-              height="15">
-              <path
-                d="M10.5 10.5v3a1 1 0 01-1 1h-8a1 1 0 01-1-1v-8a1 1 0 011-1h3m0-3v8a1 1 0 001 1h8a1
-                1 0 001-1v-8a1 1 0 00-1-1h-8a1 1 0 00-1 1z"
-                stroke="currentColor"
-              />
-            </svg>
+            <img src={layersSubtractIcon} alt="joint" height="15" width="15" />
           </span>
 
           <span>{name}</span>
@@ -68,8 +57,7 @@
       class="dropdown-item has-text-success clickable"
       on:click={() => (active = true)}
       on:click={hide}
-      use:focusableShortcut
-    >
+      use:focusableShortcut>
       {$_('cmps.wallet.create.wallet')}
     </div>
   </Dropdown>

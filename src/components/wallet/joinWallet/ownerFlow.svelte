@@ -113,14 +113,16 @@
           class="button is-success is-outlined"
           class:is-color-loading={loading}
           disabled={error}
-          on:click={() => resolution(true)}>{$_('cmps.wallet.userAccess.invite.owner.allow')}</button>
+          on:click={() => resolution(true)}
+          >{$_('cmps.wallet.userAccess.invite.owner.allow')}</button>
       </div>
       <div class="column is-narrow">
         <button
           class="button is-danger is-outlined ml-3"
           class:is-color-loading={loading}
           disabled={error}
-          on:click={() => resolution(false)}>{$_('cmps.wallet.userAccess.invite.owner.disallow')}</button>
+          on:click={() => resolution(false)}
+          >{$_('cmps.wallet.userAccess.invite.owner.disallow')}</button>
       </div>
     </div>
     <p>{$_('cmps.wallet.userAccess.invite.keySecurity')}</p>
