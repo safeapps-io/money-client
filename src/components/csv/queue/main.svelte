@@ -31,6 +31,7 @@
   import { getInitialParsingState } from '@/core/csv/getInitialParsingState';
   import { shouldTransactionBeAutoResolved } from '@/core/csv/autoResolve';
   import { currentWalletCategoryStore } from '@/stores/decr/category';
+  import { forumHelpPath } from '@/core/routes';
 
   const dispatch = createEventDispatcher(),
     unresolvedTab = 'Unresolved';
@@ -274,11 +275,10 @@
     <Troubleshoot right>
       <div class="px-4">
         <p class="is-size-6 mb-2">{$_('cmps.csv.queue.troubleshoot.question')}</p>
-        <!-- FIXME: forum link -->
         <p>
           {@html $_('cmps.csv.queue.troubleshoot.goToForum', {
             values: {
-              tagO: `<a href="/" target="_blank" rel="noopener">`,
+              tagO: `<a href="${forumHelpPath}" target="_blank" rel="noopener">`,
               tagC: '</a>',
             },
           })}

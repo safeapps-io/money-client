@@ -18,6 +18,7 @@
   import { bufferToString } from '@/utils/buffer/conversions';
 
   import { parseCsv } from '@/core/csv/parseCsv';
+  import { forumBankHelpPath } from '@/core/routes';
 
   const dispatch = createEventDispatcher();
 
@@ -103,10 +104,9 @@
           {$_('cmps.csv.scheme.bankStatement.main')}
         </p>
         <p>
-          <!-- FIXME: forum link -->
           {@html $_('cmps.csv.scheme.bankStatement.link', {
             values: {
-              linkO: '<a href="/">',
+              linkO: `<a href="${forumBankHelpPath}">`,
               linkC: '</a>',
               tagO: '<span class="has-text-weight-bold">',
               tagC: '</span>',

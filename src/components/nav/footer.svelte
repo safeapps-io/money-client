@@ -2,12 +2,16 @@
   import Locale from '@/components/user/settings/locale.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { aboutPath, pricingPath, termsPath, howItWorksPath } from '@/core/routes';
+  import { aboutPath, pricingPath, termsPath, howItWorksPath, forumPath } from '@/core/routes';
 
   $: leftLinks = [
     [aboutPath, $_('cmps.footer.about')],
     [pricingPath, $_('cmps.footer.pricing')],
     [howItWorksPath, $_('cmps.footer.howItWorks')],
+    [forumPath, $_('cmps.footer.forum')],
+  ];
+  $: rightLinks = [
+    [termsPath, $_('cmps.footer.terms')],
     ['https://github.com/safeapps-io', $_('cmps.footer.openSource')],
   ];
 </script>
@@ -24,8 +28,11 @@
       </div>
       <div class="column is-4">
         <div>
-          <a href={termsPath} target="_blank" rel="noopener"
-            >{$_('cmps.footer.terms').toLowerCase()}</a>
+          {#each rightLinks as [url, text]}
+            <div>
+              <a href={url} target="_blank" rel="noopener">{text.toLowerCase()}</a>
+            </div>
+          {/each}
         </div>
       </div>
     </div>

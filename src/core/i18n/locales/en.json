@@ -89,7 +89,8 @@
       "howItWorks": "How it works",
       "openSource": "Open source",
       "terms": "Terms of use",
-      "copy": "Made by {tagO}@dkzlv{tagC}"
+      "copy": "Made by {tagO}@dkzlv{tagC}",
+      "forum": "Forum"
     },
     "masterPassword": {
       "setNew": {

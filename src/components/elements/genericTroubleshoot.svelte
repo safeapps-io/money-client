@@ -3,12 +3,13 @@
   import Link from '@/components/elements/link.svelte';
 
   import { _ } from 'svelte-i18n';
+
+  import { forumBugsPath, forumHelpPath, forumIdeasPath } from '@/core/routes';
 </script>
 
 <div class="wrapper is-size-7">
   <Troubleshoot text={$_('cmps.nav.feedback.cta')} {...$$restProps}>
-    <!-- FIXME: forum link -->
-    <Link href="/" class="dropdown-item">
+    <Link href={forumBugsPath} class="dropdown-item">
       <p class="has-text-danger is-size-6">
         <!-- © https://teenyicons.com/ bug -->
         <span class="icon"
@@ -26,7 +27,7 @@
       </p>
       <p>{$_('cmps.nav.feedback.bug.main')}</p>
     </Link>
-    <Link href="/" class="dropdown-item">
+    <Link href={forumHelpPath} class="dropdown-item">
       <p class="has-text-warning is-size-6">
         <!-- © https://teenyicons.com/ info -->
         <span class="icon"
@@ -44,7 +45,7 @@
       </p>
       <p>{$_('cmps.nav.feedback.help.main')}</p>
     </Link>
-    <Link href="/" class="dropdown-item">
+    <Link href={forumIdeasPath} class="dropdown-item">
       <p class="has-text-success is-size-6">
         <!-- © https://teenyicons.com/ message-plus -->
         <span class="icon"
