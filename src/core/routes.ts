@@ -92,3 +92,12 @@ export const adminEntityListPath = (entity: string) => `${adminPath}/${entity}`,
   adminEntityPath = (entity: string, id: string) => `${adminEntityListPath(entity)}/${id}`;
 
 export const adminSettingsPath = `${adminPath}/settings`;
+
+// Root Site --------------
+const rootSite = 'https://safeapps.io';
+export const pricingPath = `${rootSite}/pricing`,
+  howItWorksPath = `${rootSite}/how-it-works`;
+
+const content = `${rootSite}/content`;
+export const aboutPath = `${content}/about`,
+  termsPath = `${content}/terms`;

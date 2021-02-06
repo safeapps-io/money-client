@@ -541,6 +541,14 @@
           "title": "Проблемы?"
         }
       }
+    },
+    "footer": {
+      "about": "О нас",
+      "copy": "Сделано {tagO}@dkzlv{tagC}",
+      "howItWorks": "Как мы работаем",
+      "openSource": "Open source",
+      "pricing": "Цена",
+      "terms": "Условия использования"
     }
   }
 }

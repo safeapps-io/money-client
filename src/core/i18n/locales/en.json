@@ -83,6 +83,14 @@
     }
   },
   "cmps": {
+    "footer": {
+      "about": "About",
+      "pricing": "Pricing",
+      "howItWorks": "How it works",
+      "openSource": "Open source",
+      "terms": "Terms of use",
+      "copy": "Made by {tagO}@dkzlv{tagC}"
+    },
     "masterPassword": {
       "setNew": {
         "onboarding": {

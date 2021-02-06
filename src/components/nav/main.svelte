@@ -65,7 +65,7 @@
           {:else}
             <div class="columns pt-5 fullheight" in:fade={{ duration: 1200 }}>
               <div class="column is-3 aside">
-                <a href={appPath}><Logo /></a>
+                <a href={appPath}><Logo showAnimation /></a>
                 <Menu />
               </div>
               <div class="column is-9">
