@@ -5,5 +5,5 @@
   import { verifyEmailPath } from '@/core/routes';
 
   const { page } = stores();
-  onMount(() => goto(verifyEmailPath($page.params.token)));
+  onMount(() => goto(verifyEmailPath($page.params.token), { replaceState: true }));
 </script>

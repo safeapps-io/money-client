@@ -7,5 +7,5 @@
 
   $: isAuthorized = !!$tokenStore?.accessToken;
 
-  onMount(() => goto(isAuthorized ? appPath : loginPath));
+  onMount(() => goto(isAuthorized ? appPath : loginPath, { replaceState: true }));
 </script>
