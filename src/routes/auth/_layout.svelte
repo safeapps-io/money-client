@@ -20,7 +20,7 @@
   onMount(() => {
     const token = $tokenStore;
 
-    if (token && token.accessToken) goto(appPath);
+    if (token && token.accessToken) goto(appPath, { replaceState: true });
     else show = true;
   });
 

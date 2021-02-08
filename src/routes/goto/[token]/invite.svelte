@@ -13,6 +13,8 @@
       userIsSet = !!($tokenStore && $userEncrStore),
       invitePart = `?invite=${invite}`;
 
-    goto(userIsSet ? `${appPath}${invitePart}` : `${signupPath}${invitePart}`);
+    goto(userIsSet ? `${appPath}${invitePart}` : `${signupPath}${invitePart}`, {
+      replaceState: true,
+    });
   });
 </script>

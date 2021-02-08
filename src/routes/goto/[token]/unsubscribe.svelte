@@ -5,5 +5,5 @@
   import { unsubscribePath } from '@/core/routes';
 
   const { page } = stores();
-  onMount(() => goto(unsubscribePath($page.params.token)));
+  onMount(() => goto(unsubscribePath($page.params.token), { replaceState: true }));
 </script>

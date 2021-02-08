@@ -25,7 +25,7 @@
 
   // Redirecting if user or token store are not present
   $: userIsSet = !!($tokenStore && $userEncrStore);
-  $: if (!userIsSet) goto(loginPath);
+  $: if (!userIsSet) goto(loginPath, { replaceState: true });
 
   $: user = $userEncrStore!;
   $initApplicationLogic;

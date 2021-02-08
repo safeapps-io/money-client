@@ -5,5 +5,5 @@
   import { resetPasswordTokenPath } from '@/core/routes';
 
   const { page } = stores();
-  onMount(() => goto(resetPasswordTokenPath($page.params.token)));
+  onMount(() => goto(resetPasswordTokenPath($page.params.token), { replaceState: true }));
 </script>
