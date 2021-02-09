@@ -119,6 +119,6 @@ public/bundle.*
 
 
 # dotenv environment variables file
-.env.*
+.env.development
 
 # .vscode/
