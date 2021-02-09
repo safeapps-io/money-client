@@ -228,7 +228,7 @@
     border-radius: 20%;
 
     box-shadow: 0 0 3.5em 1.1em var(--shadow);
-    mix-blend-mode: exclusion;
+    mix-blend-mode: hard-light;
     transform-origin: center;
 
     @keyframes square-anim {
