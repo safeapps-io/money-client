@@ -204,30 +204,6 @@
     }
   }
 
-  @keyframes circle-anim {
-    0% {
-      transform: translateX(-80px) translateY(-50px) rotate(20deg);
-    }
-    50% {
-      transform: translateX(-120px) translateY(-40px) rotate(20deg);
-    }
-    100% {
-      transform: translateX(-80px) translateY(-50px) rotate(20deg);
-    }
-  }
-
-  @keyframes square-anim {
-    0% {
-      transform: translateX(120px) translateY(40px) rotate(45deg);
-    }
-    50% {
-      transform: translateX(80px) translateY(60px) rotate(95deg);
-    }
-    100% {
-      transform: translateX(120px) translateY(40px) rotate(45deg);
-    }
-  }
-
   .circle,
   .square {
     background: linear-gradient(217deg, var(--bg1), rgba(255, 0, 0, 0) 70.71%),
@@ -237,11 +213,15 @@
 
   .circle {
     border-radius: 45%;
-
     box-shadow: 0 0 4em 2em var(--shadow);
-    // transform: translateX(-80px) translateY(-50px) rotate(20deg);
 
-    animation: circle-anim 4s ease-in-out infinite;
+    @keyframes circle-anim {
+      40% {
+        transform: translateX(-120px) translateY(-40px) rotate(20deg);
+      }
+    }
+    transform: translateX(-80px) translateY(-50px) rotate(20deg);
+    animation: circle-anim 4s ease-in-out;
   }
 
   .square {
@@ -250,8 +230,13 @@
     box-shadow: 0 0 3.5em 1.1em var(--shadow);
     mix-blend-mode: exclusion;
     transform-origin: center;
-    // transform: translateX(120px) translateY(40px) rotate(45deg);
 
-    animation: square-anim 5s ease-in-out infinite;
+    @keyframes square-anim {
+      60% {
+        transform: translateX(80px) translateY(60px) rotate(95deg);
+      }
+    }
+    transform: translateX(120px) translateY(40px) rotate(45deg);
+    animation: square-anim 4s ease-in-out;
   }
 </style>
