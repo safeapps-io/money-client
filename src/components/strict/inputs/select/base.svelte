@@ -97,7 +97,7 @@
     disabled={field.disabled || $formStore.formDisabled}
     id={field.id}
     bind:value={selectValue}
-    on:blur={blur}
+    on:blur={change}
     on:change={change}>
     <ChoiceCmp choices={baseChoices} />
   </select>
