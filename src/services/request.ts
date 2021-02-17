@@ -50,7 +50,7 @@ export const request = async <Res = {}>({
         throw new AuthError();
 
       case 400:
-        throw new FormError(json as any);
+        throw new FormError(json as any, true);
 
       default:
         throw new HTTPError(JSON.stringify(json), res.status);
