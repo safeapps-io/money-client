@@ -40,9 +40,17 @@
     show = false;
   };
 
-  let innerWidth: number | undefined,
+  $: if (slotEl) {
+    for (const el of Array.from(slotEl.children)) {
+      if (show) el.classList.add('slot-above');
+      else el.classList.remove('slot-above');
+    }
+  }
+
+  let slotHeight: number | undefined,
+    innerWidth: number | undefined,
     innerHeight: number | undefined,
-    originalSlotEl: HTMLDivElement | undefined,
+    slotEl: HTMLDivElement | undefined,
     textSlotEl: HTMLDivElement | undefined;
 
   const getPositionalVars = (top: number, left: number, width?: number, height?: number) => ({
@@ -60,20 +68,20 @@
     circleSize = randBetween(150, 250),
     squareSize = randBetween(300, 400);
 
-  let slotCopyVars = {},
+  let slotVars = {},
     squareVars = {},
     circleVars = {},
     textVars = {};
 
   $: originalSlotRect =
-    show && originalSlotEl && innerHeight && innerWidth
-      ? (originalSlotEl.firstChild as HTMLElement)?.getBoundingClientRect()
+    show && slotEl && slotHeight && innerHeight && innerWidth
+      ? (slotEl.firstChild as HTMLElement)?.getBoundingClientRect()
       : null;
 
   // Setting slot copy variables
   $: if (originalSlotRect) {
     const { x, y, width, height } = originalSlotRect;
-    slotCopyVars = getPositionalVars(scrollY + y, scrollX + x, width, height);
+    slotVars = getPositionalVars(scrollY + y, scrollX + x, width, height);
   }
 
   // Setting figures variables
@@ -129,10 +137,6 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-<div class="slot-original" bind:this={originalSlotEl}>
-  <slot />
-</div>
-
 {#if show}
   <div class="overlay" transition:fade|local use:restrictBodyScroll />
   <div class="figures" class:centered={noSlot} transition:scale|local={{ delay: 300 }}>
@@ -150,17 +154,28 @@
     out:fade|local>
     <slot name="text" />
   </div>
-  <div class="slot-copy" use:cssVars={slotCopyVars}>
-    <slot {finishOnboarding} />
-  </div>
   {#if preventSlotClick}
-    <div class="slot-copy" use:cssVars={slotCopyVars} />
+    <div class="prevent-click-overlay" use:cssVars={slotVars} />
   {/if}
 {/if}
 
+<div class="slot" bind:this={slotEl} bind:clientHeight={slotHeight}>
+  <slot {finishOnboarding} />
+</div>
+
 <style lang="scss">
-  .slot-original {
-    display: contents;
+  .slot {
+    :global {
+      .help,
+      .label {
+        text-shadow: 0 0 3px white;
+      }
+
+      .slot-above {
+        position: relative;
+        @include z('onboarding-slot');
+      }
+    }
   }
 
   .overlay,
@@ -184,7 +199,7 @@
     }
   }
 
-  .slot-copy,
+  .prevent-click-overlay,
   .text,
   .square,
   .circle {
@@ -197,11 +212,8 @@
     @include z(onboarding);
   }
 
-  .slot-copy :global {
-    .help,
-    .label {
-      text-shadow: 0 0 3px white;
-    }
+  .prevent-click-overlay {
+    @include z('onboarding-slot-overlay');
   }
 
   .circle,
