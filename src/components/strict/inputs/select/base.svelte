@@ -73,6 +73,11 @@
 
     prevChangeToken = changeToken;
   }
+
+  export const changeValue = (newVal: string) => {
+    selectValue = newVal;
+    change();
+  };
 </script>
 
 <div
