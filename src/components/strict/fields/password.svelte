@@ -8,7 +8,7 @@
     help: string | undefined = undefined,
     label: string | undefined = undefined;
 
-  const field = {
+  $: field = {
     label,
     name,
     required: true,
