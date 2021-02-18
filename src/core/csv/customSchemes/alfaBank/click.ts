@@ -1,6 +1,5 @@
-import { parse } from 'date-fns';
 import { SimpleNumberParser } from '@/utils/number';
-import { getSourceHash } from '@/core/csv/common';
+import { getSourceHash, parseDateDeterministically } from '@/core/csv/common';
 import { CustomScheme, CustomSchemeHandler } from '@/core/csv/types';
 import { transformCurrencyCode } from './transformCurrencyCode';
 
@@ -24,8 +23,7 @@ const enum TableColumns {
 const handler: CustomSchemeHandler = async (rows, currentWalletCurrency) => {
   if (!rows.length) return;
 
-  const parser = new SimpleNumberParser(','),
-    date = new Date();
+  const parser = new SimpleNumberParser(',');
 
   const sidenodeDelimiter = /\s{2,}(?!\\)/,
     subSidenoteDelimiter = '\\',
@@ -77,7 +75,10 @@ const handler: CustomSchemeHandler = async (rows, currentWalletCurrency) => {
 
       return {
         accountNumber: splittedCleaned[0],
-        datetime: parse(splittedCleaned[2].split(' ').pop()!, formatString, date).getTime(),
+        datetime: parseDateDeterministically(
+          splittedCleaned[2].split(' ').pop()!,
+          formatString,
+        ).getTime(),
         // Always seems to be a valid integer without any delimiters besides `.`
         merchant: splittedCleaned[1].split(subSidenoteDelimiter).pop(),
         originalAmount: +splittedCleaned[3] * multiplier,
@@ -99,7 +100,9 @@ const handler: CustomSchemeHandler = async (rows, currentWalletCurrency) => {
             row[TableColumns.sidenote],
             multiplier,
           ),
-          datetime = _datetime || parse(row[TableColumns.datetime], formatString, date).getTime();
+          datetime =
+            _datetime ||
+            parseDateDeterministically(row[TableColumns.datetime], formatString).getTime();
 
         return {
           amount,

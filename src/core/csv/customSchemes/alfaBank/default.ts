@@ -1,8 +1,8 @@
-import { parse } from 'date-fns';
 import { SimpleNumberParser } from '@/utils/number';
 import {
   getApplicableSymbolsByCurrency,
   getSourceHash,
+  parseDateDeterministically,
   processCurrencySymbol,
 } from '@/core/csv/common';
 import { CustomScheme, CustomSchemeHandler } from '@/core/csv/types';
@@ -31,7 +31,6 @@ const handler: CustomSchemeHandler = async (rows, currentWalletCurrency) => {
 
   // Has the same delimiter everywhere
   const parser = new SimpleNumberParser('.'),
-    date = new Date(),
     applicableSymbols = getApplicableSymbolsByCurrency(currentWalletCurrency);
 
   const sidenodeDelimiter = '\\',
@@ -98,7 +97,7 @@ const handler: CustomSchemeHandler = async (rows, currentWalletCurrency) => {
         // expenses has minus sign, incomes do not
         const amount = parser.parse(row[TableColumns.expense] ?? row[TableColumns.income]),
           multiplier = amount < 0 ? -1 : 1,
-          datetime = parse(row[TableColumns.date], formatString, date).getTime(),
+          datetime = parseDateDeterministically(row[TableColumns.date], formatString).getTime(),
           { merchant, ...rest } = parseSidenote(row[TableColumns.sidenote], multiplier);
 
         return {

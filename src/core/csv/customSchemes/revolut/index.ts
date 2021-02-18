@@ -1,10 +1,10 @@
-import { parse } from 'date-fns';
 import { SimpleNumberParser } from '@/utils/number';
 
 import {
   getSourceHash,
   guessDateLocaleForFormat,
   guessDecimalDelimiterByNumberArray,
+  parseDateDeterministically,
 } from '@/core/csv/common';
 import { CustomScheme, CustomSchemeHandler } from '@/core/csv/types';
 
@@ -39,8 +39,7 @@ const enum TableColumns {
  * 29 окт. 2020 г.;Goopti B V;132,00 ;;;;3 724,59 ; ;Транспорт
  */
 const handler: CustomSchemeHandler = async rows => {
-  const firstDate = rows[0][TableColumns.date],
-    date = new Date(0);
+  const firstDate = rows[0][TableColumns.date];
 
   let dateLocale: Locale | null = null,
     correctDateFormat: string | null = null;
@@ -77,7 +76,9 @@ const handler: CustomSchemeHandler = async rows => {
       }
 
       const amount = numberParser.parse(row[cellIndex]) * multiplier,
-        datetime = parse(row[0], correctDateFormat!, date, { locale: dateLocale! }).getTime();
+        datetime = parseDateDeterministically(row[0], correctDateFormat!, {
+          locale: dateLocale!,
+        }).getTime();
 
       return {
         amount,
