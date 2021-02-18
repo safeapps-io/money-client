@@ -1,5 +1,5 @@
 <script>
-  import type { Choices, FormStore } from '@/components/strict/base';
+  import type { Choices } from '@/components/strict/base';
   import type { Transaction, FullEntity, Category, OmitCommonFields } from '@/stores/decr/types';
 
   import Modal from '@/components/elements/modal.svelte';
@@ -7,7 +7,6 @@
   import { Field, SelectInput } from '@/components/strict';
 
   import { _ } from 'svelte-i18n';
-  import { tick, getContext } from 'svelte';
 
   import { focusableShortcut } from '@/utils/actions/shortcut';
 
@@ -15,15 +14,16 @@
     categoryChoices: Choices = [] as Choices,
     isIncomeCategory: boolean = false as boolean;
 
-  const formStore = getContext('form') as FormStore,
-    fieldname = 'categoryId',
-    success = (e: CustomEvent<FullEntity<Category>>) => {
+  let changeValue: (val: string) => void;
+
+  const fieldname = 'categoryId',
+    success = ({ detail: newCategory }: CustomEvent<FullEntity<Category>>) => {
       active = false;
       /**
        * For some reason animation is very laggy if we try to change the value too soon.
        * tick() won't help in this case, but timeout works just fine.
        */
-      tick().then(() => ($formStore.fields[fieldname].inputValue = e.detail.id));
+      setTimeout(() => changeValue(newCategory.id), 100);
     };
 
   let active = false;
@@ -39,7 +39,7 @@
   <CategoryForm {isIncomeCategory} on:success={success} />
 </Modal>
 <Field {field}>
-  <SelectInput />
+  <SelectInput bind:changeValue />
   <p class="help" slot="help">
     <span
       class="has-text-dotted has-text-link clickable"

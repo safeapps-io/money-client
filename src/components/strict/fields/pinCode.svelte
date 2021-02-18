@@ -26,5 +26,13 @@
 </script>
 
 <Field {field}>
-  <TextInput {autofocus} type="number" inputmode="decimal" placeholder={getPlaceholder()} />
+  <div class="field">
+    <TextInput {autofocus} type="number" inputmode="decimal" placeholder={getPlaceholder()} />
+  </div>
 </Field>
+
+<style>
+  .field :global(input) {
+    -webkit-text-security: disc;
+  }
+</style>

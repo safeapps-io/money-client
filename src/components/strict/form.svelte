@@ -84,7 +84,7 @@
             Object.entries(e.errors.fieldErrors).forEach(
               ([fieldname, fieldErrors]) =>
                 ($formStore.fields[fieldname].errors = fieldErrors.map(code =>
-                  $_(`common.errors.cmp.${code}`),
+                  e.remote ? $_(`common.errors.cmp.${code}`) : code,
                 )),
             );
           else

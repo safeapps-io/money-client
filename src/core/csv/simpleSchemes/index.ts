@@ -1,4 +1,4 @@
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 
 import { SimpleNumberParser } from '@/utils/number';
 import { getObjectHash } from '@/utils/getObjectHash';
@@ -10,7 +10,7 @@ import {
   SchemeRunner,
   SimpleScheme,
 } from '../types';
-import { getCurrencyFromSymbol } from '../common';
+import { getCurrencyFromSymbol, parseDateDeterministically } from '../common';
 
 const currencyExample = 'EUR',
   /**
@@ -35,7 +35,7 @@ const currencyExample = 'EUR',
 type SimpleSchemeMinRequiredFields = Pick<
   SimpleScheme,
   'fieldnameMap' | 'transformDateFormat' | 'decimalDelimiterChar'
->;
+> & { id?: string };
 
 export const runSimpleScheme: SchemeRunner<SimpleSchemeMinRequiredFields> = async ({
   data,
@@ -58,6 +58,11 @@ export const runSimpleScheme: SchemeRunner<SimpleSchemeMinRequiredFields> = asyn
       (result, field, columnIndex) => {
         // We treat `fieldname: null` as a directive to skip the column.
         if (!result || !field) return result;
+
+        result.imported = {
+          scheme: scheme?.id,
+          rowData: row,
+        };
 
         const cell = row[columnIndex],
           addError = (code: ParseErrorCodes, example: string) => {
@@ -88,7 +93,10 @@ export const runSimpleScheme: SchemeRunner<SimpleSchemeMinRequiredFields> = asyn
 
           case 'datetime': {
             try {
-              const parsedDate = parse(cell, scheme.transformDateFormat, new Date()).getTime();
+              const parsedDate = parseDateDeterministically(
+                cell,
+                scheme.transformDateFormat,
+              ).getTime();
               if (Number.isNaN(parsedDate)) throw new Error();
               result[field as 'datetime'] = parsedDate;
             } catch (error) {

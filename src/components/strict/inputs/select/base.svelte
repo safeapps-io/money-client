@@ -23,7 +23,16 @@
   let initialUndefinedValueSet = false;
 
   const setInputValue = (val: string | null) => ($formStore.fields[fieldname].inputValue = val);
-  $: if (!initialUndefinedValueSet && !field.inputValue && baseChoices.length) {
+  /**
+   * We treat `null` as a valid value for `field.inputValue` — it may be, for example, the lack of
+   * category (no category). So we don't want to set anything in this case here.
+   * `undefined` would be transformed to the first choice if it is present.
+   */
+  $: if (
+    !initialUndefinedValueSet &&
+    typeof field.inputValue == 'undefined' &&
+    baseChoices.length
+  ) {
     initialUndefinedValueSet = true;
     const initialValue = getValueFromChoisesRecursively(baseChoices[0]);
 
@@ -73,6 +82,11 @@
 
     prevChangeToken = changeToken;
   }
+
+  export const changeValue = (newVal: string) => {
+    selectValue = newVal;
+    change();
+  };
 </script>
 
 <div
@@ -83,7 +97,7 @@
     disabled={field.disabled || $formStore.formDisabled}
     id={field.id}
     bind:value={selectValue}
-    on:blur={blur}
+    on:blur={change}
     on:change={change}>
     <ChoiceCmp choices={baseChoices} />
   </select>

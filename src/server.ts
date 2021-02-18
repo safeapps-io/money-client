@@ -11,6 +11,6 @@ const { PORT } = process.env;
 i18nInit();
 
 express()
-  .use(express.static('static'))
+  .use(express.static('static', { dotfiles: 'ignore' }))
   .use(sapper.middleware() as any)
   .listen(PORT);

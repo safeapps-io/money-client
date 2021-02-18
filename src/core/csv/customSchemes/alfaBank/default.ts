@@ -1,8 +1,7 @@
-import { parse } from 'date-fns';
 import { SimpleNumberParser } from '@/utils/number';
 import {
   getApplicableSymbolsByCurrency,
-  getSourceHash,
+  parseDateDeterministically,
   processCurrencySymbol,
 } from '@/core/csv/common';
 import { CustomScheme, CustomSchemeHandler } from '@/core/csv/types';
@@ -26,12 +25,9 @@ const enum TableColumns {
  * Дата;Номер_счета;Референс;Примечание;Приход;Расход;Валюта
  * 16.08.2020;40817978007740004324;32Y2CY;"TU002820\SVN\LJUBLJANA\VIL\BIOLAB D O O 613.34 EUR";;-613.34;€
  */
-const handler: CustomSchemeHandler = async (rows, currentWalletCurrency) => {
-  if (!rows.length) return;
-
+const handler: CustomSchemeHandler = (rows, currentWalletCurrency) => {
   // Has the same delimiter everywhere
   const parser = new SimpleNumberParser('.'),
-    date = new Date(),
     applicableSymbols = getApplicableSymbolsByCurrency(currentWalletCurrency);
 
   const sidenodeDelimiter = '\\',
@@ -78,7 +74,7 @@ const handler: CustomSchemeHandler = async (rows, currentWalletCurrency) => {
       };
     };
 
-  return Promise.all(
+  return (
     rows
       /**
        * Ignoring transactions with HOLD status. Two reasons:
@@ -93,12 +89,12 @@ const handler: CustomSchemeHandler = async (rows, currentWalletCurrency) => {
           row[TableColumns.accountNumber] &&
           applicableSymbols.includes(processCurrencySymbol(row[TableColumns.currency])),
       )
-      .map(async row => {
+      .map(row => {
         // `.` is the delimiter
         // expenses has minus sign, incomes do not
         const amount = parser.parse(row[TableColumns.expense] ?? row[TableColumns.income]),
           multiplier = amount < 0 ? -1 : 1,
-          datetime = parse(row[TableColumns.date], formatString, date).getTime(),
+          datetime = parseDateDeterministically(row[TableColumns.date], formatString).getTime(),
           { merchant, ...rest } = parseSidenote(row[TableColumns.sidenote], multiplier);
 
         return {
@@ -108,14 +104,16 @@ const handler: CustomSchemeHandler = async (rows, currentWalletCurrency) => {
           autocomplete: {
             accountNumber: row[TableColumns.accountNumber],
             merchant,
-            sourceDataHash: await getSourceHash(amount, datetime),
           },
+          imported: { scheme: id, rowData: row },
         };
-      }),
+      })
   );
 };
 
+const id = 'alfadefault_v1';
 export const alfaDefaultCustomScheme: CustomScheme = {
+  id,
   encoding: 'utf-8',
   header: true,
   rowCount: 7,

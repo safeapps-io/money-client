@@ -22,11 +22,12 @@
   import { ensureString, trim, minLength, maxLength } from '@/core/strict/string';
 
   export let help: string | undefined = undefined,
-    label: string | undefined = undefined;
+    label: string | undefined = undefined,
+    isSecond: boolean = false;
 
   const field = {
     label,
-    name: 'password',
+    name: `password${isSecond ? '2' : ''}`,
     required: true,
     help,
     clean: [ensureString, trim],
@@ -40,10 +41,8 @@
   </Field>
 </div>
 
-<style lang="scss">
-  .field {
-    :global(input) {
-      -webkit-text-security: disc;
-    }
+<style>
+  .field :global(input) {
+    -webkit-text-security: disc;
   }
 </style>

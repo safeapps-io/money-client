@@ -141,6 +141,11 @@ type BaseTransaction = BaseDecrEntity & {
     merchant?: string;
     sourceDataHash?: string;
   };
+
+  imported?: {
+    scheme?: string | null;
+    rowData: string[];
+  };
 };
 export type ForeignCurrencyTransactionProps =
   | { originalAmount: undefined; currency: undefined }
