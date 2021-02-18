@@ -26,6 +26,7 @@ export class FormError extends Error {
       fieldErrors?: { [fieldname: string]: string[] };
       message?: string;
     },
+    public remote = false,
   ) {
     super();
   }

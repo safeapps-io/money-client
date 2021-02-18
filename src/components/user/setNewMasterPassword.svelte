@@ -1,7 +1,8 @@
 <script>
-  import { _ } from 'svelte-i18n';
-
   import { Onboarding, Text } from '@/components/onboarding';
+
+  import { _ } from 'svelte-i18n';
+  import { slide } from 'svelte/transition';
 
   import { FormError } from '@/services/errors';
   import { Form, MasterPasswordField } from '@/components/strict';
@@ -14,7 +15,17 @@
     cleanup: boolean = false,
     notificationText: undefined | string = undefined;
 
-  const success = async ({ password }: { password: string }) => {
+  let shouldShowSecondPassword = false;
+
+  const success = async ({ password, password2 }: { password: string; password2?: string }) => {
+    if (isFirstPassword && !shouldShowSecondPassword) return (shouldShowSecondPassword = true);
+
+    if (isFirstPassword && password !== password2)
+      throw new FormError({
+        code: 0,
+        fieldErrors: { password2: [$_('cmps.masterPassword.old.pass.samePasswords')] },
+      });
+
     try {
       await setNewMasterPassword({
         masterPassword: password,
@@ -41,6 +52,11 @@
     {notificationText}
     buttonText={isFirstPassword ? $_('common.form.set') : $_('common.form.change')}>
     <MasterPasswordField {help} />
+    {#if shouldShowSecondPassword}
+      <div class="field" in:slide>
+        <MasterPasswordField isSecond label={$_('cmps.user.password.labelRepeat')} />
+      </div>
+    {/if}
   </Form>
 
   <div slot="text">

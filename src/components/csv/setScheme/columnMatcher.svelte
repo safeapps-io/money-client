@@ -15,17 +15,17 @@
     dateFormat: string,
     currentStep: SetSchemeOnboardingSteps;
 
-  $: localizedFieldChoices = fieldChoices.map(choice => ({
+  const localizedFieldChoices = fieldChoices.map(choice => ({
     value: choice.value,
     label: $_(choice.label),
   }));
 
-  $: columnMatch = state.map(({ value }) => (value == FieldResolution.ignore ? null : value));
-
-  $: state = [...Array(columnCount).keys()].map(() => ({
+  let state = [...Array(columnCount).keys()].map(() => ({
     choices: localizedFieldChoices,
     value: FieldResolution.ignore,
   }));
+
+  $: columnMatch = state.map(({ value }) => (value == FieldResolution.ignore ? null : value));
 
   const setChoiceOptionsAvailability = (stateCopy: typeof state) => {
     const fieldsTaken = stateCopy

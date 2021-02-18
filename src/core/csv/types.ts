@@ -16,6 +16,7 @@ export type ParsingResult = { dataRows: string[][]; errors: ParseError[]; header
 export type ParsedTransaction = Pick<Transaction, 'amount' | 'datetime'> &
   Partial<Pick<Transaction, 'originalAmount' | 'currency' | 'description'>> & {
     autocomplete: Partial<Transaction['autocomplete']>;
+    imported: Transaction['imported'];
   };
 export type InitialTransactionState = WithOptional<OmitCommonFields<Transaction>, 'walletUserId'>;
 
@@ -42,9 +43,10 @@ export type AutomationSettings = {
 export type CustomSchemeHandler = (
   rows: string[][],
   currentWalletCurrency: string,
-) => Promise<ParsedTransaction[] | undefined>;
+) => ParsedTransaction[] | undefined;
 
 export type CustomScheme = BaseScheme & {
+  id: string;
   rowCount: number;
   handler: CustomSchemeHandler;
 };

@@ -4,6 +4,18 @@ import * as locales from 'date-fns/locale';
 import { getObjectHash } from '@/utils/getObjectHash';
 import { currencySymbolMatch } from './constants';
 
+/**
+ * We fix the reference date. Otherwise it fills the rest of the date with changing hour/minute/second/ms,
+ * whatever the dateString lacks. It makes the result date unique almost each time you upload the CSV
+ * and make hashes useless.
+ */
+const referenceDate = new Date(0);
+export const parseDateDeterministically = (
+  dateString: string,
+  formatString: string,
+  options?: Parameters<typeof parse>[3],
+) => parse(dateString, formatString, referenceDate, options);
+
 export const guessDateLocaleForFormat = (dateString: string, formatString: string) => {
   const date = new Date();
 

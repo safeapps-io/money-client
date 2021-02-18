@@ -122,7 +122,8 @@
           "enter": "Enter master-password",
           "invalid": "Incorrect password",
           "label": "Your master-password",
-          "set": "Set master-password"
+          "set": "Set master-password",
+          "samePasswords": "Passwords should be the same"
         }
       }
     },
@@ -373,7 +374,8 @@
           "cta": "Get the link",
           "notification": "We've sent an email. Follow the instructions there.",
           "emailHelp": "If you added an email address to your account, then you'll get an email with instructions on how to restore password."
-        }
+        },
+        "labelRepeat": "Confirm password"
       },
       "username": {
         "changedNotif": "Username is successfully changed",
