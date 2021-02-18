@@ -1,7 +1,6 @@
 import { SimpleNumberParser } from '@/utils/number';
 
 import {
-  getSourceHash,
   guessDateLocaleForFormat,
   guessDecimalDelimiterByNumberArray,
   parseDateDeterministically,
@@ -38,7 +37,7 @@ const enum TableColumns {
  * Completed Date;Reference;Paid Out (EUR);Paid In (EUR);Exchange Out;Exchange In; Balance (EUR);Exchange Rate;Category
  * 29 окт. 2020 г.;Goopti B V;132,00 ;;;;3 724,59 ; ;Транспорт
  */
-const handler: CustomSchemeHandler = async rows => {
+const handler: CustomSchemeHandler = rows => {
   const firstDate = rows[0][TableColumns.date];
 
   let dateLocale: Locale | null = null,
@@ -60,41 +59,41 @@ const handler: CustomSchemeHandler = async rows => {
 
   const numberParser = new SimpleNumberParser(delimiter);
 
-  return Promise.all(
-    rows.map(async row => {
-      let cellIndex = TableColumns.income,
-        multiplier = 1;
-      if (row[TableColumns.expense]) (cellIndex = TableColumns.expense), (multiplier = -1);
+  return rows.map(row => {
+    let cellIndex = TableColumns.income,
+      multiplier = 1;
+    if (row[TableColumns.expense]) (cellIndex = TableColumns.expense), (multiplier = -1);
 
-      let currency, originalAmount;
-      const originalTransactionData =
-        row[TableColumns.originalExpense] || row[TableColumns.originalIncome];
-      if (originalTransactionData) {
-        const [curr, origAmount] = originalTransactionData.split(' ');
-        currency = curr;
-        originalAmount = numberParser.parse(origAmount) * multiplier;
-      }
+    let currency, originalAmount;
+    const originalTransactionData =
+      row[TableColumns.originalExpense] || row[TableColumns.originalIncome];
+    if (originalTransactionData) {
+      const [curr, origAmount] = originalTransactionData.split(' ');
+      currency = curr;
+      originalAmount = numberParser.parse(origAmount) * multiplier;
+    }
 
-      const amount = numberParser.parse(row[cellIndex]) * multiplier,
-        datetime = parseDateDeterministically(row[0], correctDateFormat!, {
-          locale: dateLocale!,
-        }).getTime();
+    const amount = numberParser.parse(row[cellIndex]) * multiplier,
+      datetime = parseDateDeterministically(row[0], correctDateFormat!, {
+        locale: dateLocale!,
+      }).getTime();
 
-      return {
-        amount,
-        datetime,
-        originalAmount,
-        currency,
-        autocomplete: {
-          merchant: row[1],
-          sourceDataHash: await getSourceHash(amount, datetime),
-        },
-      };
-    }),
-  );
+    return {
+      amount,
+      datetime,
+      originalAmount,
+      currency,
+      autocomplete: {
+        merchant: row[1],
+      },
+      imported: { scheme: id, rowData: row },
+    };
+  });
 };
 
+const id = 'revolut_v1';
 export const revolutCustomScheme: CustomScheme = {
+  id,
   encoding: 'utf-8',
   header: true,
   rowCount: 9,

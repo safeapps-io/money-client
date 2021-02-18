@@ -1,5 +1,5 @@
 import { SimpleNumberParser } from '@/utils/number';
-import { getSourceHash, parseDateDeterministically } from '@/core/csv/common';
+import { parseDateDeterministically } from '@/core/csv/common';
 import { CustomScheme, CustomSchemeHandler } from '@/core/csv/types';
 import { transformCurrencyCode } from './transformCurrencyCode';
 
@@ -16,13 +16,11 @@ const enum TableColumns {
 /**
  * Example in Russian:
  *
- * ТИП СЧЁТА;НОМЕР СЧЕТА;ВАЛЮТА;ДАТА ОПЕРАЦИИ;РЕФЕРЕНС ПРОВОДКИ;ОПИСАНИЕ ОПЕРАЦИИ;ПРИХОД;РАСХОД
+ * ТИП СЧЁТА;НОМЕР СЧЕТА;ВАЛЮТА;ДАТА ОПЕРАЦИИ;РЕФЕРЕНС ПРОВОДКИ;ОПИСАНИЕ ОПЕРАЦИИ;ПРИХОД;РАСХОД;
  * Кредитная карта Black;40817810104730088463;RUR;29.11.20;SGRP#18091912723;Козлов Иван Викторович Предоставление транша Дог. F0SGRP20S18091912723 от 210918;136336,41;0;—;
  * Кредитная карта Black;40817810104730088463;RUR;29.11.20;CRD_9X556R;555928++++++5971 99000061\RUS\SANKT PETERBU\PETROELEKTROS 29.11.20 27.11.20 2865.42 RUR MCC4900;0;2865,42;—;
  */
-const handler: CustomSchemeHandler = async (rows, currentWalletCurrency) => {
-  if (!rows.length) return;
-
+const handler: CustomSchemeHandler = (rows, currentWalletCurrency) => {
   const parser = new SimpleNumberParser(',');
 
   const sidenodeDelimiter = /\s{2,}(?!\\)/,
@@ -87,39 +85,42 @@ const handler: CustomSchemeHandler = async (rows, currentWalletCurrency) => {
       };
     };
 
-  return Promise.all(
-    rows
-      .filter(row => transformCurrencyCode(row[TableColumns.currency]) == currentWalletCurrency)
-      .map(async row => {
-        const isIncome = !!parser.parse(row[TableColumns.income]),
-          multiplier = isIncome ? 1 : -1,
-          amount =
-            parser.parse(isIncome ? row[TableColumns.income] : row[TableColumns.expense]) *
-            multiplier,
-          { merchant, mcc, accountNumber, datetime: _datetime, ...rest } = parseSidenote(
-            row[TableColumns.sidenote],
-            multiplier,
-          ),
-          datetime =
-            _datetime ||
-            parseDateDeterministically(row[TableColumns.datetime], formatString).getTime();
+  return rows
+    .filter(row => transformCurrencyCode(row[TableColumns.currency]) == currentWalletCurrency)
+    .map(row => {
+      const isIncome = !!parser.parse(row[TableColumns.income]),
+        multiplier = isIncome ? 1 : -1,
+        amount =
+          parser.parse(isIncome ? row[TableColumns.income] : row[TableColumns.expense]) *
+          multiplier,
+        { merchant, mcc, accountNumber, datetime: _datetime, ...rest } = parseSidenote(
+          row[TableColumns.sidenote],
+          multiplier,
+        ),
+        datetime =
+          _datetime ||
+          parseDateDeterministically(row[TableColumns.datetime], formatString).getTime();
 
-        return {
-          amount,
-          datetime,
-          ...rest,
-          autocomplete: {
-            merchant,
-            mcc,
-            accountNumber,
-            sourceDataHash: await getSourceHash(amount, datetime),
-          },
-        };
-      }),
-  );
+      return {
+        amount,
+        datetime,
+        ...rest,
+        autocomplete: {
+          merchant,
+          mcc,
+          accountNumber,
+        },
+        imported: {
+          scheme: id,
+          rowData: row,
+        },
+      };
+    });
 };
 
+const id = 'alfaclick_v1';
 export const alfaClickCustomScheme: CustomScheme = {
+  id,
   encoding: 'windows-1251',
   header: true,
   rowCount: 9,
