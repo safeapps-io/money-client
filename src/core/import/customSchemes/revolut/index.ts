@@ -4,8 +4,8 @@ import {
   guessDateLocaleForFormat,
   guessDecimalDelimiterByNumberArray,
   parseDateDeterministically,
-} from '@/core/csv/common';
-import { CustomScheme } from '@/core/csv/types';
+} from '@/core/import/common';
+import { CustomScheme } from '@/core/import/types';
 
 /**
  * Dates are formatted based on language and region setting on the device.

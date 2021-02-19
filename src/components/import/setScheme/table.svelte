@@ -4,10 +4,10 @@
   import { _ } from 'svelte-i18n';
   import { copy } from '@/utils/object';
 
-  import { runSimpleScheme } from '@/core/csv/simpleSchemes';
-  import { ParseErrorCodes } from '@/core/csv/types';
-  import { FieldResolution } from '@/core/csv/constants';
-  import { guessDateFormat } from '@/core/csv/guessDateFormat';
+  import { runSimpleScheme } from '@/core/import/simpleSchemes';
+  import { ParseErrorCodes } from '@/core/import/types';
+  import { FieldResolution } from '@/core/import/constants';
+  import { guessDateFormat } from '@/core/import/guessDateFormat';
   import { ignoredTransactionHashSetStore } from '@/stores/decr/ignoredTransaction';
 
   export let dataRows: string[][],

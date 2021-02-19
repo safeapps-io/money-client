@@ -3,8 +3,8 @@ import {
   getApplicableSymbolsByCurrency,
   parseDateDeterministically,
   processCurrencySymbol,
-} from '@/core/csv/common';
-import { CustomScheme } from '@/core/csv/types';
+} from '@/core/import/common';
+import { CustomScheme } from '@/core/import/types';
 import { transformCurrencyCode } from './transformCurrencyCode';
 
 const formatString = 'dd.MM.yyyy';

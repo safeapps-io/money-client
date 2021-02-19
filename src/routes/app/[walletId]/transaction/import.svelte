@@ -1,6 +1,6 @@
 <script>
   import Page from '@/components/nav/page.svelte';
-  import MainCsv from '@/components/csv/main.svelte';
+  import MainCsv from '@/components/import/main.svelte';
 
   import { _ } from 'svelte-i18n';
   import { media } from 'svelte-match-media';

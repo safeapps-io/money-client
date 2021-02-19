@@ -1,5 +1,5 @@
 <script>
-  import type { AutomationSettings } from '@/core/csv/types';
+  import type { AutomationSettings } from '@/core/import/types';
   import type { FormStore } from '@/components/strict/base';
 
   import { Form, Field, FieldContext, RangeInput, CheckboxInput } from '@/components/strict';

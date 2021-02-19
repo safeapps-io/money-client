@@ -6,7 +6,7 @@
   import TransactionList from '@/components/transaction/list.svelte';
   import ResolvedTransaction from './transaction.svelte';
 
-  import { CsvParsedTransactionResolution } from '@/core/csv/constants';
+  import { CsvParsedTransactionResolution } from '@/core/import/constants';
   import { defaultWalletUserIdStore } from '@/stores/decr/walletUser';
 
   const dispatch = createEventDispatcher();

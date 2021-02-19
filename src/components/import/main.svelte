@@ -1,8 +1,8 @@
 <script>
   import type { FileParsedToBinary } from './types';
   import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
-  import type { BaseSimpleScheme, CustomScheme } from '@/core/csv/types';
-  import type { ParseDataReturn } from '@/core/csv/parseData';
+  import type { BaseSimpleScheme, CustomScheme } from '@/core/import/types';
+  import type { ParseDataReturn } from '@/core/import/parseData';
 
   import FileForm from './fileForm.svelte';
   import WalletSelectFromJoint from '@/components/wallet/walletSelectFromJoint.svelte';
@@ -28,7 +28,7 @@
   import { allLocalSchemes } from '@/stores/scheme';
   import { defaultAssetStore } from '@/stores/decr/asset';
 
-  import { CsvParsedTransactionResolution } from '@/core/csv/constants';
+  import { CsvParsedTransactionResolution } from '@/core/import/constants';
   import { notification, NotificationStyles } from '@/core/notification';
 
   const dispatch = createEventDispatcher(),
@@ -75,7 +75,7 @@
     noDataParsed = false;
 
   const runSchemeAgainstData = async (scheme: BaseSimpleScheme | CustomScheme) => {
-    const module = await import('@/core/csv/parseData');
+    const module = await import('@/core/import/parseData');
 
     parsedData = await module.parseData({
       ignoredTransactionHashSet: $ignoredTransactionHashSetStore,
@@ -88,7 +88,7 @@
   };
 
   const getBinaryData = async ({ detail }: CustomEvent<FileParsedToBinary>) => {
-      const module = await import('@/core/csv/guessParsingScheme');
+      const module = await import('@/core/import/guessParsingScheme');
 
       noDataParsed = false;
       filename = detail.filename;

@@ -1,6 +1,6 @@
 import { SimpleNumberParser } from '@/utils/number';
-import { parseDateDeterministically } from '@/core/csv/common';
-import { CustomScheme } from '@/core/csv/types';
+import { parseDateDeterministically } from '@/core/import/common';
+import { CustomScheme } from '@/core/import/types';
 import { transformCurrencyCode } from './transformCurrencyCode';
 
 const formatString = 'dd.MM.yy';
