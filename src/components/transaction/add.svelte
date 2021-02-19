@@ -5,7 +5,7 @@
   import { goto } from '@sapper/app';
   import { media } from 'svelte-match-media';
 
-  import { addTransactionPath, csvParsePath } from '@/core/routes';
+  import { addTransactionPath, importPath } from '@/core/routes';
 
   export let shouldShowOnboarding = true;
 
@@ -14,7 +14,7 @@
   $: mobileMode = $media.mobile;
   $: manualAddClasses = $media.mobile ? 'py-4 px-4 mb-3' : '';
 
-  const onbClickSlot = () => goto($csvParsePath);
+  const onbClickSlot = () => goto($importPath);
 </script>
 
 <div class="has-text-centered">
@@ -28,7 +28,7 @@
       class="button is-success"
       class:is-light={mobileMode}
       class:is-fullwidth={mobileMode}
-      href={$csvParsePath}
+      href={$importPath}
       on:click={() => finishOnboarding().then(onbClickSlot)}>{$_('cmps.transaction.import')}</a>
 
     <div slot="text">
