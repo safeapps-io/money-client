@@ -43,7 +43,7 @@ export type AutomationSettings = {
 export type CustomSchemeHandler = (
   rows: string[][],
   currentWalletCurrency: string,
-) => ParsedTransaction[] | undefined;
+) => Generator<ParsedTransaction | undefined>;
 
 export type CustomScheme = BaseScheme & {
   id: string;

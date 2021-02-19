@@ -4,7 +4,7 @@ import {
   parseDateDeterministically,
   processCurrencySymbol,
 } from '@/core/csv/common';
-import { CustomScheme, CustomSchemeHandler } from '@/core/csv/types';
+import { CustomScheme } from '@/core/csv/types';
 import { transformCurrencyCode } from './transformCurrencyCode';
 
 const formatString = 'dd.MM.yyyy';
@@ -25,7 +25,7 @@ const enum TableColumns {
  * Дата;Номер_счета;Референс;Примечание;Приход;Расход;Валюта
  * 16.08.2020;40817978007740004324;32Y2CY;"TU002820\SVN\LJUBLJANA\VIL\BIOLAB D O O 613.34 EUR";;-613.34;€
  */
-const handler: CustomSchemeHandler = (rows, currentWalletCurrency) => {
+function* handler(rows: string[][], currentWalletCurrency: string) {
   // Has the same delimiter everywhere
   const parser = new SimpleNumberParser('.'),
     applicableSymbols = getApplicableSymbolsByCurrency(currentWalletCurrency);
@@ -74,42 +74,40 @@ const handler: CustomSchemeHandler = (rows, currentWalletCurrency) => {
       };
     };
 
-  return (
-    rows
-      /**
-       * Ignoring transactions with HOLD status. Two reasons:
-       * 1. not sure if it is right to import them at all, since they are not yet commited
-       * 2. they have a very different format of the 3rd cell, which makes them difficult
-       * to process.
-       *
-       * Also we only want the transactions which has the currency of current wallet.
-       */
-      .filter(
-        row =>
-          row[TableColumns.accountNumber] &&
-          applicableSymbols.includes(processCurrencySymbol(row[TableColumns.currency])),
-      )
-      .map(row => {
-        // `.` is the delimiter
-        // expenses has minus sign, incomes do not
-        const amount = parser.parse(row[TableColumns.expense] ?? row[TableColumns.income]),
-          multiplier = amount < 0 ? -1 : 1,
-          datetime = parseDateDeterministically(row[TableColumns.date], formatString).getTime(),
-          { merchant, ...rest } = parseSidenote(row[TableColumns.sidenote], multiplier);
+  for (const row of rows) {
+    /**
+     * Ignoring transactions with HOLD status. Two reasons:
+     * 1. not sure if it is right to import them at all, since they are not yet commited
+     * 2. they have a very different format of the 3rd cell, which makes them difficult
+     * to process.
+     *
+     * Also we only want the transactions which has the currency of current wallet.
+     */
+    if (
+      !row[TableColumns.accountNumber] ||
+      !applicableSymbols.includes(processCurrencySymbol(row[TableColumns.currency]))
+    )
+      continue;
 
-        return {
-          amount,
-          datetime,
-          ...rest,
-          autocomplete: {
-            accountNumber: row[TableColumns.accountNumber],
-            merchant,
-          },
-          imported: { scheme: id, rowData: row },
-        };
-      })
-  );
-};
+    // `.` is the delimiter
+    // expenses has minus sign, incomes do not
+    const amount = parser.parse(row[TableColumns.expense] ?? row[TableColumns.income]),
+      multiplier = amount < 0 ? -1 : 1,
+      datetime = parseDateDeterministically(row[TableColumns.date], formatString).getTime(),
+      { merchant, ...rest } = parseSidenote(row[TableColumns.sidenote], multiplier);
+
+    yield {
+      amount,
+      datetime,
+      ...rest,
+      autocomplete: {
+        accountNumber: row[TableColumns.accountNumber],
+        merchant,
+      },
+      imported: { scheme: id, rowData: row },
+    };
+  }
+}
 
 const id = 'alfadefault_v1';
 export const alfaDefaultCustomScheme: CustomScheme = {

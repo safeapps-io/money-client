@@ -140,11 +140,13 @@ type BaseTransaction = BaseDecrEntity & {
     accountNumber?: string;
     merchant?: string;
     sourceDataHash?: string;
+    id?: string;
   };
 
   imported?: {
     scheme?: string | null;
-    rowData: string[];
+    rowData?: string[];
+    ofxEl?: string;
   };
 };
 export type ForeignCurrencyTransactionProps =

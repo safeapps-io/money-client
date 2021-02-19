@@ -5,7 +5,7 @@ import {
   guessDecimalDelimiterByNumberArray,
   parseDateDeterministically,
 } from '@/core/csv/common';
-import { CustomScheme, CustomSchemeHandler } from '@/core/csv/types';
+import { CustomScheme } from '@/core/csv/types';
 
 /**
  * Dates are formatted based on language and region setting on the device.
@@ -37,7 +37,7 @@ const enum TableColumns {
  * Completed Date;Reference;Paid Out (EUR);Paid In (EUR);Exchange Out;Exchange In; Balance (EUR);Exchange Rate;Category
  * 29 окт. 2020 г.;Goopti B V;132,00 ;;;;3 724,59 ; ;Транспорт
  */
-const handler: CustomSchemeHandler = rows => {
+function* handler(rows: string[][]) {
   const firstDate = rows[0][TableColumns.date];
 
   let dateLocale: Locale | null = null,
@@ -59,12 +59,16 @@ const handler: CustomSchemeHandler = rows => {
 
   const numberParser = new SimpleNumberParser(delimiter);
 
-  return rows.map(row => {
+  for (const row of rows) {
     let cellIndex = TableColumns.income,
       multiplier = 1;
-    if (row[TableColumns.expense]) (cellIndex = TableColumns.expense), (multiplier = -1);
+    if (row[TableColumns.expense]) {
+      cellIndex = TableColumns.expense;
+      multiplier = -1;
+    }
 
-    let currency, originalAmount;
+    let currency: string | undefined = undefined,
+      originalAmount: number | undefined = undefined;
     const originalTransactionData =
       row[TableColumns.originalExpense] || row[TableColumns.originalIncome];
     if (originalTransactionData) {
@@ -78,7 +82,7 @@ const handler: CustomSchemeHandler = rows => {
         locale: dateLocale!,
       }).getTime();
 
-    return {
+    yield {
       amount,
       datetime,
       originalAmount,
@@ -88,8 +92,8 @@ const handler: CustomSchemeHandler = rows => {
       },
       imported: { scheme: id, rowData: row },
     };
-  });
-};
+  }
+}
 
 const id = 'revolut_v1';
 export const revolutCustomScheme: CustomScheme = {
