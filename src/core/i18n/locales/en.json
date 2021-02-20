@@ -503,7 +503,7 @@
       },
       "file": {
         "drag": "or drag it into the window",
-        "notCsv": "The chosen file is not a CSV file. Please choose another one.",
+        "notCsv": "This file type is not supported. We only support {tagO}.csv{tagC} and {tagO}.ofx{tagC} files.",
         "press": "Press to choose file",
         "noParsedData": "File has no data to parse"
       }

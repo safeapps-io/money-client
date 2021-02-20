@@ -140,11 +140,13 @@ type BaseTransaction = BaseDecrEntity & {
     accountNumber?: string;
     merchant?: string;
     sourceDataHash?: string;
+    id?: string;
   };
 
   imported?: {
     scheme?: string | null;
-    rowData: string[];
+    rowData?: string[];
+    ofxEl?: string;
   };
 };
 export type ForeignCurrencyTransactionProps =
@@ -158,7 +160,8 @@ export type Transaction = BaseTransaction & ForeignCurrencyTransactionProps;
 export type IgnoredTransaction = BaseDecrEntity & {
   type: EntityTypes.ignoredTransaction;
 
-  hash: string;
+  hash?: string;
+  id?: string;
 };
 
 export type DeletedEntity = BaseDecrEntity & {

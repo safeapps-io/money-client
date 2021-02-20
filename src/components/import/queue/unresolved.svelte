@@ -16,7 +16,7 @@
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
 
-  import { CsvParsedTransactionResolution } from '@/core/csv/constants';
+  import { CsvParsedTransactionResolution } from '@/core/import/constants';
 
   const dispatch = createEventDispatcher();
 

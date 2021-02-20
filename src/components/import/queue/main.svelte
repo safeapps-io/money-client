@@ -1,5 +1,5 @@
 <script>
-  import type { ParsedTransaction } from '@/core/csv/types';
+  import type { ParsedTransaction } from '@/core/import/types';
   import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
 
   import { Onboarding, Text } from '@/components/onboarding';
@@ -16,20 +16,20 @@
   import { createEventDispatcher, tick } from 'svelte';
   import arrowRightIcon from 'teenyicons/outline/arrow-right.svg';
 
-  import { CsvParsedTransactionResolution } from '@/core/csv/constants';
+  import { CsvParsedTransactionResolution } from '@/core/import/constants';
   import {
     autocompleteDataStore,
     mutateStateWithTransactionData,
   } from '@/stores/decr/autocomplete';
-  import { getTransposedAutocomplete } from '@/core/csv/selfUpdatingAutocomplete';
-  import { getInitialTransactionState } from '@/core/csv/getInitialTransactionState';
+  import { getTransposedAutocomplete } from '@/core/import/selfUpdatingAutocomplete';
+  import { getInitialTransactionState } from '@/core/import/getInitialTransactionState';
   import { userEncrStore } from '@/stores/user';
   import { defaultAssetStore } from '@/stores/decr/asset';
   import { currentWalletUserStore, defaultWalletUserIdStore } from '@/stores/decr/walletUser';
   import { automationSettingsStore } from '@/stores/decr/user';
   import { currentWalletTransactionStore } from '@/stores/decr/transaction';
-  import { getInitialParsingState } from '@/core/csv/getInitialParsingState';
-  import { shouldTransactionBeAutoResolved } from '@/core/csv/autoResolve';
+  import { getInitialParsingState } from '@/core/import/getInitialParsingState';
+  import { shouldTransactionBeAutoResolved } from '@/core/import/autoResolve';
   import { currentWalletCategoryStore } from '@/stores/decr/category';
   import { forumHelpPath } from '@/core/routes';
 
@@ -46,7 +46,7 @@
     [CsvParsedTransactionResolution.ignore]: OmitCommonFields<Transaction>[];
   };
 
-  export let dataSource: ParsedTransaction[] | State;
+  export let dataSource: ParsedTransaction[] | State, isSchemaProvided: boolean;
 
   let refreshingAutocompleteDataStore = $autocompleteDataStore;
   $: transposedAutocomplete = getTransposedAutocomplete(refreshingAutocompleteDataStore);
@@ -284,12 +284,14 @@
           })}
         </p>
       </div>
-      <hr class="dropdown-divider" />
-      <div class="px-4">
-        <p>{$_('cmps.csv.queue.troubleshoot.resetIfSure')}</p>
-        <button class="button is-small mt-3 is-fullwidth" on:click={() => dispatch('resetScheme')}
-          >{$_('cmps.csv.queue.troubleshoot.reset')}</button>
-      </div>
+      {#if isSchemaProvided}
+        <hr class="dropdown-divider" />
+        <div class="px-4">
+          <p>{$_('cmps.csv.queue.troubleshoot.resetIfSure')}</p>
+          <button class="button is-small mt-3 is-fullwidth" on:click={() => dispatch('resetScheme')}
+            >{$_('cmps.csv.queue.troubleshoot.reset')}</button>
+        </div>
+      {/if}
     </Troubleshoot>
   </div>
   <AutomationSettings />

@@ -1,5 +1,5 @@
 <script>
-  import type { ParsedTransaction } from '@/core/csv/types';
+  import type { ParsedTransaction } from '@/core/import/types';
   import type { Transaction } from '@/stores/decr/types';
 
   import AmountDisplay from './amountDisplay.svelte';

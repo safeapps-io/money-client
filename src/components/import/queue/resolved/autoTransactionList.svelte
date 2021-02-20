@@ -4,7 +4,7 @@
   import ResolvedTransactionList from './transactionList.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { CsvParsedTransactionResolution } from '@/core/csv/constants';
+  import { CsvParsedTransactionResolution } from '@/core/import/constants';
 
   export let transactionsWithResolution: {
     transaction: OmitCommonFields<Transaction>;

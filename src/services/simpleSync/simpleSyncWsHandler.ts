@@ -2,7 +2,7 @@ import { Writable } from 'svelte/store';
 
 import { MetaCategory, metaCategoryStore } from '@/stores/metaCategory';
 import { schemeStore } from '@/stores/scheme';
-import { SimpleScheme } from '@/core/csv/types';
+import { SimpleScheme } from '@/core/import/types';
 
 const enum BackTypes {
   provideScheme = 'scheme/provide',

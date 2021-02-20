@@ -10,13 +10,11 @@
   import { noop } from 'svelte/internal';
   import uploadIcon from 'teenyicons/outline/upload.svg';
 
-  import { debugLog } from '@/core/logger';
-
   const dispatch = createEventDispatcher();
 
   export let noDataParsed: boolean;
 
-  let notCsvError = false;
+  let notUpportedError = false;
 
   const enum State {
     def,
@@ -25,9 +23,11 @@
   }
   let state = State.def;
 
+  $: if (noDataParsed) state = State.def;
+
   const resetState = () => {
       state = State.def;
-      notCsvError = false;
+      notUpportedError = false;
     },
     parseFile = (fileList: FileList | undefined | null) => {
       if (!fileList) return resetState();
@@ -35,10 +35,8 @@
       const file = fileList[0],
         reader = new FileReader();
 
-      debugLog('[csv] uploaded file type', { type: file.type });
-
-      if (!['text/csv', 'application/vnd.ms-excel'].includes(file.type)) {
-        notCsvError = true;
+      if (!file.name.endsWith('.csv') && !file.name.endsWith('.ofx')) {
+        notUpportedError = true;
         return (state = State.def);
       }
 
@@ -93,8 +91,10 @@
 
       {#if noDataParsed}
         <p class="errors has-text-danger is-size-7" in:slide>{$_('cmps.csv.file.noParsedData')}</p>
-      {:else if notCsvError}
-        <p class="errors has-text-danger is-size-7" in:slide>{$_('cmps.csv.file.notCsv')}</p>
+      {:else if notUpportedError}
+        <p class="errors has-text-danger is-size-7" in:slide>
+          {@html $_('cmps.csv.file.notCsv', { values: { tagO: '<code>', tagC: '</code>' } })}
+        </p>
       {/if}
     </div>
   </div>

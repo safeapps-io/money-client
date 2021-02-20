@@ -77,7 +77,7 @@ export const transactionDraftsPath = derived(
     rootCurrentWalletPath,
     root => `${root}/transaction/drafts`,
   ),
-  csvParsePath = derived(rootCurrentWalletPath, root => `${root}/transaction/parse`),
+  importPath = derived(rootCurrentWalletPath, root => `${root}/transaction/import`),
   addTransactionPath = derived(rootCurrentWalletPath, root => `${root}/transaction/add`),
   transactionPathFn = derived(rootCurrentWalletPath, root => (id: string) =>
     `${root}/transaction/${id}`,

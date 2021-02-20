@@ -7,7 +7,7 @@ import { copy } from '@/utils/object';
 import { encryptionService } from '@/services/crypto/cryptoService';
 import { userEncrStore, UserEncrState } from '@/stores/user';
 import { encryptionKeysStateStore } from '@/stores/encr/keysState';
-import { AutomationSettings, BaseSimpleScheme } from '@/core/csv/types';
+import { AutomationSettings, BaseSimpleScheme } from '@/core/import/types';
 import { JointWallet } from './types';
 
 export type OnboardingSteps =
