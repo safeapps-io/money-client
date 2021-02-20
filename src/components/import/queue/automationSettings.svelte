@@ -14,7 +14,7 @@
 
   $: checkboxField = {
     name: 'disableAutomation',
-    label: $_('cmps.csv.scheme.automation.disableLabel'),
+    label: $_('cmps.import.scheme.automation.disableLabel'),
     clean: [ensureBoolean],
     inputValue: $automationSettingsStore.disableAutomation,
   };
@@ -24,8 +24,8 @@
     step = 0.2;
   $: powerField = {
     name: 'automationPower',
-    label: $_('cmps.csv.scheme.automation.power.label'),
-    help: $_('cmps.csv.scheme.automation.power.help'),
+    label: $_('cmps.import.scheme.automation.power.label'),
+    help: $_('cmps.import.scheme.automation.power.help'),
     type: 'range',
     clean: [ensureNumber],
     validators: [moreThan(min), lessThan(max)],
@@ -45,8 +45,8 @@
 </script>
 
 <SettingsDropdown bind:show>
-  <h3 class="is-size-6 mb-4">{$_('cmps.csv.scheme.automation.header')}</h3>
-  <Form {success} notificationText={$_('cmps.csv.scheme.automation.successNotif')} bind:formStore>
+  <h3 class="is-size-6 mb-4">{$_('cmps.import.scheme.automation.header')}</h3>
+  <Form {success} notificationText={$_('cmps.import.scheme.automation.successNotif')} bind:formStore>
     <div class="pb-3 is-size-7">
       <FieldContext field={checkboxField}>
         <CheckboxInput />

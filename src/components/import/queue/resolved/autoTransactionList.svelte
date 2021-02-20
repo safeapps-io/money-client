@@ -25,7 +25,7 @@
 
 {#if hasAuto}
   <label class="checkbox mb-5">
-    {$_('cmps.csv.queue.autoOnly')}
+    {$_('cmps.import.queue.autoOnly')}
     <input type="checkbox" bind:checked={showAutoOnly} />
     <span class="check" />
   </label>

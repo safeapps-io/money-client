@@ -67,28 +67,28 @@
   <div slot="text">
     <CrossfadeWrapper replayAnimationKey={currentStep}>
       {#if currentStep == 'unknown'}
-        <Text header>{$_('cmps.csv.scheme.onboarding.unknown.title')}</Text>
-        <Text>{$_('cmps.csv.scheme.onboarding.unknown.main')}</Text>
+        <Text header>{$_('cmps.import.scheme.onboarding.unknown.title')}</Text>
+        <Text>{$_('cmps.import.scheme.onboarding.unknown.main')}</Text>
         <button class="button is-small mt-3" on:click={() => (currentStep = 'isBank')}
-          >{$_('cmps.csv.scheme.onboarding.unknown.cta')}</button>
+          >{$_('cmps.import.scheme.onboarding.unknown.cta')}</button>
       {:else if currentStep == 'isBank'}
-        <Text header>{$_('cmps.csv.scheme.onboarding.isBank.title')}</Text>
-        <Text>{$_('cmps.csv.scheme.onboarding.isBank.main1')}</Text>
-        <Text>{$_('cmps.csv.scheme.onboarding.isBank.main2')}</Text>
+        <Text header>{$_('cmps.import.scheme.onboarding.isBank.title')}</Text>
+        <Text>{$_('cmps.import.scheme.onboarding.isBank.main1')}</Text>
+        <Text>{$_('cmps.import.scheme.onboarding.isBank.main2')}</Text>
         <button class="button is-small mt-3" on:click={() => (currentStep = 'notBank')}
           >{$_('common.allClear')}</button>
       {:else if currentStep == 'notBank'}
-        <Text header>{$_('cmps.csv.scheme.onboarding.notBank.title')}</Text>
+        <Text header>{$_('cmps.import.scheme.onboarding.notBank.title')}</Text>
         <Text
-          >{@html $_('cmps.csv.scheme.onboarding.notBank.main', {
+          >{@html $_('cmps.import.scheme.onboarding.notBank.main', {
             values: { tagO: '<span class="has-text-weight-bold">', tagC: '</span>' },
           })}</Text>
         <button class="button is-small mt-3" on:click={() => (currentStep = 'settings')}
-          >{$_('cmps.csv.scheme.onboarding.notBank.cta')}</button>
+          >{$_('cmps.import.scheme.onboarding.notBank.cta')}</button>
       {:else}
-        <Text>{$_('cmps.csv.scheme.onboarding.finish.main')}</Text>
+        <Text>{$_('cmps.import.scheme.onboarding.finish.main')}</Text>
         <button class="button is-small mt-3" on:click={finishOnboarding}
-          >{$_('cmps.csv.scheme.onboarding.finish.cta')}</button>
+          >{$_('cmps.import.scheme.onboarding.finish.cta')}</button>
       {/if}
     </CrossfadeWrapper>
   </div>
@@ -98,13 +98,13 @@
   class="settings-area mb-4"
   use:longpress={{ cb: () => console.log(JSON.stringify(getScheme())) }}>
   <div class="mr-2 is-size-7">
-    <Troubleshoot right text={$_('cmps.csv.scheme.bankStatement.button')}>
+    <Troubleshoot right text={$_('cmps.import.scheme.bankStatement.button')}>
       <div class="px-4">
         <p class="mb-3">
-          {$_('cmps.csv.scheme.bankStatement.main')}
+          {$_('cmps.import.scheme.bankStatement.main')}
         </p>
         <p>
-          {@html $_('cmps.csv.scheme.bankStatement.link', {
+          {@html $_('cmps.import.scheme.bankStatement.link', {
             values: {
               linkO: `<a href="${forumBankHelpPath}">`,
               linkC: '</a>',
@@ -120,8 +120,8 @@
   <Onboarding right bottom preventSlotClick shouldShow={currentStep == 'settings'}>
     <SchemaSettings bind:encoding bind:header bind:decimal />
     <div slot="text">
-      <Text header>{$_('cmps.csv.scheme.onboarding.settings.title')}</Text>
-      <Text>{$_('cmps.csv.scheme.onboarding.settings.main')}</Text>
+      <Text header>{$_('cmps.import.scheme.onboarding.settings.title')}</Text>
+      <Text>{$_('cmps.import.scheme.onboarding.settings.main')}</Text>
       <button class="button is-small mt-3" on:click={() => (currentStep = 'main')}
         >{$_('common.allClear')}</button>
     </div>

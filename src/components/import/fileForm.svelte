@@ -82,18 +82,22 @@
         <Loader />
       {:else}
         <img src={uploadIcon} alt="loader icon" height="25" width="25" />
-        <div class="is-size-5">{$_('cmps.csv.file.press')}</div>
+        <div class="is-size-5">{$_('cmps.import.file.press')}</div>
 
         {#if !$media.mobile}
-          <div>{$_('cmps.csv.file.drag')}</div>
+          <div>{$_('cmps.import.file.drag')}</div>
         {/if}
       {/if}
 
       {#if noDataParsed}
-        <p class="errors has-text-danger is-size-7" in:slide>{$_('cmps.csv.file.noParsedData')}</p>
+        <p class="errors has-text-danger is-size-7" in:slide>
+          {$_('cmps.import.file.noParsedData')}
+        </p>
       {:else if notUpportedError}
         <p class="errors has-text-danger is-size-7" in:slide>
-          {@html $_('cmps.csv.file.notCsv', { values: { tagO: '<code>', tagC: '</code>' } })}
+          {@html $_('cmps.import.file.unsupported', {
+            values: { tagO: '<code>', tagC: '</code>' },
+          })}
         </p>
       {/if}
     </div>

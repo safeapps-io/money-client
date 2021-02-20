@@ -120,7 +120,7 @@ export enum FieldResolution {
   accountNumber = 'accountNumber',
 }
 export const fieldChoices = [
-  { value: FieldResolution.ignore, label: 'cmps.csv.scheme.ignore' },
+  { value: FieldResolution.ignore, label: 'cmps.import.scheme.ignore' },
   { value: FieldResolution.amount, label: 'cmps.transaction.common.amount' },
   { value: FieldResolution.datetime, label: 'cmps.transaction.common.date' },
   { value: FieldResolution.originalAmount, label: 'cmps.transaction.form.originalAmount' },

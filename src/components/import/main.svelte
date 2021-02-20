@@ -103,7 +103,7 @@
         if ($hasUserSeenOnboarding('setScheme'))
           addNotification(
             notification({
-              text: $_('cmps.csv.scheme.onboarding.unknown.title'),
+              text: $_('cmps.import.scheme.onboarding.unknown.title'),
               type: NotificationStyles.danger,
             }),
           );
@@ -172,7 +172,7 @@
     {#if state == State.hasCache}
       <div class="prev-cache">
         <p class="mb-4">
-          {@html $_('cmps.csv.cache.prevFile', {
+          {@html $_('cmps.import.cache.prevFile', {
             values: {
               filename: $cachedStateStore?.filename,
               date: new Date($cachedStateStore?.timestamp || 0),
@@ -181,13 +181,13 @@
             },
           })}
         </p>
-        <p class="mb-5">{$_('cmps.csv.cache.decision')}</p>
+        <p class="mb-5">{$_('cmps.import.cache.decision')}</p>
 
         <div>
           <button class="button" on:click={useCache}>{$_('common.form.continue')}</button>
 
           <button class="button is-danger is-outlined" on:click={useFileUpload}
-            >{$_('cmps.csv.cache.drop')}</button>
+            >{$_('cmps.import.cache.drop')}</button>
         </div>
       </div>
     {:else if state == State.fileUpload}
