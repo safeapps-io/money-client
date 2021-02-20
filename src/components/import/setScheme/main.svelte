@@ -1,6 +1,6 @@
 <script>
-  import type { ParsingResult } from '@/core/csv/types';
-  import type { AllowedSchemeFields, BaseSimpleScheme } from '@/core/csv/types';
+  import type { ParsingResult } from '@/core/import/types';
+  import type { AllowedSchemeFields, BaseSimpleScheme } from '@/core/import/types';
   import type { SetSchemeOnboardingSteps } from '../types';
 
   import { Onboarding, Text } from '@/components/onboarding';
@@ -17,7 +17,7 @@
   import { longpress } from '@/utils/actions/longpress';
   import { bufferToString } from '@/utils/buffer/conversions';
 
-  import { parseCsv } from '@/core/csv/parseCsv';
+  import { parseCsv } from '@/core/import/parseCsv';
   import { forumBankHelpPath } from '@/core/routes';
 
   const dispatch = createEventDispatcher();

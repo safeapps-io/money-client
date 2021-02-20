@@ -8,7 +8,7 @@
 
   import { shortcut } from '@/utils/actions/shortcut';
 
-  import { CsvParsedTransactionResolution } from '@/core/csv/constants';
+  import { CsvParsedTransactionResolution } from '@/core/import/constants';
 
   const dispatch = createEventDispatcher();
 

@@ -8,7 +8,7 @@
 
   import { ensureBoolean } from '@/core/strict/boolean';
   import { createFormStore } from '@/components/strict/base';
-  import { decimalDelimitersChoices, encodings } from '@/core/csv/constants';
+  import { decimalDelimitersChoices, encodings } from '@/core/import/constants';
 
   export let encoding: string,
     decimal: string,

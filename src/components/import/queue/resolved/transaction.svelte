@@ -13,7 +13,7 @@
   import ParsedTransactionData from '../parsedTransactionData.svelte';
   import SubmitButtons from '../submitButtons.svelte';
 
-  import { CsvParsedTransactionResolution } from '@/core/csv/constants';
+  import { CsvParsedTransactionResolution } from '@/core/import/constants';
 
   const dispatch = createEventDispatcher();
 

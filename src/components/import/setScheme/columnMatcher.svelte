@@ -8,7 +8,7 @@
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
 
-  import { FieldResolution, fieldChoices } from '@/core/csv/constants';
+  import { FieldResolution, fieldChoices } from '@/core/import/constants';
 
   export let columnCount: number,
     columnMatch: Array<string | null>,

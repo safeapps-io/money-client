@@ -4,11 +4,11 @@
   import { _ } from 'svelte-i18n';
   import { copy } from '@/utils/object';
 
-  import { runSimpleScheme } from '@/core/csv/simpleSchemes';
-  import { ParseErrorCodes } from '@/core/csv/types';
-  import { FieldResolution } from '@/core/csv/constants';
-  import { guessDateFormat } from '@/core/csv/guessDateFormat';
-  import { ignoredTransactionHashSetStore } from '@/stores/decr/ignoredTransaction';
+  import { runSimpleScheme } from '@/core/import/simpleSchemes';
+  import { ParseErrorCodes } from '@/core/import/types';
+  import { FieldResolution } from '@/core/import/constants';
+  import { guessDateFormat } from '@/core/import/guessDateFormat';
+  import { transactionsToIgnoreSetStore } from '@/stores/decr/ignoredTransaction';
 
   export let dataRows: string[][],
     headerRow: string[] | undefined = undefined,
@@ -30,7 +30,7 @@
   let dataAfterRun: ThenArg<ReturnType<typeof runSimpleScheme>> | undefined = undefined;
   $: runSimpleScheme({
     data: dataRowsCopy,
-    ignoredTransactionHashSet: $ignoredTransactionHashSetStore,
+    ignoredTransactionHashSet: $transactionsToIgnoreSetStore,
     currentWalletCurrency,
     scheme: {
       fieldnameMap: (columnMatch as any) || [],

@@ -1,12 +1,12 @@
 <script>
-  import type { SimpleScheme } from '@/core/csv/types';
+  import type { SimpleScheme } from '@/core/import/types';
 
   import { Field, TextInput, CheckboxInput, TextareaInput, SelectInput } from '@/components/strict';
 
   import { ensureString, minLength, optionalString, trim } from '@/core/strict/string';
   import { ensureJson } from '@/core/strict/object';
   import { ensureBoolean } from '@/core/strict/boolean';
-  import { decimalDelimitersChoices, encodings } from '@/core/csv/constants';
+  import { decimalDelimitersChoices, encodings } from '@/core/import/constants';
 
   export let ent: SimpleScheme | undefined = undefined;
 
