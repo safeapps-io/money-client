@@ -8,7 +8,7 @@
   import { ParseErrorCodes } from '@/core/import/types';
   import { FieldResolution } from '@/core/import/constants';
   import { guessDateFormat } from '@/core/import/guessDateFormat';
-  import { ignoredTransactionHashSetStore } from '@/stores/decr/ignoredTransaction';
+  import { transactionsToIgnoreSetStore } from '@/stores/decr/ignoredTransaction';
 
   export let dataRows: string[][],
     headerRow: string[] | undefined = undefined,
@@ -30,7 +30,7 @@
   let dataAfterRun: ThenArg<ReturnType<typeof runSimpleScheme>> | undefined = undefined;
   $: runSimpleScheme({
     data: dataRowsCopy,
-    ignoredTransactionHashSet: $ignoredTransactionHashSetStore,
+    ignoredTransactionHashSet: $transactionsToIgnoreSetStore,
     currentWalletCurrency,
     scheme: {
       fieldnameMap: (columnMatch as any) || [],

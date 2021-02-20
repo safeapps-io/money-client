@@ -16,14 +16,21 @@ export const {
 
 /**
  * Creates a set of hashes of transactions to be ignored during import.
+ * It includes:
+ * 1. hashes of ignored transactions
+ * 2. hashes of added transactions
+ * 3. all the OFX ids of ignored transactions
+ * 4. all the OFX ids of added transactions
  */
-export const ignoredTransactionHashSetStore = derived(
+export const transactionsToIgnoreSetStore = derived(
   [currentWalletIgnoredTransactionStore, currentWalletTransactionStore],
   ([$ignored, $transactions]) =>
     new Set(
       ([] as string[]).concat(
-        Object.values($ignored).map(igTr => igTr.decr.hash),
-        Object.values($transactions).map(tr => tr.decr.autocomplete.sourceDataHash || ''),
+        Object.values($ignored).map(igTr => igTr.decr.hash || igTr.decr.id || ''),
+        Object.values($transactions).map(
+          tr => tr.decr.autocomplete.sourceDataHash || tr.decr.autocomplete.id || '',
+        ),
       ),
     ),
 );

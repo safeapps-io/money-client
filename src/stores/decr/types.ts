@@ -160,7 +160,8 @@ export type Transaction = BaseTransaction & ForeignCurrencyTransactionProps;
 export type IgnoredTransaction = BaseDecrEntity & {
   type: EntityTypes.ignoredTransaction;
 
-  hash: string;
+  hash?: string;
+  id?: string;
 };
 
 export type DeletedEntity = BaseDecrEntity & {

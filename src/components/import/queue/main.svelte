@@ -46,7 +46,7 @@
     [CsvParsedTransactionResolution.ignore]: OmitCommonFields<Transaction>[];
   };
 
-  export let dataSource: ParsedTransaction[] | State;
+  export let dataSource: ParsedTransaction[] | State, isSchemaProvided: boolean;
 
   let refreshingAutocompleteDataStore = $autocompleteDataStore;
   $: transposedAutocomplete = getTransposedAutocomplete(refreshingAutocompleteDataStore);
@@ -284,12 +284,14 @@
           })}
         </p>
       </div>
-      <hr class="dropdown-divider" />
-      <div class="px-4">
-        <p>{$_('cmps.csv.queue.troubleshoot.resetIfSure')}</p>
-        <button class="button is-small mt-3 is-fullwidth" on:click={() => dispatch('resetScheme')}
-          >{$_('cmps.csv.queue.troubleshoot.reset')}</button>
-      </div>
+      {#if isSchemaProvided}
+        <hr class="dropdown-divider" />
+        <div class="px-4">
+          <p>{$_('cmps.csv.queue.troubleshoot.resetIfSure')}</p>
+          <button class="button is-small mt-3 is-fullwidth" on:click={() => dispatch('resetScheme')}
+            >{$_('cmps.csv.queue.troubleshoot.reset')}</button>
+        </div>
+      {/if}
     </Troubleshoot>
   </div>
   <AutomationSettings />

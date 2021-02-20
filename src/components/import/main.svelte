@@ -1,8 +1,7 @@
 <script>
   import type { FileParsedToBinary } from './types';
   import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
-  import type { BaseSimpleScheme, CustomScheme } from '@/core/import/types';
-  import type { ParseDataReturn } from '@/core/import/parseData';
+  import type { BaseSimpleScheme, CustomScheme, ParsedTransaction } from '@/core/import/types';
 
   import FileForm from './fileForm.svelte';
   import WalletSelectFromJoint from '@/components/wallet/walletSelectFromJoint.svelte';
@@ -19,7 +18,7 @@
   import { persistStoreLs } from '@/utils/persistStore';
 
   import {
-    ignoredTransactionHashSetStore,
+    transactionsToIgnoreSetStore,
     updateIgnoredTransaction,
   } from '@/stores/decr/ignoredTransaction';
   import { transactionBulkAdd } from '@/stores/decr/transaction';
@@ -71,30 +70,31 @@
 
   let filename: string,
     encodedData: ArrayBuffer,
-    parsedData: ParseDataReturn,
-    noDataParsed = false;
+    parsedRows: ParsedTransaction[],
+    noDataParsed = false,
+    isSchemaProvided: boolean;
 
   const runSchemeAgainstData = async (scheme: BaseSimpleScheme | CustomScheme) => {
-    const module = await import('@/core/import/parseData');
+    const module = await import('@/core/import/parseData'),
+      csvParsedData = await module.parseData({
+        ignoredTransactionHashSet: $transactionsToIgnoreSetStore,
+        scheme,
+        currentWalletCurrency,
+        data: bufferToString(encodedData, scheme.encoding),
+      });
 
-    parsedData = await module.parseData({
-      ignoredTransactionHashSet: $ignoredTransactionHashSetStore,
-      scheme,
-      currentWalletCurrency,
-      data: bufferToString(encodedData, scheme.encoding),
-    });
-    if (parsedData.parsedRows.length) state = State.resultParsed;
-    else noDataParsed = true;
+    parsedRows = csvParsedData.parsedRows;
+    if (parsedRows.length) {
+      isSchemaProvided = true;
+      state = State.resultParsed;
+    } else noDataParsed = true;
   };
 
-  const getBinaryData = async ({ detail }: CustomEvent<FileParsedToBinary>) => {
+  const startCsvProcess = async (data: ArrayBuffer) => {
       const module = await import('@/core/import/guessParsingScheme');
 
-      noDataParsed = false;
-      filename = detail.filename;
-      encodedData = detail.data;
       const scheme = await module.guessParsingScheme({
-        data: detail.data,
+        data,
         schemes: $allLocalSchemes,
         currentWalletCurrency,
       });
@@ -109,6 +109,31 @@
           );
         state = State.needScheme;
       }
+    },
+    startOfxProcess = async (data: ArrayBuffer) => {
+      const module = await import('@/core/import/parseOfxData'),
+        stringData = bufferToString(data);
+
+      parsedRows = Array.from(
+        module.parseOfxData({
+          data: stringData,
+          currentWalletCurrency,
+          previousOfxIdsSet: $transactionsToIgnoreSetStore,
+        }),
+      );
+      if (parsedRows.length) {
+        isSchemaProvided = false;
+        state = State.resultParsed;
+      } else noDataParsed = true;
+    };
+
+  const getBinaryData = async ({ detail }: CustomEvent<FileParsedToBinary>) => {
+      noDataParsed = false;
+      filename = detail.filename;
+      encodedData = detail.data;
+
+      if (detail.filename.endsWith('.ofx')) startOfxProcess(encodedData);
+      else if (detail.filename.endsWith('.csv')) startCsvProcess(encodedData);
     },
     setScheme = async ({ detail }: CustomEvent<BaseSimpleScheme>) => {
       await addUserScheme(detail);
@@ -128,7 +153,9 @@
 
     updateIgnoredTransaction(
       currWallet,
-      detail[CsvParsedTransactionResolution.ignore].map(tr => tr.autocomplete.sourceDataHash!),
+      detail[CsvParsedTransactionResolution.ignore].map(
+        tr => (tr.autocomplete.sourceDataHash || tr.autocomplete.id)!,
+      ),
     );
     await transactionBulkAdd(walletId || $selectedWalletStore!, [
       ...detail[CsvParsedTransactionResolution.save],
@@ -200,7 +227,8 @@
             </div>
           {:then ParsedTransactionQueue}
             <ParsedTransactionQueue.default
-              dataSource={shouldPassCacheData ? shouldPassCacheData : parsedData.parsedRows}
+              {isSchemaProvided}
+              dataSource={shouldPassCacheData ? shouldPassCacheData : parsedRows}
               on:resetScheme={resetScheme}
               on:cacheState={setCache}
               on:dropCache={dropCache}
