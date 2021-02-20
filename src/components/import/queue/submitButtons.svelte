@@ -37,7 +37,7 @@
     },
     {
       r: CsvParsedTransactionResolution.ignore,
-      label: $_('cmps.csv.queue.ignore'),
+      label: $_('cmps.import.queue.ignore'),
       key: 'I',
       short: { control: true, code: 'KeyI' },
     },

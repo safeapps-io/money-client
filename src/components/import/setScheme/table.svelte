@@ -94,14 +94,14 @@
 
     if (dataAfterRun && haveAmount && haveDate)
       error = dataAfterRun.rowBasedParseErrors.length
-        ? $_('cmps.csv.scheme.errors.noParse')
+        ? $_('cmps.import.scheme.errors.noParse')
         : undefined;
     else {
       const errors = [];
       if (!haveAmount) errors.push($_('cmps.transaction.common.amount'));
       if (!haveDate) errors.push($_('cmps.transaction.common.date'));
 
-      error = $_('cmps.csv.scheme.errors.needSet', {
+      error = $_('cmps.import.scheme.errors.needSet', {
         values: { fields: errors.join(', ').toLowerCase() },
       });
     }
@@ -121,24 +121,24 @@
           <div class="tooltip-content">
             {#each displayErrors as err}
               <p>
-                {$_('cmps.csv.scheme.errors.row', { values: { row: err.row + 1 } })}:
+                {$_('cmps.import.scheme.errors.row', { values: { row: err.row + 1 } })}:
                 {#if err.code == ParseErrorCodes.invalidDate}
-                  {$_('cmps.csv.scheme.errors.invalidDate')}
+                  {$_('cmps.import.scheme.errors.invalidDate')}
                 {:else if err.code == ParseErrorCodes.invalidCurrency}
-                  {$_('cmps.csv.scheme.errors.invalidCurrency')}
+                  {$_('cmps.import.scheme.errors.invalidCurrency')}
                 {:else if err.code == ParseErrorCodes.invalidNumber}
-                  {$_('cmps.csv.scheme.errors.invalidNum')}
+                  {$_('cmps.import.scheme.errors.invalidNum')}
                 {/if}
 
                 {#if err.example}
-                  {@html $_('cmps.csv.scheme.errors.example', {
+                  {@html $_('cmps.import.scheme.errors.example', {
                     values: { example: err.example, tagO: '<code>', tagC: '</code>' },
                   })}
                 {/if}
               </p>
             {/each}
             {#if errorsMore}
-              <p>{$_('cmps.csv.scheme.errors.andNErrors', { values: { count: errorsMore } })}</p>
+              <p>{$_('cmps.import.scheme.errors.andNErrors', { values: { count: errorsMore } })}</p>
             {/if}
           </div>
         </Tooltip>

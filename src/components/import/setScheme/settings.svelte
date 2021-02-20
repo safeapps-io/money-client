@@ -19,19 +19,19 @@
 
   $: encodingField = {
     name: 'encoding',
-    label: $_('cmps.csv.scheme.settings.encoding'),
+    label: $_('cmps.import.scheme.settings.encoding'),
     inputValue: encoding,
     choices: encodings,
   };
   $: headerField = {
     name: 'header',
-    label: $_('cmps.csv.scheme.settings.hasHeader').toLowerCase(),
+    label: $_('cmps.import.scheme.settings.hasHeader').toLowerCase(),
     inputValue: header,
     clean: [ensureBoolean],
   };
   $: decimalDelimiterField = {
     name: 'decimal',
-    label: $_('cmps.csv.scheme.settings.decimal'),
+    label: $_('cmps.import.scheme.settings.decimal'),
     inputValue: decimal,
     choices: decimalDelimitersChoices,
   };

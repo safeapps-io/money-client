@@ -49,7 +49,7 @@
       </div>
 
       <div slot="text">
-        <Text>{$_('cmps.csv.queue.onboarding.saveTransactions')}</Text>
+        <Text>{$_('cmps.import.queue.onboarding.saveTransactions')}</Text>
         <button class="button mt-3" on:click={() => dispatch('onboardingFinish')}
           >{$_('common.allClear')}</button>
       </div>
@@ -68,8 +68,8 @@
             on:success={success} />
         </div>
         <div slot="text">
-          <Text header>{$_('cmps.csv.queue.onboarding.parsed.header')}</Text>
-          <Text>{$_('cmps.csv.queue.onboarding.parsed.main')}</Text>
+          <Text header>{$_('cmps.import.queue.onboarding.parsed.header')}</Text>
+          <Text>{$_('cmps.import.queue.onboarding.parsed.main')}</Text>
           <button class="button mt-3" on:click={() => (currentStep = 'submit')}
             >{$_('common.form.ok')}</button>
         </div>
@@ -78,7 +78,7 @@
   </div>
 {:else}
   <div>
-    <ZeroData text={$_('cmps.csv.queue.zeroData') + ' 👍'} />
+    <ZeroData text={$_('cmps.import.queue.zeroData') + ' 👍'} />
   </div>
 {/if}
 

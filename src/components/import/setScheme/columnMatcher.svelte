@@ -66,11 +66,11 @@
           </div>
 
           <div slot="text">
-            <Text header>{$_('cmps.csv.scheme.onboarding.main.title')}</Text>
-            <Text>{$_('cmps.csv.scheme.onboarding.main.main1')}</Text>
-            <Text>{$_('cmps.csv.scheme.onboarding.main.main2', { values: { emoji: '👌' } })}</Text>
+            <Text header>{$_('cmps.import.scheme.onboarding.main.title')}</Text>
+            <Text>{$_('cmps.import.scheme.onboarding.main.main1')}</Text>
+            <Text>{$_('cmps.import.scheme.onboarding.main.main2', { values: { emoji: '👌' } })}</Text>
             <button class="button is-small mt-3" on:click={() => (currentStep = 'finish')}
-              >{$_('cmps.csv.scheme.onboarding.main.cta', { values: { emoji: '👌' } })}</button>
+              >{$_('cmps.import.scheme.onboarding.main.cta', { values: { emoji: '👌' } })}</button>
           </div>
         </Onboarding>
       {/if}
@@ -82,27 +82,27 @@
             class="input is-small"
             type="text"
             placeholder="yyyy-MM-dd"
-            aria-label={$_('cmps.csv.scheme.columnMatcher.date.label')}
+            aria-label={$_('cmps.import.scheme.columnMatcher.date.label')}
             bind:value={dateFormat} />
         </div>
 
         <div>
-          <span class="help">{$_('cmps.csv.scheme.columnMatcher.date.help')}</span>
+          <span class="help">{$_('cmps.import.scheme.columnMatcher.date.help')}</span>
 
           <Tooltip>
             <div class="tooltip-content">
               <p>
-                {@html $_('cmps.csv.scheme.columnMatcher.date.formatInfo', {
+                {@html $_('cmps.import.scheme.columnMatcher.date.formatInfo', {
                   values: { tagO: '<code>', tagC: '</code>' },
                 })}
               </p>
               <p>
-                {@html $_('cmps.csv.scheme.columnMatcher.date.formatExample', {
+                {@html $_('cmps.import.scheme.columnMatcher.date.formatExample', {
                   values: { tagO: '<code>', tagC: '</code>' },
                 })}
               </p>
               <p>
-                {@html $_('cmps.csv.scheme.columnMatcher.date.docs', {
+                {@html $_('cmps.import.scheme.columnMatcher.date.docs', {
                   values: {
                     tagO:
                       '<a href="https://date-fns.org/v2.16.1/docs/format" target="_blank" rel="noopener noreferrer">',

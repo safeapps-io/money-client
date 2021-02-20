@@ -200,7 +200,7 @@
         "main": "We do not use accounts in out app. The main entity is a wallet. Wallet unites all the accounts, assets and debts that correspond to a single idea: family, business, individual.",
         "importFile": {
           "title": "Find a file",
-          "main": "Upload a statement from your bank. We accept {tagO}.csv{tagC} files."
+          "main": "Upload a statement from your bank. We accept {tagO}.csv{tagC} and {tagO}.ofx{tagC} files."
         },
         "importButton": {
           "itsEasy": "It works best when you create transactions by uploading bank statements. Works fast, doesn't make any errors, and makes most of the work automatically after a while.",
@@ -272,7 +272,7 @@
       },
       "add": "Add transaction",
       "zeroData": "There's no transactions during that period",
-      "import": "Import CSV"
+      "import": "Bulk import"
     },
     "deleteEntity": {
       "delete": "Delete",
@@ -388,7 +388,7 @@
         "help": "Log data is saved upon many different actions. It is always wiped after you close the tab/app. It never has any personal data or data you expect to be encrypted."
       }
     },
-    "csv": {
+    "import": {
       "cache": {
         "prevFile": "You haven't finished importing a file {tagO}{filename}{tagC} on {date, date, short}.",
         "decision": "Do you wish to continue your work or drop it and upload a new file?",
@@ -503,7 +503,7 @@
       },
       "file": {
         "drag": "or drag it into the window",
-        "notCsv": "This file type is not supported. We only support {tagO}.csv{tagC} and {tagO}.ofx{tagC} files.",
+        "unsupported": "This file type is not supported. We only support {tagO}.csv{tagC} and {tagO}.ofx{tagC} files.",
         "press": "Press to choose file",
         "noParsedData": "File has no data to parse"
       }

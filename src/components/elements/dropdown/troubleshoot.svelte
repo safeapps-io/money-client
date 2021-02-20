@@ -28,7 +28,7 @@
             d="M7.5 9V7.5H8A1.5 1.5 0 009.5 6v-.1a1.4 1.4 0 00-1.4-1.4h-.6A1.5 1.5 0 006 6m1 4.5h1m-.5 4a7 7 0 110-14 7 7 0 010 14z"
             stroke="currentColor" /></svg>
       </span>
-      <span>{text || $_('cmps.csv.queue.troubleshoot.title')}</span>
+      <span>{text || $_('cmps.import.queue.troubleshoot.title')}</span>
     </button>
   </div>
 

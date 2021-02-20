@@ -76,10 +76,10 @@
   $: dispatch('cacheState', state);
 
   const tabs = [
-    { value: unresolvedTab, label: $_('cmps.csv.queue.unresolved') },
+    { value: unresolvedTab, label: $_('cmps.import.queue.unresolved') },
     { value: CsvParsedTransactionResolution.save, label: $_('common.form.save') },
-    { value: CsvParsedTransactionResolution.draft, label: $_('cmps.csv.queue.draft') },
-    { value: CsvParsedTransactionResolution.ignore, label: $_('cmps.csv.queue.ignore') },
+    { value: CsvParsedTransactionResolution.draft, label: $_('cmps.import.queue.draft') },
+    { value: CsvParsedTransactionResolution.ignore, label: $_('cmps.import.queue.ignore') },
   ];
   let activeTab = unresolvedTab;
 
@@ -263,8 +263,8 @@
   {key}
   shouldShow={currentStep == 'intro' && !!state[unresolvedTab].length}>
   <div slot="text">
-    <Text header>{$_('cmps.csv.queue.onboarding.automation.header')}</Text>
-    <Text>{$_('cmps.csv.queue.onboarding.automation.main')}</Text>
+    <Text header>{$_('cmps.import.queue.onboarding.automation.header')}</Text>
+    <Text>{$_('cmps.import.queue.onboarding.automation.main')}</Text>
     <button class="button mt-3" on:click={() => (currentStep = 'tabsUnS')}
       >{$_('common.letsStart')}</button>
   </div>
@@ -274,9 +274,9 @@
   <div class="mr-2 is-size-7">
     <Troubleshoot right>
       <div class="px-4">
-        <p class="is-size-6 mb-2">{$_('cmps.csv.queue.troubleshoot.question')}</p>
+        <p class="is-size-6 mb-2">{$_('cmps.import.queue.troubleshoot.question')}</p>
         <p>
-          {@html $_('cmps.csv.queue.troubleshoot.goToForum', {
+          {@html $_('cmps.import.queue.troubleshoot.goToForum', {
             values: {
               tagO: `<a href="${forumHelpPath}" target="_blank" rel="noopener">`,
               tagC: '</a>',
@@ -287,9 +287,9 @@
       {#if isSchemaProvided}
         <hr class="dropdown-divider" />
         <div class="px-4">
-          <p>{$_('cmps.csv.queue.troubleshoot.resetIfSure')}</p>
+          <p>{$_('cmps.import.queue.troubleshoot.resetIfSure')}</p>
           <button class="button is-small mt-3 is-fullwidth" on:click={() => dispatch('resetScheme')}
-            >{$_('cmps.csv.queue.troubleshoot.reset')}</button>
+            >{$_('cmps.import.queue.troubleshoot.reset')}</button>
         </div>
       {/if}
     </Troubleshoot>
@@ -308,12 +308,12 @@
       <CrossfadeWrapper replayAnimationKey={currentStep}>
         {#if currentStep == 'tabsUnS'}
           <Text>
-            {@html $_('cmps.csv.queue.onboarding.tabs.queue', {
-              values: { ...accentTags, tab: $_('cmps.csv.queue.unresolved') },
+            {@html $_('cmps.import.queue.onboarding.tabs.queue', {
+              values: { ...accentTags, tab: $_('cmps.import.queue.unresolved') },
             })}
           </Text>
           <Text>
-            {@html $_('cmps.csv.queue.onboarding.tabs.save', {
+            {@html $_('cmps.import.queue.onboarding.tabs.save', {
               values: { ...accentTags, tab: $_('common.form.save') },
             })}
           </Text>
@@ -321,16 +321,16 @@
             >{$_('common.next')}</button>
         {:else if currentStep == 'tabsD'}
           <Text>
-            {@html $_('cmps.csv.queue.onboarding.tabs.draft', {
-              values: { ...accentTags, tab: $_('cmps.csv.queue.draft') },
+            {@html $_('cmps.import.queue.onboarding.tabs.draft', {
+              values: { ...accentTags, tab: $_('cmps.import.queue.draft') },
             })}
           </Text>
           <button class="button mt-3" on:click={() => (currentStep = 'tabsI')}
             >{$_('common.okDok')}</button>
         {:else if currentStep == 'tabsI'}
           <Text>
-            {@html $_('cmps.csv.queue.onboarding.tabs.ignore', {
-              values: { ...accentTags, tab: $_('cmps.csv.queue.ignore') },
+            {@html $_('cmps.import.queue.onboarding.tabs.ignore', {
+              values: { ...accentTags, tab: $_('cmps.import.queue.ignore') },
             })}
           </Text>
           <button class="button mt-3" on:click={() => (currentStep = 'transaction')}
@@ -380,8 +380,8 @@
     </button>
 
     <div slot="text">
-      <Text>{$_('cmps.csv.queue.onboarding.final.clickWhenSave')}</Text>
-      <Text>{$_('cmps.csv.queue.onboarding.final.savePlace')}</Text>
+      <Text>{$_('cmps.import.queue.onboarding.final.clickWhenSave')}</Text>
+      <Text>{$_('cmps.import.queue.onboarding.final.savePlace')}</Text>
       <button class="button mt-5" on:click={finishOnboarding}>{$_('common.letsStart')}</button>
     </div>
   </Onboarding>
