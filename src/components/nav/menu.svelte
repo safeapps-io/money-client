@@ -105,9 +105,11 @@
         <Link href={userSecurityPath} {addActiveClass}>{$_('cmps.nav.menu.security')}</Link>
       </li>
       <li class="mt-4">
-        <Logout />
+        <Logout class="has-text-danger" />
       </li>
     </ul>
+    <hr class="menu-delimiter" />
+    <p class="menu-label is-size-7">Version: {process.env.VERSION}</p>
   {/if}
 
   {#if isAdmin}
