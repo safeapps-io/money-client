@@ -19,7 +19,8 @@ import pkg from './package.json';
 const mode = process.env.NODE_ENV,
   dev = mode === 'development',
   legacy = !!process.env.SAPPER_LEGACY_BUILD,
-  sourcemap = dev ? 'inline' : true;
+  sourcemap = dev ? 'inline' : true,
+  version = `${pkg.version}${dev ? ' (dev)' : ''}`;
 
 const onwarn = (warning, onwarn) =>
   // Shows up after I added svelte-i18n for some reason, safe to ignore
@@ -45,6 +46,7 @@ const preprocess = sveltePreprocess({
 
 const commonReplace = {
   'process.env.NODE_ENV': JSON.stringify(mode),
+  'process.env.VERSION': JSON.stringify(version),
   'process.env.API_WS_SCHEME': JSON.stringify(process.env.API_WS_SCHEME),
   'process.env.API_SCHEME': JSON.stringify(process.env.API_SCHEME),
   'process.env.API_HOST': JSON.stringify(process.env.API_HOST),

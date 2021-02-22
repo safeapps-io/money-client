@@ -384,7 +384,6 @@
       },
       "logs": {
         "label": "Logs for debugging",
-        "noLogs": "No logs saved yet",
         "help": "Log data is saved upon many different actions. It is always wiped after you close the tab/app. It never has any personal data or data you expect to be encrypted."
       }
     },

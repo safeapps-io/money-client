@@ -21,4 +21,6 @@
   </Link>
   <hr class="dropdown-divider" />
   <Logout class="dropdown-item has-text-danger" />
+  <hr class="dropdown-divider" />
+  <p class="dropdown-item is-size-7 has-text-grey">Version: {process.env.VERSION}</p>
 </Dropdown>

@@ -6,11 +6,13 @@
   import { getLogData } from '@/core/logger';
   import { userEncrStore } from '@/stores/user';
 
-  const logData = getLogData();
-
-  $: text = logData.length
-    ? JSON.stringify({ userId: $userEncrStore!.id, logData })
-    : $_('cmps.user.logs.noLogs');
+  const logData = getLogData(),
+    text = JSON.stringify({
+      userId: $userEncrStore!.id,
+      version: process.env.VERSION,
+      ua: process.env.BROWSER && navigator.userAgent,
+      logData,
+    });
 </script>
 
 <p class="label">{$_('cmps.user.logs.label')}</p>
