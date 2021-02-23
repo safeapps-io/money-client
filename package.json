@@ -77,17 +77,5 @@
     "svelteBracketNewLine": false,
     "svelteAllowShorthand": true,
     "svelteIndentScriptAndStyle": true
-  },
-  "babel": {
-    "presets": [
-      [
-        "@babel/preset-env",
-        {
-          "targets": {
-            "node": "current"
-          }
-        }
-      ]
-    ]
   }
 }
