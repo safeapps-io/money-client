@@ -32,7 +32,7 @@ declare module '@sapper/server' {
     ignore?: unknown;
   }
 
-  function middleware(opts: MiddlewareOptions): RequestHandler;
+  function middleware(opts?: MiddlewareOptions): RequestHandler;
 
   export { middleware };
 }

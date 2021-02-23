@@ -1,6 +1,6 @@
 <script>
   import type { ParsedTransaction } from '@/core/import/types';
-  import type { Transaction } from '@/stores/decr/types';
+  import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
 
   import AmountDisplay from './amountDisplay.svelte';
 
@@ -8,7 +8,7 @@
 
   import { defaultAssetStore } from '@/stores/decr/asset';
 
-  export let transaction: ParsedTransaction | Transaction,
+  export let transaction: ParsedTransaction | Transaction | OmitCommonFields<Transaction>,
     assetCode: string = $defaultAssetStore.decr.code;
 </script>
 
