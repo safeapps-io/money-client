@@ -1,7 +1,4 @@
-import { get } from 'svelte/store';
-
 import { request } from '@/services/request';
-import { TokenState, tokenStore, resetTokenStore } from '@/stores/token';
 import { UserEncrState, userEncrStore, resetUserStore } from '@/stores/user';
 import { resetWalletStores } from '@/stores/wallet';
 import { resetEncryptedStore } from '@/stores/encr/store';
@@ -34,15 +31,14 @@ export class AuthService {
   private static prefix = '/auth/';
 
   static async signIn(data: { usernameOrEmail: string; password: string }) {
-    const { user, ...tokens } = (
-      await request<{ user: UserEncrState } & TokenState>({
+    const { user } = (
+      await request<{ user: UserEncrState }>({
         method: 'POST',
         path: `${this.prefix}signin`,
         data,
       })
     ).json;
 
-    tokenStore.set(tokens);
     userEncrStore.set(user);
   }
 
@@ -52,18 +48,40 @@ export class AuthService {
     email?: string;
     invite?: string;
   }) {
-    const { user, isWalletInvite, ...tokens } = (
-      await request<{ user: UserEncrState; isWalletInvite: boolean } & TokenState>({
+    const { user, isWalletInvite } = (
+      await request<{ user: UserEncrState; isWalletInvite: boolean }>({
         method: 'POST',
         path: `${this.prefix}signup`,
         data,
       })
     ).json;
 
-    tokenStore.set(tokens);
     userEncrStore.set(user);
 
     return { isWalletInvite };
+  }
+
+  static async getWsTicket() {
+    const { ticket } = (
+      await request<{ ticket: string }>({
+        method: 'POST',
+        path: `${this.prefix}user/wsTicket`,
+      })
+    ).json;
+
+    return ticket;
+  }
+
+  static async isUserStillValid() {
+    try {
+      await request<UserEncrState>({
+        path: `${this.prefix}user`,
+      });
+      return true;
+    } catch (e) {
+      this.deleteUserData();
+      return false;
+    }
   }
 
   static isInviteValid(invite: string, purpose?: InvitePurpose) {
@@ -169,21 +187,20 @@ export class AuthService {
     });
   }
 
-  static async logout() {
-    const tokens = get(tokenStore) as StoreValue<typeof tokenStore>,
-      { refreshToken } = tokens!;
-
-    await request<UserEncrState>({
-      method: 'POST',
-      path: `${this.prefix}logout`,
-      data: { refreshToken },
-    });
-
+  private static deleteUserData() {
     resetEncryptionKeysState();
 
-    resetTokenStore();
     resetUserStore();
     resetWalletStores();
     resetEncryptedStore();
+  }
+
+  static async logout() {
+    await request<UserEncrState>({
+      method: 'POST',
+      path: `${this.prefix}logout`,
+    });
+
+    this.deleteUserData();
   }
 }
