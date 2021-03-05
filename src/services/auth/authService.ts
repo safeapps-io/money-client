@@ -195,6 +195,15 @@ export class AuthService {
     resetEncryptedStore();
   }
 
+  static async dropUser(password: string) {
+    await request<{}>({
+      method: 'DELETE',
+      path: `${this.prefix}user`,
+      data: { password },
+    });
+    this.deleteUserData();
+  }
+
   static async logout() {
     await request<UserEncrState>({
       method: 'POST',

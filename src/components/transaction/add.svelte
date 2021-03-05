@@ -4,6 +4,7 @@
   import { _ } from 'svelte-i18n';
   import { goto } from '@sapper/app';
   import { media } from 'svelte-match-media';
+  import { accentTags } from '@/utils/accentTags';
 
   import { addTransactionPath, importPath } from '@/core/routes';
 
@@ -18,12 +19,7 @@
 </script>
 
 <div class="has-text-centered">
-  <Onboarding
-    bottom
-    {key}
-    right={!mobileMode}
-    shouldShow={shouldShowOnboarding}
-    let:finishOnboarding>
+  <Onboarding bottom {key} shouldShow={shouldShowOnboarding} let:finishOnboarding>
     <a
       class="button is-success"
       class:is-light={mobileMode}
@@ -37,8 +33,7 @@
       <Text>
         {@html $_('cmps.wallet.onboarding.importButton.decision', {
           values: {
-            tagO: '<span class="has-text-weight-bold">',
-            tagC: '</span>',
+            ...accentTags,
             buttonText: $_('cmps.transaction.import'),
           },
         })}

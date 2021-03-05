@@ -19,15 +19,17 @@
       validate: [validateFn],
     };
 
-  let active = false;
+  let active = false,
+    noExitAnimation = false;
 
   const success = async () => {
+    noExitAnimation = true;
     await WalletService.delete(walletId);
     dispatch('success');
   };
 </script>
 
-<Modal bind:active>
+<Modal {noExitAnimation} bind:active>
   <h2 class="subtitle">{$_('common.dangerZone').toUpperCase()}</h2>
   <p class="mb-4">
     {@html $_('cmps.wallet.delete.walletName', {

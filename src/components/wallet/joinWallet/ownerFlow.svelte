@@ -5,6 +5,7 @@
   import Modal from '@/components/elements/modal.svelte';
 
   import { _ } from 'svelte-i18n';
+  import { accentTags } from '@/utils/accentTags';
 
   import { invitationError, invitationResolution } from '@/services/invite/inviteWsActions';
   import { InviteService } from '@/services/invite/inviteService';
@@ -102,8 +103,7 @@
         values: {
           username: modalDataChecked.joiningUsername,
           walletName: modalDataChecked.walletName,
-          tagO: '<span class="has-text-weight-bold">',
-          tagC: '</span>',
+          ...accentTags,
         },
       })}
     </p>

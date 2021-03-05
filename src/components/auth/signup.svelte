@@ -12,6 +12,8 @@
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
 
+  import { generateLinkTags } from '@/utils/accentTags';
+
   import { ensureBoolean } from '@/core/strict/boolean';
   import { termsPath } from '@/core/routes';
   import { AuthService } from '@/services/auth/authService';
@@ -70,9 +72,6 @@
 
 <p class="help mt-3">
   {@html $_('cmps.user.signup.agree', {
-    values: {
-      tagO: `<a href="${termsPath}" target="_blank" rel="noopener">`,
-      tagC: '</a>',
-    },
+    values: generateLinkTags(termsPath),
   })}
 </p>
