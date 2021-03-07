@@ -16,6 +16,8 @@
   import { createEventDispatcher, tick } from 'svelte';
   import arrowRightIcon from 'teenyicons/outline/arrow-right.svg';
 
+  import { accentTags, generateLinkTags } from '@/utils/accentTags';
+
   import { CsvParsedTransactionResolution } from '@/core/import/constants';
   import {
     autocompleteDataStore,
@@ -247,8 +249,7 @@
     | 'transaction'
     | 'final';
   let currentStep: OnboardingSteps = 'intro';
-  const key = 'csvQueue',
-    accentTags = { tagO: '<span class="has-text-weight-bold">', tagC: '</span>' };
+  const key = 'csvQueue';
 
   // Purely to have a single subscription instead of creating new subscriptions for every new card
   const getCategory = (id: string | undefined | null) =>
@@ -277,10 +278,7 @@
         <p class="is-size-6 mb-2">{$_('cmps.import.queue.troubleshoot.question')}</p>
         <p>
           {@html $_('cmps.import.queue.troubleshoot.goToForum', {
-            values: {
-              tagO: `<a href="${forumHelpPath}" target="_blank" rel="noopener">`,
-              tagC: '</a>',
-            },
+            values: generateLinkTags(forumHelpPath),
           })}
         </p>
       </div>

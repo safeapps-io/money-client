@@ -17,14 +17,18 @@
    * forceScale — forces the animation to be scale, not slide from bottom.
    *
    * noBox — does not add .box and sets the paddings of the content to minimum.
+   *
+   * noExitAnimation — disables exit animation entirely.
    */
   export let forceScale = false,
-    noBox = false;
+    noBox = false,
+    noExitAnimation = false;
 
   const close = () => (active = false);
 
   $: isMobile = $media.mobile && !forceScale;
   $: transition = isMobile ? slide : scale;
+  $: transitionSettings = { duration: noExitAnimation ? 0 : 500 };
 </script>
 
 {#if active}
@@ -33,14 +37,16 @@
       class="modal-background"
       on:click={() => canBeVoluntarilyClosed && close()}
       use:shortcut={{ code: 'Escape' }}
-      transition:fade />
+      in:fade
+      out:fade={transitionSettings} />
     <div
       class="modal-content"
       class:no-box={noBox || isMobile}
       class:box={!noBox}
       class:mobile-content={isMobile}
       use:restrictBodyScroll
-      transition:transition>
+      in:transition
+      out:transition={transitionSettings}>
       <slot />
     </div>
 
@@ -50,7 +56,8 @@
         class="modal-close is-large"
         aria-label="close"
         on:click={close}
-        transition:fade />
+        in:fade
+        out:fade={transitionSettings} />
     {/if}
   </div>
 {/if}

@@ -1,11 +1,6 @@
-import { get } from 'svelte/store';
-
 import { request } from '@/services/request';
-import { TokenState, tokenStore, resetTokenStore } from '@/stores/token';
-import { UserEncrState, userEncrStore, resetUserStore } from '@/stores/user';
-import { resetWalletStores } from '@/stores/wallet';
-import { resetEncryptedStore } from '@/stores/encr/store';
-import { resetEncryptionKeysState } from '@/stores/encr/keysState';
+import { UserEncrState, userEncrStore, RefreshToken } from '@/stores/user';
+import { dropUserData } from './dropUserData';
 
 export enum InviteStringTypes {
   service = 'service',
@@ -34,15 +29,14 @@ export class AuthService {
   private static prefix = '/auth/';
 
   static async signIn(data: { usernameOrEmail: string; password: string }) {
-    const { user, ...tokens } = (
-      await request<{ user: UserEncrState } & TokenState>({
+    const { user } = (
+      await request<{ user: UserEncrState }>({
         method: 'POST',
         path: `${this.prefix}signin`,
         data,
       })
     ).json;
 
-    tokenStore.set(tokens);
     userEncrStore.set(user);
   }
 
@@ -52,18 +46,40 @@ export class AuthService {
     email?: string;
     invite?: string;
   }) {
-    const { user, isWalletInvite, ...tokens } = (
-      await request<{ user: UserEncrState; isWalletInvite: boolean } & TokenState>({
+    const { user, isWalletInvite } = (
+      await request<{ user: UserEncrState; isWalletInvite: boolean }>({
         method: 'POST',
         path: `${this.prefix}signup`,
         data,
       })
     ).json;
 
-    tokenStore.set(tokens);
     userEncrStore.set(user);
 
     return { isWalletInvite };
+  }
+
+  static async getWsTicket() {
+    const { ticket } = (
+      await request<{ ticket: string }>({
+        method: 'POST',
+        path: `${this.prefix}user/wsTicket`,
+      })
+    ).json;
+
+    return ticket;
+  }
+
+  static async isUserStillValid() {
+    try {
+      await request<UserEncrState>({
+        path: `${this.prefix}user`,
+      });
+      return true;
+    } catch (e) {
+      dropUserData();
+      return false;
+    }
   }
 
   static isInviteValid(invite: string, purpose?: InvitePurpose) {
@@ -162,6 +178,24 @@ export class AuthService {
     userEncrStore.set(user);
   }
 
+  static async getSessions() {
+    return (
+      await request<RefreshToken[]>({
+        path: `${this.prefix}user/sessions`,
+      })
+    ).json;
+  }
+
+  static async dropSessions(ids: string[]) {
+    return (
+      await request<RefreshToken[]>({
+        method: 'DELETE',
+        path: `${this.prefix}user/sessions`,
+        data: { ids },
+      })
+    ).json;
+  }
+
   static async unsubscribe(unsubscribeToken: string) {
     return request({
       method: 'POST',
@@ -169,21 +203,21 @@ export class AuthService {
     });
   }
 
-  static async logout() {
-    const tokens = get(tokenStore) as StoreValue<typeof tokenStore>,
-      { refreshToken } = tokens!;
+  static async dropUser(password: string) {
+    await request<{}>({
+      method: 'DELETE',
+      path: `${this.prefix}user`,
+      data: { password },
+    });
+    dropUserData();
+  }
 
+  static async logout() {
     await request<UserEncrState>({
       method: 'POST',
       path: `${this.prefix}logout`,
-      data: { refreshToken },
     });
 
-    resetEncryptionKeysState();
-
-    resetTokenStore();
-    resetUserStore();
-    resetWalletStores();
-    resetEncryptedStore();
+    dropUserData();
   }
 }

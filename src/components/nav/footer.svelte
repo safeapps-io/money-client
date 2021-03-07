@@ -2,6 +2,8 @@
   import Locale from '@/components/user/settings/locale.svelte';
 
   import { _ } from 'svelte-i18n';
+  import { generateLinkTags } from '@/utils/accentTags';
+
   import { aboutPath, pricingPath, termsPath, howItWorksPath, forumPath } from '@/core/routes';
 
   $: leftLinks = [
@@ -40,10 +42,7 @@
   <div class="column is-3 copy">
     <p>
       {@html $_('cmps.footer.copy', {
-        values: {
-          tagO: '<a href="https://dkzlv.com/" target="_blank" rel="noopener">',
-          tagC: '</a>',
-        },
+        values: generateLinkTags('https://dkzlv.com/'),
       })}
     </p>
 

@@ -1,8 +1,6 @@
 import { derived } from 'svelte/store';
 
-import { wsStore, WsStates } from '@/utils/wsStore';
-
-import { tokenStore } from '@/stores/token';
+import { WsStates, wsStore } from '@/utils/wsStore';
 
 import { wsPath } from '@/services/config';
 import {
@@ -10,8 +8,6 @@ import {
   userHandleMessages,
   UserBackMessage,
 } from '@/services/auth/userWsHandler';
-import { TokenService } from '@/services/auth/tokenService';
-import { getNewTokenMessage } from '@/services/auth/tokenWsAction';
 import {
   walletMessagesPrefix,
   walletHandleMessages,
@@ -29,13 +25,19 @@ import {
   simpleSyncHandleMessages,
   simpleSyncMessagesPrefixes,
 } from '@/services/simpleSync/simpleSyncWsHandler';
+import { AuthService } from '@/services/auth/authService';
 
 type SyncMessage = {
   type: string;
   data: any;
 };
 
-const rawSyncConnection = wsStore(`${wsPath}/sync`, (message: SyncMessage) => {
+const ticketGetter = () =>
+  AuthService.getWsTicket()
+    .then(ticket => `${wsPath}/sync/${ticket}/`)
+    .catch(() => {});
+
+const rawSyncConnection = wsStore(ticketGetter, (message: SyncMessage) => {
   const startsWith = (prefix: string) => message.type.startsWith(prefix);
 
   switch (true) {
@@ -65,36 +67,12 @@ const rawSyncConnection = wsStore(`${wsPath}/sync`, (message: SyncMessage) => {
   }
 });
 
-/**
- * It recomputes:
- * 1. when token is changed:
- *    - null -> token — need to be launched
- *    - token -> token — should relaunch the timer and return new patched send function
- *    - token -> null — should stop timer and return null
- * 2. ws connection changes:
- *    - on -> off — should stop timer and return null
- *    - off -> on — should relaunch the timer
- */
-let timeout: number;
-export const syncConnection = derived([rawSyncConnection, tokenStore], ([$sync, $token]) => {
-  if (!$sync) return null;
-
-  clearTimeout(timeout);
-
-  if (!$token || !$token.accessToken || $sync.state !== WsStates.open) return null;
+export const syncConnection = derived(rawSyncConnection, $sync => {
+  if (!$sync || $sync.state !== WsStates.open) return null;
 
   const { sendMessage } = $sync,
     patchedSendMessage: (message: SyncMessage) => void = ({ type, data }) =>
-      sendMessage({ type, data, token: $token.accessToken });
-
-  timeout = window.setTimeout(
-    () => getNewTokenMessage(sendMessage, $token),
-    TokenService.timeoutToRefreshToken($token.accessToken),
-  );
-
-  // We've already set the timer, so new token will be set quite soon, but for now it
-  // is too obsolete, we cannot allow all the following stores to operate.
-  if (!TokenService.isTokenSafeToUse($token.accessToken)) return null;
+      sendMessage({ type, data });
 
   return { ...$sync, sendMessage: patchedSendMessage };
 });

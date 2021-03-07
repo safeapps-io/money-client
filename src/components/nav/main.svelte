@@ -8,13 +8,14 @@
   import JoiningFlow from '@/components/wallet/joinWallet/joiningFlow.svelte';
   import OwnerFlow from '@/components/wallet/joinWallet/ownerFlow.svelte';
 
+  import { onMount } from 'svelte';
   import { goto, stores } from '@sapper/app';
   import { media } from 'svelte-match-media';
   import { fade } from 'svelte/transition';
 
+  import { AuthService } from '@/services/auth/authService';
   import { syncStatusStore, SyncStatuses } from '@/stores/sync';
   import { userEncrStore } from '@/stores/user';
-  import { tokenStore } from '@/stores/token';
   import { encryptionKeysStateStore } from '@/stores/encr/keysState';
   import { walletStore } from '@/stores/wallet';
   import { walletDataStore } from '@/stores/decr/wallet';
@@ -23,12 +24,19 @@
   import { initApplicationLogic } from '@/stores/init';
   import { appPath, loginPath } from '@/core/routes';
 
-  // Redirecting if user or token store are not present
-  $: userIsSet = !!($tokenStore && $userEncrStore);
-  $: if (!userIsSet) goto(loginPath, { replaceState: true });
+  let remoteCheckPerformed = false,
+    remoteCheckResult = false;
+  onMount(async () => {
+    remoteCheckResult = await AuthService.isUserStillValid();
+    remoteCheckPerformed = true;
+  });
+  // If user check was performed but we have no user, we need to redirect to login page
+  $: if (remoteCheckPerformed && !$userEncrStore) goto(loginPath, { replaceState: true });
+
+  $: shouldShow = remoteCheckPerformed && remoteCheckResult && $userEncrStore;
 
   $: user = $userEncrStore!;
-  $initApplicationLogic;
+  $: shouldShow && $initApplicationLogic;
 
   $: hasWallets = !!Object.keys($walletStore || {}).length;
   $: hasWalletData = !!Object.keys($walletDataStore || {}).length;
@@ -37,7 +45,7 @@
   $: invite = atob($page.query.invite || '');
 </script>
 
-{#if userIsSet}
+{#if shouldShow}
   {#if $encryptionKeysStateStore.encryptionKeySet && $userDecrStore}
     {#if $inviteToValidate}
       <OwnerFlow inviteToValidate={$inviteToValidate} userId={user.id} />

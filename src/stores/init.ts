@@ -4,7 +4,6 @@ import { noop } from 'svelte/internal';
 
 import { persistStore } from '@/utils/persistStore';
 
-import { tokenCacheKey, tokenStore } from './token';
 import { keyWrappedWithPinStore, userCacheKey, userEncrStore } from './user';
 import {
   walletCacheKey,
@@ -43,7 +42,6 @@ import { removeRequestHandler } from '@/services/sync/remoteDeleteData';
 const storesToPersist: [string, Writable<any>][] = [
   ['locale', locale],
   ['pin', keyWrappedWithPinStore],
-  [tokenCacheKey, tokenStore],
   [userCacheKey, userEncrStore],
   [mccCacheKey, mccStore],
   [schemeCacheKey, schemeStore],
