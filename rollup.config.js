@@ -54,6 +54,7 @@ const commonReplace = {
   'process.env.SITE_SCHEME': JSON.stringify(process.env.SITE_SCHEME),
   'process.env.SITE_HOST': JSON.stringify(process.env.SITE_HOST),
   'process.env.SITE_PORT': JSON.stringify(process.env.SITE_PORT),
+  'process.env.ROOT_HOST': JSON.stringify(process.env.ROOT_HOST),
 };
 
 export default {

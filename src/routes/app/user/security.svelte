@@ -3,6 +3,8 @@
   import SetNewMasterPassword from '@/components/user/setNewMasterPassword.svelte';
   import ChangePassword from '@/components/user/settings/changePassword.svelte';
   import SetPinCode from '@/components/user/settings/setPinCode.svelte';
+  import Sessions from '@/components/user/settings/sessions.svelte';
+  import DropUser from '@/components/user/settings/dropUser.svelte';
 
   import { _ } from 'svelte-i18n';
 
@@ -24,4 +26,11 @@
   <hr />
   <h2 class="subtitle">{$_('routes.user.pass')}</h2>
   <ChangePassword />
+  <hr />
+  <h2 class="subtitle">{$_('routes.user.sessions')}</h2>
+  <Sessions />
+  <hr />
+  <h2 class="subtitle">{$_('routes.user.dropUser')}</h2>
+  <DropUser />
+  <p class="help">{$_('routes.user.dropUserHelp')}</p>
 </Page>

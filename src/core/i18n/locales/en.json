@@ -70,6 +70,7 @@
     },
     "dangerZone": "Danger zone",
     "tryLater": "Try later",
+    "incorrectData": "Incorrect data",
     "or": "Or",
     "yes": "Yes",
     "no": "No",
@@ -89,7 +90,7 @@
       "howItWorks": "How it works",
       "openSource": "Open source",
       "terms": "Terms of use",
-      "copy": "Made by {tagO}@dkzlv{tagC}",
+      "copy": "Made by {linkO}@dkzlv{linkC}",
       "forum": "Forum"
     },
     "masterPassword": {
@@ -359,7 +360,7 @@
       "signup": {
         "cta": "Sign up",
         "whyEmail": "We need email so you can restore access to the account in case you forget the password. it is unnecessary though.",
-        "agree": "By creating an account you agree with the {tagO}terms and conditions{tagC}.",
+        "agree": "By creating an account you agree with the {linkO}terms and conditions{linkC}.",
         "subscribe": "I want to get updates on the project (~1 email a month)"
       },
       "signIn": "Sign in",
@@ -385,6 +386,19 @@
       "logs": {
         "label": "Logs for debugging",
         "help": "Log data is saved upon many different actions. It is always wiped after you close the tab/app. It never has any personal data or data you expect to be encrypted."
+      },
+      "session": {
+        "current": "Current",
+        "created": "Opened on {date, date, short}",
+        "close": "Close all but current",
+        "5min": "Changes may take effect in up to 5 minutes."
+      },
+      "drop": {
+        "aboutTo": "You're about to delete your account. We will also delete all the wallets owned by you, their data and your connection to other wallets.",
+        "irreversible": "We delete data forever. Like, you cannot restore it at all. We recommend you {linkO}to export data just in case{linkC}.",
+        "notification": "That's it, your account has been deleted. So Long, and Thanks for all the Fish!",
+        "validation": "Just to make sure you know what you're doing, we ask you to enter your username and account password. {tagO}If everything will be correct, your account will be deleted immediately{tagC}.",
+        "cta": "Delete account"
       }
     },
     "import": {
@@ -416,7 +430,7 @@
             "help": "Specify the date format",
             "formatInfo": "Specify the format of the date. {tagO}dd{tagC} — day of month; {tagO}MM{tagC} — month; {tagO}yyyy{tagC} — year; {tagO}HH{tagC} — hour; {tagO}mm{tagC} — minutes; {tagO}ss{tagC} — seconds.",
             "formatExample": "For example, {tagO}2020-12-24{tagC} would have {tagO}yyyy-MM-dd{tagC} as format.",
-            "docs": "For more options to specify date parts please {tagO}go here{tagC}."
+            "docs": "For more options to specify date parts please {linkO}go here{linkC}."
           }
         },
         "automation": {
@@ -474,7 +488,7 @@
         "troubleshoot": {
           "title": "Troubleshoot",
           "question": "Is something incorrect?",
-          "goToForum": "Get help {tagO}on our open forum{tagC}.",
+          "goToForum": "Get help {linkO}on our open forum{linkC}.",
           "resetIfSure": "If you know for sure what you're doing, try resetting the scheme.",
           "reset": "Reset scheme"
         },
@@ -549,7 +563,10 @@
       "masterPassOk": "Master-password was changed successfully",
       "pass": "Change account password",
       "pin": "Set pin-code",
-      "username": "Change username"
+      "username": "Change username",
+      "dropUser": "Delete account",
+      "dropUserHelp": "Account will not be removed when you click this button.",
+      "sessions": "Open sessions"
     }
   }
 }

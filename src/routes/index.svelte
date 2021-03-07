@@ -2,10 +2,8 @@
   import { goto } from '@sapper/app';
   import { onMount } from 'svelte';
 
-  import { tokenStore } from '@/stores/token';
   import { appPath, loginPath } from '@/core/routes';
+  import { userEncrStore } from '@/stores/user';
 
-  $: isAuthorized = !!$tokenStore?.accessToken;
-
-  onMount(() => goto(isAuthorized ? appPath : loginPath, { replaceState: true }));
+  onMount(() => goto($userEncrStore ? appPath : loginPath, { replaceState: true }));
 </script>

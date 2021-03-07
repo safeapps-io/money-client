@@ -10,7 +10,7 @@
   import { _ } from 'svelte-i18n';
   import { quintOut } from 'svelte/easing';
 
-  import { tokenStore } from '@/stores/token';
+  import { userEncrStore } from '@/stores/user';
   import { appPath, loginPath, signupPath } from '@/core/routes';
 
   export let segment: string;
@@ -18,9 +18,7 @@
   const { page } = stores();
 
   onMount(() => {
-    const token = $tokenStore;
-
-    if (token && token.accessToken) goto(appPath, { replaceState: true });
+    if ($userEncrStore) goto(appPath, { replaceState: true });
     else show = true;
   });
 

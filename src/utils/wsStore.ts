@@ -10,7 +10,7 @@ export enum WsStates {
 }
 
 const permanentCloseCode = 4999;
-export const wsStore = (path: string, handleMessage: WsHandler) =>
+export const wsStore = (getPath: () => Promise<string | void>, handleMessage: WsHandler) =>
   readable<{
     state: WsStates;
     sendMessage: WsSendMessage;
@@ -18,12 +18,24 @@ export const wsStore = (path: string, handleMessage: WsHandler) =>
     delayMs: number;
   } | null>(null, set => {
     let delayMs = 1000,
-      ws: WebSocket,
-      state: WsStates = WsStates.closed;
+      ws: WebSocket | undefined,
+      state: WsStates = WsStates.closed,
+      timeout: number = 0;
+
+    const getPathAndConnect = async () => {
+      clearTimeout(timeout);
+      const path = await getPath();
+
+      if (path) reconnect(path);
+      else {
+        timeout = window.setTimeout(getPathAndConnect, delayMs);
+        delayMs = delayMs >= 32 * 1000 ? delayMs : delayMs * 2;
+      }
+    };
 
     const update = () => set({ state, sendMessage, closeConnection, delayMs }),
-      reconnect = () => {
-        if (state === WsStates.connecting) ws.close();
+      reconnect = (path: string) => {
+        if (state === WsStates.connecting) ws!.close();
 
         if (state !== WsStates.open) {
           state = WsStates.connecting;
@@ -31,16 +43,13 @@ export const wsStore = (path: string, handleMessage: WsHandler) =>
 
           ws.onclose = e => {
             state = WsStates.closed;
-            if (e.code !== permanentCloseCode) {
-              setTimeout(reconnect, delayMs);
-              delayMs = delayMs >= 32 * 1000 ? delayMs : delayMs * 2;
-            }
+            if (e.code !== permanentCloseCode) getPathAndConnect();
             update();
           };
 
           ws.onerror = err => {
             console.error('Socket encountered error, closing socket', err);
-            ws.close();
+            ws!.close();
           };
 
           ws.onmessage = e => {
@@ -57,12 +66,15 @@ export const wsStore = (path: string, handleMessage: WsHandler) =>
       },
       sendMessage = (message: { type: string; data: any }) => {
         if (state === WsStates.open) {
-          ws.send(JSON.stringify(message));
+          ws!.send(JSON.stringify(message));
         }
       },
-      closeConnection = (permanent = true) => ws.close(permanent ? permanentCloseCode : undefined);
+      closeConnection = (permanent = true) => {
+        ws?.close(permanent ? permanentCloseCode : undefined);
+        clearTimeout(timeout);
+      };
 
-    reconnect();
+    getPathAndConnect();
 
     return closeConnection;
   });

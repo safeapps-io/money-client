@@ -22,6 +22,13 @@ type BaseUserState = {
   b64salt: string | null;
 };
 
+export type RefreshToken = {
+  id: string;
+  created: number;
+  description: string;
+  current: boolean;
+};
+
 export type UserEncrState = BaseUserState & {
   encr: string | null;
 };

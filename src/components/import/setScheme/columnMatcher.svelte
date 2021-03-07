@@ -8,6 +8,8 @@
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
 
+  import { generateLinkTags } from '@/utils/accentTags';
+
   import { FieldResolution, fieldChoices } from '@/core/import/constants';
 
   export let columnCount: number,
@@ -68,7 +70,8 @@
           <div slot="text">
             <Text header>{$_('cmps.import.scheme.onboarding.main.title')}</Text>
             <Text>{$_('cmps.import.scheme.onboarding.main.main1')}</Text>
-            <Text>{$_('cmps.import.scheme.onboarding.main.main2', { values: { emoji: '👌' } })}</Text>
+            <Text
+              >{$_('cmps.import.scheme.onboarding.main.main2', { values: { emoji: '👌' } })}</Text>
             <button class="button is-small mt-3" on:click={() => (currentStep = 'finish')}
               >{$_('cmps.import.scheme.onboarding.main.cta', { values: { emoji: '👌' } })}</button>
           </div>
@@ -103,11 +106,7 @@
               </p>
               <p>
                 {@html $_('cmps.import.scheme.columnMatcher.date.docs', {
-                  values: {
-                    tagO:
-                      '<a href="https://date-fns.org/v2.16.1/docs/format" target="_blank" rel="noopener noreferrer">',
-                    tagC: '</a>',
-                  },
+                  values: generateLinkTags('https://date-fns.org/v2.16.1/docs/format'),
                 })}
               </p>
             </div>

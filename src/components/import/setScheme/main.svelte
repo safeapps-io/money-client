@@ -16,6 +16,7 @@
 
   import { longpress } from '@/utils/actions/longpress';
   import { bufferToString } from '@/utils/buffer/conversions';
+  import { accentTags, generateLinkTags } from '@/utils/accentTags';
 
   import { parseCsv } from '@/core/import/parseCsv';
   import { forumBankHelpPath } from '@/core/routes';
@@ -81,7 +82,7 @@
         <Text header>{$_('cmps.import.scheme.onboarding.notBank.title')}</Text>
         <Text
           >{@html $_('cmps.import.scheme.onboarding.notBank.main', {
-            values: { tagO: '<span class="has-text-weight-bold">', tagC: '</span>' },
+            values: accentTags,
           })}</Text>
         <button class="button is-small mt-3" on:click={() => (currentStep = 'settings')}
           >{$_('cmps.import.scheme.onboarding.notBank.cta')}</button>
@@ -106,10 +107,8 @@
         <p>
           {@html $_('cmps.import.scheme.bankStatement.link', {
             values: {
-              linkO: `<a href="${forumBankHelpPath}">`,
-              linkC: '</a>',
-              tagO: '<span class="has-text-weight-bold">',
-              tagC: '</span>',
+              ...generateLinkTags(forumBankHelpPath, true),
+              ...accentTags,
             },
           })}
         </p>
