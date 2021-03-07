@@ -1,8 +1,6 @@
 import { request } from '@/services/request';
-import { UserEncrState, userEncrStore, resetUserStore } from '@/stores/user';
-import { resetWalletStores } from '@/stores/wallet';
-import { resetEncryptedStore } from '@/stores/encr/store';
-import { resetEncryptionKeysState } from '@/stores/encr/keysState';
+import { UserEncrState, userEncrStore, RefreshToken } from '@/stores/user';
+import { dropUserData } from './dropUserData';
 
 export enum InviteStringTypes {
   service = 'service',
@@ -79,7 +77,7 @@ export class AuthService {
       });
       return true;
     } catch (e) {
-      this.deleteUserData();
+      dropUserData();
       return false;
     }
   }
@@ -180,19 +178,29 @@ export class AuthService {
     userEncrStore.set(user);
   }
 
+  static async getSessions() {
+    return (
+      await request<RefreshToken[]>({
+        path: `${this.prefix}user/sessions`,
+      })
+    ).json;
+  }
+
+  static async dropSessions(ids: string[]) {
+    return (
+      await request<RefreshToken[]>({
+        method: 'DELETE',
+        path: `${this.prefix}user/sessions`,
+        data: { ids },
+      })
+    ).json;
+  }
+
   static async unsubscribe(unsubscribeToken: string) {
     return request({
       method: 'POST',
       path: `${this.prefix}unsubscribe/${unsubscribeToken}`,
     });
-  }
-
-  private static deleteUserData() {
-    resetEncryptionKeysState();
-
-    resetUserStore();
-    resetWalletStores();
-    resetEncryptedStore();
   }
 
   static async dropUser(password: string) {
@@ -201,7 +209,7 @@ export class AuthService {
       path: `${this.prefix}user`,
       data: { password },
     });
-    this.deleteUserData();
+    dropUserData();
   }
 
   static async logout() {
@@ -210,6 +218,6 @@ export class AuthService {
       path: `${this.prefix}logout`,
     });
 
-    this.deleteUserData();
+    dropUserData();
   }
 }

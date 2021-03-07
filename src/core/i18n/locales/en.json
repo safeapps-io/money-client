@@ -387,6 +387,12 @@
         "label": "Logs for debugging",
         "help": "Log data is saved upon many different actions. It is always wiped after you close the tab/app. It never has any personal data or data you expect to be encrypted."
       },
+      "session": {
+        "current": "Current",
+        "created": "Opened on {date, date, short}",
+        "close": "Close all but current",
+        "5min": "Changes may take effect in up to 5 minutes."
+      },
       "drop": {
         "aboutTo": "You're about to delete your account. We will also delete all the wallets owned by you, their data and your connection to other wallets.",
         "irreversible": "We delete data forever. Like, you cannot restore it at all. We recommend you {linkO}to export data just in case{linkC}.",
@@ -559,7 +565,8 @@
       "pin": "Set pin-code",
       "username": "Change username",
       "dropUser": "Delete account",
-      "dropUserHelp": "Account will not be removed when you click this button."
+      "dropUserHelp": "Account will not be removed when you click this button.",
+      "sessions": "Open sessions"
     }
   }
 }

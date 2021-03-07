@@ -1,5 +1,6 @@
 import { HTTPError, AuthError, FormError } from './errors';
 import { adminPath, apiPath } from './config';
+import { dropUserData } from './auth/dropUserData';
 
 type RequestParams = {
   method?: string;
@@ -33,6 +34,7 @@ export const request = async <Res = {}>({
     switch (res.status) {
       case 401:
       case 403:
+        dropUserData();
         throw new AuthError();
 
       case 400:
