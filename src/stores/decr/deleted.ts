@@ -9,14 +9,13 @@ export const {
   overwrite: deletedOverwrite,
 } = createDecrEntityStore<DeletedEntity>(EntityTypes.deleted);
 
-export const flatMappedDeletedStore = derived(deletedStore, $deleted =>
-    Object.entries($deleted).reduce(
-      (acc, [walletId, ent]) => (
-        (acc[walletId] = Object.values(ent).flatMap(e => e.decr.ids)), acc
-      ),
-      {} as { [walletId: string]: string[] },
-    ),
-  ),
+export const flatMappedDeletedStore = derived(deletedStore, $deleted => {
+    const result: { [walletId: string]: string[] } = {};
+    for (const [walletId, ent] of Object.entries($deleted)) {
+      result[walletId] = Object.values(ent).flatMap(e => e.decr.ids);
+    }
+    return result;
+  }),
   notYetRemoteDeletedStore = derived(deletedStore, $deleted =>
     Object.values($deleted)
       .flatMap(idMap => Object.values(idMap))
