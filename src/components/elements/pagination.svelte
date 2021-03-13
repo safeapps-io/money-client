@@ -1,12 +1,20 @@
 <script>
+  import type { Writable } from 'svelte/store';
+
   import { _ } from 'svelte-i18n';
+  import { getContext } from 'svelte';
 
   export let page = 1,
     limit = 10,
     items: any[];
 
-  // Resetting page on items change
-  $: if (items) page = 1;
+  const resetPageKeyStore = getContext<Writable<string | null> | undefined>('resetPageKeyStore');
+
+  // Resetting page when reset key changes
+  $: if (resetPageKeyStore && $resetPageKeyStore) page = 1;
+
+  // If items were changed with the same resetPageKey, we need to make sure the page does not overflow the list
+  $: if (page > lastPage) page = lastPage;
 
   $: lastPage = Math.ceil(items.length / limit);
   $: sliceStart = (page - 1) * limit;
