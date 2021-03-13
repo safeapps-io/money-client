@@ -12,26 +12,29 @@ export const getInitialParsingState = ({
   defaultData,
   settings,
   transactionCount,
+  walletUserCount,
 }: {
   rawParsedTransactions: ParsedTransaction[];
   autocompleteData: StoreValue<typeof autocompleteDataStore>;
 
-  defaultData: { userId: string; assetId: string };
+  defaultData: { userId: string; assetId: string; walletUserId: string };
   settings: AutomationSettings;
   transactionCount: number;
+  walletUserCount: number;
 }) => {
   const shouldRunAutoResolveAgainstAll = shouldAutoResolveAll({ settings, transactionCount }),
     toResolveAuto: OmitCommonFields<Transaction>[] = [],
-    toResolveManually: ParsedTransaction[] = rawParsedTransactions;
+    toResolveManually: ParsedTransaction[] = [];
 
   const transposedAutocomplete = getTransposedAutocomplete(autocompleteData);
 
   if (shouldRunAutoResolveAgainstAll) {
-    for (const transactionToDecide of toResolveManually) {
+    for (const transactionToDecide of rawParsedTransactions) {
       const initialTransactionState = getInitialTransactionState({
         parsedTransaction: transactionToDecide,
         autocompleteData: transposedAutocomplete,
         defaultData,
+        walletUserCount,
       }).transaction;
       if (
         shouldTransactionBeAutoResolved({
@@ -39,11 +42,14 @@ export const getInitialParsingState = ({
           autocompleteData,
           settings,
         })
-      ) {
+      )
         toResolveAuto.push(initialTransactionState as OmitCommonFields<Transaction>);
-        toResolveManually.unshift();
-      }
+      else toResolveManually.push(transactionToDecide);
     }
   }
-  return { toResolveAuto, toResolveManually };
+
+  return {
+    toResolveAuto,
+    toResolveManually: shouldRunAutoResolveAgainstAll ? toResolveManually : rawParsedTransactions,
+  };
 };

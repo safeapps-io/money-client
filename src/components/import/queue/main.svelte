@@ -54,13 +54,23 @@
   $: transposedAutocomplete = getTransposedAutocomplete(refreshingAutocompleteDataStore);
 
   let state: State;
+
+  const _walletUserKeys = Object.keys($currentWalletUserStore),
+    defaultInitialParsingStateData = {
+      userId: $userEncrStore!.id,
+      assetId: $defaultAssetStore.id,
+      walletUserId: _walletUserKeys[0],
+    },
+    walletUserCount = _walletUserKeys.length;
+
   if (Array.isArray(dataSource)) {
     const initialState = getInitialParsingState({
       rawParsedTransactions: dataSource,
       autocompleteData: refreshingAutocompleteDataStore,
-      defaultData: { userId: $userEncrStore!.id, assetId: $defaultAssetStore.id },
+      defaultData: defaultInitialParsingStateData,
       settings: $automationSettingsStore,
       transactionCount: Object.keys($currentWalletTransactionStore).length,
+      walletUserCount,
     });
 
     state = {
@@ -93,8 +103,9 @@
   $: if (parsedTransaction) {
     const res = getInitialTransactionState({
       parsedTransaction,
-      defaultData: { userId: $userEncrStore!.id, assetId: $defaultAssetStore.id },
+      defaultData: defaultInitialParsingStateData,
       autocompleteData: transposedAutocomplete,
+      walletUserCount,
     });
     if (
       shouldTransactionBeAutoResolved({
