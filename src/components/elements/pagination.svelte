@@ -15,6 +15,8 @@
 
   // If items were changed with the same resetPageKey, we need to make sure the page does not overflow the list
   $: if (page > lastPage) page = lastPage;
+  // It can get a negative value if it hits a zero data
+  $: if (page <= 0) page = 1;
 
   $: lastPage = Math.ceil(items.length / limit);
   $: sliceStart = (page - 1) * limit;
