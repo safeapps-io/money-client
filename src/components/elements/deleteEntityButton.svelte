@@ -1,7 +1,11 @@
 <script>
+  import Shortcut from './shortcut.svelte';
+
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
   import { getNotificationsContext } from 'svelte-notifications/src/context';
+
+  import { shortcut } from '@/utils/actions/shortcut';
 
   import { notification, NotificationStyles } from '@/core/notification';
 
@@ -14,6 +18,8 @@
   export let entityMap: { [walletId: string]: string[] },
     runBefore: (() => Promise<boolean>) | undefined = undefined,
     buttonText: string | undefined = $_('cmps.deleteEntity.delete');
+
+  const shortcutSetting = { shift: true, code: 'Backspace' };
 
   const click = async () => {
     try {
@@ -44,5 +50,10 @@
 </script>
 
 <slot {click} {buttonText}>
-  <button class="button is-danger is-outlined" on:click={click} type="button">{buttonText}</button>
+  <button
+    class="button is-danger is-outlined"
+    on:click={click}
+    type="button"
+    use:shortcut={shortcutSetting}
+    >{buttonText} <Shortcut setting={shortcutSetting} key={shortcutSetting.code} /></button>
 </slot>
