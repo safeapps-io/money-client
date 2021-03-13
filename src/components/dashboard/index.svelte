@@ -28,9 +28,6 @@
     group = ent.decr.group,
     edit: boolean = false;
 
-  $: $resetPageKeyStore = searchFilter.id;
-  setContext('resetPageKeyStore', resetPageKeyStore);
-
   const reset = () => (searchFilter = copy(ent));
   /**
    * We mutate the object down the path. The only way to do it secure for the central store is to
@@ -53,6 +50,10 @@
 
   let page = 0;
   $: dates = getSearchFilterDates({ group, page });
+
+  // Resetting page number when search filter is changed or the period
+  $: $resetPageKeyStore = `${searchFilter.id}${dates.startDate}${dates.endDate}`;
+  setContext('resetPageKeyStore', resetPageKeyStore);
 </script>
 
 <Page boxedView={false}>
