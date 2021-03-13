@@ -1,7 +1,14 @@
+<script context="module">
+  import { writable } from 'svelte/store';
+
+  const resetPageKeyStore = writable<string | null>(null);
+</script>
+
 <script>
   import type { SearchFilter, FullEntity } from '@/stores/decr/types';
 
   import { media } from 'svelte-match-media';
+  import { setContext } from 'svelte';
 
   import { copy } from '@/utils/object';
 
@@ -20,6 +27,9 @@
     prevEnt = copy(ent),
     group = ent.decr.group,
     edit: boolean = false;
+
+  $: $resetPageKeyStore = searchFilter.id;
+  setContext('resetPageKeyStore', resetPageKeyStore);
 
   const reset = () => (searchFilter = copy(ent));
   /**

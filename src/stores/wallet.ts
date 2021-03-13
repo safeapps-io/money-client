@@ -139,7 +139,7 @@ export const currentWalletStore = derived(
         else if ($jointWallet && $jointWallets)
           res = $jointWallets[$jointWallet].walletIds.reduce(
             (acc, curr) => ({ ...acc, ...$state[curr] }),
-            {} as { [id: string]: T },
+            {},
           );
 
         return res;
