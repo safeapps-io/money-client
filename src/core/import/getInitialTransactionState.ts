@@ -5,9 +5,11 @@ export const getInitialTransactionState = ({
   parsedTransaction,
   defaultData,
   autocompleteData,
+  walletUserCount,
 }: {
   parsedTransaction: ParsedTransaction;
-  defaultData: { assetId: string; userId: string };
+  defaultData: { assetId: string; userId: string; walletUserId: string };
+  walletUserCount: number;
   autocompleteData: {
     mcc: OccurenciesSortedByPopularity;
     accountNumber: OccurenciesSortedByPopularity;
@@ -23,11 +25,17 @@ export const getInitialTransactionState = ({
     } as InitialTransactionState;
 
   /**
-   * We try to get the first user from the autocomplete history and offer other history as option for sorting,
+   * We try to get the first user from the autocomplete history and offer other history as option for sorting.
+   *
+   * Another case would be when we only have a single wallet user in the wallet. Most probably by the time a user
+   * reaches 30 to 60 transactions they probably have already created all walletusers they need, so it's a safe
+   * bet, that user can be set automatically.
    */
   const possibleWalletUserId =
     accountNumber && autocompleteData.accountNumber?.[accountNumber]?.[0];
+
   if (possibleWalletUserId) finalTransaction.walletUserId = possibleWalletUserId;
+  else if (walletUserCount == 1) finalTransaction.walletUserId = defaultData.walletUserId;
 
   /**
    * We first try to set the category from merchant name and then by mcc code.

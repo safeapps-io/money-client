@@ -81,14 +81,16 @@ export const shouldTransactionBeAutoResolved = ({
       automationPower,
     );
 
-  // We always take account number into consideration
-  let shouldAutoResolve = checkTransactionAutocompleteAttrAgainstAutocompleteData(
-    autocomplete.accountNumber,
-    walletUserId,
-    autocompleteData.accountNumber,
-    transactionCountAccordingToSettings,
-    thisResultThresholdPercent,
-  );
+  // We always take account number into consideration if it's present
+  const accountNumberResult = autocomplete.accountNumber
+    ? checkTransactionAutocompleteAttrAgainstAutocompleteData(
+        autocomplete.accountNumber,
+        walletUserId,
+        autocompleteData.accountNumber,
+        transactionCountAccordingToSettings,
+        thisResultThresholdPercent,
+      )
+    : true;
 
   /**
    * We may get a transaction with both merchant and MCC code. It may have very strong
@@ -118,7 +120,7 @@ export const shouldTransactionBeAutoResolved = ({
       thisResultThresholdPercent,
     );
 
-  return shouldAutoResolve && (merchantResult || mccResult);
+  return accountNumberResult && (merchantResult || mccResult);
 };
 
 export const shouldAutoResolveAll = ({

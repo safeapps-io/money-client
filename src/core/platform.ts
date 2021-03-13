@@ -8,4 +8,5 @@ export const isMobile = derived(media, $media => {
   isMac = () => navigator.platform.indexOf('Mac') > -1;
 
 export const cmdKey = () => (isMac() ? '⌘' : 'Ctrl'),
-  altKey = () => (isMac() ? '⌥' : 'Alt');
+  altKey = () => (isMac() ? '⌥' : 'Alt'),
+  backspaceKey = () => (isMac() ? '⌫' : '←');
