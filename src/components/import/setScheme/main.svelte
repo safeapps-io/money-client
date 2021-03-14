@@ -65,7 +65,7 @@
     currentStep == 'notBank' ||
     currentStep == 'finish'}
   let:finishOnboarding>
-  <div slot="text">
+  <svelte:fragment slot="text">
     <CrossfadeWrapper replayAnimationKey={currentStep}>
       {#if currentStep == 'unknown'}
         <Text header>{$_('cmps.import.scheme.onboarding.unknown.title')}</Text>
@@ -92,7 +92,7 @@
           >{$_('cmps.import.scheme.onboarding.finish.cta')}</button>
       {/if}
     </CrossfadeWrapper>
-  </div>
+  </svelte:fragment>
 </Onboarding>
 
 <div
@@ -118,12 +118,12 @@
 
   <Onboarding right bottom preventSlotClick shouldShow={currentStep == 'settings'}>
     <SchemaSettings bind:encoding bind:header bind:decimal />
-    <div slot="text">
+    <svelte:fragment slot="text">
       <Text header>{$_('cmps.import.scheme.onboarding.settings.title')}</Text>
       <Text>{$_('cmps.import.scheme.onboarding.settings.main')}</Text>
       <button class="button is-small mt-3" on:click={() => (currentStep = 'main')}
         >{$_('common.allClear')}</button>
-    </div>
+    </svelte:fragment>
   </Onboarding>
 </div>
 

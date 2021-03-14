@@ -40,19 +40,17 @@
     <Form {success}>
       <slot {ent} />
 
-      <div slot="submit" let:disabled let:loading>
-        <div class="field is-grouped">
-          <div class="control">
-            <button class="button" class:is-color-loading={loading} {disabled}> Update</button>
-          </div>
-          <div class="control">
-            <button
-              class="button is-text"
-              class:is-color-loading={loading}
-              type="button"
-              {disabled}
-              on:click={remove}>Delete</button>
-          </div>
+      <div class="field is-grouped" slot="submit" let:disabled let:loading>
+        <div class="control">
+          <button class="button" class:is-color-loading={loading} {disabled}> Update</button>
+        </div>
+        <div class="control">
+          <button
+            class="button is-text"
+            class:is-color-loading={loading}
+            type="button"
+            {disabled}
+            on:click={remove}>Delete</button>
         </div>
       </div>
     </Form>

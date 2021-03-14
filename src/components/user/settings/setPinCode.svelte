@@ -29,11 +29,11 @@
     <PinCodeField />
   </Form>
 
-  <div slot="text">
+  <svelte:fragment slot="text">
     <Text header>{$_('cmps.masterPassword.old.pin.onboarding.header')}</Text>
     <Text>{$_('cmps.masterPassword.old.pin.onboarding.main')}</Text>
     <Text>{$_('cmps.masterPassword.old.pin.onboarding.device')}</Text>
 
     <button class="button mt-3" on:click={finishOnboarding}>{$_('common.okDok')}</button>
-  </div>
+  </svelte:fragment>
 </Onboarding>

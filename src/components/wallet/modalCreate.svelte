@@ -48,10 +48,10 @@
     <Onboarding shouldShow={firstWallet} key="firstWallet">
       <WalletForm on:created={created} alwaysCreateDefaultCategories={firstWallet} />
 
-      <div slot="text">
+      <svelte:fragment slot="text">
         <Text header>{$_('cmps.wallet.common.wallets')}</Text>
         <Text>{$_('cmps.wallet.onboarding.main')}</Text>
-      </div>
+      </svelte:fragment>
     </Onboarding>
   {:else}
     <h1 class="title">{$_('cmps.wallet.create.jointWallet')}</h1>

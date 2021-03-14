@@ -200,14 +200,14 @@
             getBinaryData(e);
           }} />
 
-        <div slot="text">
+        <svelte:fragment slot="text">
           <Text header>{$_('cmps.wallet.onboarding.importFile.title')}</Text>
           <Text>
             {@html $_('cmps.wallet.onboarding.importFile.main', {
               values: { tagO: '<code>', tagC: '</code>' },
             })}
           </Text>
-        </div>
+        </svelte:fragment>
       </Onboarding>
     {:else}
       <div class="main-wrapper">

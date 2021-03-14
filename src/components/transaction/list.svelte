@@ -35,7 +35,5 @@
       showDelimiter={index} />
   </div>
 
-  <div slot="zero">
-    <ZeroData text={$_('cmps.transaction.zeroData')} />
-  </div>
+  <ZeroData slot="zero" text={$_('cmps.transaction.zeroData')} />
 </Pagination>

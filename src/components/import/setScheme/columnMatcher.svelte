@@ -67,14 +67,14 @@
             </select>
           </div>
 
-          <div slot="text">
+          <svelte:fragment slot="text">
             <Text header>{$_('cmps.import.scheme.onboarding.main.title')}</Text>
             <Text>{$_('cmps.import.scheme.onboarding.main.main1')}</Text>
             <Text
               >{$_('cmps.import.scheme.onboarding.main.main2', { values: { emoji: '👌' } })}</Text>
             <button class="button is-small mt-3" on:click={() => (currentStep = 'finish')}
               >{$_('cmps.import.scheme.onboarding.main.cta', { values: { emoji: '👌' } })}</button>
-          </div>
+          </svelte:fragment>
         </Onboarding>
       {/if}
     </div>

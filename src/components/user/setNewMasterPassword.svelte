@@ -59,12 +59,12 @@
     {/if}
   </Form>
 
-  <div slot="text">
+  <svelte:fragment slot="text">
     <Text header>{$_('cmps.masterPassword.setNew.onboarding.header')}</Text>
     <Text>
       {@html $_('cmps.masterPassword.setNew.onboarding.main', {
         values: { boldO: '<span class="has-text-weight-bold">', boldC: '</span>' },
       })}
     </Text>
-  </div>
+  </svelte:fragment>
 </Onboarding>

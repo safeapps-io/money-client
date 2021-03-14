@@ -28,12 +28,12 @@
     </label>
   </div>
 
-  <div slot="text">
+  <svelte:fragment slot="text">
     <Text header>{$_('routes.wallet.balance')}</Text>
     <Text>{$_('cmps.transaction.reference.seeDynamics')}</Text>
 
     <button class="button mt-3" on:click={finishOnboarding}>{$_('common.allClear')}</button>
-  </div>
+  </svelte:fragment>
 </Onboarding>
 
 {#if wallet.decr.balance}

@@ -27,7 +27,7 @@
       href={$importPath}
       on:click={() => finishOnboarding().then(onbClickSlot)}>{$_('cmps.transaction.import')}</a>
 
-    <div slot="text">
+    <svelte:fragment slot="text">
       <Text header>{$_('routes.wallet.import')}</Text>
       <Text>{$_('cmps.wallet.onboarding.importButton.itsEasy')}</Text>
       <Text>
@@ -41,7 +41,7 @@
 
       <button class="button is-small my-3" on:click={finishOnboarding}
         >{$_('common.tryLater')}</button>
-    </div>
+    </svelte:fragment>
   </Onboarding>
   <div class={manualAddClasses}>
     <a class={'is-size-7 is-underlined ' + manualAddClasses} href={$addTransactionPath}

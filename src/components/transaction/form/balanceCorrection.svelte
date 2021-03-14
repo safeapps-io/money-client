@@ -74,21 +74,19 @@
   <Field field={datetimeField}>
     <TextInput type="date" />
   </Field>
-  <div slot="submit">
-    <Level>
-      <div class="column is-narrow" slot="left">
-        <slot name="left">
-          <button class="button is-success is-outlined"
-            >{ent ? $_('common.form.update') : $_('common.form.create')}</button>
-        </slot>
-      </div>
-      <div class="column is-narrow" slot="right">
-        <slot name="right">
-          {#if ent}
-            <DeleteEntityButton entityMap={{ [ent.walletId]: [ent.id] }} on:delete />
-          {/if}
-        </slot>
-      </div>
-    </Level>
-  </div>
+  <Level slot="submit">
+    <div class="column is-narrow" slot="left">
+      <slot name="left">
+        <button class="button is-success is-outlined"
+          >{ent ? $_('common.form.update') : $_('common.form.create')}</button>
+      </slot>
+    </div>
+    <div class="column is-narrow" slot="right">
+      <slot name="right">
+        {#if ent}
+          <DeleteEntityButton entityMap={{ [ent.walletId]: [ent.id] }} on:delete />
+        {/if}
+      </slot>
+    </div>
+  </Level>
 </Form>

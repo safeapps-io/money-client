@@ -141,39 +141,35 @@
     <TagsField />
   </FieldContext>
 
-  <div slot="submit" let:disabled let:loading>
-    <Level>
-      <div class="column is-narrow" slot="left">
-        {#if $selectedWalletStore}
-          {#if !isProtected}
-            <button class="button" class:is-color-loading={loading} {disabled}
-              >{$_('common.form.save')}</button>
-          {/if}
-
-          <button
-            class="button is-success is-outlined"
-            class:is-color-loading={loading}
-            {disabled}
-            on:click={() => (saveAsNew = true)}>
-            {$_('cmps.searchFilter.form.saveAsNew')}
-          </button>
-        {/if}
-      </div>
-
-      <div class="column is-narrow" slot="right">
+  <Level slot="submit" let:disabled let:loading>
+    <div class="column is-narrow" slot="left">
+      {#if $selectedWalletStore}
         {#if !isProtected}
-          <DeleteEntityButton
-            entityMap={{ [searchFilter.walletId]: [searchFilter.id] }}
-            on:delete />
+          <button class="button" class:is-color-loading={loading} {disabled}
+            >{$_('common.form.save')}</button>
         {/if}
+
         <button
-          class="button"
+          class="button is-success is-outlined"
           class:is-color-loading={loading}
-          type="button"
-          on:click={() => dispatch('reset')}>
-          {$_('common.form.cancel')}
+          {disabled}
+          on:click={() => (saveAsNew = true)}>
+          {$_('cmps.searchFilter.form.saveAsNew')}
         </button>
-      </div>
-    </Level>
-  </div>
+      {/if}
+    </div>
+
+    <div class="column is-narrow" slot="right">
+      {#if !isProtected}
+        <DeleteEntityButton entityMap={{ [searchFilter.walletId]: [searchFilter.id] }} on:delete />
+      {/if}
+      <button
+        class="button"
+        class:is-color-loading={loading}
+        type="button"
+        on:click={() => dispatch('reset')}>
+        {$_('common.form.cancel')}
+      </button>
+    </div>
+  </Level>
 </Form>

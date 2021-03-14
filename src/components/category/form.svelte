@@ -59,19 +59,17 @@
 
   <ColorField inputValue={ent?.decr.color} />
 
-  <div slot="submit" let:buttonText>
-    <Level>
-      <div class="column is-narrow" slot="left">
-        <button class="button is-success">{buttonText}</button>
-      </div>
-      <div class="column is-narrow" slot="right">
-        {#if ent}
-          <DeleteEntityButton
-            entityMap={{ [ent.walletId]: [ent.id] }}
-            runBefore={offerCategorySwitch}
-            on:delete />
-        {/if}
-      </div>
-    </Level>
-  </div>
+  <Level slot="submit" let:buttonText>
+    <div class="column is-narrow" slot="left">
+      <button class="button is-success">{buttonText}</button>
+    </div>
+    <div class="column is-narrow" slot="right">
+      {#if ent}
+        <DeleteEntityButton
+          entityMap={{ [ent.walletId]: [ent.id] }}
+          runBefore={offerCategorySwitch}
+          on:delete />
+      {/if}
+    </div>
+  </Level>
 </Form>

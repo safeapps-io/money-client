@@ -274,12 +274,12 @@
   {textSlotWidth}
   {key}
   shouldShow={currentStep == 'intro' && !!state[unresolvedTab].length}>
-  <div slot="text">
+  <svelte:fragment slot="text">
     <Text header>{$_('cmps.import.queue.onboarding.automation.header')}</Text>
     <Text>{$_('cmps.import.queue.onboarding.automation.main')}</Text>
     <button class="button mt-3" on:click={() => (currentStep = 'tabsUnS')}
       >{$_('common.letsStart')}</button>
-  </div>
+  </svelte:fragment>
 </Onboarding>
 
 <div class="settings-area mb-3">
@@ -313,7 +313,7 @@
       <span>{tab.label || tab.value}</span>
     </Tabs>
 
-    <div slot="text">
+    <svelte:fragment slot="text">
       <CrossfadeWrapper replayAnimationKey={currentStep}>
         {#if currentStep == 'tabsUnS'}
           <Text>
@@ -346,7 +346,7 @@
             >{$_('common.allClear')}</button>
         {/if}
       </CrossfadeWrapper>
-    </div>
+    </svelte:fragment>
   </Onboarding>
 
   <div class="tab-container py-4" bind:this={rootFormRef}>
@@ -388,11 +388,11 @@
         ><img src={arrowRightIcon} alt="arrow right" height="15" width="15" /></span>
     </button>
 
-    <div slot="text">
+    <svelte:fragment slot="text">
       <Text>{$_('cmps.import.queue.onboarding.final.clickWhenSave')}</Text>
       <Text>{$_('cmps.import.queue.onboarding.final.savePlace')}</Text>
       <button class="button mt-5" on:click={finishOnboarding}>{$_('common.letsStart')}</button>
-    </div>
+    </svelte:fragment>
   </Onboarding>
 </div>
 
