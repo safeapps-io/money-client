@@ -2,14 +2,15 @@
   import UserCard from './userCard.svelte';
   import NewInvite from './newInvite.svelte';
 
-  import { getNotificationsContext } from 'svelte-notifications/src/context';
+  // import { getNotificationsContext } from 'svelte-notifications/src/context';
+  import { noop } from 'svelte/internal';
   import { _ } from 'svelte-i18n';
 
   import { notification } from '$core/notification';
   import { AccessLevels, selectedWalletStore, walletStore } from '$stores/wallet';
   import { userEncrStore } from '$stores/user';
 
-  const { addNotification } = getNotificationsContext();
+  const addNotification = noop as any;
 
   $: wallet = $walletStore![$selectedWalletStore!];
   $: user = $userEncrStore!;

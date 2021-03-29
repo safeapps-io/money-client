@@ -3,15 +3,16 @@
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
-  import { getNotificationsContext } from 'svelte-notifications/src/context';
+  // import { getNotificationsContext } from 'svelte-notifications/src/context';
 
   import { AuthService } from '$services/auth/authService';
   import { notification, NotificationStyles } from '$core/notification';
+  import { noop } from 'svelte/internal';
 
   export let token: string;
 
   const dispatch = createEventDispatcher(),
-    { addNotification } = getNotificationsContext(),
+    addNotification = noop as any,
     success = async (data: { password: string }) => {
       await AuthService.setPasswordFromToken({ ...data, token });
       addNotification(

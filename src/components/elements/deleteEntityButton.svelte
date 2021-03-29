@@ -3,7 +3,8 @@
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
-  import { getNotificationsContext } from 'svelte-notifications/src/context';
+  // import { getNotificationsContext } from 'svelte-notifications/src/context';
+  import { noop } from 'svelte/internal';
 
   import { shortcut } from '$utils/actions/shortcut';
 
@@ -12,7 +13,7 @@
   import { deletedAdd } from '$stores/decr/deleted';
   import { userEncrStore } from '$stores/user';
 
-  const { addNotification } = getNotificationsContext(),
+  const addNotification = noop as any,
     dispatch = createEventDispatcher();
 
   export let entityMap: { [walletId: string]: string[] },

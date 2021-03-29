@@ -12,7 +12,8 @@
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher, onDestroy } from 'svelte';
   import { writable } from 'svelte/store';
-  import { getNotificationsContext } from 'svelte-notifications/src/context';
+  // import { getNotificationsContext } from 'svelte-notifications/src/context';
+  import { noop } from 'svelte/internal';
 
   import { bufferToString } from '$utils/buffer/conversions';
   import { persistStoreLs } from '$utils/persistStore';
@@ -31,7 +32,7 @@
   import { notification, NotificationStyles } from '$core/notification';
 
   const dispatch = createEventDispatcher(),
-    { addNotification } = getNotificationsContext();
+    addNotification = noop as any;
 
   const cachedStateStore = writable<{ state: any; timestamp: number; filename: string } | null>(
       null,

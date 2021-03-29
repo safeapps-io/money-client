@@ -14,8 +14,6 @@
   import { userEncrStore } from '$stores/user';
   import { appPath, loginPath, signupPath } from '$core/routes';
 
-  export let segment: string;
-
   onMount(() => {
     if ($userEncrStore) goto(appPath, { replaceState: true });
     else show = true;
@@ -31,16 +29,16 @@
       <Logo />
       <hr />
       <h2 class="title is-4">
-        {#if segment != 'login'}
-          <Link href={loginPath + queryParams}>{$_('cmps.user.signIn')}</Link>
-        {:else}{$_('cmps.user.signIn')}{/if}
+        {#if $page.path.includes('login')}
+          {$_('cmps.user.signIn')}
+        {:else}<Link href={loginPath + queryParams}>{$_('cmps.user.signIn')}</Link>{/if}
         <span class="px-2 is-unselectable">|</span>
-        {#if segment != 'signup'}
-          <Link href={signupPath + queryParams}>{$_('cmps.user.signup.cta')}</Link>
-        {:else}{$_('cmps.user.signup.cta')}{/if}
+        {#if $page.path.includes('signup')}
+          {$_('cmps.user.signup.cta')}
+        {:else}<Link href={signupPath + queryParams}>{$_('cmps.user.signup.cta')}</Link>{/if}
       </h2>
 
-      <CrossfadeWrapper replayAnimationKey={segment}>
+      <CrossfadeWrapper replayAnimationKey={$page.path}>
         <div class="py-1 px-1">
           <slot />
         </div>

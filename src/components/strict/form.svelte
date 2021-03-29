@@ -2,7 +2,8 @@
   import { createEventDispatcher, setContext } from 'svelte';
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
-  import { getNotificationsContext } from 'svelte-notifications/src/context';
+  // import { getNotificationsContext } from 'svelte-notifications/src/context';
+  import { noop } from 'svelte/internal';
 
   import { FormError } from '$services/errors';
   import { notification } from '$core/notification';
@@ -20,7 +21,7 @@
   export let formStore = createFormStore();
   setContext('form', formStore);
 
-  const { addNotification } = getNotificationsContext();
+  const addNotification = noop as any;
 
   $: ({ formDisabled } = $formStore);
 

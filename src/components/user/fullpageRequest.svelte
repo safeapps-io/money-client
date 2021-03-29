@@ -3,11 +3,12 @@
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher, onMount } from 'svelte';
-  import { getNotificationsContext } from 'svelte-notifications/src/context';
+  // import { getNotificationsContext } from 'svelte-notifications/src/context';
+  import { noop } from 'svelte/internal';
 
   import { notification, NotificationStyles } from '$core/notification';
 
-  const { addNotification } = getNotificationsContext(),
+  const addNotification = noop as any,
     dispatch = createEventDispatcher();
 
   export let req: () => Promise<any>, successMessage: string, errorMessage: string;

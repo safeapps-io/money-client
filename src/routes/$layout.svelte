@@ -1,6 +1,6 @@
 <script>
-  import Notifications from 'svelte-notifications/src/components/Notifications.svelte';
-  import Notification from '$components/elements/notification.svelte';
+  // import Notifications from 'svelte-notifications/src/components/Notifications.svelte';
+  // import Notification from '$components/elements/notification.svelte';
   import Meta from '$components/nav/meta.svelte';
 
   import { onMount } from 'svelte';
@@ -25,7 +25,7 @@
   let localesLoaded = false;
   $: if (!$isLoading) localesLoaded = true;
 
-  const itemComponent = Notification as any;
+  // const itemComponent = Notification as any;
 </script>
 
 <Meta
@@ -33,9 +33,9 @@
   description="My vision on how we should build apps that are safe for user's data." />
 
 {#if appInitialized && localesLoaded}
-  <Notifications item={itemComponent}>
-    <slot />
-  </Notifications>
+  <!-- <Notifications item={itemComponent}> -->
+  <slot />
+  <!-- </Notifications> -->
 {/if}
 
 <style global lang="scss">
