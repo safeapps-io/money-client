@@ -3,6 +3,7 @@
 
   import { fade, fly, scale } from 'svelte/transition';
   import cssVars from 'svelte-css-vars';
+  import { browser } from '$app/env';
 
   import { randBetween } from '@/utils/random';
   import { range } from '@/utils/array';
@@ -28,7 +29,7 @@
   let show = false,
     timeout: number | undefined;
   $: if (!shouldShow) show = false;
-  $: if (process.env.BROWSER && !show) {
+  $: if (browser && !show) {
     clearTimeout(timeout);
     if (shouldShow && !shownKeyBefore) timeout = window.setTimeout(() => (show = true), delay);
   }

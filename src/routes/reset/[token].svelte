@@ -2,15 +2,14 @@
   import Modal from '@/components/elements/modal.svelte';
   import ResetPassword from '@/components/auth/resetPassword.svelte';
 
-  import { goto, stores } from '@sapper/app';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
 
   import { loginPath } from '@/core/routes';
 
-  const { page } = stores(),
-    redirect = () => goto(loginPath);
+  const redirect = () => goto(loginPath);
 
-  let token: string;
-  $: token = $page.params.token;
+  $: token = $page.params.token as string;
 </script>
 
 <Modal active canBeVoluntarilyClosed={false}>

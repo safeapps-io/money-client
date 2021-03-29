@@ -1,7 +1,9 @@
+import { browser } from '$app/env';
+
 import { parseDateDeterministically } from './common';
 import { ParsedTransaction } from './types';
 
-const parser = process.env.BROWSER ? new DOMParser() : null,
+const parser = browser ? new DOMParser() : null,
   parseOfx = (data: string) => parser!.parseFromString(data, 'application/xml'),
   getContentByTagName = (el: Element, tag: string) => el.querySelector(tag)!.textContent!;
 

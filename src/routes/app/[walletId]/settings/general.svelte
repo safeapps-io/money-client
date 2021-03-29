@@ -7,7 +7,7 @@
   import DeleteWallet from '@/components/wallet/settings/deleteWallet.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
 
   import { selectedJointWalletStore, selectedWalletStore } from '@/stores/wallet';
   import { userDecrStore } from '@/stores/decr/user';

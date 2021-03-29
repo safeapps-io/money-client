@@ -3,7 +3,7 @@
   import TransactionForm from '@/components/transaction/form/transaction.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
 
   import { appPath } from '@/core/routes';
 </script>

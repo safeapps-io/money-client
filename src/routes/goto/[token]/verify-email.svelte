@@ -1,9 +1,9 @@
 <script>
-  import { goto, stores } from '@sapper/app';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import { onMount } from 'svelte';
 
   import { verifyEmailPath } from '@/core/routes';
 
-  const { page } = stores();
   onMount(() => goto(verifyEmailPath($page.params.token), { replaceState: true }));
 </script>

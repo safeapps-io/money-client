@@ -1,14 +1,13 @@
 <script>
-  import { goto, stores } from '@sapper/app';
-
   import Edit from '@/components/admin/crud/edit.svelte';
   import MetaCategoryFields from '@/components/admin/metaCategoryFields.svelte';
   import SchemeFields from '@/components/admin/schemeFields.svelte';
 
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+
   import { AdminEntityPrefixes } from '@/core/admin/routes';
   import { adminEntityListPath } from '@/core/routes';
-
-  const { page } = stores();
 
   $: prefix = $page.params.entityType;
 

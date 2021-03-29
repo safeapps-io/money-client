@@ -5,7 +5,7 @@
   import { Onboarding, Text } from '@/components/onboarding';
   import Tabs from '@/components/elements/tabs.svelte';
 
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
   import { tick } from 'svelte';
   import { _ } from 'svelte-i18n';
 

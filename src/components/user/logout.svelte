@@ -1,6 +1,6 @@
 <script>
   import { _ } from 'svelte-i18n';
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
   import { AuthService } from '@/services/auth/authService';
 
   import { focusableShortcut } from '@/utils/actions/shortcut';

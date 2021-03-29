@@ -1,8 +1,9 @@
 import { Writable } from 'svelte/store';
+import { browser } from '$app/env';
 import { Store, get, set, del } from 'idb-keyval';
 
 // Singleton, lol
-const indexedDbStore = process.env.BROWSER ? new Store('saviour', 'main') : undefined;
+const indexedDbStore = browser ? new Store('saviour', 'main') : undefined;
 
 /**
  * Automatically caches arbitrary store to IndexedDB on every change.
@@ -13,7 +14,7 @@ const indexedDbStore = process.env.BROWSER ? new Store('saviour', 'main') : unde
  * you need to be careful about store value. Describe the store as `S | null` whenever it's possible.
  */
 export const persistStore = async <S>(cacheKey: string, store: Writable<S>) => {
-    if (process.env.BROWSER) {
+    if (browser) {
       try {
         const res = await get<S | null>(cacheKey, indexedDbStore);
         if (res) store.set(res);
@@ -34,7 +35,7 @@ export const persistStore = async <S>(cacheKey: string, store: Writable<S>) => {
  * since LS is blocking.
  */
 export const persistStoreLs = <S>(cacheKey: string, store: Writable<S>) => {
-  if (process.env.BROWSER) {
+  if (browser) {
     const cached = localStorage.getItem(cacheKey);
     if (cached) store.set(JSON.parse(cached) as S);
 

@@ -4,7 +4,8 @@
   import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
   import Footer from '@/components/nav/footer.svelte';
 
-  import { goto, stores } from '@sapper/app';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import { onMount } from 'svelte';
   import { scale, fade } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
@@ -14,8 +15,6 @@
   import { appPath, loginPath, signupPath } from '@/core/routes';
 
   export let segment: string;
-
-  const { page } = stores();
 
   onMount(() => {
     if ($userEncrStore) goto(appPath, { replaceState: true });

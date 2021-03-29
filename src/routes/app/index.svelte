@@ -1,5 +1,5 @@
 <script>
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
   import { onDestroy } from 'svelte';
 
   import { appPath, rootJointWalletPath, rootWalletPath } from '@/core/routes';

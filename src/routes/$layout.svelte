@@ -8,9 +8,14 @@
   import { isLoading } from 'svelte-i18n';
 
   import { initStores } from '@/stores/init';
+  import { i18nInit } from '@/core/i18n';
+  import { matchMediaInit } from '@/core/matchMedia';
 
   let appInitialized = false;
   onMount(async () => {
+    i18nInit();
+    matchMediaInit();
+
     const subscriptions = await initStores();
     appInitialized = true;
 

@@ -4,7 +4,7 @@
 
   import { _ } from 'svelte-i18n';
   import { media } from 'svelte-match-media';
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
 
   import { appPath } from '@/core/routes';
 </script>

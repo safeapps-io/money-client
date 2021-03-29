@@ -11,12 +11,11 @@
     <link rel="apple-touch-icon" href="/static/logo/apple.png" />
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#ffffff" />
-
-    %sapper.scripts% %sapper.base% %sapper.styles% %sapper.head%
+    %svelte.head%
   </head>
 
   <body>
-    <div id="app">%sapper.html%</div>
+    %svelte.body%
   </body>
   <img src="https://sa.safeapps.io/noscript.gif" alt="" />
 </html>

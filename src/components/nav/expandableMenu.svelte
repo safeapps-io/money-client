@@ -3,7 +3,7 @@
 
   import { fade } from 'svelte/transition';
   import { media } from 'svelte-match-media';
-  import { stores } from '@sapper/app';
+  import { page } from '$app/stores';
   import menuIcon from 'teenyicons/outline/menu.svg';
 
   import { restrictBodyScroll } from '@/utils/actions/restrictBodyScroll';
@@ -12,7 +12,6 @@
 
   let showMenu = false;
 
-  const { page } = stores();
   $: if ($page.path) showMenu = false;
   $: if (!$hasUserSeenOnboarding('howToAdd') && $media.mobile)
     setTimeout(() => (showMenu = true), 500);

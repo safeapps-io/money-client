@@ -1,5 +1,5 @@
 <script>
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
 
   import { appPath } from '@/core/routes';
   import { syncConnection } from '@/services/sync/syncConnection';

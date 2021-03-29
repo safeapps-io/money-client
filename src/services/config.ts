@@ -1,5 +1,7 @@
+import { dev } from '$app/env';
+
 const apiPort = process.env.API_PORT ? ':' + process.env.API_PORT : '',
-  sitePort = process.env.NODE_ENV == ('development' as string) ? `:${process.env.SITE_PORT}` : '',
+  sitePort = dev ? `:${process.env.SITE_PORT}` : '',
   rootApiAppendix = 'money';
 
 export const apiHostNoPath = `${process.env.API_SCHEME}://${process.env.API_HOST}${apiPort}`,

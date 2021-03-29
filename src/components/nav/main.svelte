@@ -9,7 +9,8 @@
   import OwnerFlow from '@/components/wallet/joinWallet/ownerFlow.svelte';
 
   import { onMount } from 'svelte';
-  import { goto, stores } from '@sapper/app';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import { media } from 'svelte-match-media';
   import { fade } from 'svelte/transition';
 
@@ -41,7 +42,6 @@
   $: hasWallets = !!Object.keys($walletStore || {}).length;
   $: hasWalletData = !!Object.keys($walletDataStore || {}).length;
 
-  const { page } = stores();
   $: invite = atob($page.query.invite || '');
 </script>
 

@@ -1,10 +1,9 @@
 <script>
   import SignupForm from '@/components/auth/signup.svelte';
 
-  import { stores, goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import { appPath } from '@/core/routes';
-
-  const { page } = stores();
 
   let invite: string | undefined = undefined;
   $: try {
