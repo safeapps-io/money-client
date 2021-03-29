@@ -1,11 +1,11 @@
 <script>
   import { _ } from 'svelte-i18n';
 
-  import { exportAll } from '@/core/export/exportAll';
+  import { exportAll } from '$core/export/exportAll';
 
-  import { transactionSortedByDatetimeStore } from '@/stores/decr/transaction';
-  import { currentWalletCategoryStore } from '@/stores/decr/category';
-  import { currentWalletUserStore } from '@/stores/decr/walletUser';
+  import { transactionSortedByDatetimeStore } from '$stores/decr/transaction';
+  import { currentWalletCategoryStore } from '$stores/decr/category';
+  import { currentWalletUserStore } from '$stores/decr/walletUser';
 
   let dataToSave: string | null = null,
     ref: HTMLAnchorElement | undefined;

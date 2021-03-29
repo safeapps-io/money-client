@@ -1,11 +1,12 @@
 import { derived } from 'svelte/store';
 
-import { areArraysTheSame } from '@/utils/array';
+import { areArraysTheSame } from '$utils/array';
 
 import { syncConnection } from './syncConnection';
-import { walletStore } from '@/stores/wallet';
-import { encryptedStore, EncrEntity, EncrEntityLocal } from '@/stores/encr/store';
-import { syncStatusStore, SyncStatuses } from '@/stores/sync';
+import { walletStore } from '$stores/wallet';
+import type { EncrEntity, EncrEntityLocal } from '$stores/encr/store';
+import { encryptedStore } from '$stores/encr/store';
+import { syncStatusStore, SyncStatuses } from '$stores/sync';
 
 type ClientChangesData = {
   [walletId: string]: {

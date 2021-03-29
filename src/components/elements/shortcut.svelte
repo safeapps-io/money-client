@@ -1,6 +1,6 @@
 <script>
-  import { cmdKey, altKey, isMobile, backspaceKey } from '@/core/platform';
-  import type { ShortcutSetting } from '@/utils/actions/shortcut';
+  import { cmdKey, altKey, isMobile, backspaceKey } from '$core/platform';
+  import type { ShortcutSetting } from '$utils/actions/shortcut';
 
   export let setting: ShortcutSetting, key: string;
 

@@ -1,11 +1,11 @@
 <script>
-  import type { ParsingResult } from '@/core/import/types';
-  import type { AllowedSchemeFields, BaseSimpleScheme } from '@/core/import/types';
+  import type { ParsingResult } from '$core/import/types';
+  import type { AllowedSchemeFields, BaseSimpleScheme } from '$core/import/types';
   import type { SetSchemeOnboardingSteps } from '../types';
 
-  import { Onboarding, Text } from '@/components/onboarding';
-  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
-  import Troubleshoot from '@/components/elements/dropdown/troubleshoot.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
+  import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
+  import Troubleshoot from '$components/elements/dropdown/troubleshoot.svelte';
   import SchemaSettings from './settings.svelte';
   import ColumnMatcher from './columnMatcher.svelte';
   import Table from './table.svelte';
@@ -14,12 +14,12 @@
   import { createEventDispatcher } from 'svelte';
   import cssVars from 'svelte-css-vars';
 
-  import { longpress } from '@/utils/actions/longpress';
-  import { bufferToString } from '@/utils/buffer/conversions';
-  import { accentTags, generateLinkTags } from '@/utils/accentTags';
+  import { longpress } from '$utils/actions/longpress';
+  import { bufferToString } from '$utils/buffer/conversions';
+  import { accentTags, generateLinkTags } from '$utils/accentTags';
 
-  import { parseCsv } from '@/core/import/parseCsv';
-  import { forumBankHelpPath } from '@/core/routes';
+  import { parseCsv } from '$core/import/parseCsv';
+  import { forumBankHelpPath } from '$core/routes';
 
   const dispatch = createEventDispatcher();
 

@@ -1,39 +1,39 @@
 <script>
-  import type { ParsedTransaction } from '@/core/import/types';
-  import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
+  import type { ParsedTransaction } from '$core/import/types';
+  import type { OmitCommonFields, Transaction } from '$stores/decr/types';
 
-  import { Onboarding, Text } from '@/components/onboarding';
-  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
-  import Tabs from '@/components/elements/tabs.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
+  import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
+  import Tabs from '$components/elements/tabs.svelte';
   import Unresolved from './unresolved.svelte';
   import AutomationSettings from './automationSettings.svelte';
   import ResolvedTransactionList from './resolved/transactionList.svelte';
   import ResolvedAutoTransactionList from './resolved/autoTransactionList.svelte';
-  import Troubleshoot from '@/components/elements/dropdown/troubleshoot.svelte';
+  import Troubleshoot from '$components/elements/dropdown/troubleshoot.svelte';
 
   import { _ } from 'svelte-i18n';
   import { media } from 'svelte-match-media';
   import { createEventDispatcher, tick } from 'svelte';
   import arrowRightIcon from 'teenyicons/outline/arrow-right.svg';
 
-  import { accentTags, generateLinkTags } from '@/utils/accentTags';
+  import { accentTags, generateLinkTags } from '$utils/accentTags';
 
-  import { CsvParsedTransactionResolution } from '@/core/import/constants';
+  import { CsvParsedTransactionResolution } from '$core/import/constants';
   import {
     autocompleteDataStore,
     mutateStateWithTransactionData,
-  } from '@/stores/decr/autocomplete';
-  import { getTransposedAutocomplete } from '@/core/import/selfUpdatingAutocomplete';
-  import { getInitialTransactionState } from '@/core/import/getInitialTransactionState';
-  import { userEncrStore } from '@/stores/user';
-  import { defaultAssetStore } from '@/stores/decr/asset';
-  import { currentWalletUserStore, defaultWalletUserIdStore } from '@/stores/decr/walletUser';
-  import { automationSettingsStore } from '@/stores/decr/user';
-  import { currentWalletTransactionStore } from '@/stores/decr/transaction';
-  import { getInitialParsingState } from '@/core/import/getInitialParsingState';
-  import { shouldTransactionBeAutoResolved } from '@/core/import/autoResolve';
-  import { currentWalletCategoryStore } from '@/stores/decr/category';
-  import { forumHelpPath } from '@/core/routes';
+  } from '$stores/decr/autocomplete';
+  import { getTransposedAutocomplete } from '$core/import/selfUpdatingAutocomplete';
+  import { getInitialTransactionState } from '$core/import/getInitialTransactionState';
+  import { userEncrStore } from '$stores/user';
+  import { defaultAssetStore } from '$stores/decr/asset';
+  import { currentWalletUserStore, defaultWalletUserIdStore } from '$stores/decr/walletUser';
+  import { automationSettingsStore } from '$stores/decr/user';
+  import { currentWalletTransactionStore } from '$stores/decr/transaction';
+  import { getInitialParsingState } from '$core/import/getInitialParsingState';
+  import { shouldTransactionBeAutoResolved } from '$core/import/autoResolve';
+  import { currentWalletCategoryStore } from '$stores/decr/category';
+  import { forumHelpPath } from '$core/routes';
 
   const dispatch = createEventDispatcher(),
     unresolvedTab = 'Unresolved';

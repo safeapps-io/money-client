@@ -5,13 +5,13 @@
     WalletUser,
     Category,
     OmitCommonFields,
-  } from '@/stores/decr/types';
+  } from '$stores/decr/types';
 
   import FullAmountDisplay from './fullAmountDisplay.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { relativeDate } from '@/core/i18n/relativeDate';
+  import { relativeDate } from '$core/i18n/relativeDate';
 
   export let transaction: Transaction | OmitCommonFields<Transaction>,
     walletUser: FullEntity<WalletUser> | undefined = undefined,

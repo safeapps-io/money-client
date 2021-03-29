@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 
-import { SimpleNumberParser } from '@/utils/number';
-import { getObjectHash } from '@/utils/getObjectHash';
+import { SimpleNumberParser } from '$utils/number';
+import { getObjectHash } from '$utils/getObjectHash';
 
 import {
   ParsedTransaction,

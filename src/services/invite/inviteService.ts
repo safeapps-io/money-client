@@ -1,12 +1,13 @@
 import { nanoid } from 'nanoid';
 import { get } from 'svelte/store';
 
-import { getEmojiHash } from '@/utils/hashEmoji';
+import { getEmojiHash } from '$utils/hashEmoji';
 
-import { invitationSignatureService, encryptionService } from '@/services/crypto/cryptoService';
-import { WalletService } from '@/services/wallet/walletService';
-import { gotoInviteFullPath } from '@/core/routes';
-import { walletStore, Wallet } from '@/stores/wallet';
+import { invitationSignatureService, encryptionService } from '$services/crypto/cryptoService';
+import { WalletService } from '$services/wallet/walletService';
+import { gotoInviteFullPath } from '$core/routes';
+import type { Wallet } from '$stores/wallet';
+import { walletStore } from '$stores/wallet';
 
 export type WalletInviteObject = {
   userId: string;

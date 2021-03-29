@@ -1,9 +1,9 @@
 <script>
-  import SignupForm from '@/components/auth/signup.svelte';
+  import SignupForm from '$components/auth/signup.svelte';
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { appPath } from '@/core/routes';
+  import { appPath } from '$core/routes';
 
   let invite: string | undefined = undefined;
   $: try {

@@ -1,14 +1,14 @@
 <script>
-  import { Onboarding, Text } from '@/components/onboarding';
+  import { Onboarding, Text } from '$components/onboarding';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
 
-  import { FormError } from '@/services/errors';
-  import { Form, MasterPasswordField } from '@/components/strict';
+  import { FormError } from '$services/errors';
+  import { Form, MasterPasswordField } from '$components/strict';
 
-  import { currentChestsStore } from '@/stores/wallet';
-  import { setNewMasterPassword } from '@/services/crypto/masterPassword';
+  import { currentChestsStore } from '$stores/wallet';
+  import { setNewMasterPassword } from '$services/crypto/masterPassword';
 
   export let userId: string,
     isFirstPassword: boolean = true,

@@ -1,7 +1,7 @@
 import { isBefore } from 'date-fns';
 
-import { inputParseDate } from '@/utils/date';
-import { BuildValidateFunction, CleanFunction } from './types';
+import { inputParseDate } from '$utils/date';
+import type { BuildValidateFunction, CleanFunction } from './types';
 
 const getNumberKey = (key: string) => `common.errors.field.number.${key}`,
   getDateKey = (key: string) => `common.errors.field.date.${key}`;

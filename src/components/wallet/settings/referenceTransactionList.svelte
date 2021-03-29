@@ -1,13 +1,13 @@
 <script>
-  import type { FullEntity, ReferenceTransaction, WalletData } from '@/stores/decr/types';
+  import type { FullEntity, ReferenceTransaction, WalletData } from '$stores/decr/types';
 
-  import ReferenceTransactionCard from '@/components/transaction/card/referenceTransaction.svelte';
-  import ReferenceTransactionForm from '@/components/transaction/form/referenceTransactionForm.svelte';
+  import ReferenceTransactionCard from '$components/transaction/card/referenceTransaction.svelte';
+  import ReferenceTransactionForm from '$components/transaction/form/referenceTransactionForm.svelte';
 
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
 
-  import { walletDataUpdate } from '@/stores/decr/wallet';
+  import { walletDataUpdate } from '$stores/decr/wallet';
 
   export let transactions: FullEntity<ReferenceTransaction>[], wallet: FullEntity<WalletData>;
   let showForm = !transactions.length;

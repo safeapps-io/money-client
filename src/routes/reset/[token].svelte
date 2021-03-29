@@ -1,11 +1,11 @@
 <script>
-  import Modal from '@/components/elements/modal.svelte';
-  import ResetPassword from '@/components/auth/resetPassword.svelte';
+  import Modal from '$components/elements/modal.svelte';
+  import ResetPassword from '$components/auth/resetPassword.svelte';
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
 
-  import { loginPath } from '@/core/routes';
+  import { loginPath } from '$core/routes';
 
   const redirect = () => goto(loginPath);
 

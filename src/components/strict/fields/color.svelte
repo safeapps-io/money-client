@@ -1,11 +1,11 @@
 <script>
-  import Field from '@/components/strict/field.svelte';
-  import TextInput from '@/components/strict/inputs/text.svelte';
+  import Field from '$components/strict/field.svelte';
+  import TextInput from '$components/strict/inputs/text.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { generateRandomColor } from '@/utils/color';
-  import { ensureString, trim, hexColorFormat } from '@/core/strict/string';
+  import { generateRandomColor } from '$utils/color';
+  import { ensureString, trim, hexColorFormat } from '$core/strict/string';
 
   export let inputValue: string | undefined = undefined;
 

@@ -1,14 +1,14 @@
 <script>
-  import Dropdown from '@/components/elements/dropdown/generic.svelte';
+  import Dropdown from '$components/elements/dropdown/generic.svelte';
 
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
 
-  import { focusableShortcut } from '@/utils/actions/shortcut';
-  import { getMonthName } from '@/utils/date';
+  import { focusableShortcut } from '$utils/actions/shortcut';
+  import { getMonthName } from '$utils/date';
 
-  import { SearchFilterDatePeriods } from '@/stores/decr/types';
-  import { relativeDate } from '@/core/i18n/relativeDate';
+  import { SearchFilterDatePeriods } from '$stores/decr/types';
+  import { relativeDate } from '$core/i18n/relativeDate';
 
   export let group: SearchFilterDatePeriods,
     dates: {

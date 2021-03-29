@@ -6,18 +6,18 @@
     PasswordField,
     UsernameField,
     CheckboxInput,
-  } from '@/components/strict';
+  } from '$components/strict';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
 
-  import { generateLinkTags } from '@/utils/accentTags';
+  import { generateLinkTags } from '$utils/accentTags';
 
-  import { ensureBoolean } from '@/core/strict/boolean';
-  import { termsPath } from '@/core/routes';
-  import { AuthService } from '@/services/auth/authService';
-  import { FormError } from '@/services/errors';
+  import { ensureBoolean } from '$core/strict/boolean';
+  import { termsPath } from '$core/routes';
+  import { AuthService } from '$services/auth/authService';
+  import { FormError } from '$services/errors';
 
   export let invite: string | undefined = undefined;
 

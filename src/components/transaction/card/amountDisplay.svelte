@@ -1,5 +1,5 @@
 <script>
-  import { moneyFormat } from '@/utils/number';
+  import { moneyFormat } from '$utils/number';
 
   export let amount: number, assetCode: string;
 </script>

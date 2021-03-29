@@ -1,17 +1,17 @@
 <script>
-  import type { FullEntity, Category } from '@/stores/decr/types';
+  import type { FullEntity, Category } from '$stores/decr/types';
 
-  import Level from '@/components/elements/level.svelte';
-  import { Form, NameField, ColorField } from '@/components/strict';
-  import WalletField from '@/components/wallet/walletField.svelte';
-  import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
+  import Level from '$components/elements/level.svelte';
+  import { Form, NameField, ColorField } from '$components/strict';
+  import WalletField from '$components/wallet/walletField.svelte';
+  import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
   import CategorySwitchModal from './categorySwitchModal.svelte';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { categoryAdd, categoryUpdate } from '@/stores/decr/category';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { categoryAdd, categoryUpdate } from '$stores/decr/category';
 
   export let ent = undefined as FullEntity<Category> | undefined,
     isIncomeCategory: boolean = false;

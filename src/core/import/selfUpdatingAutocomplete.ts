@@ -2,7 +2,7 @@ import {
   autocompleteDataStore,
   noNestedObjectsKey,
   transposeCountObjectToArray,
-} from '@/stores/decr/autocomplete';
+} from '$stores/decr/autocomplete';
 
 export const getTransposedAutocomplete = (
   startingState: StoreValue<typeof autocompleteDataStore>,

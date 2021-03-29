@@ -3,7 +3,7 @@
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
 
-  import { unsubscribePath } from '@/core/routes';
+  import { unsubscribePath } from '$core/routes';
 
   onMount(() => goto(unsubscribePath($page.params.token), { replaceState: true }));
 </script>

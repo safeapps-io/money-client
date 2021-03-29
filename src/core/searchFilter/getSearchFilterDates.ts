@@ -12,7 +12,7 @@ import {
   minTime,
   maxTime,
 } from 'date-fns';
-import { SearchFilterDatePeriods } from '@/stores/decr/types';
+import { SearchFilterDatePeriods } from '$stores/decr/types';
 
 export const getSearchFilterDates = ({
   group,

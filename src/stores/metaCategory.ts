@@ -1,5 +1,5 @@
 import { derived, writable } from 'svelte/store';
-import { Category, OmitCommonFields } from './decr/types';
+import type { Category, OmitCommonFields } from './decr/types';
 
 export type MetaCategory = {
   id: string;

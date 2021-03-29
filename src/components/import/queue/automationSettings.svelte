@@ -1,16 +1,16 @@
 <script>
-  import type { AutomationSettings } from '@/core/import/types';
-  import type { FormStore } from '@/components/strict/base';
+  import type { AutomationSettings } from '$core/import/types';
+  import type { FormStore } from '$components/strict/base';
 
-  import { Form, Field, FieldContext, RangeInput, CheckboxInput } from '@/components/strict';
-  import SettingsDropdown from '@/components/elements/dropdown/settings.svelte';
+  import { Form, Field, FieldContext, RangeInput, CheckboxInput } from '$components/strict';
+  import SettingsDropdown from '$components/elements/dropdown/settings.svelte';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
 
-  import { ensureBoolean } from '@/core/strict/boolean';
-  import { ensureNumber, moreThan, lessThan } from '@/core/strict/number';
-  import { setUserSetting, automationSettingsStore } from '@/stores/decr/user';
+  import { ensureBoolean } from '$core/strict/boolean';
+  import { ensureNumber, moreThan, lessThan } from '$core/strict/number';
+  import { setUserSetting, automationSettingsStore } from '$stores/decr/user';
 
   $: checkboxField = {
     name: 'disableAutomation',

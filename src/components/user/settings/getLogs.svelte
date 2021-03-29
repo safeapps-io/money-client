@@ -1,11 +1,11 @@
 <script>
-  import CopyText from '@/components/elements/copyText.svelte';
+  import CopyText from '$components/elements/copyText.svelte';
 
   import { _ } from 'svelte-i18n';
   import { browser } from '$app/env';
 
-  import { getLogData } from '@/core/logger';
-  import { userEncrStore } from '@/stores/user';
+  import { getLogData } from '$core/logger';
+  import { userEncrStore } from '$stores/user';
 
   const logData = getLogData(),
     text = JSON.stringify({

@@ -1,12 +1,13 @@
-import { request } from '@/services/request';
-import { encryptionService } from '@/services/crypto/cryptoService';
+import { request } from '$services/request';
+import { encryptionService } from '$services/crypto/cryptoService';
 
-import { Wallet, addWallet, setCurrentWallet, deleteWallet } from '@/stores/wallet';
-import { walletDataAdd } from '@/stores/decr/wallet';
-import { addDefaultSearchFilter } from '@/stores/decr/searchFilter';
-import { walletUserAdd } from '@/stores/decr/walletUser';
-import { generateRandomColor } from '@/utils/color';
-import { assetAdd } from '@/stores/decr/asset';
+import type { Wallet } from '$stores/wallet';
+import { addWallet, setCurrentWallet, deleteWallet } from '$stores/wallet';
+import { walletDataAdd } from '$stores/decr/wallet';
+import { addDefaultSearchFilter } from '$stores/decr/searchFilter';
+import { walletUserAdd } from '$stores/decr/walletUser';
+import { generateRandomColor } from '$utils/color';
+import { assetAdd } from '$stores/decr/asset';
 
 export class WalletService {
   private static prefix = '/wallet/';

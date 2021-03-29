@@ -1,5 +1,5 @@
 <script>
-  import { horizontalSlide } from '@/utils/horizontalSlide';
+  import { horizontalSlide } from '$utils/horizontalSlide';
 
   export let showAnimation = false;
 

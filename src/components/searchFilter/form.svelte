@@ -1,22 +1,22 @@
 <script>
-  import type { SearchFilter, FullEntity, OmitCommonFields } from '@/stores/decr/types';
-  import type { FormStore } from '@/components/strict/base';
+  import type { SearchFilter, FullEntity, OmitCommonFields } from '$stores/decr/types';
+  import type { FormStore } from '$components/strict/base';
 
-  import { Form, FieldContext, NameField, TagsField } from '@/components/strict';
-  import Level from '@/components/elements/level.svelte';
-  import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
+  import { Form, FieldContext, NameField, TagsField } from '$components/strict';
+  import Level from '$components/elements/level.svelte';
+  import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { areArraysTheSame } from '@/utils/array';
-  import { copy } from '@/utils/object';
+  import { areArraysTheSame } from '$utils/array';
+  import { copy } from '$utils/object';
 
-  import { ensureArray, uniqueOnly } from '@/core/strict/array';
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { distinctTagNamesStore } from '@/stores/decr/transaction';
-  import { categorySortedByTitleStore } from '@/stores/decr/category';
-  import { searchFilterAdd, searchFilterUpdate } from '@/stores/decr/searchFilter';
+  import { ensureArray, uniqueOnly } from '$core/strict/array';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { distinctTagNamesStore } from '$stores/decr/transaction';
+  import { categorySortedByTitleStore } from '$stores/decr/category';
+  import { searchFilterAdd, searchFilterUpdate } from '$stores/decr/searchFilter';
 
   export let searchFilter: FullEntity<SearchFilter>;
 

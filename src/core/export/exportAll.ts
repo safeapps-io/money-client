@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { get } from 'svelte/store';
-import { Category, FullEntity, Transaction, WalletUser } from '@/stores/decr/types';
-import { exportCSV } from '@/core/import/exportCsv';
+import type { Category, FullEntity, Transaction, WalletUser } from '$stores/decr/types';
+import { exportCSV } from '$core/import/exportCsv';
 import { _ as getTranslationStore } from 'svelte-i18n';
 
 const dateFormat = 'dd.MM.yyyy HH:mm:ss';

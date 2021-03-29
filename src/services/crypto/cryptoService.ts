@@ -1,7 +1,7 @@
 import { encode, decode } from 'base64-arraybuffer';
 
-import { concatArrayBuffers } from '@/utils/buffer/concat';
-import { stringToBuffer, bufferToString } from '@/utils/buffer/conversions';
+import { concatArrayBuffers } from '$utils/buffer/concat';
+import { stringToBuffer, bufferToString } from '$utils/buffer/conversions';
 
 type EncodedWithIv = {
   iv: string;

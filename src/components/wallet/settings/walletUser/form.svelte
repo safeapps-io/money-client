@@ -1,15 +1,15 @@
 <script>
-  import type { FullEntity, WalletUser } from '@/stores/decr/types';
+  import type { FullEntity, WalletUser } from '$stores/decr/types';
 
-  import { Form, NameField, ColorField } from '@/components/strict';
+  import { Form, NameField, ColorField } from '$components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { focusableShortcut } from '@/utils/actions/shortcut';
+  import { focusableShortcut } from '$utils/actions/shortcut';
 
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { walletUserAdd, walletUserUpdate } from '@/stores/decr/walletUser';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { walletUserAdd, walletUserUpdate } from '$stores/decr/walletUser';
 
   export let ent: FullEntity<WalletUser> | undefined = undefined;
 

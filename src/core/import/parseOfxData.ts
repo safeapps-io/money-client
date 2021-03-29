@@ -1,7 +1,7 @@
 import { browser } from '$app/env';
 
 import { parseDateDeterministically } from './common';
-import { ParsedTransaction } from './types';
+import type { ParsedTransaction } from './types';
 
 const parser = browser ? new DOMParser() : null,
   parseOfx = (data: string) => parser!.parseFromString(data, 'application/xml'),

@@ -1,5 +1,5 @@
 <script>
-  import type { WalletData, FullEntity } from '@/stores/decr/types';
+  import type { WalletData, FullEntity } from '$stores/decr/types';
 
   import {
     Form,
@@ -8,19 +8,19 @@
     TextInput,
     SelectInput,
     CheckboxInput,
-  } from '@/components/strict';
+  } from '$components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { ensureString, trim, minLength } from '@/core/strict/string';
-  import { WalletService } from '@/services/wallet/walletService';
-  import { currencyListStore } from '@/services/directory/currency';
-  import { walletDataUpdate } from '@/stores/decr/wallet';
-  import { userEncrStore } from '@/stores/user';
-  import { defaultAssetStore } from '@/stores/decr/asset';
-  import { categoryBulkAdd } from '@/stores/decr/category';
-  import { categoriesFromMetaCategoriesStore } from '@/stores/metaCategory';
+  import { ensureString, trim, minLength } from '$core/strict/string';
+  import { WalletService } from '$services/wallet/walletService';
+  import { currencyListStore } from '$services/directory/currency';
+  import { walletDataUpdate } from '$stores/decr/wallet';
+  import { userEncrStore } from '$stores/user';
+  import { defaultAssetStore } from '$stores/decr/asset';
+  import { categoryBulkAdd } from '$stores/decr/category';
+  import { categoriesFromMetaCategoriesStore } from '$stores/metaCategory';
 
   export let ent: FullEntity<WalletData> | undefined = undefined,
     notificationText: string | undefined = undefined,

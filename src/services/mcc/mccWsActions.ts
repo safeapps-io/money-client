@@ -1,7 +1,7 @@
 import { derived } from 'svelte/store';
 
-import { syncConnection } from '@/services/sync/syncConnection';
-import { mccStore } from '@/stores/mcc';
+import { syncConnection } from '$services/sync/syncConnection';
+import { mccStore } from '$stores/mcc';
 
 const enum ClientTypes {
   get = 'mcc/get',

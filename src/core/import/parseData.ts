@@ -1,6 +1,6 @@
 import { parseCsv } from './parseCsv';
 import { runSimpleScheme } from './simpleSchemes';
-import { BaseSimpleScheme, CustomScheme } from './types';
+import type { BaseSimpleScheme, CustomScheme } from './types';
 import { runCustomScheme } from './customSchemes';
 
 export type ParseDataReturn = ThenArg<ReturnType<typeof parseData>>;

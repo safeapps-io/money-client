@@ -1,8 +1,8 @@
 <script>
-  import Logo from '@/components/nav/logo.svelte';
-  import Link from '@/components/elements/link.svelte';
-  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
-  import Footer from '@/components/nav/footer.svelte';
+  import Logo from '$components/nav/logo.svelte';
+  import Link from '$components/elements/link.svelte';
+  import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
+  import Footer from '$components/nav/footer.svelte';
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
@@ -11,8 +11,8 @@
   import { _ } from 'svelte-i18n';
   import { quintOut } from 'svelte/easing';
 
-  import { userEncrStore } from '@/stores/user';
-  import { appPath, loginPath, signupPath } from '@/core/routes';
+  import { userEncrStore } from '$stores/user';
+  import { appPath, loginPath, signupPath } from '$core/routes';
 
   export let segment: string;
 

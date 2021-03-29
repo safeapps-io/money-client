@@ -1,5 +1,6 @@
 import { createDecrEntityStore } from './base';
-import { ReferenceTransaction, EntityTypes } from './types';
+import type { ReferenceTransaction } from './types';
+import { EntityTypes } from './types';
 
 export const {
   store: referenceTransactionStore,

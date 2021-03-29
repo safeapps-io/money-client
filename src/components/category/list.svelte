@@ -1,16 +1,16 @@
 <script>
-  import type { FullEntity, Category } from '@/stores/decr/types';
+  import type { FullEntity, Category } from '$stores/decr/types';
 
-  import ZeroData from '@/components/elements/zeroData.svelte';
-  import Link from '@/components/elements/link.svelte';
+  import ZeroData from '$components/elements/zeroData.svelte';
+  import Link from '$components/elements/link.svelte';
 
   import { _ } from 'svelte-i18n';
   import cssVars from 'svelte-css-vars';
   import { flip } from 'svelte/animate';
   import { quintOut } from 'svelte/easing';
 
-  import { transactionCountByCategoryStore } from '@/stores/decr/transaction';
-  import { categoryPathFn } from '@/core/routes';
+  import { transactionCountByCategoryStore } from '$stores/decr/transaction';
+  import { categoryPathFn } from '$core/routes';
 
   export let categories: FullEntity<Category>[];
 </script>

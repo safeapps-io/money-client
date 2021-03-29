@@ -4,9 +4,9 @@
   import { _ } from 'svelte-i18n';
   import { getNotificationsContext } from 'svelte-notifications/src/context';
 
-  import { FormError } from '@/services/errors';
-  import { notification } from '@/core/notification';
-  import { createFormStore, setCleanedValue, runValidation } from '@/components/strict/base';
+  import { FormError } from '$services/errors';
+  import { notification } from '$core/notification';
+  import { createFormStore, setCleanedValue, runValidation } from '$components/strict/base';
 
   const dispatch = createEventDispatcher();
 

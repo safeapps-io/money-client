@@ -1,7 +1,7 @@
 import { parse, isValid } from 'date-fns';
 import * as locales from 'date-fns/locale';
 
-import { getObjectHash } from '@/utils/getObjectHash';
+import { getObjectHash } from '$utils/getObjectHash';
 import { currencySymbolMatch } from './constants';
 
 /**

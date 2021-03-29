@@ -1,5 +1,5 @@
+import type { TransitionConfig } from 'svelte/transition';
 import { cubicOut } from 'svelte/easing';
-import { TransitionConfig } from 'svelte/transition';
 
 export function horizontalSlide(
   node: Element,

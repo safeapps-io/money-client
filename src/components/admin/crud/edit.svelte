@@ -1,8 +1,8 @@
 <script>
   import { createEventDispatcher } from 'svelte';
 
-  import { Form } from '@/components/strict';
-  import { adminRequest } from '@/services/request';
+  import { Form } from '$components/strict';
+  import { adminRequest } from '$services/request';
 
   const dispatch = createEventDispatcher();
 

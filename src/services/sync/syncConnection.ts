@@ -1,31 +1,24 @@
 import { derived } from 'svelte/store';
 
-import { WsStates, wsStore } from '@/utils/wsStore';
+import { WsStates, wsStore } from '$utils/wsStore';
 
-import { wsPath } from '@/services/config';
+import { wsPath } from '$services/config';
+import type { UserBackMessage } from '$services/auth/userWsHandler';
+import { userMessagesPrefix, userHandleMessages } from '$services/auth/userWsHandler';
+import type { WalletBackMessage } from '$services/wallet/walletWsHandler';
+import { walletMessagesPrefix, walletHandleMessages } from '$services/wallet/walletWsHandler';
+import type { SyncBackMessage } from './syncWsHandler';
+import { syncMessagesPrefix, syncHandleMessages } from './syncWsHandler';
+import type { MccBackMessage } from '$services/mcc/mccWsHandler';
+import { mccMessagesPrefix, mccHandleMessages } from '$services/mcc/mccWsHandler';
+import type { InviteBackMessage } from '$services/invite/inviteWsHandler';
+import { inviteHandleMessages, inviteMessagesPrefix } from '$services/invite/inviteWsHandler';
+import type { SimpleSyncBackMessage } from '$services/simpleSync/simpleSyncWsHandler';
 import {
-  userMessagesPrefix,
-  userHandleMessages,
-  UserBackMessage,
-} from '@/services/auth/userWsHandler';
-import {
-  walletMessagesPrefix,
-  walletHandleMessages,
-  WalletBackMessage,
-} from '@/services/wallet/walletWsHandler';
-import { SyncBackMessage, syncMessagesPrefix, syncHandleMessages } from './syncWsHandler';
-import { mccMessagesPrefix, mccHandleMessages, MccBackMessage } from '@/services/mcc/mccWsHandler';
-import {
-  inviteHandleMessages,
-  inviteMessagesPrefix,
-  InviteBackMessage,
-} from '@/services/invite/inviteWsHandler';
-import {
-  SimpleSyncBackMessage,
   simpleSyncHandleMessages,
   simpleSyncMessagesPrefixes,
-} from '@/services/simpleSync/simpleSyncWsHandler';
-import { AuthService } from '@/services/auth/authService';
+} from '$services/simpleSync/simpleSyncWsHandler';
+import { AuthService } from '$services/auth/authService';
 
 type SyncMessage = {
   type: string;

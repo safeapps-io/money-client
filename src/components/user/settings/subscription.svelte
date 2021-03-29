@@ -1,11 +1,11 @@
 <script>
-  import { CheckboxInput, Field, Form } from '@/components/strict';
+  import { CheckboxInput, Field, Form } from '$components/strict';
 
   import { _ } from 'svelte-i18n';
 
-  import { ensureBoolean } from '@/core/strict/boolean';
-  import { userEncrStore } from '@/stores/user';
-  import { AuthService } from '@/services/auth/authService';
+  import { ensureBoolean } from '$core/strict/boolean';
+  import { userEncrStore } from '$stores/user';
+  import { AuthService } from '$services/auth/authService';
 
   $: field = {
     name: 'isSubscribed',

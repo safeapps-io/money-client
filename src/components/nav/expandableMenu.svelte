@@ -6,9 +6,9 @@
   import { page } from '$app/stores';
   import menuIcon from 'teenyicons/outline/menu.svg';
 
-  import { restrictBodyScroll } from '@/utils/actions/restrictBodyScroll';
+  import { restrictBodyScroll } from '$utils/actions/restrictBodyScroll';
 
-  import { hasUserSeenOnboarding } from '@/stores/decr/user';
+  import { hasUserSeenOnboarding } from '$stores/decr/user';
 
   let showMenu = false;
 

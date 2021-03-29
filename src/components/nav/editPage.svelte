@@ -12,7 +12,7 @@
 
   import { _ } from 'svelte-i18n';
 
-  import { syncStatusStore, SyncStatuses } from '@/stores/sync';
+  import { syncStatusStore, SyncStatuses } from '$stores/sync';
 
   export let hasEnt: boolean;
   $: loading = $syncStatusStore !== SyncStatuses.finished;

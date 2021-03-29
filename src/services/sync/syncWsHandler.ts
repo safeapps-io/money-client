@@ -1,6 +1,6 @@
-import { EncrEntity } from '@/stores/encr/store';
-import { syncStatusStore, SyncStatuses } from '@/stores/sync';
-import { bulkSetEncrEntities } from '@/stores/encr/operations';
+import type { EncrEntity } from '$stores/encr/store';
+import { syncStatusStore, SyncStatuses } from '$stores/sync';
+import { bulkSetEncrEntities } from '$stores/encr/operations';
 
 const enum BackTypes {
   backData = 'sync/data',

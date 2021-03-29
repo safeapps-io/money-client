@@ -5,9 +5,9 @@
   import { getNotificationsContext } from 'svelte-notifications/src/context';
   import { _ } from 'svelte-i18n';
 
-  import { notification } from '@/core/notification';
-  import { AccessLevels, selectedWalletStore, walletStore } from '@/stores/wallet';
-  import { userEncrStore } from '@/stores/user';
+  import { notification } from '$core/notification';
+  import { AccessLevels, selectedWalletStore, walletStore } from '$stores/wallet';
+  import { userEncrStore } from '$stores/user';
 
   const { addNotification } = getNotificationsContext();
 

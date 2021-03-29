@@ -1,7 +1,7 @@
 <script>
-  import Page from '@/components/nav/page.svelte';
-  import UserAccessList from '@/components/wallet/settings/userAccess/users.svelte';
-  import WalletUserList from '@/components/wallet/settings/walletUser/list.svelte';
+  import Page from '$components/nav/page.svelte';
+  import UserAccessList from '$components/wallet/settings/userAccess/users.svelte';
+  import WalletUserList from '$components/wallet/settings/walletUser/list.svelte';
 
   import { _ } from 'svelte-i18n';
 </script>

@@ -1,10 +1,10 @@
-import {
+import type {
   Transaction,
   FullEntity,
   ReferenceTransaction,
   CorrectionTransaction,
-} from '@/stores/decr/types';
-import { IteratorPlugin } from './types';
+} from '$stores/decr/types';
+import type { IteratorPlugin } from './types';
 
 export const transactionIterator = (
   transactions: FullEntity<Transaction | ReferenceTransaction | CorrectionTransaction>[],

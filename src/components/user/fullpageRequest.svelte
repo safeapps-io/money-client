@@ -1,11 +1,11 @@
 <script>
-  import FullpageLoader from '@/components/elements/fullpageLoader.svelte';
+  import FullpageLoader from '$components/elements/fullpageLoader.svelte';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher, onMount } from 'svelte';
   import { getNotificationsContext } from 'svelte-notifications/src/context';
 
-  import { notification, NotificationStyles } from '@/core/notification';
+  import { notification, NotificationStyles } from '$core/notification';
 
   const { addNotification } = getNotificationsContext(),
     dispatch = createEventDispatcher();

@@ -1,32 +1,32 @@
 <script>
-  import type { FullEntity, SearchFilter } from '@/stores/decr/types';
-  import type { DisplayTransactionReturn } from '@/core/analytics/displayTransactionsPlugin';
-  import type { IncomeAndExpenseReturn } from '@/core/analytics/incomeAndExpensePlugin';
-  import type { CategorySplitReturn } from '@/core/analytics/categorySplitPlugin';
-  import type { BalanceHistoryReturn } from '@/core/analytics/balanceHistoryPlugin';
-  import type { IteratorPlugin } from '@/core/analytics/types';
+  import type { FullEntity, SearchFilter } from '$stores/decr/types';
+  import type { DisplayTransactionReturn } from '$core/analytics/displayTransactionsPlugin';
+  import type { IncomeAndExpenseReturn } from '$core/analytics/incomeAndExpensePlugin';
+  import type { CategorySplitReturn } from '$core/analytics/categorySplitPlugin';
+  import type { BalanceHistoryReturn } from '$core/analytics/balanceHistoryPlugin';
+  import type { IteratorPlugin } from '$core/analytics/types';
 
-  import ZeroData from '@/components/elements/zeroData.svelte';
-  import TransactionListWithLinks from '@/components/transaction/listWithLinks.svelte';
-  import StatBox from '@/components/dashboard/statBox.svelte';
-  import Balance from '@/components/dashboard/balance.svelte';
-  import CategoryStats from '@/components/dashboard/categoryStats.svelte';
-  import EditBalanceModalForm from '@/components/wallet/editBalanceModalForm.svelte';
+  import ZeroData from '$components/elements/zeroData.svelte';
+  import TransactionListWithLinks from '$components/transaction/listWithLinks.svelte';
+  import StatBox from '$components/dashboard/statBox.svelte';
+  import Balance from '$components/dashboard/balance.svelte';
+  import CategoryStats from '$components/dashboard/categoryStats.svelte';
+  import EditBalanceModalForm from '$components/wallet/editBalanceModalForm.svelte';
 
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
 
-  import { balanceInfluencingTransactionsStore } from '@/stores/decr/balanceInfluencingTransactions';
-  import { currentWalletDataStore } from '@/stores/decr/wallet';
+  import { balanceInfluencingTransactionsStore } from '$stores/decr/balanceInfluencingTransactions';
+  import { currentWalletDataStore } from '$stores/decr/wallet';
 
-  import { transactionIterator } from '@/core/analytics/iterator';
-  import { displayTransactionsPlugin } from '@/core/analytics/displayTransactionsPlugin';
-  import { balanceHistoryPlugin } from '@/core/analytics/balanceHistoryPlugin';
-  import { incomeAndExpensePlugin } from '@/core/analytics/incomeAndExpensePlugin';
-  import { categorySplitPlugin } from '@/core/analytics/categorySplitPlugin';
+  import { transactionIterator } from '$core/analytics/iterator';
+  import { displayTransactionsPlugin } from '$core/analytics/displayTransactionsPlugin';
+  import { balanceHistoryPlugin } from '$core/analytics/balanceHistoryPlugin';
+  import { incomeAndExpensePlugin } from '$core/analytics/incomeAndExpensePlugin';
+  import { categorySplitPlugin } from '$core/analytics/categorySplitPlugin';
 
-  import { getTransactionFilter } from '@/core/searchFilter/getTransactionFilter';
-  import { shouldShowBalance } from '@/core/searchFilter/shouldShowBalance';
+  import { getTransactionFilter } from '$core/searchFilter/getTransactionFilter';
+  import { shouldShowBalance } from '$core/searchFilter/shouldShowBalance';
 
   export let searchFilter: FullEntity<SearchFilter>,
     dates: { startDate: number; endDate: number; prevStartDate?: number };

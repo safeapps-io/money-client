@@ -1,5 +1,5 @@
-import { request } from '@/services/request';
-import { markAsRemoteDeleted } from '@/stores/decr/deleted';
+import { request } from '$services/request';
+import { markAsRemoteDeleted } from '$stores/decr/deleted';
 
 export class SyncService {
   private static prefix = '/data/';

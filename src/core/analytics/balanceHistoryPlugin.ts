@@ -1,7 +1,7 @@
 import { startOfDay, isBefore, isAfter } from 'date-fns';
 
-import { IteratorPlugin } from './types';
-import { EntityTypes } from '@/stores/decr/types';
+import type { IteratorPlugin } from './types';
+import { EntityTypes } from '$stores/decr/types';
 
 type TransactionHistory = { date: Date; value: number }[];
 

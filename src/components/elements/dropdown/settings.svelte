@@ -1,5 +1,5 @@
 <script>
-  import GenericDropdown from '@/components/elements/dropdown/generic.svelte';
+  import GenericDropdown from '$components/elements/dropdown/generic.svelte';
 
   import { _ } from 'svelte-i18n';
   import cogIcon from 'teenyicons/outline/cog.svg';

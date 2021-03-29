@@ -1,17 +1,17 @@
 <script>
-  import type { OnboardingSteps } from '@/stores/decr/user';
+  import type { OnboardingSteps } from '$stores/decr/user';
 
   import { fade, fly, scale } from 'svelte/transition';
   import cssVars from 'svelte-css-vars';
   import { browser } from '$app/env';
 
-  import { randBetween } from '@/utils/random';
-  import { range } from '@/utils/array';
-  import { generateRandomColor } from '@/utils/color';
-  import { restrictBodyScroll } from '@/utils/actions/restrictBodyScroll';
+  import { randBetween } from '$utils/random';
+  import { range } from '$utils/array';
+  import { generateRandomColor } from '$utils/color';
+  import { restrictBodyScroll } from '$utils/actions/restrictBodyScroll';
 
-  import { hasUserSeenOnboarding, setUserOnboardingSetting } from '@/stores/decr/user';
-  import { debugLog } from '@/core/logger';
+  import { hasUserSeenOnboarding, setUserOnboardingSetting } from '$stores/decr/user';
+  import { debugLog } from '$core/logger';
 
   export let shouldShow: boolean,
     key: OnboardingSteps | undefined = undefined,

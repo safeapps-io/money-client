@@ -1,6 +1,6 @@
 import { writable, derived } from 'svelte/store';
 
-import { resetStore } from '@/utils/persistStore';
+import { resetStore } from '$utils/persistStore';
 
 export type EncrEntity = {
   id: string;

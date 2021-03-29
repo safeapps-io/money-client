@@ -1,5 +1,5 @@
 import Papa from 'papaparse';
-import { ParsingResult, ParsingSettings } from './types';
+import type { ParsingResult, ParsingSettings } from './types';
 
 export const parseCsv = ({
   data,

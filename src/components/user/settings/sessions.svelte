@@ -1,10 +1,10 @@
 <script>
-  import type { RefreshToken } from '@/stores/user';
+  import type { RefreshToken } from '$stores/user';
 
   import { _ } from 'svelte-i18n';
   import { onMount } from 'svelte';
 
-  import { AuthService } from '@/services/auth/authService';
+  import { AuthService } from '$services/auth/authService';
 
   let sessions: RefreshToken[] = [];
   onMount(() => AuthService.getSessions().then(res => (sessions = res)));

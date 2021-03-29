@@ -1,11 +1,11 @@
 <script>
-  import List from '@/components/admin/crud/list.svelte';
-  import Link from '@/components/elements/link.svelte';
+  import List from '$components/admin/crud/list.svelte';
+  import Link from '$components/elements/link.svelte';
 
   import { page } from '$app/stores';
 
-  import { AdminEntityPrefixes } from '@/core/admin/routes';
-  import { adminEntityAddPath, adminEntityPath } from '@/core/routes';
+  import { AdminEntityPrefixes } from '$core/admin/routes';
+  import { adminEntityAddPath, adminEntityPath } from '$core/routes';
 
   $: prefix = $page.params.entityType;
 </script>

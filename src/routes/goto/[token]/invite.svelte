@@ -3,8 +3,8 @@
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
 
-  import { userEncrStore } from '@/stores/user';
-  import { appPath, signupPath } from '@/core/routes';
+  import { userEncrStore } from '$stores/user';
+  import { appPath, signupPath } from '$core/routes';
 
   onMount(() => {
     const invite = $page.params.token,

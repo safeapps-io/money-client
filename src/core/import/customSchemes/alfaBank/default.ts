@@ -1,10 +1,10 @@
-import { SimpleNumberParser } from '@/utils/number';
+import { SimpleNumberParser } from '$utils/number';
 import {
   getApplicableSymbolsByCurrency,
   parseDateDeterministically,
   processCurrencySymbol,
-} from '@/core/import/common';
-import { CustomScheme } from '@/core/import/types';
+} from '$core/import/common';
+import type { CustomScheme } from '$core/import/types';
 import { transformCurrencyCode } from './transformCurrencyCode';
 
 const formatString = 'dd.MM.yyyy';

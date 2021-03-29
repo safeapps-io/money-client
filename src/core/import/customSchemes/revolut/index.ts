@@ -1,11 +1,11 @@
-import { SimpleNumberParser } from '@/utils/number';
+import { SimpleNumberParser } from '$utils/number';
 
 import {
   guessDateLocaleForFormat,
   guessDecimalDelimiterByNumberArray,
   parseDateDeterministically,
-} from '@/core/import/common';
-import { CustomScheme } from '@/core/import/types';
+} from '$core/import/common';
+import type { CustomScheme } from '$core/import/types';
 
 /**
  * Dates are formatted based on language and region setting on the device.

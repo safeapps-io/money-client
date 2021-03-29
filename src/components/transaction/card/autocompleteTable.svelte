@@ -1,8 +1,8 @@
 <script>
-  import type { Transaction } from '@/stores/decr/types';
+  import type { Transaction } from '$stores/decr/types';
 
   import { _ } from 'svelte-i18n';
-  import { getMccDescription } from '@/services/mcc/mccWsActions';
+  import { getMccDescription } from '$services/mcc/mccWsActions';
 
   export let autocomplete: Transaction['autocomplete'];
 

@@ -1,7 +1,7 @@
 import { derived } from 'svelte/store';
 
 import { transactionSortedByDatetimeStore } from './transaction';
-import { Transaction, FullEntity, OmitCommonFields } from './types';
+import type { Transaction, FullEntity, OmitCommonFields } from './types';
 
 export const noNestedObjectsKey = '_';
 

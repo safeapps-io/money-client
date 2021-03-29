@@ -1,10 +1,10 @@
 <script>
-  import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
+  import type { OmitCommonFields, Transaction } from '$stores/decr/types';
 
   import ResolvedTransactionList from './transactionList.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { CsvParsedTransactionResolution } from '@/core/import/constants';
+  import { CsvParsedTransactionResolution } from '$core/import/constants';
 
   export let transactionsWithResolution: {
     transaction: OmitCommonFields<Transaction>;

@@ -1,12 +1,12 @@
 <script>
-  import { Form, PasswordField } from '@/components/strict';
+  import { Form, PasswordField } from '$components/strict';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
   import { getNotificationsContext } from 'svelte-notifications/src/context';
 
-  import { AuthService } from '@/services/auth/authService';
-  import { notification, NotificationStyles } from '@/core/notification';
+  import { AuthService } from '$services/auth/authService';
+  import { notification, NotificationStyles } from '$core/notification';
 
   export let token: string;
 

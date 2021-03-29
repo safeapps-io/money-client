@@ -1,5 +1,6 @@
-import { request } from '@/services/request';
-import { UserEncrState, userEncrStore, RefreshToken } from '@/stores/user';
+import { request } from '$services/request';
+import type { UserEncrState, RefreshToken } from '$stores/user';
+import { userEncrStore } from '$stores/user';
 import { dropUserData } from './dropUserData';
 
 export enum InviteStringTypes {

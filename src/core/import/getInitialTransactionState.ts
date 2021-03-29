@@ -1,5 +1,5 @@
-import { InitialTransactionState, ParsedTransaction } from './types';
-import { OccurenciesSortedByPopularity } from '@/stores/decr/autocomplete';
+import type { InitialTransactionState, ParsedTransaction } from './types';
+import type { OccurenciesSortedByPopularity } from '$stores/decr/autocomplete';
 
 export const getInitialTransactionState = ({
   parsedTransaction,

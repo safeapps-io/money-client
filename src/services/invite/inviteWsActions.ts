@@ -1,6 +1,6 @@
 import { derived } from 'svelte/store';
 
-import { syncConnection } from '@/services/sync/syncConnection';
+import { syncConnection } from '$services/sync/syncConnection';
 
 const enum ClientTypes {
   validateInvite = 'validateInvite',

@@ -1,8 +1,8 @@
 import { derived } from 'svelte/store';
 
-import { siteHost } from '@/services/config';
-import { selectedWalletStore, selectedJointWalletStore, jointWalletsStore } from '@/stores/wallet';
-import { getDefaultSearchFromWalletState, searchFilterStore } from '@/stores/decr/searchFilter';
+import { siteHost } from '$services/config';
+import { selectedWalletStore, selectedJointWalletStore, jointWalletsStore } from '$stores/wallet';
+import { getDefaultSearchFromWalletState, searchFilterStore } from '$stores/decr/searchFilter';
 import { debugLog } from './logger';
 
 export const gotoInviteFullPath = (token: string) => `${siteHost}/goto/${token}/invite`;

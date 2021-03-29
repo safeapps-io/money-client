@@ -1,5 +1,5 @@
-import { InteratorPluginConstructor } from './types';
-import { EntityTypes } from '@/stores/decr/types';
+import type { InteratorPluginConstructor } from './types';
+import { EntityTypes } from '$stores/decr/types';
 
 export type IncomeAndExpenseReturn = {
   income: number;

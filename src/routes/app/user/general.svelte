@@ -1,15 +1,15 @@
 <script>
-  import Page from '@/components/nav/page.svelte';
-  import InviteSettings from '@/components/user/settings/invites.svelte';
-  import LocaleSettings from '@/components/user/settings/locale.svelte';
-  import EmailSettings from '@/components/user/settings/email.svelte';
-  import UsernameSettings from '@/components/user/settings/username.svelte';
-  import LogsSettings from '@/components/user/settings/getLogs.svelte';
-  import SubscriptionSettings from '@/components/user/settings/subscription.svelte';
+  import Page from '$components/nav/page.svelte';
+  import InviteSettings from '$components/user/settings/invites.svelte';
+  import LocaleSettings from '$components/user/settings/locale.svelte';
+  import EmailSettings from '$components/user/settings/email.svelte';
+  import UsernameSettings from '$components/user/settings/username.svelte';
+  import LogsSettings from '$components/user/settings/getLogs.svelte';
+  import SubscriptionSettings from '$components/user/settings/subscription.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { userEncrStore } from '@/stores/user';
+  import { userEncrStore } from '$stores/user';
   $: user = $userEncrStore!;
 </script>
 

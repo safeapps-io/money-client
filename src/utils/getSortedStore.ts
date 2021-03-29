@@ -1,4 +1,5 @@
-import { Readable, Writable, derived } from 'svelte/store';
+import type { Readable, Writable } from 'svelte/store';
+import { derived } from 'svelte/store';
 import emojiRegex from 'emoji-regex';
 
 type InputStore<T> = Writable<{ [id: string]: T }> | Readable<{ [id: string]: T }>;

@@ -1,10 +1,10 @@
 <script>
-  import type { MetaCategory } from '@/stores/metaCategory';
+  import type { MetaCategory } from '$stores/metaCategory';
 
-  import { NameField, ColorField, Field, CheckboxInput, TextareaInput } from '@/components/strict';
+  import { NameField, ColorField, Field, CheckboxInput, TextareaInput } from '$components/strict';
 
-  import { ensureJson } from '@/core/strict/object';
-  import { ensureBoolean } from '@/core/strict/boolean';
+  import { ensureJson } from '$core/strict/object';
+  import { ensureBoolean } from '$core/strict/boolean';
 
   export let ent: MetaCategory | undefined = undefined;
 

@@ -1,9 +1,9 @@
-import { autocompleteDataStore } from '@/stores/decr/autocomplete';
-import { OmitCommonFields, Transaction } from '@/stores/decr/types';
+import type { autocompleteDataStore } from '$stores/decr/autocomplete';
+import type { OmitCommonFields, Transaction } from '$stores/decr/types';
 import { shouldAutoResolveAll, shouldTransactionBeAutoResolved } from './autoResolve';
 import { getInitialTransactionState } from './getInitialTransactionState';
 import { getTransposedAutocomplete } from './selfUpdatingAutocomplete';
-import { AutomationSettings, ParsedTransaction } from './types';
+import type { AutomationSettings, ParsedTransaction } from './types';
 
 export const getInitialParsingState = ({
   rawParsedTransactions,

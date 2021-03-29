@@ -1,10 +1,10 @@
 <script>
-  import LoginForm from '@/components/auth/login.svelte';
+  import LoginForm from '$components/auth/login.svelte';
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
 
-  import { appPath } from '@/core/routes';
+  import { appPath } from '$core/routes';
 
   $: queryParams = $page.query ? window.location.search : '';
 </script>

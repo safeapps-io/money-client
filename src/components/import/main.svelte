@@ -1,34 +1,34 @@
 <script>
   import type { FileParsedToBinary } from './types';
-  import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
-  import type { BaseSimpleScheme, CustomScheme, ParsedTransaction } from '@/core/import/types';
+  import type { OmitCommonFields, Transaction } from '$stores/decr/types';
+  import type { BaseSimpleScheme, CustomScheme, ParsedTransaction } from '$core/import/types';
 
   import FileForm from './fileForm.svelte';
-  import WalletSelectFromJoint from '@/components/wallet/walletSelectFromJoint.svelte';
-  import { Onboarding, Text } from '@/components/onboarding';
-  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
-  import Loader from '@/components/elements/loader.svelte';
+  import WalletSelectFromJoint from '$components/wallet/walletSelectFromJoint.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
+  import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
+  import Loader from '$components/elements/loader.svelte';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher, onDestroy } from 'svelte';
   import { writable } from 'svelte/store';
   import { getNotificationsContext } from 'svelte-notifications/src/context';
 
-  import { bufferToString } from '@/utils/buffer/conversions';
-  import { persistStoreLs } from '@/utils/persistStore';
+  import { bufferToString } from '$utils/buffer/conversions';
+  import { persistStoreLs } from '$utils/persistStore';
 
   import {
     transactionsToIgnoreSetStore,
     updateIgnoredTransaction,
-  } from '@/stores/decr/ignoredTransaction';
-  import { transactionBulkAdd } from '@/stores/decr/transaction';
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { addUserScheme, hasUserSeenOnboarding } from '@/stores/decr/user';
-  import { allLocalSchemes } from '@/stores/scheme';
-  import { defaultAssetStore } from '@/stores/decr/asset';
+  } from '$stores/decr/ignoredTransaction';
+  import { transactionBulkAdd } from '$stores/decr/transaction';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { addUserScheme, hasUserSeenOnboarding } from '$stores/decr/user';
+  import { allLocalSchemes } from '$stores/scheme';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
-  import { CsvParsedTransactionResolution } from '@/core/import/constants';
-  import { notification, NotificationStyles } from '@/core/notification';
+  import { CsvParsedTransactionResolution } from '$core/import/constants';
+  import { notification, NotificationStyles } from '$core/notification';
 
   const dispatch = createEventDispatcher(),
     { addNotification } = getNotificationsContext();

@@ -3,7 +3,7 @@
   import { page } from '$app/stores';
   import { onMount } from 'svelte';
 
-  import { verifyEmailPath } from '@/core/routes';
+  import { verifyEmailPath } from '$core/routes';
 
   onMount(() => goto(verifyEmailPath($page.params.token), { replaceState: true }));
 </script>

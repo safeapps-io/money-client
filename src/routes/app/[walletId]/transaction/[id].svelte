@@ -1,14 +1,14 @@
 <script>
-  import Page from '@/components/nav/page.svelte';
-  import EditPage from '@/components/nav/editPage.svelte';
-  import TransactionForm from '@/components/transaction/form/transaction.svelte';
+  import Page from '$components/nav/page.svelte';
+  import EditPage from '$components/nav/editPage.svelte';
+  import TransactionForm from '$components/transaction/form/transaction.svelte';
 
   import { _ } from 'svelte-i18n';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
 
-  import { currentWalletTransactionStore } from '@/stores/decr/transaction';
-  import { appPath } from '@/core/routes';
+  import { currentWalletTransactionStore } from '$stores/decr/transaction';
+  import { appPath } from '$core/routes';
 
   const redirectToDash = () => goto(appPath);
 

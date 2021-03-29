@@ -1,14 +1,14 @@
 <script>
-  import type { FullEntity, WalletData } from '@/stores/decr/types';
+  import type { FullEntity, WalletData } from '$stores/decr/types';
 
   import ReferenceTransactionList from './referenceTransactionList.svelte';
-  import { Onboarding, Text } from '@/components/onboarding';
+  import { Onboarding, Text } from '$components/onboarding';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
 
-  import { walletDataUpdate } from '@/stores/decr/wallet';
-  import { currentWalletReferenceTransactionStore } from '@/stores/decr/referenceTransaction';
+  import { walletDataUpdate } from '$stores/decr/wallet';
+  import { currentWalletReferenceTransactionStore } from '$stores/decr/referenceTransaction';
 
   export let wallet: FullEntity<WalletData>;
 

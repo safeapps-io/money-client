@@ -1,15 +1,14 @@
 <script>
   import Notifications from 'svelte-notifications/src/components/Notifications.svelte';
-
-  import Notification from '@/components/elements/notification.svelte';
-  import Meta from '@/components/nav/meta.svelte';
+  import Notification from '$components/elements/notification.svelte';
+  import Meta from '$components/nav/meta.svelte';
 
   import { onMount } from 'svelte';
   import { isLoading } from 'svelte-i18n';
 
-  import { initStores } from '@/stores/init';
-  import { i18nInit } from '@/core/i18n';
-  import { matchMediaInit } from '@/core/matchMedia';
+  import { initStores } from '$stores/init';
+  import { i18nInit } from '$core/i18n';
+  import { matchMediaInit } from '$core/matchMedia';
 
   let appInitialized = false;
   onMount(async () => {

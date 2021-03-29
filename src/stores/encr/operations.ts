@@ -1,6 +1,8 @@
-import { EncrEntity, encryptedStore } from '@/stores/encr/store';
-import { EncryptionKeysState, encryptionKeysStateStore } from '@/stores/encr/keysState';
-import { setDecryptedFromEncrypted } from '@/services/crypto/setDecryptedData';
+import type { EncrEntity } from '$stores/encr/store';
+import type { EncryptionKeysState } from '$stores/encr/keysState';
+import { encryptedStore } from '$stores/encr/store';
+import { encryptionKeysStateStore } from '$stores/encr/keysState';
+import { setDecryptedFromEncrypted } from '$services/crypto/setDecryptedData';
 
 let encryptionKeysState: EncryptionKeysState;
 encryptionKeysStateStore.subscribe($state => (encryptionKeysState = $state));

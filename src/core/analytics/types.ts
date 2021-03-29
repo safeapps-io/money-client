@@ -3,7 +3,7 @@ import {
   FullEntity,
   CorrectionTransaction,
   ReferenceTransaction,
-} from '@/stores/decr/types';
+} from '$stores/decr/types';
 
 export type IteratorPlugin<T> = {
   transactionHandler: (

@@ -1,5 +1,5 @@
 <script>
-  import { adminRequest } from '@/services/request';
+  import { adminRequest } from '$services/request';
 
   export let prefix: string, header: string, addLink: string;
 

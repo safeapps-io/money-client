@@ -1,4 +1,4 @@
-import { Writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
 import { browser } from '$app/env';
 import { Store, get, set, del } from 'idb-keyval';
 

@@ -1,15 +1,15 @@
 <script>
-  import { Form, PasswordField, UsernameField } from '@/components/strict';
-  import Modal from '@/components/elements/modal.svelte';
+  import { Form, PasswordField, UsernameField } from '$components/strict';
+  import Modal from '$components/elements/modal.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { accentTags, generateLinkTags } from '@/utils/accentTags';
+  import { accentTags, generateLinkTags } from '$utils/accentTags';
 
-  import { AuthService } from '@/services/auth/authService';
-  import { walletGeneralSettingsPath } from '@/core/routes';
-  import { userEncrStore } from '@/stores/user';
-  import { FormError } from '@/services/errors';
+  import { AuthService } from '$services/auth/authService';
+  import { walletGeneralSettingsPath } from '$core/routes';
+  import { userEncrStore } from '$stores/user';
+  import { FormError } from '$services/errors';
 
   let active = false,
     noExitAnimation = false;

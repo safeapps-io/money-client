@@ -2,8 +2,8 @@
   import { media } from 'svelte-match-media';
   import { fade, scale, slide } from 'svelte/transition';
 
-  import { shortcut } from '@/utils/actions/shortcut';
-  import { restrictBodyScroll } from '@/utils/actions/restrictBodyScroll';
+  import { shortcut } from '$utils/actions/shortcut';
+  import { restrictBodyScroll } from '$utils/actions/restrictBodyScroll';
 
   /**
    * If true, then close button will be shown and clicking on the background would dismiss the modal.

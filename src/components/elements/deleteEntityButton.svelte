@@ -5,12 +5,12 @@
   import { createEventDispatcher } from 'svelte';
   import { getNotificationsContext } from 'svelte-notifications/src/context';
 
-  import { shortcut } from '@/utils/actions/shortcut';
+  import { shortcut } from '$utils/actions/shortcut';
 
-  import { notification, NotificationStyles } from '@/core/notification';
+  import { notification, NotificationStyles } from '$core/notification';
 
-  import { deletedAdd } from '@/stores/decr/deleted';
-  import { userEncrStore } from '@/stores/user';
+  import { deletedAdd } from '$stores/decr/deleted';
+  import { userEncrStore } from '$stores/user';
 
   const { addNotification } = getNotificationsContext(),
     dispatch = createEventDispatcher();

@@ -1,20 +1,22 @@
 import { derived } from 'svelte/store';
 
-import { encryptionService } from '@/services/crypto/cryptoService';
+import { encryptionService } from '$services/crypto/cryptoService';
 
-import { encryptedStore, EncrEntity, EncrEntityLocal } from '@/stores/encr/store';
-import { AllEntities, AllEntitiesAsHash, FullEntity, EntityTypes } from '@/stores/decr/types';
-import { walletDataOverwrite } from '@/stores/decr/wallet';
-import { searchFilterOverwrite } from '@/stores/decr/searchFilter';
-import { transactionOverwrite } from '@/stores/decr/transaction';
-import { deletedOverwrite } from '@/stores/decr/deleted';
-import { categoryOverwrite } from '@/stores/decr/category';
-import { encryptionKeysStateStore, initialDecryptionSet } from '@/stores/encr/keysState';
-import { correctionTransactionOverwrite } from '@/stores/decr/correctionTransaction';
-import { referenceTransactionOverwrite } from '@/stores/decr/referenceTransaction';
-import { ignoredTransactionOverwrite } from '@/stores/decr/ignoredTransaction';
-import { walletUserOverwrite } from '@/stores/decr/walletUser';
-import { assetOverwrite } from '@/stores/decr/asset';
+import type { EncrEntity, EncrEntityLocal } from '$stores/encr/store';
+import { encryptedStore } from '$stores/encr/store';
+import type { AllEntities, AllEntitiesAsHash, FullEntity } from '$stores/decr/types';
+import { EntityTypes } from '$stores/decr/types';
+import { walletDataOverwrite } from '$stores/decr/wallet';
+import { searchFilterOverwrite } from '$stores/decr/searchFilter';
+import { transactionOverwrite } from '$stores/decr/transaction';
+import { deletedOverwrite } from '$stores/decr/deleted';
+import { categoryOverwrite } from '$stores/decr/category';
+import { encryptionKeysStateStore, initialDecryptionSet } from '$stores/encr/keysState';
+import { correctionTransactionOverwrite } from '$stores/decr/correctionTransaction';
+import { referenceTransactionOverwrite } from '$stores/decr/referenceTransaction';
+import { ignoredTransactionOverwrite } from '$stores/decr/ignoredTransaction';
+import { walletUserOverwrite } from '$stores/decr/walletUser';
+import { assetOverwrite } from '$stores/decr/asset';
 
 const overwriteByEntityType: {
   [key in EntityTypes]: (data: Array<FullEntity<AllEntitiesAsHash[key]>>) => void;

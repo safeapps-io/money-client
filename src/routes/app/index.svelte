@@ -2,9 +2,9 @@
   import { goto } from '$app/navigation';
   import { onDestroy } from 'svelte';
 
-  import { appPath, rootJointWalletPath, rootWalletPath } from '@/core/routes';
-  import { walletStore, selectedWalletStore, selectedJointWalletStore } from '@/stores/wallet';
-  import { debugLog } from '@/core/logger';
+  import { appPath, rootJointWalletPath, rootWalletPath } from '$core/routes';
+  import { walletStore, selectedWalletStore, selectedJointWalletStore } from '$stores/wallet';
+  import { debugLog } from '$core/logger';
 
   const walletId = $selectedWalletStore,
     jointWalletId = $selectedJointWalletStore;

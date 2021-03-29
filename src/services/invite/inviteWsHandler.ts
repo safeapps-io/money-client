@@ -1,9 +1,5 @@
-import {
-  OwnerInviteValidate,
-  addInviteToValidate,
-  inviteResolutionStore,
-  InviteResolutions,
-} from './inviteStages';
+import type { OwnerInviteValidate } from './inviteStages';
+import { addInviteToValidate, inviteResolutionStore, InviteResolutions } from './inviteStages';
 
 const enum BackTypes {
   validate = 'invite/validate',

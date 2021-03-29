@@ -2,13 +2,14 @@ import { nanoid } from 'nanoid';
 import { derived, get } from 'svelte/store';
 import { encode } from 'base64-arraybuffer';
 
-import { copy } from '@/utils/object';
+import { copy } from '$utils/object';
 
-import { encryptionService } from '@/services/crypto/cryptoService';
-import { userEncrStore, UserEncrState } from '@/stores/user';
-import { encryptionKeysStateStore } from '@/stores/encr/keysState';
-import { AutomationSettings, BaseSimpleScheme } from '@/core/import/types';
-import { JointWallet } from './types';
+import { encryptionService } from '$services/crypto/cryptoService';
+import type { UserEncrState } from '$stores/user';
+import { userEncrStore } from '$stores/user';
+import { encryptionKeysStateStore } from '$stores/encr/keysState';
+import type { AutomationSettings, BaseSimpleScheme } from '$core/import/types';
+import type { JointWallet } from './types';
 
 export type OnboardingSteps =
   | 'firstWallet'

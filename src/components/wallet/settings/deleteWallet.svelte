@@ -1,11 +1,11 @@
 <script>
-  import Modal from '@/components/elements/modal.svelte';
-  import { Form, Field, TextInput } from '@/components/strict';
+  import Modal from '$components/elements/modal.svelte';
+  import { Form, Field, TextInput } from '$components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { WalletService } from '@/services/wallet/walletService';
+  import { WalletService } from '$services/wallet/walletService';
 
   const dispatch = createEventDispatcher();
 

@@ -1,13 +1,13 @@
 <script>
-  import type { FullEntity, WalletUser } from '@/stores/decr/types';
+  import type { FullEntity, WalletUser } from '$stores/decr/types';
 
-  import Modal from '@/components/elements/modal.svelte';
-  import WalletUserForm from '@/components/wallet/settings/walletUser/form.svelte';
+  import Modal from '$components/elements/modal.svelte';
+  import WalletUserForm from '$components/wallet/settings/walletUser/form.svelte';
 
   import { _ } from 'svelte-i18n';
   import cssVars from 'svelte-css-vars';
 
-  import { walletUserSortedByCreatedStore } from '@/stores/decr/walletUser';
+  import { walletUserSortedByCreatedStore } from '$stores/decr/walletUser';
 
   let active = false,
     ent: FullEntity<WalletUser> | undefined = undefined;

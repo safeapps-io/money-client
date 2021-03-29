@@ -1,10 +1,10 @@
 <script>
-  import type { PublicUserData } from '@/stores/wallet';
+  import type { PublicUserData } from '$stores/wallet';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
 
-  import { WalletService } from '@/services/wallet/walletService';
+  import { WalletService } from '$services/wallet/walletService';
 
   const dispatch = createEventDispatcher();
 

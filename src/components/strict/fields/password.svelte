@@ -1,8 +1,8 @@
 <script>
-  import Field from '@/components/strict/field.svelte';
-  import Text from '@/components/strict/inputs/text.svelte';
+  import Field from '$components/strict/field.svelte';
+  import Text from '$components/strict/inputs/text.svelte';
 
-  import { ensureString, trim, minLength, maxLength } from '@/core/strict/string';
+  import { ensureString, trim, minLength, maxLength } from '$core/strict/string';
 
   export let name: string = 'password',
     help: string | undefined = undefined,

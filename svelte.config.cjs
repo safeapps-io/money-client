@@ -28,13 +28,17 @@ module.exports = {
       },
       resolve: {
         alias: {
+          $components: path.resolve('src/components'),
           $core: path.resolve('src/core'),
+          $services: path.resolve('src/services'),
+          $stores: path.resolve('src/stores'),
+          $utils: path.resolve('src/utils'),
         },
         dedupe: ['svelte'],
       },
-      ssr: {
-        noExternal: Object.keys(pkg.dependencies || {}),
-      },
+      // ssr: {
+      //   noExternal: Object.keys(pkg.dependencies || {}),
+      // },
     }),
   },
   preprocess: sveltePreprocess({

@@ -1,7 +1,7 @@
 <script>
   import type { FileParsedToBinary } from './types';
 
-  import Loader from '@/components/elements/loader.svelte';
+  import Loader from '$components/elements/loader.svelte';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';

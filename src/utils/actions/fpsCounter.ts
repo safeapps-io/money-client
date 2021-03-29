@@ -1,4 +1,4 @@
-import { Writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
 
 export const fpsCounter: Action<{ counterStore: Writable<number>; enable: boolean }> = (
   _,

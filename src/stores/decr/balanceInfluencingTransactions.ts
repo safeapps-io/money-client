@@ -1,7 +1,7 @@
 import { derived } from 'svelte/store';
 import { firstBy } from 'thenby';
 
-import { FullEntity, ReferenceTransaction, Transaction, CorrectionTransaction } from './types';
+import type { FullEntity, ReferenceTransaction, Transaction, CorrectionTransaction } from './types';
 import { transactionSortedByDatetimeStore } from './transaction';
 import { currentWalletReferenceTransactionStore } from './referenceTransaction';
 import { currentWalletCorrectionTransactionStore } from './correctionTransaction';

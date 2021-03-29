@@ -1,14 +1,14 @@
 <script>
-  import { FormError } from '@/services/errors';
-  import { Form, MasterPasswordField, PinCodeField } from '@/components/strict';
+  import { FormError } from '$services/errors';
+  import { Form, MasterPasswordField, PinCodeField } from '$components/strict';
 
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { focusableShortcut } from '@/utils/actions/shortcut';
+  import { focusableShortcut } from '$utils/actions/shortcut';
 
-  import { enterMasterPassword, enterPinCode } from '@/services/crypto/masterPassword';
-  import { keyWrappedWithPinStore } from '@/stores/user';
+  import { enterMasterPassword, enterPinCode } from '$services/crypto/masterPassword';
+  import { keyWrappedWithPinStore } from '$stores/user';
 
   export let b64salt: string, b64InvitePublicKey: string, b64EncryptedInvitePrivateKey: string;
 

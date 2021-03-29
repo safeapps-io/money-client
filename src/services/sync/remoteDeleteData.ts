@@ -1,11 +1,11 @@
 import { derived } from 'svelte/store';
 import { noop } from 'svelte/internal';
 
-import { WsStates } from '@/utils/wsStore';
+import { WsStates } from '$utils/wsStore';
 
-import { userEncrStore } from '@/stores/user';
+import { userEncrStore } from '$stores/user';
 import { syncConnection } from './syncConnection';
-import { notYetRemoteDeletedStore } from '@/stores/decr/deleted';
+import { notYetRemoteDeletedStore } from '$stores/decr/deleted';
 import { SyncService } from './syncService';
 
 /**

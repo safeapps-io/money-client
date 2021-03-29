@@ -1,10 +1,11 @@
 import { derived } from 'svelte/store';
 
-import { stripEmoji, getSortedStore } from '@/utils/getSortedStore';
-import { areArraysOverlapping } from '@/utils/array';
+import { stripEmoji, getSortedStore } from '$utils/getSortedStore';
+import { areArraysOverlapping } from '$utils/array';
 
 import { createDecrEntityStore } from './base';
-import { SearchFilter, EntityTypes, SearchFilterDatePeriods, FullEntity } from './types';
+import type { SearchFilter, FullEntity } from './types';
+import { EntityTypes, SearchFilterDatePeriods } from './types';
 
 const {
   store: searchFilterStore,

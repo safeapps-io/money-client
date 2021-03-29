@@ -1,4 +1,4 @@
-import { BuildValidateFunction, CleanFunction } from './types';
+import type { BuildValidateFunction, CleanFunction } from './types';
 
 const getKey = (key: string) => `common.errors.field.object.${key}`;
 
