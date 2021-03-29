@@ -10,6 +10,17 @@ const mode = process.env.NODE_ENV,
   dev = mode === 'development',
   version = `${pkg.version}${dev ? ' (dev)' : ''}`;
 
+const envKeys = [
+  'API_WS_SCHEME',
+  'API_SCHEME',
+  'API_HOST',
+  'API_PORT',
+  'SITE_SCHEME',
+  'SITE_HOST',
+  'SITE_PORT',
+  'ROOT_HOST',
+];
+
 /** @type {import('@sveltejs/kit').Config} */
 module.exports = {
   kit: {
@@ -17,14 +28,10 @@ module.exports = {
     vite: () => ({
       define: {
         'process.env.VERSION': JSON.stringify(version),
-        'process.env.API_WS_SCHEME': JSON.stringify(process.env.API_WS_SCHEME),
-        'process.env.API_SCHEME': JSON.stringify(process.env.API_SCHEME),
-        'process.env.API_HOST': JSON.stringify(process.env.API_HOST),
-        'process.env.API_PORT': JSON.stringify(process.env.API_PORT),
-        'process.env.SITE_SCHEME': JSON.stringify(process.env.SITE_SCHEME),
-        'process.env.SITE_HOST': JSON.stringify(process.env.SITE_HOST),
-        'process.env.SITE_PORT': JSON.stringify(process.env.SITE_PORT),
-        'process.env.ROOT_HOST': JSON.stringify(process.env.ROOT_HOST),
+        ...envKeys.reduce(
+          (acc, key) => ((acc[`process.env.${key}`] = JSON.stringify(process.env[key])), acc),
+          {},
+        ),
       },
       resolve: {
         alias: {
