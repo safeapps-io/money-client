@@ -4,10 +4,9 @@
   "version": "13.03.2021v3",
   "type": "module",
   "scripts": {
-    "dev": "svelte-kit dev",
-    "type": "tsc --noEmit && svelte-check --ignore \"src/node_modules\"",
-    "build": "find . -name .DS_Store | xargs rm && NODE_ENV=production svelte-kit build",
-    "start": "node __sapper__/build"
+    "dev": "svelte-kit dev -o",
+    "type": "tsc --noEmit && svelte-check",
+    "build": "find . -name .DS_Store | xargs rm && NODE_ENV=production svelte-kit build"
   },
   "dependencies": {
     "base64-arraybuffer-es6": "^0.7.0",

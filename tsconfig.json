@@ -18,12 +18,12 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
       "$app/*": [
         ".svelte/dev/runtime/app/*",
         ".svelte/build/runtime/app/*"
+      ],
+      "$service-worker": [
+        ".svelte/build/runtime/service-worker"
       ],
       "$lib/*": [
         "src/lib/*"
@@ -50,5 +50,8 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
   },
 }

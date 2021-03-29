@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'client',
 
-      script: '__sapper__/build/index.js',
+      script: 'build/index.js',
       exec_mode: 'cluster',
       instances: 'max',
 
