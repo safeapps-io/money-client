@@ -76,7 +76,7 @@
     isSchemaProvided: boolean;
 
   const runSchemeAgainstData = async (scheme: BaseSimpleScheme | CustomScheme) => {
-    const module = await import('@/core/import/parseData'),
+    const module = await import('$core/import/parseData'),
       csvParsedData = await module.parseData({
         ignoredTransactionHashSet: $transactionsToIgnoreSetStore,
         scheme,
@@ -92,7 +92,7 @@
   };
 
   const startCsvProcess = async (data: ArrayBuffer) => {
-      const module = await import('@/core/import/guessParsingScheme');
+      const module = await import('$core/import/guessParsingScheme');
 
       const scheme = await module.guessParsingScheme({
         data,
@@ -112,7 +112,7 @@
       }
     },
     startOfxProcess = async (data: ArrayBuffer) => {
-      const module = await import('@/core/import/parseOfxData'),
+      const module = await import('$core/import/parseOfxData'),
         stringData = bufferToString(data);
 
       parsedRows = Array.from(
