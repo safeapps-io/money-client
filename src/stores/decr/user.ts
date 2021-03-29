@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import { derived, get } from 'svelte/store';
-import { encode } from 'base64-arraybuffer';
+import { encode } from 'base64-arraybuffer-es6';
 
 import { copy } from '$utils/object';
 

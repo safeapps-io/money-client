@@ -11,7 +11,7 @@ import {
   subYears,
   minTime,
   maxTime,
-} from 'date-fns';
+} from 'date-fns/esm';
 import { SearchFilterDatePeriods } from '$stores/decr/types';
 
 export const getSearchFilterDates = ({

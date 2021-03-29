@@ -1,4 +1,4 @@
-import { isAfter, isBefore } from 'date-fns';
+import { isAfter, isBefore } from 'date-fns/esm';
 
 import type { InteratorPluginConstructor } from './types';
 import type { FullEntity, Transaction, CorrectionTransaction } from '$stores/decr/types';

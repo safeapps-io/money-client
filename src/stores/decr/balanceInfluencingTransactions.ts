@@ -1,5 +1,4 @@
 import { derived } from 'svelte/store';
-import { firstBy } from 'thenby';
 
 import type { FullEntity, ReferenceTransaction, Transaction, CorrectionTransaction } from './types';
 import { transactionSortedByDatetimeStore } from './transaction';
@@ -21,15 +20,13 @@ export const balanceInfluencingTransactionsStore = derived(
   ([$trs, $ref, $corr]) =>
     ([] as Array<AllFullEntityTransactions>)
       .concat($trs, Object.values($ref), Object.values($corr))
-      .sort(
-        firstBy(
-          (tr1, tr2) =>
-            (tr1 as AllFullEntityTransactions).decr.datetime -
-            (tr2 as AllFullEntityTransactions).decr.datetime,
-        ).thenBy(
-          (tr1, tr2) =>
-            (tr1 as AllFullEntityTransactions).decr.created -
-            (tr2 as AllFullEntityTransactions).decr.created,
-        ),
-      ),
+      .sort((tr1, tr2) => {
+        if (tr1.decr.datetime > tr2.decr.datetime) return 1;
+        if (tr1.decr.datetime < tr2.decr.datetime) return -1;
+
+        if (tr1.decr.created > tr2.decr.created) return 1;
+        if (tr1.decr.created < tr2.decr.created) return -1;
+
+        return 0;
+      }),
 );

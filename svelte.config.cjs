@@ -36,9 +36,17 @@ module.exports = {
         },
         dedupe: ['svelte'],
       },
-      // ssr: {
-      //   noExternal: Object.keys(pkg.dependencies || {}),
-      // },
+      ssr: {
+        /**
+         * Currently we have problems with 3 deps:
+         * 1. direct one: emoji-regex. It has some problems with ESM.
+         * 2. and two deps of svelte-i18n: fast-memoize, deepmerge. They also have problems with ESM.
+         * 3. nanoid. It keeps throwing errors, because SSR has no secure random generator, lol.
+         */
+        noExternal: Object.keys(pkg.dependencies || {}).filter(
+          name => !['emoji-regex', 'svelte-i18n', 'nanoid'].includes(name),
+        ),
+      },
     }),
   },
   preprocess: sveltePreprocess({

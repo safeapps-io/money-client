@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format } from 'date-fns/esm';
 
 import { SimpleNumberParser } from '$utils/number';
 import { getObjectHash } from '$utils/getObjectHash';

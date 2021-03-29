@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { encode } from 'base64-arraybuffer';
+import { encode } from 'base64-arraybuffer-es6';
 import { writable, derived } from 'svelte/store';
 
 import type { FullEntity, AllEntities, OmitCommonFields } from './types';

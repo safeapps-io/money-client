@@ -1,4 +1,4 @@
-import { encode, decode } from 'base64-arraybuffer';
+import { encode, decode } from 'base64-arraybuffer-es6';
 
 import { concatArrayBuffers } from '$utils/buffer/concat';
 import { stringToBuffer, bufferToString } from '$utils/buffer/conversions';

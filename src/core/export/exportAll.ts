@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format } from 'date-fns/esm';
 import { get } from 'svelte/store';
 import type { Category, FullEntity, Transaction, WalletUser } from '$stores/decr/types';
 import { exportCSV } from '$core/import/exportCsv';

@@ -1,4 +1,4 @@
-import { startOfDay, isBefore, isAfter } from 'date-fns';
+import { startOfDay, isBefore, isAfter } from 'date-fns/esm';
 
 import type { IteratorPlugin } from './types';
 import { EntityTypes } from '$stores/decr/types';

@@ -1,4 +1,4 @@
-import { isBefore } from 'date-fns';
+import { isBefore } from 'date-fns/esm';
 
 import { inputParseDate } from '$utils/date';
 import type { BuildValidateFunction, CleanFunction } from './types';
