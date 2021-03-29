@@ -6,7 +6,7 @@
 
   import { appPath } from '$core/routes';
 
-  $: queryParams = $page.query ? window.location.search : '';
+  $: queryParams = Object.keys($page.params).length ? window.location.search : '';
 </script>
 
 <!--

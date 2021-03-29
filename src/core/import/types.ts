@@ -1,6 +1,6 @@
-import { ParseError } from 'papaparse';
+import type { ParseError } from 'papaparse';
 
-import { OmitCommonFields, Transaction } from '$stores/decr/types';
+import type { OmitCommonFields, Transaction } from '$stores/decr/types';
 
 export type ParsingSettings = {
   encoding: string;

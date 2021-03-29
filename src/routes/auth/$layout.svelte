@@ -20,7 +20,7 @@
   });
 
   let show = false;
-  $: queryParams = $page.query ? window.location.search : '';
+  $: queryParams = Object.keys($page.params).length ? window.location.search : '';
 </script>
 
 <div class="wrapper">

@@ -42,7 +42,7 @@
   $: hasWallets = !!Object.keys($walletStore || {}).length;
   $: hasWalletData = !!Object.keys($walletDataStore || {}).length;
 
-  $: invite = atob($page.query.invite || '');
+  $: invite = atob($page.params.invite || '');
 </script>
 
 {#if shouldShow}

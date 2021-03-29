@@ -12,5 +12,5 @@
 <Page title={$_('routes.category.create')} nestColumnClass="is-8">
   <CategoryForm
     on:success={() => goto($categoryListPath)}
-    isIncomeCategory={$page.query.income === '1'} />
+    isIncomeCategory={$page.params.income === '1'} />
 </Page>
