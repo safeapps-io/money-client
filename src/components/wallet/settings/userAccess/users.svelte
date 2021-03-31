@@ -2,15 +2,13 @@
   import UserCard from './userCard.svelte';
   import NewInvite from './newInvite.svelte';
 
-  // import { getNotificationsContext } from 'svelte-notifications/src/context';
-  import { noop } from 'svelte/internal';
+  import { getContext } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { notification } from '$core/notification';
   import { AccessLevels, selectedWalletStore, walletStore } from '$stores/wallet';
   import { userEncrStore } from '$stores/user';
 
-  const addNotification = noop as any;
+  const successNotif = getContext('success');
 
   $: wallet = $walletStore![$selectedWalletStore!];
   $: user = $userEncrStore!;
@@ -18,7 +16,7 @@
     u => u.id == user.id && u.WalletAccess.accessLevel == AccessLevels.owner,
   );
 
-  const onDelete = () => addNotification(notification({ text: $_('cmps.deleteEntity.success') }));
+  const onDelete = () => successNotif($_('cmps.deleteEntity.success'));
 </script>
 
 <ul class="my-4">

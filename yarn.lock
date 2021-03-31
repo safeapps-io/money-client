@@ -3388,11 +3388,6 @@ svelte-match-media@^1.1.0:
   resolved "https://registry.yarnpkg.com/svelte-match-media/-/svelte-match-media-1.2.0.tgz#e11d7f6f8a955ea449ecb1f0570d265936e5ecb2"
   integrity sha512-Gt84w5sHYQZK6RqnVfsi/JzKMmYnTchtOYAooANu+IM32u+THAq2JrfRjIYwYzrgPrFLb1EI1Pm6n3HOHJkwYA==
 
-svelte-notifications@^0.9.9:
-  version "0.9.9"
-  resolved "https://registry.yarnpkg.com/svelte-notifications/-/svelte-notifications-0.9.9.tgz#3d19c48ff5f6624c31ebca476309a5516dfc4bb7"
-  integrity sha512-UMcjqzuNeUGHd3ZzSzRFXn22Z06VlPrTS8CJwFkkE+qKWn2tVRgsG4b62zZBcR/7SMcufT/Ouxpv/gbA8LaQcQ==
-
 svelte-preprocess@^4.0.0, svelte-preprocess@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/svelte-preprocess/-/svelte-preprocess-4.6.1.tgz#a7de4d91b32d5608b6637da960ee81e6089ae276"

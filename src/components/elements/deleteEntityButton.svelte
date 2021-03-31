@@ -2,18 +2,15 @@
   import Shortcut from './shortcut.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { createEventDispatcher } from 'svelte';
-  // import { getNotificationsContext } from 'svelte-notifications/src/context';
-  import { noop } from 'svelte/internal';
+  import { createEventDispatcher, getContext } from 'svelte';
 
   import { shortcut } from '$utils/actions/shortcut';
-
-  import { notification, NotificationStyles } from '$core/notification';
 
   import { deletedAdd } from '$stores/decr/deleted';
   import { userEncrStore } from '$stores/user';
 
-  const addNotification = noop as any,
+  const successNotif = getContext('success'),
+    dangerNotif = getContext('danger'),
     dispatch = createEventDispatcher();
 
   export let entityMap: { [walletId: string]: string[] },
@@ -41,11 +38,9 @@
           deletedAdd(walletId, { ids, remoteDeleted: false, initiatorId: $userEncrStore!.id }),
         ),
       );
-      addNotification(notification({ text: $_('cmps.deleteEntity.success') }));
+      successNotif($_('cmps.deleteEntity.success'));
     } catch (error) {
-      addNotification(
-        notification({ text: $_('cmps.deleteEntity.error'), type: NotificationStyles.danger }),
-      );
+      dangerNotif($_('cmps.deleteEntity.error'));
     }
   };
 </script>

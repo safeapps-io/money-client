@@ -1,12 +1,9 @@
 <script>
-  import { createEventDispatcher, setContext } from 'svelte';
+  import { createEventDispatcher, getContext, setContext } from 'svelte';
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
-  // import { getNotificationsContext } from 'svelte-notifications/src/context';
-  import { noop } from 'svelte/internal';
 
   import { FormError } from '$services/errors';
-  import { notification } from '$core/notification';
   import { createFormStore, setCleanedValue, runValidation } from '$components/strict/base';
 
   const dispatch = createEventDispatcher();
@@ -21,7 +18,7 @@
   export let formStore = createFormStore();
   setContext('form', formStore);
 
-  const addNotification = noop as any;
+  const successNotif = getContext('success');
 
   $: ({ formDisabled } = $formStore);
 
@@ -67,7 +64,7 @@
       try {
         await success(data);
 
-        if (notificationText) addNotification(notification({ text: notificationText }));
+        if (notificationText) successNotif(notificationText);
         if (cleanup) {
           /**
            * If user still focuses on an input element (say, enter was pressed), we blur it before

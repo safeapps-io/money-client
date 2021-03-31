@@ -10,10 +10,8 @@
   import Loader from '$components/elements/loader.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { createEventDispatcher, onDestroy } from 'svelte';
+  import { createEventDispatcher, getContext, onDestroy } from 'svelte';
   import { writable } from 'svelte/store';
-  // import { getNotificationsContext } from 'svelte-notifications/src/context';
-  import { noop } from 'svelte/internal';
 
   import { bufferToString } from '$utils/buffer/conversions';
   import { persistStoreLs } from '$utils/persistStore';
@@ -29,10 +27,10 @@
   import { defaultAssetStore } from '$stores/decr/asset';
 
   import { CsvParsedTransactionResolution } from '$core/import/constants';
-  import { notification, NotificationStyles } from '$core/notification';
 
   const dispatch = createEventDispatcher(),
-    addNotification = noop as any;
+    successNotif = getContext('success'),
+    dangerNotif = getContext('danger');
 
   const cachedStateStore = writable<{ state: any; timestamp: number; filename: string } | null>(
       null,
@@ -102,12 +100,7 @@
       if (scheme) await runSchemeAgainstData(scheme);
       else {
         if ($hasUserSeenOnboarding('setScheme'))
-          addNotification(
-            notification({
-              text: $_('cmps.import.scheme.onboarding.unknown.title'),
-              type: NotificationStyles.danger,
-            }),
-          );
+          dangerNotif($_('cmps.import.scheme.onboarding.unknown.title'));
         state = State.needScheme;
       }
     },
@@ -163,7 +156,7 @@
       ...detail[CsvParsedTransactionResolution.draft],
     ]);
 
-    addNotification(notification({ text: $_('common.form.okNotif') }));
+    successNotif($_('common.form.okNotif'));
     dispatch('success');
   };
 </script>
