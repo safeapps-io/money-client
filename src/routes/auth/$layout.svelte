@@ -29,13 +29,13 @@
       <Logo />
       <hr />
       <h2 class="title is-4">
-        {#if $page.path.includes('login')}
-          {$_('cmps.user.signIn')}
-        {:else}<Link href={loginPath + queryParams}>{$_('cmps.user.signIn')}</Link>{/if}
-        <span class="px-2 is-unselectable">|</span>
         {#if $page.path.includes('signup')}
           {$_('cmps.user.signup.cta')}
         {:else}<Link href={signupPath + queryParams}>{$_('cmps.user.signup.cta')}</Link>{/if}
+        <span class="px-2 is-unselectable">|</span>
+        {#if $page.path.includes('login')}
+          {$_('cmps.user.signIn')}
+        {:else}<Link href={loginPath + queryParams}>{$_('cmps.user.signIn')}</Link>{/if}
       </h2>
 
       <CrossfadeWrapper replayAnimationKey={$page.path}>
