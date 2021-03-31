@@ -1,10 +1,10 @@
 <script>
-  import Locale from '@/components/user/settings/locale.svelte';
+  import Locale from '$components/user/settings/locale.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { generateLinkTags } from '@/utils/accentTags';
+  import { generateLinkTags } from '$utils/accentTags';
 
-  import { aboutPath, pricingPath, termsPath, howItWorksPath, forumPath } from '@/core/routes';
+  import { aboutPath, pricingPath, termsPath, howItWorksPath, forumPath } from '$core/routes';
 
   $: leftLinks = [
     [aboutPath, $_('cmps.footer.about')],

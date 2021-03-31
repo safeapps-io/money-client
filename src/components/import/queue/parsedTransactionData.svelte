@@ -12,19 +12,19 @@
     OmitCommonFields,
     Transaction,
     WalletUser,
-  } from '@/stores/decr/types';
-  import type { FormStore } from '@/components/strict/base';
-  import type { TransactionFieldsForm } from '@/core/transaction/setCorrectAmount';
+  } from '$stores/decr/types';
+  import type { FormStore } from '$components/strict/base';
+  import type { TransactionFieldsForm } from '$core/transaction/setCorrectAmount';
 
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
 
-  import TransactionFields from '@/components/transaction/form/fields.svelte';
-  import AutocompleteTable from '@/components/transaction/card/autocompleteTable.svelte';
-  import TransactionCard from '@/components/transaction/card/transactionCard.svelte';
-  import { Form } from '@/components/strict';
+  import TransactionFields from '$components/transaction/form/fields.svelte';
+  import AutocompleteTable from '$components/transaction/card/autocompleteTable.svelte';
+  import TransactionCard from '$components/transaction/card/transactionCard.svelte';
+  import { Form } from '$components/strict';
 
-  import { setCorrectAmount } from '@/core/transaction/setCorrectAmount';
+  import { setCorrectAmount } from '$core/transaction/setCorrectAmount';
 
   const dispatch = createEventDispatcher();
 

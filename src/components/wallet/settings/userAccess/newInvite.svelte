@@ -1,10 +1,10 @@
 <script>
-  import CopyText from '@/components/elements/copyText.svelte';
+  import CopyText from '$components/elements/copyText.svelte';
 
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
 
-  import { InviteService } from '@/services/invite/inviteService';
+  import { InviteService } from '$services/invite/inviteService';
 
   export let walletId: string, userId: string;
 

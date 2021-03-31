@@ -1,8 +1,9 @@
-import { derived, Writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
+import { derived } from 'svelte/store';
 
-import { syncConnection } from '@/services/sync/syncConnection';
-import { schemeStore } from '@/stores/scheme';
-import { metaCategoryStore } from '@/stores/metaCategory';
+import { syncConnection } from '$services/sync/syncConnection';
+import { schemeStore } from '$stores/scheme';
+import { metaCategoryStore } from '$stores/metaCategory';
 
 const enum ClientTypes {
   getScheme = 'scheme/get',

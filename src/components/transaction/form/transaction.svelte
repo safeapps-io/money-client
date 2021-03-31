@@ -1,24 +1,24 @@
 <script>
-  import type { FormStore } from '@/components/strict/base';
-  import type { FullEntity, Transaction } from '@/stores/decr/types';
-  import type { TransactionFieldsForm } from '@/core/transaction/setCorrectAmount';
+  import type { FormStore } from '$components/strict/base';
+  import type { FullEntity, Transaction } from '$stores/decr/types';
+  import type { TransactionFieldsForm } from '$core/transaction/setCorrectAmount';
 
-  import Level from '@/components/elements/level.svelte';
-  import { Form } from '@/components/strict';
+  import Level from '$components/elements/level.svelte';
+  import { Form } from '$components/strict';
   import TransactionFields from './fields.svelte';
-  import WalletField from '@/components/wallet/walletField.svelte';
-  import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
+  import WalletField from '$components/wallet/walletField.svelte';
+  import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
   import AutocompleteTable from '../card/autocompleteTable.svelte';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
 
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { transactionAdd, transactionUpdate } from '@/stores/decr/transaction';
-  import { setCorrectAmount } from '@/core/transaction/setCorrectAmount';
-  import { userEncrStore } from '@/stores/user';
-  import { defaultWalletUserIdStore } from '@/stores/decr/walletUser';
-  import { defaultAssetStore } from '@/stores/decr/asset';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { transactionAdd, transactionUpdate } from '$stores/decr/transaction';
+  import { setCorrectAmount } from '$core/transaction/setCorrectAmount';
+  import { userEncrStore } from '$stores/user';
+  import { defaultWalletUserIdStore } from '$stores/decr/walletUser';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
   export let ent: FullEntity<Transaction> | undefined = undefined;
 

@@ -1,12 +1,12 @@
 <script>
-  import { Form, PinCodeField } from '@/components/strict';
-  import { Onboarding, Text } from '@/components/onboarding';
+  import { Form, PinCodeField } from '$components/strict';
+  import { Onboarding, Text } from '$components/onboarding';
 
   import { _ } from 'svelte-i18n';
 
-  import { FormError } from '@/services/errors';
-  import { setPinCode } from '@/services/crypto/masterPassword';
-  import { keyWrappedWithPinStore } from '@/stores/user';
+  import { FormError } from '$services/errors';
+  import { setPinCode } from '$services/crypto/masterPassword';
+  import { keyWrappedWithPinStore } from '$stores/user';
 
   const success = async ({ pinCode }: { pinCode: string }) => {
     try {

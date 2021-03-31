@@ -1,14 +1,14 @@
 <script>
-  import Modal from '@/components/elements/modal.svelte';
-  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
+  import Modal from '$components/elements/modal.svelte';
+  import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { AuthService, InvitePurpose, InviteStringTypes } from '@/services/auth/authService';
-  import { joiningError, launchWalletJoin } from '@/services/invite/inviteWsActions';
-  import { InviteService } from '@/services/invite/inviteService';
-  import { InviteResolutions, inviteResolutionStore } from '@/services/invite/inviteStages';
+  import { AuthService, InvitePurpose, InviteStringTypes } from '$services/auth/authService';
+  import { joiningError, launchWalletJoin } from '$services/invite/inviteWsActions';
+  import { InviteService } from '$services/invite/inviteService';
+  import { InviteResolutions, inviteResolutionStore } from '$services/invite/inviteStages';
 
   const dispatch = createEventDispatcher();
 

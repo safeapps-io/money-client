@@ -1,14 +1,14 @@
 <script lang="typescript">
-  import type { UserEncrState } from '@/stores/user';
+  import type { UserEncrState } from '$stores/user';
 
-  import Modal from '@/components/elements/modal.svelte';
+  import Modal from '$components/elements/modal.svelte';
   import EnterMasterPassword from './enterMasterPassword.svelte';
   import SetNewMasterPassword from './setNewMasterPassword.svelte';
   import Logout from './logout.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { encryptionKeysStateStore } from '@/stores/encr/keysState';
+  import { encryptionKeysStateStore } from '$stores/encr/keysState';
 
   export let user: UserEncrState;
 

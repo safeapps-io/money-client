@@ -4,8 +4,8 @@
 
   import { _ } from 'svelte-i18n';
 
-  import { ensureString, maxLength, minLength, numberFormat, trim } from '@/core/strict/string';
-  import { randBetween } from '@/utils/random';
+  import { ensureString, maxLength, minLength, numberFormat, trim } from '$core/strict/string';
+  import { randBetween } from '$utils/random';
 
   const getPlaceholder = () => {
     let res = randBetween(0, 999999).toFixed(0);

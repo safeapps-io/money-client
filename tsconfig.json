@@ -1,12 +1,13 @@
 {
   "extends": "@tsconfig/svelte/tsconfig.json",
   "include": [
-    "src/**/*",
-    "src/node_modules/**/*"
+    "src/**/*.d.ts",
+    "src/**/*.js",
+    "src/**/*.ts",
+    "src/**/*.svelte"
   ],
   "exclude": [
     "node_modules/*",
-    "__sapper__/*",
     "static/*",
   ],
   "compilerOptions": {
@@ -15,18 +16,42 @@
       "ES2020",
       "WebWorker"
     ],
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "$app/*": [
+        ".svelte/dev/runtime/app/*",
+        ".svelte/build/runtime/app/*"
+      ],
+      "$service-worker": [
+        ".svelte/build/runtime/service-worker"
+      ],
+      "$lib/*": [
+        "src/lib/*"
+      ],
+      "$components/*": [
+        "src/components/*"
+      ],
+      "$core/*": [
+        "src/core/*"
+      ],
+      "$services/*": [
+        "src/services/*"
+      ],
+      "$stores/*": [
+        "src/stores/*"
+      ],
+      "$utils/*": [
+        "src/utils/*"
+      ],
     },
-    // Overriding the Svelte config, because it is easier to migrate now
-    "importsNotUsedAsValues": "preserve",
-    "target": "ES2020",
+    "moduleResolution": "node",
+    "target": "es2018",
     "module": "esnext",
     "noImplicitAny": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
-  }
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+  },
 }

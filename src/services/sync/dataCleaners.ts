@@ -1,18 +1,18 @@
 import { derived } from 'svelte/store';
 
-import { walletStore } from '@/stores/wallet';
+import { walletStore } from '$stores/wallet';
 
-import { bulkDeleteEncrEntities } from '@/stores/encr/operations';
-import { encryptedStore, encryptedDeleteGuard } from '@/stores/encr/store';
+import { bulkDeleteEncrEntities } from '$stores/encr/operations';
+import { encryptedStore, encryptedDeleteGuard } from '$stores/encr/store';
 
-import { flatMappedDeletedStore } from '@/stores/decr/deleted';
-import { walletDataDeleteGuard } from '@/stores/decr/wallet';
-import { transactionDeleteGuard } from '@/stores/decr/transaction';
-import { referenceTransactionDeleteGuard } from '@/stores/decr/referenceTransaction';
-import { assetDeleteGuard } from '@/stores/decr/asset';
-import { categoryDeleteGuard } from '@/stores/decr/category';
-import { correctionTransactionDeleteGuard } from '@/stores/decr/correctionTransaction';
-import { searchFilterDeleteGuard } from '@/stores/decr/searchFilter';
+import { flatMappedDeletedStore } from '$stores/decr/deleted';
+import { walletDataDeleteGuard } from '$stores/decr/wallet';
+import { transactionDeleteGuard } from '$stores/decr/transaction';
+import { referenceTransactionDeleteGuard } from '$stores/decr/referenceTransaction';
+import { assetDeleteGuard } from '$stores/decr/asset';
+import { categoryDeleteGuard } from '$stores/decr/category';
+import { correctionTransactionDeleteGuard } from '$stores/decr/correctionTransaction';
+import { searchFilterDeleteGuard } from '$stores/decr/searchFilter';
 
 /**
  * Removes encrypted wallet data for wallets that are not present in wallet store.

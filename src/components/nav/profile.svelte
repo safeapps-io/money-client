@@ -1,12 +1,12 @@
 <script>
-  import Dropdown from '@/components/elements/dropdown/generic.svelte';
-  import Link from '@/components/elements/link.svelte';
-  import Logout from '@/components/user/logout.svelte';
+  import Dropdown from '$components/elements/dropdown/generic.svelte';
+  import Link from '$components/elements/link.svelte';
+  import Logout from '$components/user/logout.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { userSettingsPath, userSecurityPath } from '@/core/routes';
-  import { userEncrStore } from '@/stores/user';
+  import { userSettingsPath, userSecurityPath } from '$core/routes';
+  import { userEncrStore } from '$stores/user';
 
   $: user = $userEncrStore!;
   const addActiveClass = 'is-active';

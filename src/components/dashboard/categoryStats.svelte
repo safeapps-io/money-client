@@ -1,14 +1,14 @@
 <script>
-  import type { CategorySplitReturn } from '@/core/analytics/categorySplitPlugin';
+  import type { CategorySplitReturn } from '$core/analytics/categorySplitPlugin';
 
   import CategorySplit from './charts/categorySplit.svelte';
-  import Tabs from '@/components/elements/tabs.svelte';
-  import ZeroData from '@/components/elements/zeroData.svelte';
+  import Tabs from '$components/elements/tabs.svelte';
+  import ZeroData from '$components/elements/zeroData.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { currentWalletCategoryStore } from '@/stores/decr/category';
-  import { NoCategoryObjectKey } from '@/core/analytics/categorySplitPlugin';
+  import { currentWalletCategoryStore } from '$stores/decr/category';
+  import { NoCategoryObjectKey } from '$core/analytics/categorySplitPlugin';
 
   // export let prevStats = [];
   export let currStats: CategorySplitReturn['curr'] = [];

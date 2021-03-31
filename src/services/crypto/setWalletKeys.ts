@@ -1,9 +1,9 @@
 import { derived } from 'svelte/store';
 
-import { areArraysTheSame } from '@/utils/array';
+import { areArraysTheSame } from '$utils/array';
 
-import { encryptionKeysStateStore, walletKeysSet } from '@/stores/encr/keysState';
-import { currentChestsStore } from '@/stores/wallet';
+import { encryptionKeysStateStore, walletKeysSet } from '$stores/encr/keysState';
+import { currentChestsStore } from '$stores/wallet';
 
 import { encryptionService } from './cryptoService';
 

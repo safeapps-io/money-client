@@ -1,4 +1,4 @@
-import { isValid, parse } from 'date-fns';
+import { isValid, parse } from 'date-fns/esm';
 
 const formats = [
   // ISO-ish: https://en.wikipedia.org/wiki/ISO_8601

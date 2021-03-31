@@ -1,8 +1,9 @@
 import { locale } from 'svelte-i18n';
-import { derived, Writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
+import { derived } from 'svelte/store';
 import { noop } from 'svelte/internal';
 
-import { persistStore } from '@/utils/persistStore';
+import { persistStore } from '$utils/persistStore';
 
 import { keyWrappedWithPinStore, userCacheKey, userEncrStore } from './user';
 import {
@@ -28,14 +29,14 @@ import {
   transactionCleaner,
   walletDataCleaner,
   walletEncryptedDataCleaner,
-} from '@/services/sync/dataCleaners';
-import { syncUser } from '@/services/auth/userWsActions';
-import { syncWallets } from '@/services/wallet/walletWsActions';
-import { syncData } from '@/services/sync/syncWsActions';
-import { walletKeysSetter } from '@/services/crypto/setWalletKeys';
-import { initialDecryption } from '@/services/crypto/setDecryptedData';
-import { getAllMetaCategories, getAllSchemes } from '@/services/simpleSync/simpleSyncWsActions';
-import { removeRequestHandler } from '@/services/sync/remoteDeleteData';
+} from '$services/sync/dataCleaners';
+import { syncUser } from '$services/auth/userWsActions';
+import { syncWallets } from '$services/wallet/walletWsActions';
+import { syncData } from '$services/sync/syncWsActions';
+import { walletKeysSetter } from '$services/crypto/setWalletKeys';
+import { initialDecryption } from '$services/crypto/setDecryptedData';
+import { getAllMetaCategories, getAllSchemes } from '$services/simpleSync/simpleSyncWsActions';
+import { removeRequestHandler } from '$services/sync/remoteDeleteData';
 
 // Use it in top app layout component, wait for initialization, block the app from running
 // until it works

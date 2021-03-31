@@ -1,4 +1,4 @@
-import { updateMccDescriptions } from '@/stores/mcc';
+import { updateMccDescriptions } from '$stores/mcc';
 
 const enum BackTypes {
   provide = 'mcc/provide',

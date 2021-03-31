@@ -1,4 +1,4 @@
-import { FullEntity, AllEntities } from '@/stores/decr/types';
+import type { FullEntity, AllEntities } from '$stores/decr/types';
 
 /**
  * IDEA: In future we'll add some complexity with dynamic migration script loading

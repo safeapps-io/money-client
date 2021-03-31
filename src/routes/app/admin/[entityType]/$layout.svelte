@@ -1,8 +1,7 @@
 <script>
-  import { goto, stores } from '@sapper/app';
-  import { appPath } from '@/core/routes';
-
-  const { page } = stores();
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+  import { appPath } from '$core/routes';
 
   const allowedEntityTypes = ['metaCategory', 'scheme'];
   $: if (!allowedEntityTypes.includes($page.params.entityType)) goto(appPath);

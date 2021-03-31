@@ -5,18 +5,18 @@
     OmitCommonFields,
     Transaction,
     WalletUser,
-  } from '@/stores/decr/types';
+  } from '$stores/decr/types';
 
-  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
+  import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
   import ParsedTransactionData from './parsedTransactionData.svelte';
   import SubmitButtons from './submitButtons.svelte';
-  import ZeroData from '@/components/elements/zeroData.svelte';
-  import { Onboarding, Text } from '@/components/onboarding';
+  import ZeroData from '$components/elements/zeroData.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
 
-  import { CsvParsedTransactionResolution } from '@/core/import/constants';
+  import { CsvParsedTransactionResolution } from '$core/import/constants';
 
   const dispatch = createEventDispatcher();
 

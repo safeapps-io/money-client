@@ -1,7 +1,7 @@
 import { derived } from 'svelte/store';
 
-import { WsStates } from '@/utils/wsStore';
-import { syncConnection } from '@/services/sync/syncConnection';
+import type { WsStates } from '$utils/wsStore';
+import { syncConnection } from '$services/sync/syncConnection';
 
 const enum ClientTypes {
   get = 'wallet/get',

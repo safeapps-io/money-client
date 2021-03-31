@@ -1,8 +1,8 @@
 <script>
-  import { Form, UsernameField } from '@/components/strict';
+  import { Form, UsernameField } from '$components/strict';
 
   import { _ } from 'svelte-i18n';
-  import { AuthService } from '@/services/auth/authService';
+  import { AuthService } from '$services/auth/authService';
 
   const success = ({ username }: { username: string }) => AuthService.updateUsername(username);
 </script>

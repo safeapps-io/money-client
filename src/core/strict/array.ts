@@ -1,4 +1,4 @@
-import { BuildValidateFunction, CleanFunction } from './types';
+import type { BuildValidateFunction, CleanFunction } from './types';
 
 // Clean
 export const ensureArray: CleanFunction = (arr?: any[]) => arr || [],

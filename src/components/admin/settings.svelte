@@ -1,9 +1,9 @@
 <script>
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
 
-  import { appPath } from '@/core/routes';
-  import { syncConnection } from '@/services/sync/syncConnection';
-  import { setUserSetting } from '@/stores/decr/user';
+  import { appPath } from '$core/routes';
+  import { syncConnection } from '$services/sync/syncConnection';
+  import { setUserSetting } from '$stores/decr/user';
 
   const resetOnboarding = async () => {
     await setUserSetting('onboarding', {});

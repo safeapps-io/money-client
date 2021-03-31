@@ -1,5 +1,6 @@
 import { createDecrEntityStore } from './base';
-import { EntityTypes, Asset } from './types';
+import type { Asset } from './types';
+import { EntityTypes } from './types';
 import { derived } from 'svelte/store';
 
 export const {

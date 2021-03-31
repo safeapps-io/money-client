@@ -1,4 +1,4 @@
-import { BuildValidateFunction, CleanFunction } from './types';
+import type { BuildValidateFunction, CleanFunction } from './types';
 
 // Clean
 export const ensureBoolean: CleanFunction = (val?: boolean) => !!val;

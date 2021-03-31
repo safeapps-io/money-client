@@ -1,15 +1,15 @@
 <script>
-  import type { FullEntity, Transaction, CorrectionTransaction } from '@/stores/decr/types';
+  import type { FullEntity, Transaction, CorrectionTransaction } from '$stores/decr/types';
 
-  import { focusableShortcut } from '@/utils/actions/shortcut';
+  import { focusableShortcut } from '$utils/actions/shortcut';
 
   import TransactionCard from './card/transactionCard.svelte';
   import TransactionList from './list.svelte';
   import TransactionForm from './form/transaction.svelte';
   import CorrectionTransactionForm from './form/balanceCorrection.svelte';
-  import Modal from '@/components/elements/modal.svelte';
+  import Modal from '$components/elements/modal.svelte';
 
-  import { EntityTypes } from '@/stores/decr/types';
+  import { EntityTypes } from '$stores/decr/types';
 
   export let transactions: FullEntity<Transaction | CorrectionTransaction>[];
   $: decrTransactions = transactions.map(tr => tr.decr);

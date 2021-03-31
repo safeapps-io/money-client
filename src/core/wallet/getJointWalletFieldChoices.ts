@@ -1,5 +1,5 @@
-import { walletDataStore } from '@/stores/decr/wallet';
-import { jointWalletsStore, selectedJointWalletStore } from '@/stores/wallet';
+import type { walletDataStore } from '$stores/decr/wallet';
+import type { jointWalletsStore, selectedJointWalletStore } from '$stores/wallet';
 
 export const getSelectedJointWalletIds = (
     selectedJointWalletState: StoreValue<typeof selectedJointWalletStore>,

@@ -1,5 +1,5 @@
 <script>
-  import type { LabeledChoice } from '@/components/strict/base';
+  import type { LabeledChoice } from '$components/strict/base';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';

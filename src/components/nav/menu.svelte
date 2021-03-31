@@ -1,8 +1,8 @@
 <script>
-  import Link from '@/components/elements/link.svelte';
-  import Logout from '@/components/user/logout.svelte';
-  import TransactionAdd from '@/components/transaction/add.svelte';
-  import CurrentWalletDropdown from '@/components/wallet/currentWalletDropdown.svelte';
+  import Link from '$components/elements/link.svelte';
+  import Logout from '$components/user/logout.svelte';
+  import TransactionAdd from '$components/transaction/add.svelte';
+  import CurrentWalletDropdown from '$components/wallet/currentWalletDropdown.svelte';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
@@ -19,13 +19,13 @@
     userSecurityPath,
     adminEntityListPath,
     adminSettingsPath,
-  } from '@/core/routes';
+  } from '$core/routes';
 
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { searchFilterSortedByTitleStore } from '@/stores/decr/searchFilter';
-  import { userEncrStore } from '@/stores/user';
-  import { draftTransactionStore } from '@/stores/decr/transaction';
-  import { AdminEntityPrefixes } from '@/core/admin/routes';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { searchFilterSortedByTitleStore } from '$stores/decr/searchFilter';
+  import { userEncrStore } from '$stores/user';
+  import { draftTransactionStore } from '$stores/decr/transaction';
+  import { AdminEntityPrefixes } from '$core/admin/routes';
 
   export let showMenu = true;
 

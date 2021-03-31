@@ -1,13 +1,13 @@
 <script>
-  import Page from '@/components/nav/page.svelte';
-  import Link from '@/components/elements/link.svelte';
-  import Tabs from '@/components/elements/tabs.svelte';
-  import CategoryList from '@/components/category/list.svelte';
+  import Page from '$components/nav/page.svelte';
+  import Link from '$components/elements/link.svelte';
+  import Tabs from '$components/elements/tabs.svelte';
+  import CategoryList from '$components/category/list.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { addCategoryPath } from '@/core/routes';
-  import { categorySortedByTitleStore } from '@/stores/decr/category';
+  import { addCategoryPath } from '$core/routes';
+  import { categorySortedByTitleStore } from '$stores/decr/category';
 
   const enum CategoryType {
     expense = '0',

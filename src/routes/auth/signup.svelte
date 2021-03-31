@@ -1,14 +1,13 @@
 <script>
-  import SignupForm from '@/components/auth/signup.svelte';
+  import SignupForm from '$components/auth/signup.svelte';
 
-  import { stores, goto } from '@sapper/app';
-  import { appPath } from '@/core/routes';
-
-  const { page } = stores();
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
+  import { appPath } from '$core/routes';
 
   let invite: string | undefined = undefined;
   $: try {
-    invite = atob($page.query.invite);
+    invite = atob($page.params.invite);
   } catch (e) {}
 
   const success = ({ detail: isWalletInvite }: CustomEvent<boolean>) =>

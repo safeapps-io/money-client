@@ -7,9 +7,9 @@ import {
   isAfter,
   differenceInCalendarDays,
   format,
-} from 'date-fns';
+} from 'date-fns/esm';
 
-import { ru } from 'date-fns/locale';
+import { ru } from 'date-fns/esm/locale';
 import { derived } from 'svelte/store';
 import { locale } from 'svelte-i18n';
 

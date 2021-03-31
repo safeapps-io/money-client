@@ -1,37 +1,36 @@
 <script>
   import type { FileParsedToBinary } from './types';
-  import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
-  import type { BaseSimpleScheme, CustomScheme, ParsedTransaction } from '@/core/import/types';
+  import type { OmitCommonFields, Transaction } from '$stores/decr/types';
+  import type { BaseSimpleScheme, CustomScheme, ParsedTransaction } from '$core/import/types';
 
   import FileForm from './fileForm.svelte';
-  import WalletSelectFromJoint from '@/components/wallet/walletSelectFromJoint.svelte';
-  import { Onboarding, Text } from '@/components/onboarding';
-  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
-  import Loader from '@/components/elements/loader.svelte';
+  import WalletSelectFromJoint from '$components/wallet/walletSelectFromJoint.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
+  import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
+  import Loader from '$components/elements/loader.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { createEventDispatcher, onDestroy } from 'svelte';
+  import { createEventDispatcher, getContext, onDestroy } from 'svelte';
   import { writable } from 'svelte/store';
-  import { getNotificationsContext } from 'svelte-notifications/src/context';
 
-  import { bufferToString } from '@/utils/buffer/conversions';
-  import { persistStoreLs } from '@/utils/persistStore';
+  import { bufferToString } from '$utils/buffer/conversions';
+  import { persistStoreLs } from '$utils/persistStore';
 
   import {
     transactionsToIgnoreSetStore,
     updateIgnoredTransaction,
-  } from '@/stores/decr/ignoredTransaction';
-  import { transactionBulkAdd } from '@/stores/decr/transaction';
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { addUserScheme, hasUserSeenOnboarding } from '@/stores/decr/user';
-  import { allLocalSchemes } from '@/stores/scheme';
-  import { defaultAssetStore } from '@/stores/decr/asset';
+  } from '$stores/decr/ignoredTransaction';
+  import { transactionBulkAdd } from '$stores/decr/transaction';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { addUserScheme, hasUserSeenOnboarding } from '$stores/decr/user';
+  import { allLocalSchemes } from '$stores/scheme';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
-  import { CsvParsedTransactionResolution } from '@/core/import/constants';
-  import { notification, NotificationStyles } from '@/core/notification';
+  import { CsvParsedTransactionResolution } from '$core/import/constants';
 
   const dispatch = createEventDispatcher(),
-    { addNotification } = getNotificationsContext();
+    successNotif = getContext('success'),
+    dangerNotif = getContext('danger');
 
   const cachedStateStore = writable<{ state: any; timestamp: number; filename: string } | null>(
       null,
@@ -75,7 +74,7 @@
     isSchemaProvided: boolean;
 
   const runSchemeAgainstData = async (scheme: BaseSimpleScheme | CustomScheme) => {
-    const module = await import('@/core/import/parseData'),
+    const module = await import('$core/import/parseData'),
       csvParsedData = await module.parseData({
         ignoredTransactionHashSet: $transactionsToIgnoreSetStore,
         scheme,
@@ -91,7 +90,7 @@
   };
 
   const startCsvProcess = async (data: ArrayBuffer) => {
-      const module = await import('@/core/import/guessParsingScheme');
+      const module = await import('$core/import/guessParsingScheme');
 
       const scheme = await module.guessParsingScheme({
         data,
@@ -101,17 +100,12 @@
       if (scheme) await runSchemeAgainstData(scheme);
       else {
         if ($hasUserSeenOnboarding('setScheme'))
-          addNotification(
-            notification({
-              text: $_('cmps.import.scheme.onboarding.unknown.title'),
-              type: NotificationStyles.danger,
-            }),
-          );
+          dangerNotif($_('cmps.import.scheme.onboarding.unknown.title'));
         state = State.needScheme;
       }
     },
     startOfxProcess = async (data: ArrayBuffer) => {
-      const module = await import('@/core/import/parseOfxData'),
+      const module = await import('$core/import/parseOfxData'),
         stringData = bufferToString(data);
 
       parsedRows = Array.from(
@@ -162,7 +156,7 @@
       ...detail[CsvParsedTransactionResolution.draft],
     ]);
 
-    addNotification(notification({ text: $_('common.form.okNotif') }));
+    successNotif($_('common.form.okNotif'));
     dispatch('success');
   };
 </script>

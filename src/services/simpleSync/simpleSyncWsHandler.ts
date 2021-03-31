@@ -1,8 +1,9 @@
-import { Writable } from 'svelte/store';
+import type { Writable } from 'svelte/store';
 
-import { MetaCategory, metaCategoryStore } from '@/stores/metaCategory';
-import { schemeStore } from '@/stores/scheme';
-import { SimpleScheme } from '@/core/import/types';
+import type { MetaCategory } from '$stores/metaCategory';
+import { metaCategoryStore } from '$stores/metaCategory';
+import { schemeStore } from '$stores/scheme';
+import type { SimpleScheme } from '$core/import/types';
 
 const enum BackTypes {
   provideScheme = 'scheme/provide',

@@ -1,7 +1,8 @@
-import { getSortedByTitleStore } from '@/utils/getSortedStore';
+import { getSortedByTitleStore } from '$utils/getSortedStore';
 
 import { createDecrEntityStore } from './base';
-import { Category, EntityTypes } from './types';
+import type { Category } from './types';
+import { EntityTypes } from './types';
 
 export const {
     store: categoryStore,

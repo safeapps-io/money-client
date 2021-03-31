@@ -1,16 +1,16 @@
 <script>
-  import type { OwnerInviteValidate } from '@/services/invite/inviteStages';
-  import type { Wallet } from '@/stores/wallet';
+  import type { OwnerInviteValidate } from '$services/invite/inviteStages';
+  import type { Wallet } from '$stores/wallet';
 
-  import Modal from '@/components/elements/modal.svelte';
+  import Modal from '$components/elements/modal.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { accentTags } from '@/utils/accentTags';
+  import { accentTags } from '$utils/accentTags';
 
-  import { invitationError, invitationResolution } from '@/services/invite/inviteWsActions';
-  import { InviteService } from '@/services/invite/inviteService';
-  import { walletDataStore } from '@/stores/decr/wallet';
-  import { removeInvite } from '@/services/invite/inviteStages';
+  import { invitationError, invitationResolution } from '$services/invite/inviteWsActions';
+  import { InviteService } from '$services/invite/inviteService';
+  import { walletDataStore } from '$stores/decr/wallet';
+  import { removeInvite } from '$services/invite/inviteStages';
 
   export let inviteToValidate: OwnerInviteValidate | undefined, userId: string;
 

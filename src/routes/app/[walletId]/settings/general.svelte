@@ -1,18 +1,18 @@
 <script>
-  import Page from '@/components/nav/page.svelte';
-  import WalletForm from '@/components/wallet/forms/wallet.svelte';
-  import JointWalletForm from '@/components/wallet/forms/jointWallet.svelte';
-  import Balance from '@/components/wallet/settings/balance.svelte';
-  import ExportData from '@/components/wallet/settings/exportData.svelte';
-  import DeleteWallet from '@/components/wallet/settings/deleteWallet.svelte';
+  import Page from '$components/nav/page.svelte';
+  import WalletForm from '$components/wallet/forms/wallet.svelte';
+  import JointWalletForm from '$components/wallet/forms/jointWallet.svelte';
+  import Balance from '$components/wallet/settings/balance.svelte';
+  import ExportData from '$components/wallet/settings/exportData.svelte';
+  import DeleteWallet from '$components/wallet/settings/deleteWallet.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
 
-  import { selectedJointWalletStore, selectedWalletStore } from '@/stores/wallet';
-  import { userDecrStore } from '@/stores/decr/user';
-  import { currentWalletDataStore } from '@/stores/decr/wallet';
-  import { appPath } from '@/core/routes';
+  import { selectedJointWalletStore, selectedWalletStore } from '$stores/wallet';
+  import { userDecrStore } from '$stores/decr/user';
+  import { currentWalletDataStore } from '$stores/decr/wallet';
+  import { appPath } from '$core/routes';
 
   $: selectedWalletId = $selectedWalletStore;
   $: walletEnt = $currentWalletDataStore;

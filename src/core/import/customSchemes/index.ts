@@ -1,5 +1,5 @@
 import { getSourceHash } from '../common';
-import { CustomScheme, ParsedTransaction, SchemeRunner } from '../types';
+import type { CustomScheme, ParsedTransaction, SchemeRunner } from '../types';
 import { alfaClickCustomScheme } from './alfaBank/click';
 import { alfaDefaultCustomScheme } from './alfaBank/default';
 import { revolutCustomScheme } from './revolut';

@@ -6,10 +6,10 @@
   import { slide } from 'svelte/transition';
   import { media } from 'svelte-match-media';
 
-  import { focusableShortcut } from '@/utils/actions/shortcut';
-  import { moneyFormat, percentFormat } from '@/utils/number';
+  import { focusableShortcut } from '$utils/actions/shortcut';
+  import { moneyFormat, percentFormat } from '$utils/number';
 
-  import { defaultAssetStore } from '@/stores/decr/asset';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
   // Undefined if there is not balance at all at this point (time before first transaction)
   export let balanceNumber: number | undefined,

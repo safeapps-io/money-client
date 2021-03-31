@@ -1,8 +1,8 @@
 <script>
-  import Field from '@/components/strict/field.svelte';
-  import Text from '@/components/strict/inputs/text.svelte';
+  import Field from '$components/strict/field.svelte';
+  import Text from '$components/strict/inputs/text.svelte';
 
-  import { optionalString, ensureString, trim, emailFormat } from '@/core/strict/string';
+  import { optionalString, ensureString, trim, emailFormat } from '$core/strict/string';
 
   export let required: boolean,
     help: string | undefined = undefined;

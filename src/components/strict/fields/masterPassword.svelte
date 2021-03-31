@@ -16,10 +16,10 @@
    * So to disable this behaviour we use `type='text'` and `text-security: disc`, which does
    * not work in Firefox, but that's not that important.
    */
-  import Field from '@/components/strict/field.svelte';
-  import Text from '@/components/strict/inputs/text.svelte';
+  import Field from '$components/strict/field.svelte';
+  import Text from '$components/strict/inputs/text.svelte';
 
-  import { ensureString, trim, minLength, maxLength } from '@/core/strict/string';
+  import { ensureString, trim, minLength, maxLength } from '$core/strict/string';
 
   export let help: string | undefined = undefined,
     label: string | undefined = undefined,

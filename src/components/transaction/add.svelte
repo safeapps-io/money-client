@@ -1,12 +1,12 @@
 <script>
-  import { Onboarding, Text } from '@/components/onboarding';
+  import { Onboarding, Text } from '$components/onboarding';
 
   import { _ } from 'svelte-i18n';
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
   import { media } from 'svelte-match-media';
-  import { accentTags } from '@/utils/accentTags';
+  import { accentTags } from '$utils/accentTags';
 
-  import { addTransactionPath, importPath } from '@/core/routes';
+  import { addTransactionPath, importPath } from '$core/routes';
 
   export let shouldShowOnboarding = true;
 

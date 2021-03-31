@@ -1,4 +1,5 @@
-import { userEncrStore, UserEncrState } from '@/stores/user';
+import type { UserEncrState } from '$stores/user';
+import { userEncrStore } from '$stores/user';
 
 const enum BackTypes {
   data = 'user/data',

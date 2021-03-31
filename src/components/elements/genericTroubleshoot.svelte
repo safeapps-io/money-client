@@ -1,10 +1,10 @@
 <script>
-  import Troubleshoot from '@/components/elements/dropdown/troubleshoot.svelte';
-  import Link from '@/components/elements/link.svelte';
+  import Troubleshoot from '$components/elements/dropdown/troubleshoot.svelte';
+  import Link from '$components/elements/link.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { forumBugsPath, forumHelpPath, forumIdeasPath } from '@/core/routes';
+  import { forumBugsPath, forumHelpPath, forumIdeasPath } from '$core/routes';
 </script>
 
 <div class="wrapper is-size-7">

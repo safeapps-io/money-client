@@ -1,7 +1,7 @@
-import { AuthService } from '@/services/auth/authService';
-import { keyWrappedWithPinStore, updateKeyData } from '@/stores/user';
-import { updateChests } from '@/stores/wallet';
-import { encryptionKeySet } from '@/stores/encr/keysState';
+import { AuthService } from '$services/auth/authService';
+import { keyWrappedWithPinStore, updateKeyData } from '$stores/user';
+import { updateChests } from '$stores/wallet';
+import { encryptionKeySet } from '$stores/encr/keysState';
 import { encryptionService, invitationSignatureService } from './cryptoService';
 
 export const setNewMasterPassword = async ({

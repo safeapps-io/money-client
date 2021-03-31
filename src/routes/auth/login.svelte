@@ -1,12 +1,12 @@
 <script>
-  import LoginForm from '@/components/auth/login.svelte';
+  import LoginForm from '$components/auth/login.svelte';
 
-  import { goto, stores } from '@sapper/app';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
 
-  import { appPath } from '@/core/routes';
+  import { appPath } from '$core/routes';
 
-  const { page } = stores();
-  $: queryParams = $page.query ? window.location.search : '';
+  $: queryParams = Object.keys($page.params).length ? window.location.search : '';
 </script>
 
 <!--

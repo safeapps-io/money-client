@@ -1,5 +1,5 @@
-import { autocompleteDataStore, OccurenciesValue } from '@/stores/decr/autocomplete';
-import { AutomationSettings, InitialTransactionState } from './types';
+import type { autocompleteDataStore, OccurenciesValue } from '$stores/decr/autocomplete';
+import type { AutomationSettings, InitialTransactionState } from './types';
 
 // Auto-resolve settings //
 const transactionCountToResolveAllMin = 30,

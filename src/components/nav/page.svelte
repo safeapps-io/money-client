@@ -1,5 +1,5 @@
 <script>
-  import GenericTroubleshoot from '@/components/elements/genericTroubleshoot.svelte';
+  import GenericTroubleshoot from '$components/elements/genericTroubleshoot.svelte';
   import Profile from './profile.svelte';
 
   import { media } from 'svelte-match-media';

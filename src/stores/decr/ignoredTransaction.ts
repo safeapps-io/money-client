@@ -1,8 +1,9 @@
 import { derived } from 'svelte/store';
 
-import { getNonOverlappingItems } from '@/utils/array';
+import { getNonOverlappingItems } from '$utils/array';
 
-import { EntityTypes, IgnoredTransaction } from './types';
+import type { IgnoredTransaction } from './types';
+import { EntityTypes } from './types';
 import { createDecrEntityStore } from './base';
 import { currentWalletTransactionStore } from './transaction';
 

@@ -5,21 +5,21 @@
 </script>
 
 <script>
-  import type { SearchFilter, FullEntity } from '@/stores/decr/types';
+  import type { SearchFilter, FullEntity } from '$stores/decr/types';
 
   import { media } from 'svelte-match-media';
   import { setContext } from 'svelte';
 
-  import { copy } from '@/utils/object';
+  import { copy } from '$utils/object';
 
-  import Page from '@/components/nav/page.svelte';
-  import DashboardAnalytics from '@/components/dashboard/analytics.svelte';
-  import SearchFilterReactiveForm from '@/components/dashboard/reactiveForm.svelte';
-  import SearchSummary from '@/components/dashboard/searchSummary.svelte';
-  import PeriodChanger from '@/components/searchFilter/periodChanger.svelte';
+  import Page from '$components/nav/page.svelte';
+  import DashboardAnalytics from '$components/dashboard/analytics.svelte';
+  import SearchFilterReactiveForm from '$components/dashboard/reactiveForm.svelte';
+  import SearchSummary from '$components/dashboard/searchSummary.svelte';
+  import PeriodChanger from '$components/searchFilter/periodChanger.svelte';
 
-  import { searchFilterUpdate } from '@/stores/decr/searchFilter';
-  import { getSearchFilterDates } from '@/core/searchFilter/getSearchFilterDates';
+  import { searchFilterUpdate } from '$stores/decr/searchFilter';
+  import { getSearchFilterDates } from '$core/searchFilter/getSearchFilterDates';
 
   export let ent: FullEntity<SearchFilter>;
 

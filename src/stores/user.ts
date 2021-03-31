@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-import { resetStore } from '@/utils/persistStore';
+import { resetStore } from '$utils/persistStore';
 
 type BaseUserState = {
   id: string;

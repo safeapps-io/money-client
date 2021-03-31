@@ -1,8 +1,8 @@
 import { derived } from 'svelte/store';
 
-import { WsStates } from '@/utils/wsStore';
-import { syncConnection, stateChangeHappen } from '@/services/sync/syncConnection';
-import { userEncrStore } from '@/stores/user';
+import type { WsStates } from '$utils/wsStore';
+import { syncConnection, stateChangeHappen } from '$services/sync/syncConnection';
+import { userEncrStore } from '$stores/user';
 
 const enum ClientTypes {
   incrementalUpdate = 'user/incrementalUpdate',

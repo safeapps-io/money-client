@@ -1,15 +1,10 @@
-import { format } from 'date-fns';
+import { format } from 'date-fns/esm';
 
-import { SimpleNumberParser } from '@/utils/number';
-import { getObjectHash } from '@/utils/getObjectHash';
+import { SimpleNumberParser } from '$utils/number';
+import { getObjectHash } from '$utils/getObjectHash';
 
-import {
-  ParsedTransaction,
-  ParseErrorCodes,
-  RowBasedParseError,
-  SchemeRunner,
-  SimpleScheme,
-} from '../types';
+import type { ParsedTransaction, RowBasedParseError, SchemeRunner, SimpleScheme } from '../types';
+import { ParseErrorCodes } from '../types';
 import { getCurrencyFromSymbol, parseDateDeterministically } from '../common';
 
 const currencyExample = 'EUR',

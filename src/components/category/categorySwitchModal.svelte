@@ -1,17 +1,17 @@
 <script>
-  import type { Category, FullEntity } from '@/stores/decr/types';
+  import type { Category, FullEntity } from '$stores/decr/types';
 
-  import Modal from '@/components/elements/modal.svelte';
-  import { Form, Field, SelectInput } from '@/components/strict';
+  import Modal from '$components/elements/modal.svelte';
+  import { Form, Field, SelectInput } from '$components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { categoryStore } from '@/stores/decr/category';
+  import { categoryStore } from '$stores/decr/category';
   import {
     bulkReplaceCategories,
     transactionCountByCategoryStore,
-  } from '@/stores/decr/transaction';
+  } from '$stores/decr/transaction';
 
   const dispatch = createEventDispatcher();
 

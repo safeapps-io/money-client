@@ -1,24 +1,24 @@
 <script>
-  import type { FullEntity, CorrectionTransaction } from '@/stores/decr/types';
+  import type { FullEntity, CorrectionTransaction } from '$stores/decr/types';
 
-  import Level from '@/components/elements/level.svelte';
-  import WalletField from '@/components/wallet/walletField.svelte';
-  import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
-  import { Field, Form, TextInput } from '@/components/strict';
+  import Level from '$components/elements/level.svelte';
+  import WalletField from '$components/wallet/walletField.svelte';
+  import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
+  import { Field, Form, TextInput } from '$components/strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { inputFormatDate } from '@/utils/date';
+  import { inputFormatDate } from '$utils/date';
 
-  import { ensureDate, dateIsAfter, dateIsBefore, ensureNumber } from '@/core/strict/number';
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { userEncrStore } from '@/stores/user';
+  import { ensureDate, dateIsAfter, dateIsBefore, ensureNumber } from '$core/strict/number';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { userEncrStore } from '$stores/user';
   import {
     correctionTransactionUpdate,
     correctionTransactionAdd,
-  } from '@/stores/decr/correctionTransaction';
-  import { defaultAssetStore } from '@/stores/decr/asset';
+  } from '$stores/decr/correctionTransaction';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
   /**
    * This form can create a new balance correction and can edit a pre-existing correction.

@@ -1,4 +1,5 @@
-import { Wallet, setWallets, deleteWallet, updateWallet } from '@/stores/wallet';
+import type { Wallet } from '$stores/wallet';
+import { setWallets, deleteWallet, updateWallet } from '$stores/wallet';
 
 const enum BackTypes {
   all = 'wallet/all',

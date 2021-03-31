@@ -1,16 +1,19 @@
 <script>
-  import Notifications from 'svelte-notifications/src/components/Notifications.svelte';
-
-  import Notification from '@/components/elements/notification.svelte';
-  import Meta from '@/components/nav/meta.svelte';
+  import Meta from '$components/nav/meta.svelte';
+  import Notifications from '$components/elements/notifications.svelte';
 
   import { onMount } from 'svelte';
   import { isLoading } from 'svelte-i18n';
 
-  import { initStores } from '@/stores/init';
+  import { initStores } from '$stores/init';
+  import { i18nInit } from '$core/i18n';
+  import { matchMediaInit } from '$core/matchMedia';
 
   let appInitialized = false;
   onMount(async () => {
+    i18nInit();
+    matchMediaInit();
+
     const subscriptions = await initStores();
     appInitialized = true;
 
@@ -20,8 +23,6 @@
   // We only want to block the UI when locale files are first loaded and not when locale is switched
   let localesLoaded = false;
   $: if (!$isLoading) localesLoaded = true;
-
-  const itemComponent = Notification as any;
 </script>
 
 <Meta
@@ -29,7 +30,7 @@
   description="My vision on how we should build apps that are safe for user's data." />
 
 {#if appInitialized && localesLoaded}
-  <Notifications item={itemComponent}>
+  <Notifications>
     <slot />
   </Notifications>
 {/if}

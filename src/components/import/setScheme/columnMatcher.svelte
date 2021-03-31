@@ -1,16 +1,16 @@
 <script>
   import type { SetSchemeOnboardingSteps } from '../types';
 
-  import { Onboarding, Text } from '@/components/onboarding';
-  import Tooltip from '@/components/elements/tooltip.svelte';
-  import Choice from '@/components/strict/inputs/select/choice.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
+  import Tooltip from '$components/elements/tooltip.svelte';
+  import Choice from '$components/strict/inputs/select/choice.svelte';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
 
-  import { generateLinkTags } from '@/utils/accentTags';
+  import { generateLinkTags } from '$utils/accentTags';
 
-  import { FieldResolution, fieldChoices } from '@/core/import/constants';
+  import { FieldResolution, fieldChoices } from '$core/import/constants';
 
   export let columnCount: number,
     columnMatch: Array<string | null>,

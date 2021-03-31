@@ -1,6 +1,6 @@
 import { derived } from 'svelte/store';
 import { date, _ } from 'svelte-i18n';
-import { differenceInCalendarDays } from 'date-fns';
+import { differenceInCalendarDays } from 'date-fns/esm';
 
 export const relativeDate = derived([_, date], ([$_, $date]) => (dt: number | Date) => {
   const diff = differenceInCalendarDays(new Date(), dt);

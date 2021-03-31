@@ -1,5 +1,5 @@
 import { readable } from 'svelte/store';
-import { request } from '@/services/request';
+import { request } from '$services/request';
 
 type Currency = { label: string; code: string };
 

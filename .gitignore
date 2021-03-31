@@ -116,6 +116,8 @@ public/bundle.*
 /src/node_modules/@sapper/
 /cypress/screenshots/
 /__sapper__/
+.svelte/
+build/
 
 
 # dotenv environment variables file

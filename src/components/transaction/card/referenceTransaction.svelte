@@ -1,17 +1,17 @@
 <script>
-  import type { FullEntity, ReferenceTransaction } from '@/stores/decr/types';
+  import type { FullEntity, ReferenceTransaction } from '$stores/decr/types';
 
-  import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
-  import ActionsDropdown from '@/components/elements/dropdown/actions.svelte';
+  import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
+  import ActionsDropdown from '$components/elements/dropdown/actions.svelte';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { focusableShortcut } from '@/utils/actions/shortcut';
-  import { moneyFormat } from '@/utils/number';
+  import { focusableShortcut } from '$utils/actions/shortcut';
+  import { moneyFormat } from '$utils/number';
 
-  import { defaultAssetStore } from '@/stores/decr/asset';
-  import { relativeDate } from '@/core/i18n/relativeDate';
+  import { defaultAssetStore } from '$stores/decr/asset';
+  import { relativeDate } from '$core/i18n/relativeDate';
 
   export let referenceTransaction: FullEntity<ReferenceTransaction>,
     activeTransactionId: string | undefined = undefined;

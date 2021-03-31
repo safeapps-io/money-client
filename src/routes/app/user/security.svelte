@@ -1,14 +1,14 @@
 <script>
-  import Page from '@/components/nav/page.svelte';
-  import SetNewMasterPassword from '@/components/user/setNewMasterPassword.svelte';
-  import ChangePassword from '@/components/user/settings/changePassword.svelte';
-  import SetPinCode from '@/components/user/settings/setPinCode.svelte';
-  import Sessions from '@/components/user/settings/sessions.svelte';
-  import DropUser from '@/components/user/settings/dropUser.svelte';
+  import Page from '$components/nav/page.svelte';
+  import SetNewMasterPassword from '$components/user/setNewMasterPassword.svelte';
+  import ChangePassword from '$components/user/settings/changePassword.svelte';
+  import SetPinCode from '$components/user/settings/setPinCode.svelte';
+  import Sessions from '$components/user/settings/sessions.svelte';
+  import DropUser from '$components/user/settings/dropUser.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { userEncrStore } from '@/stores/user';
+  import { userEncrStore } from '$stores/user';
 
   $: userId = $userEncrStore!.id;
 </script>

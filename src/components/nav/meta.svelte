@@ -1,7 +1,7 @@
 <script>
   import { locale } from 'svelte-i18n';
 
-  import { siteHost } from '@/services/config';
+  import { siteHost } from '$services/config';
 
   export let title = '',
     description = '',
