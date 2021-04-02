@@ -12,7 +12,7 @@
     ? $_('cmps.user.email.setNew', { values: { email: user.email } })
     : $_('cmps.user.email.notSet');
 
-  const success = ({ email }: { email: string }) => AuthService.updateEmail(email);
+  const success = ({ email }: { email: string }) => AuthService.updateUser({ email });
 </script>
 
 <Form

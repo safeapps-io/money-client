@@ -63,7 +63,6 @@ export class AuthService {
   static async getWsTicket() {
     const { ticket } = (
       await request<{ ticket: string }>({
-        method: 'POST',
         path: `${this.prefix}user/wsTicket`,
       })
     ).json;
@@ -73,9 +72,11 @@ export class AuthService {
 
   static async isUserStillValid() {
     try {
-      await request<UserEncrState>({
+      const res = await request<{ user: UserEncrState; plan: any }>({
         path: `${this.prefix}user`,
       });
+      userEncrStore.set(res.json.user);
+
       return true;
     } catch (e) {
       dropUserData();
@@ -83,83 +84,55 @@ export class AuthService {
     }
   }
 
-  static isInviteValid(invite: string, purpose?: InvitePurpose) {
+  static isInviteValid(invite: string) {
     return request<InvitePayload>({
       method: 'POST',
-      path: `${this.prefix}invite/isValid`,
-      data: { invite, purpose },
+      path: `${this.prefix}invite/is-valid/${invite}`,
     });
   }
 
   static resetPasswordRequest(email: string) {
     return request({
       method: 'POST',
-      path: `${this.prefix}requestPasswordReset`,
+      path: `${this.prefix}reset-password/request`,
       data: { email },
     });
   }
 
   static isResetPasswordTokenValid(token: string) {
     return request({
-      method: 'POST',
-      path: `${this.prefix}isResetTokenValid`,
-      data: { token },
+      path: `${this.prefix}reset-password/${token}`,
     });
   }
 
-  static async setPasswordFromToken(data: { token: string; password: string }) {
+  static async setPasswordFromToken({ token, password }: { token: string; password: string }) {
     return request({
       method: 'POST',
-      path: `${this.prefix}setPasswordFromResetToken`,
-      data,
+      path: `${this.prefix}reset-password/${token}`,
+      data: { password },
     });
   }
 
   static validateEmail(emailToken: string) {
     return request({
       method: 'POST',
-      path: `${this.prefix}validateEmail/${emailToken}`,
+      path: `${this.prefix}validate-email/${emailToken}`,
     });
   }
 
   static changePassword(data: { oldPassword: string; newPassword: string }) {
     return request({
       method: 'POST',
-      path: `${this.prefix}changePassword`,
+      path: `${this.prefix}user/password`,
       data,
     });
   }
 
-  static async updateUsername(username: string) {
-    const user = (
-      await request<UserEncrState>({
-        method: 'POST',
-        path: `${this.prefix}updateUsername`,
-        data: { username },
-      })
-    ).json;
+  static async updateUser(data: { username?: string; email?: string; isSubscribed?: boolean }) {
+    const res = await request<UserEncrState>({ method: 'PATCH', path: `${this.prefix}user`, data });
 
-    userEncrStore.set(user);
-  }
-
-  static updateEmail(email: string) {
-    return request({
-      method: 'POST',
-      path: `${this.prefix}updateEmail`,
-      data: { email },
-    });
-  }
-
-  static async updateIsSubscribed(isSubscribed: boolean) {
-    const user = (
-      await request<UserEncrState>({
-        method: 'POST',
-        path: `${this.prefix}updateIsSubscribed`,
-        data: { isSubscribed },
-      })
-    ).json;
-
-    userEncrStore.set(user);
+    userEncrStore.set(res.json);
+    return res.json;
   }
 
   static async setMasterPassword(data: {
@@ -171,7 +144,7 @@ export class AuthService {
     const user = (
       await request<UserEncrState>({
         method: 'POST',
-        path: `${this.prefix}updateMasterPassword`,
+        path: `${this.prefix}user/password/master`,
         data,
       })
     ).json;
@@ -182,7 +155,7 @@ export class AuthService {
   static async getSessions() {
     return (
       await request<RefreshToken[]>({
-        path: `${this.prefix}user/sessions`,
+        path: `${this.prefix}user/session`,
       })
     ).json;
   }
@@ -191,7 +164,7 @@ export class AuthService {
     return (
       await request<RefreshToken[]>({
         method: 'DELETE',
-        path: `${this.prefix}user/sessions`,
+        path: `${this.prefix}user/session`,
         data: { ids },
       })
     ).json;
@@ -216,7 +189,7 @@ export class AuthService {
   static async logout() {
     await request<UserEncrState>({
       method: 'POST',
-      path: `${this.prefix}logout`,
+      path: `${this.prefix}/user/session/logout`,
     });
 
     dropUserData();

@@ -25,7 +25,7 @@ export class WalletService {
       chest = await encryptionService.getChest(secret),
       { json: wallet } = await request<Wallet>({
         method: 'POST',
-        path: `${this.prefix}create`,
+        path: this.prefix,
         data: { chest },
       });
 
@@ -46,29 +46,18 @@ export class WalletService {
 
   static async delete(id: string) {
     await request({
-      method: 'POST',
-      path: `${this.prefix}delete`,
-      data: { walletId: id },
+      method: 'DELETE',
+      path: `${this.prefix}${id}`,
     });
 
     deleteWallet(id);
   }
 
-  static async deleteUser(walletId: string, userId: string) {
-    const { json: wallet } = await request<Wallet>({
-      method: 'POST',
-      path: `${this.prefix}user/delete`,
-      data: { walletId, userId },
-    });
-
-    addWallet(wallet);
-  }
-
   static async joinWallet(walletId: string, chest: string) {
     const { json: wallet } = await request<Wallet>({
-      method: 'POST',
-      path: `${this.prefix}updateChest`,
-      data: { walletId, chest },
+      method: 'PUT',
+      path: `${this.prefix}${walletId}`,
+      data: { chest },
     });
 
     await encryptionService.getSecretKeyFromChest(chest, walletId);
@@ -77,5 +66,15 @@ export class WalletService {
     setCurrentWallet(wallet.id);
 
     return wallet;
+  }
+
+  static async deleteUser(walletId: string, userId: string) {
+    const { json: wallet } = await request<Wallet>({
+      method: 'DELET',
+      path: `${this.prefix}user`,
+      data: { walletId, userId },
+    });
+
+    addWallet(wallet);
   }
 }

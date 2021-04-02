@@ -4,7 +4,7 @@
   "version": "13.03.2021v3",
   "type": "module",
   "scripts": {
-    "dev": "svelte-kit dev -o",
+    "dev": "svelte-kit dev",
     "type": "tsc --noEmit && svelte-check",
     "build": "find . -name .DS_Store | xargs rm && NODE_ENV=production svelte-kit build"
   },

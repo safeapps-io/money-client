@@ -15,9 +15,8 @@
     clean: [ensureBoolean],
   };
 
-  const success = async ({ isSubscribed }: { isSubscribed: boolean }) => {
-    await AuthService.updateIsSubscribed(isSubscribed);
-  };
+  const success = async ({ isSubscribed }: { isSubscribed: boolean }) =>
+    AuthService.updateUser({ isSubscribed });
 </script>
 
 <Form {success} buttonText={$_('common.form.save')} notificationText={$_('common.form.okNotif')}>

@@ -4,7 +4,7 @@
   import { _ } from 'svelte-i18n';
   import { AuthService } from '$services/auth/authService';
 
-  const success = ({ username }: { username: string }) => AuthService.updateUsername(username);
+  const success = ({ username }: { username: string }) => AuthService.updateUser({ username });
 </script>
 
 <Form
