@@ -3,7 +3,7 @@ import { adminPath, apiPath } from './config';
 import { dropUserData } from './auth/dropUserData';
 
 type RequestParams = {
-  method?: string;
+  method?: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
   path?: string;
   data?: Object;
   rootPath?: string;

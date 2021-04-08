@@ -20,7 +20,8 @@ export const appPath = '/app';
 
 const userPath = `${appPath}/user`;
 export const userSettingsPath = `${userPath}/general`,
-  userSecurityPath = `${userPath}/security`;
+  userSecurityPath = `${userPath}/security`,
+  userBillingPath = `${userPath}/billing`;
 
 /**
  * They are not exported because they are not intended to be used outside of this module.
