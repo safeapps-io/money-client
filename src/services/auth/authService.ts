@@ -1,4 +1,6 @@
 import { request } from '$services/request';
+import type { PlanPartial } from '$stores/billing';
+import { plansStore } from '$stores/billing';
 import type { UserEncrState, RefreshToken } from '$stores/user';
 import { userEncrStore } from '$stores/user';
 import { dropUserData } from './dropUserData';
@@ -25,20 +27,19 @@ type InvitePayload =
       type: InviteStringTypes.wallet;
       payload: WalletInviteObject;
     };
+type UserFullData = UserEncrState & { plans: PlanPartial[] };
 
 export class AuthService {
   private static prefix = '/auth/';
 
   static async signIn(data: { usernameOrEmail: string; password: string }) {
-    const { user } = (
-      await request<{ user: UserEncrState }>({
-        method: 'POST',
-        path: `${this.prefix}signin`,
-        data,
-      })
-    ).json;
+    const res = await request<UserEncrState>({
+      method: 'POST',
+      path: `${this.prefix}signin`,
+      data,
+    });
 
-    userEncrStore.set(user);
+    userEncrStore.set(res.json);
   }
 
   static async signUp(data: {
@@ -70,12 +71,20 @@ export class AuthService {
     return ticket;
   }
 
+  private static getUserAndPlan(data: UserFullData) {
+    const { plans, ...user } = data;
+    return { plans, user };
+  }
+
   static async isUserStillValid() {
     try {
-      const res = await request<{ user: UserEncrState; plan: any }>({
-        path: `${this.prefix}user`,
-      });
-      userEncrStore.set(res.json.user);
+      const res = await request<UserFullData>({
+          path: `${this.prefix}user`,
+        }),
+        { plans, user } = this.getUserAndPlan(res.json);
+
+      userEncrStore.set(user);
+      plansStore.set(plans);
 
       return true;
     } catch (e) {
@@ -129,10 +138,15 @@ export class AuthService {
   }
 
   static async updateUser(data: { username?: string; email?: string; isSubscribed?: boolean }) {
-    const res = await request<UserEncrState>({ method: 'PATCH', path: `${this.prefix}user`, data });
+    const res = await request<UserFullData>({
+        method: 'PATCH',
+        path: `${this.prefix}user`,
+        data,
+      }),
+      { user } = this.getUserAndPlan(res.json);
 
-    userEncrStore.set(res.json);
-    return res.json;
+    userEncrStore.set(user);
+    return user;
   }
 
   static async setMasterPassword(data: {
@@ -141,13 +155,12 @@ export class AuthService {
     b64EncryptedInvitePrivateKey: string;
     chests: { walletId: string; chest: string }[];
   }) {
-    const user = (
-      await request<UserEncrState>({
+    const res = await request<UserFullData>({
         method: 'POST',
         path: `${this.prefix}user/password/master`,
         data,
-      })
-    ).json;
+      }),
+      { user } = this.getUserAndPlan(res.json);
 
     userEncrStore.set(user);
   }
@@ -178,7 +191,7 @@ export class AuthService {
   }
 
   static async dropUser(password: string) {
-    await request<{}>({
+    await request({
       method: 'DELETE',
       path: `${this.prefix}user`,
       data: { password },
