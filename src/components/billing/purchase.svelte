@@ -6,8 +6,9 @@
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
 
-  import { accentTags } from '$utils/accentTags';
+  import { accentTags, generateLinkTags } from '$utils/accentTags';
   import { BillingService } from '$services/billing/billingService';
+  import { userSettingsPath } from '$core/routes';
 
   // [ch]oose, [l]ink, [e]rror
   let state: 'ch' | 'l' | 'e' = 'ch',
@@ -54,8 +55,19 @@
 
 <CrossfadeWrapper replayAnimationKey={state}>
   {#if state == 'ch' || state == 'e'}
-    <div class="columns is-multiline">
-      <div class="column is-full has-text-centered">{$_('cmps.billing.payMethods.choose')}</div>
+    <div class="columns is-multiline has-text-centered">
+      <div class="column is-full">
+        <div class="alert py-3 px-4">
+          <p class="has-text-weight-bold">{$_('cmps.billing.emailNotSet.title')}</p>
+          <p class="is-size-7">
+            {@html $_('cmps.billing.emailNotSet.shouldSet', {
+              values: generateLinkTags(userSettingsPath),
+            })}
+          </p>
+        </div>
+      </div>
+
+      <div class="column is-full">{$_('cmps.billing.payMethods.choose')}</div>
       {#each buttons as { d, iconClass, text, provider } (provider)}
         <div class="column is-half">
           <button
@@ -114,3 +126,20 @@
     </div>
   {/if}
 </CrossfadeWrapper>
+
+<style>
+  .alert {
+    color: white;
+    background: linear-gradient(130deg, hsl(120, 58%, 40%), ease-in-out, hsl(187, 83%, 36%));
+    border-radius: 0.5em;
+
+    :global(a) {
+      color: white;
+      text-decoration: underline;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+</style>

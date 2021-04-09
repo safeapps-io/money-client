@@ -107,7 +107,7 @@
       </li>
 
       <li>
-        <Link href={userBillingPath} {addActiveClass}>{'Биллинг'}</Link>
+        <Link href={userBillingPath} {addActiveClass}>{$_('routes.user.billing')}</Link>
       </li>
       <li class="mt-4">
         <Logout class="has-text-danger" />

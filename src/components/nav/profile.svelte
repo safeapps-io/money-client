@@ -19,7 +19,8 @@
   <Link href={userSecurityPath} class="dropdown-item" {addActiveClass}>
     {$_('cmps.nav.menu.security')}
   </Link>
-  <Link href={userBillingPath} class="dropdown-item" {addActiveClass}>{'Биллинг'}</Link>
+  <Link href={userBillingPath} class="dropdown-item" {addActiveClass}
+    >{$_('routes.user.billing')}</Link>
   <hr class="dropdown-divider" />
   <Logout class="dropdown-item has-text-danger" />
   <hr class="dropdown-divider" />

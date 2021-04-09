@@ -123,6 +123,10 @@
         },
         "goto": "Go to Payment Provider",
         "useInc": "You can use incognito mode or VPN."
+      },
+      "emailNotSet": {
+        "title": "Email is not set",
+        "shouldSet": "You haven't set or validated your email. Even though you can make a purchase without setting it, {linkO}we offer you to do it anyways{linkC}. It would simplify the support in case you have troubles with the payment."
       }
     },
     "masterPassword": {
