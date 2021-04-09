@@ -20,6 +20,17 @@ export const isSubscriptionActiveStore = derived(plansStore, $plans => {
   return !!isActive;
 });
 
+export const unsortedChargeEventsStore = writable<ChargeEvent[]>([]),
+  chargeEventsStore = derived(unsortedChargeEventsStore, $charges =>
+    $charges.filter(ch => ch.eventType != 'created').sort((ch1, ch2) => ch1.created - ch2.created),
+  );
+
+export const addCharge = (chargeEvent: ChargeEvent) => {
+  unsortedChargeEventsStore.update($state =>
+    $state.map(charge => charge.id).includes(chargeEvent.id) ? $state : [chargeEvent, ...$state],
+  );
+};
+
 type BaseModel = {
   id: string;
   created: number;

@@ -7,6 +7,7 @@
   import { date, _ } from 'svelte-i18n';
   import { isAfter, differenceInDays } from 'date-fns/esm';
 
+  import { unsortedChargeEventsStore, chargeEventsStore } from '$stores/billing';
   import { BillingService } from '$services/billing/billingService';
 
   const now = new Date();
@@ -15,7 +16,6 @@
     isActive: boolean,
     formattedExpires: string,
     duration: string,
-    charges: ChargeEvent[],
     planType: ChargeEvent['chargeType'];
 
   $: if (plan) {
@@ -34,10 +34,8 @@
         duration = '';
     }
 
-    charges = plan.chargeEvents
-      .filter(ch => ch.eventType != 'created')
-      .sort((ch1, ch2) => ch1.created - ch2.created);
-    planType = charges[0].chargeType;
+    $unsortedChargeEventsStore = plan.chargeEvents;
+    planType = $chargeEventsStore[0].chargeType;
   }
 
   const chargeExpiredText = (dt: number | null) => (dt ? $date(dt) : '—');
@@ -70,7 +68,7 @@
 
   <h3 class="is-size-5 has-text-weight-bold mb-3">{$_('cmps.billing.changeHistory')}</h3>
   <ul>
-    {#each charges as charge (charge.id)}
+    {#each $chargeEventsStore as charge (charge.id)}
       <li class="py-3 px-5 mb-5">
         <p class="is-size-5 mb-4">
           #<span class="has-text-weight-bold">{charge.id}</span>

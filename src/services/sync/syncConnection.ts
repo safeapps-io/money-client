@@ -19,6 +19,8 @@ import {
   simpleSyncMessagesPrefixes,
 } from '$services/simpleSync/simpleSyncWsHandler';
 import { AuthService } from '$services/auth/authService';
+import type { BillingBackMessage } from '$services/billing/billingWsHandler';
+import { billingHandleMessages, billingMessagesPrefix } from '$services/billing/billingWsHandler';
 
 type SyncMessage = {
   type: string;
@@ -52,6 +54,10 @@ const rawSyncConnection = wsStore(ticketGetter, (message: SyncMessage) => {
 
     case startsWith(inviteMessagesPrefix):
       inviteHandleMessages(message as InviteBackMessage);
+      break;
+
+    case startsWith(billingMessagesPrefix):
+      billingHandleMessages(message as BillingBackMessage);
       break;
 
     case simpleSyncMessagesPrefixes.some(pref => startsWith(pref)):
