@@ -9,6 +9,7 @@
   import { accentTags, generateLinkTags } from '$utils/accentTags';
   import { BillingService } from '$services/billing/billingService';
   import { userSettingsPath } from '$core/routes';
+  import { userEncrStore } from '$stores/user';
 
   // [ch]oose, [l]ink, [e]rror
   let state: 'ch' | 'l' | 'e' = 'ch',
@@ -56,16 +57,18 @@
 <CrossfadeWrapper replayAnimationKey={state}>
   {#if state == 'ch' || state == 'e'}
     <div class="columns is-multiline has-text-centered">
-      <div class="column is-full">
-        <div class="alert py-3 px-4">
-          <p class="has-text-weight-bold">{$_('cmps.billing.emailNotSet.title')}</p>
-          <p class="is-size-7">
-            {@html $_('cmps.billing.emailNotSet.shouldSet', {
-              values: generateLinkTags(userSettingsPath),
-            })}
-          </p>
+      {#if $userEncrStore && !$userEncrStore.email}
+        <div class="column is-full">
+          <div class="alert py-3 px-4">
+            <p class="has-text-weight-bold">{$_('cmps.billing.emailNotSet.title')}</p>
+            <p class="is-size-7">
+              {@html $_('cmps.billing.emailNotSet.shouldSet', {
+                values: generateLinkTags(userSettingsPath),
+              })}
+            </p>
+          </div>
         </div>
-      </div>
+      {/if}
 
       <div class="column is-full">{$_('cmps.billing.payMethods.choose')}</div>
       {#each buttons as { d, iconClass, text, provider } (provider)}
