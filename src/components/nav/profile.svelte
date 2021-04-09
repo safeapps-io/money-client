@@ -5,7 +5,7 @@
 
   import { _ } from 'svelte-i18n';
 
-  import { userSettingsPath, userSecurityPath } from '$core/routes';
+  import { userSettingsPath, userSecurityPath, userBillingPath } from '$core/routes';
   import { userEncrStore } from '$stores/user';
 
   $: user = $userEncrStore!;
@@ -19,6 +19,7 @@
   <Link href={userSecurityPath} class="dropdown-item" {addActiveClass}>
     {$_('cmps.nav.menu.security')}
   </Link>
+  <Link href={userBillingPath} class="dropdown-item" {addActiveClass}>{'Биллинг'}</Link>
   <hr class="dropdown-divider" />
   <Logout class="dropdown-item has-text-danger" />
   <hr class="dropdown-divider" />

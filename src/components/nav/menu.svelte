@@ -19,6 +19,7 @@
     userSecurityPath,
     adminEntityListPath,
     adminSettingsPath,
+    userBillingPath,
   } from '$core/routes';
 
   import { selectedWalletStore } from '$stores/wallet';
@@ -103,6 +104,10 @@
 
       <li>
         <Link href={userSecurityPath} {addActiveClass}>{$_('cmps.nav.menu.security')}</Link>
+      </li>
+
+      <li>
+        <Link href={userBillingPath} {addActiveClass}>{'Биллинг'}</Link>
       </li>
       <li class="mt-4">
         <Logout class="has-text-danger" />

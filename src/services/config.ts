@@ -14,4 +14,5 @@ export const siteHost = `${process.env.SITE_SCHEME}://${process.env.SITE_HOST}${
 
 export const apiPath = `${apiHost}/api`,
   adminPath = `${apiHost}/admin`,
+  billingPath = `${apiHost}/billing`,
   wsPath = `${wsHost}/ws`;
