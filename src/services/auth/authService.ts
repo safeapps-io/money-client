@@ -173,12 +173,12 @@ export class AuthService {
     ).json;
   }
 
-  static async dropSessions(ids: string[]) {
+  static async dropSessions(id?: string) {
     return (
       await request<RefreshToken[]>({
         method: 'DELETE',
         path: `${this.prefix}user/session`,
-        data: { ids },
+        data: { id },
       })
     ).json;
   }
