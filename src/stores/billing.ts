@@ -1,4 +1,5 @@
 import { derived, writable } from 'svelte/store';
+import { walletStore, AccessLevels } from './wallet';
 
 export const plansStore = writable<PlanPartial[]>([]);
 
@@ -18,6 +19,34 @@ export const isSubscriptionActiveStore = derived(plansStore, $plans => {
   }
 
   return !!isActive;
+});
+
+let timers: number[] = [];
+export const isPlanActiveByWallet = derived(walletStore, $wallets => {
+  if (!$wallets) return {};
+
+  timers.map(clearTimeout);
+  timers = [];
+
+  const result: { [walletId: string]: boolean } = {},
+    now = new Date().getTime();
+
+  for (const wallet of Object.values($wallets)) {
+    const { plans } = wallet.users.find(
+        user => user.WalletAccess.accessLevel == AccessLevels.owner,
+      )!,
+      currentPlan = plans.sort((p1, p2) => p1.created - p2.created)[0],
+      isActive = currentPlan.expires ? currentPlan.expires > now : false;
+    result[wallet.id] = isActive;
+
+    if (isActive) {
+      // Setting the timout at the time the plan expires + 100ms (to be sure)
+      const diff = currentPlan.expires! - now + 100;
+      timers.push(window.setTimeout(() => walletStore.update($state => $state), diff));
+    }
+  }
+
+  return result;
 });
 
 export const unsortedChargeEventsStore = writable<ChargeEvent[]>([]),

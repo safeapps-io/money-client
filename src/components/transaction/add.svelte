@@ -7,6 +7,7 @@
   import { accentTags } from '$utils/accentTags';
 
   import { addTransactionPath, importPath } from '$core/routes';
+  import PlanGuard from '$components/billing/planGuard.svelte';
 
   export let shouldShowOnboarding = true;
 
@@ -38,13 +39,14 @@
           },
         })}
       </Text>
-
       <button class="button is-small my-3" on:click={finishOnboarding}
         >{$_('common.tryLater')}</button>
     </svelte:fragment>
   </Onboarding>
   <div class={manualAddClasses}>
-    <a class={'is-size-7 is-underlined ' + manualAddClasses} href={$addTransactionPath}
-      >{$_('cmps.transaction.add')}</a>
+    <PlanGuard>
+      <a class={'is-size-7 is-underlined ' + manualAddClasses} href={$addTransactionPath}
+        >{$_('cmps.transaction.add')}</a>
+    </PlanGuard>
   </div>
 </div>

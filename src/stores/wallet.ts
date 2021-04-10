@@ -4,6 +4,7 @@ import type { Writable } from 'svelte/store';
 import { derived, get, writable } from 'svelte/store';
 
 import { userEncrStore } from './user';
+import type { PlanPartial } from './billing';
 import { resetStore } from '$utils/persistStore';
 
 import { userDecrStore } from '$stores/decr/user';
@@ -28,6 +29,7 @@ export type PublicUserData = Omit<
     chest: string;
     accessLevel: AccessLevels;
   };
+  plans: PlanPartial[];
 };
 
 export type Wallet = {

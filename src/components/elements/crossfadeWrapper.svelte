@@ -30,7 +30,7 @@
 <div class="wrapper" class:no-overflow={noOverflow} style={`height: ${setHeight}`}>
   {#key replayAnimationKey}
     <div
-      class="slot"
+      class="fullwidth-overlay"
       in:fade={{ easing: sineInOut, duration: inDuration }}
       out:fade|local={{ easing: sineInOut }}
       on:introstart={set}
@@ -51,12 +51,5 @@
 
   .no-overflow {
     overflow: hidden;
-  }
-
-  .slot {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
   }
 </style>
