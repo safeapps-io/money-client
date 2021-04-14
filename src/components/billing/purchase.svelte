@@ -130,7 +130,7 @@
   {/if}
 </CrossfadeWrapper>
 
-<style>
+<style lang="scss">
   .alert {
     color: white;
     background: linear-gradient(130deg, hsl(120, 58%, 40%), ease-in-out, hsl(187, 83%, 36%));

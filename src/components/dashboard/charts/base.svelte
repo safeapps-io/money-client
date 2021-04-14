@@ -1,4 +1,6 @@
 <script>
+  import { getObjectHash } from '$utils/getObjectHash';
+
   import type { Chart } from 'chart.js';
 
   import { onMount, tick } from 'svelte';
@@ -11,8 +13,15 @@
     chartLib = (await import('chart.js')).default;
   });
 
+  let prevHash = '';
   const initChart = async (innerData: Chart.ChartData) => {
     if (!canvasRef) return;
+
+    // Preventing empty rerenders
+    const hash = await getObjectHash({ innerData, chartSettings, height });
+    if (hash == prevHash) return;
+    prevHash = hash;
+
     prevChart?.destroy();
 
     await tick();

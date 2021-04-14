@@ -30,7 +30,7 @@
 <div class="wrapper" class:no-overflow={noOverflow} style={`height: ${setHeight}`}>
   {#key replayAnimationKey}
     <div
-      class="fullwidth-overlay"
+      class="fullwidth-absolute"
       in:fade={{ easing: sineInOut, duration: inDuration }}
       out:fade|local={{ easing: sineInOut }}
       on:introstart={set}
@@ -51,5 +51,9 @@
 
   .no-overflow {
     overflow: hidden;
+  }
+
+  .fullwidth-absolute {
+    top: 0;
   }
 </style>
