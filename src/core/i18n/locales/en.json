@@ -304,6 +304,7 @@
         },
         "user": "User",
         "mcc": "MCC code",
+        "mccUnknown": "Unknown code",
         "merchant": "Merchant name",
         "account": "Account",
         "category": {

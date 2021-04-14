@@ -6,8 +6,8 @@ import { getEmojiHash } from '$utils/hashEmoji';
 import { invitationSignatureService, encryptionService } from '$services/crypto/cryptoService';
 import { WalletService } from '$services/wallet/walletService';
 import { gotoInviteFullPath } from '$core/routes';
-import type { Wallet } from '$stores/wallet';
 import { walletStore } from '$stores/wallet';
+import { post, request } from '$services/request';
 
 export type WalletInviteObject = {
   userId: string;
@@ -16,6 +16,8 @@ export type WalletInviteObject = {
 };
 
 export class InviteService {
+  static inviteJoinPathPrefix = '/invite/join';
+
   static async generateServiceInvite(userId: string) {
     const res = await invitationSignatureService.sign({
       inviteId: nanoid(),
@@ -33,7 +35,7 @@ export class InviteService {
     return gotoInviteFullPath(btoa(res.encoded));
   }
 
-  static async joiningInitial(inviteString: string) {
+  static async launchWalletJoin(inviteString: string) {
     await invitationSignatureService.generateEcdhKey();
 
     const [{ encoded }, ecdhPublicKeyHash] = await Promise.all([
@@ -41,12 +43,20 @@ export class InviteService {
       getEmojiHash(invitationSignatureService.ecdhKeyPair.b64publicKey),
     ]);
 
-    return {
+    const data = {
       b64InviteSignatureByJoiningUser: encoded,
       b64PublicECDHKey: invitationSignatureService.ecdhKeyPair.b64publicKey,
 
       ecdhPublicKeyHash,
     };
+
+    await request({
+      method: post,
+      path: `${this.inviteJoinPathPrefix}/validate/request`,
+      data,
+    });
+
+    return ecdhPublicKeyHash;
   }
 
   static async ownerValidateInitialRequest({
@@ -60,9 +70,7 @@ export class InviteService {
         invitationSignatureService.verify<WalletInviteObject>(b64InviteString),
         getEmojiHash(b64PublicECDHKey),
       ]),
-      wallet = (get(walletStore) as StoreValue<typeof walletStore>)?.[data?.walletId] as
-        | Wallet
-        | undefined;
+      wallet = get(walletStore)?.[data?.walletId];
 
     if (!wallet || !isValid || wallet.users.find(u => u.WalletAccess.inviteId == data.inviteId))
       throw new Error();
@@ -70,37 +78,54 @@ export class InviteService {
     return { hash, wallet };
   }
 
-  static async ownerAllowJoin({
-    b64PublicECDHKey,
-    walletChest,
-  }: {
-    b64PublicECDHKey: string;
-    walletChest: string;
-  }) {
-    await invitationSignatureService.generateEcdhKey();
-    const [derivedKey, walletKey] = await Promise.all([
-      invitationSignatureService.deriveEncryptionKeyFromEcdh(b64PublicECDHKey),
-      encryptionService.getSecretKeyFromChest(walletChest),
-    ]);
-    return {
-      b64PublicECDHKey: invitationSignatureService.ecdhKeyPair.b64publicKey,
-      encryptedSecretKey: await encryptionService.wrapKey({
-        wrappingKey: derivedKey,
-        keyToWrap: walletKey,
-      }),
-    };
+  static async ownerResolution(
+    data: {
+      joiningUserId: string;
+      b64InviteSignatureByJoiningUser: string;
+      b64InviteString: string;
+    } & (
+      | { isValid: false }
+      | { allowJoin: false }
+      | { allowJoin: true; b64PublicECDHKey: string; walletChest: string }
+    ),
+  ) {
+    const path = `${this.inviteJoinPathPrefix}/validate/result`;
+    if ('isValid' in data || !data.allowJoin) {
+      return request({ method: post, path, data });
+    } else {
+      await invitationSignatureService.generateEcdhKey();
+      const [derivedKey, walletKey] = await Promise.all([
+        invitationSignatureService.deriveEncryptionKeyFromEcdh(data.b64PublicECDHKey),
+        encryptionService.getSecretKeyFromChest(data.walletChest),
+      ]);
+
+      return request({
+        path,
+        method: post,
+        data: {
+          ...data,
+          b64PublicECDHKey: invitationSignatureService.ecdhKeyPair.b64publicKey,
+          encryptedSecretKey: await encryptionService.wrapKey({
+            wrappingKey: derivedKey,
+            keyToWrap: walletKey,
+          }),
+        },
+      });
+    }
   }
 
   static async joiningFinal({
     encryptedSecretKey,
     b64PublicECDHKey,
-
     walletId,
+
+    b64InviteString,
   }: {
     encryptedSecretKey: string;
     b64PublicECDHKey: string;
-
     walletId: string;
+
+    b64InviteString: string;
   }) {
     const wrappingKey = await invitationSignatureService.deriveEncryptionKeyFromEcdh(
         b64PublicECDHKey,
@@ -111,6 +136,15 @@ export class InviteService {
       }),
       chest = await encryptionService.getChest(walletKey);
 
-    return WalletService.joinWallet(walletId, chest);
+    try {
+      await WalletService.joinWallet(walletId, chest);
+    } catch (error) {
+      await request({
+        method: post,
+        path: `${this.inviteJoinPathPrefix}/fail`,
+        data: { b64InviteString },
+      });
+      throw error;
+    }
   }
 }

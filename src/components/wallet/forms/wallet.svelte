@@ -15,7 +15,7 @@
 
   import { ensureString, trim, minLength } from '$core/strict/string';
   import { WalletService } from '$services/wallet/walletService';
-  import { currencyListStore } from '$services/directory/currency';
+  import { currencyListStore } from '$services/directory/directoryService';
   import { walletDataUpdate } from '$stores/decr/wallet';
   import { userEncrStore } from '$stores/user';
   import { defaultAssetStore } from '$stores/decr/asset';

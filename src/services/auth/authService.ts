@@ -1,4 +1,4 @@
-import { request } from '$services/request';
+import { del, patch, post, request } from '$services/request';
 import type { PlanPartial } from '$stores/billing';
 import { plansStore } from '$stores/billing';
 import type { UserEncrState, RefreshToken } from '$stores/user';
@@ -34,7 +34,7 @@ export class AuthService {
 
   static async signIn(data: { usernameOrEmail: string; password: string }) {
     const res = await request<UserEncrState>({
-      method: 'POST',
+      method: post,
       path: `${this.prefix}signin`,
       data,
     });
@@ -50,7 +50,7 @@ export class AuthService {
   }) {
     const { user, isWalletInvite } = (
       await request<{ user: UserEncrState; isWalletInvite: boolean }>({
-        method: 'POST',
+        method: post,
         path: `${this.prefix}signup`,
         data,
       })
@@ -95,14 +95,14 @@ export class AuthService {
 
   static isInviteValid(invite: string) {
     return request<InvitePayload>({
-      method: 'POST',
+      method: post,
       path: `${this.prefix}invite/is-valid/${invite}`,
     });
   }
 
   static resetPasswordRequest(email: string) {
     return request({
-      method: 'POST',
+      method: post,
       path: `${this.prefix}reset-password/request`,
       data: { email },
     });
@@ -116,7 +116,7 @@ export class AuthService {
 
   static async setPasswordFromToken({ token, password }: { token: string; password: string }) {
     return request({
-      method: 'POST',
+      method: post,
       path: `${this.prefix}reset-password/${token}`,
       data: { password },
     });
@@ -124,22 +124,28 @@ export class AuthService {
 
   static validateEmail(emailToken: string) {
     return request({
-      method: 'POST',
+      method: post,
       path: `${this.prefix}validate-email/${emailToken}`,
     });
   }
 
   static changePassword(data: { oldPassword: string; newPassword: string }) {
     return request({
-      method: 'POST',
+      method: post,
       path: `${this.prefix}user/password`,
       data,
     });
   }
 
-  static async updateUser(data: { username?: string; email?: string; isSubscribed?: boolean }) {
+  static async updateUser(
+    data:
+      | { username: string }
+      | { email: string }
+      | { isSubscribed: boolean }
+      | { encr: string; clientUpdated: number; clientId: string },
+  ) {
     const res = await request<UserFullData>({
-        method: 'PATCH',
+        method: patch,
         path: `${this.prefix}user`,
         data,
       }),
@@ -156,7 +162,7 @@ export class AuthService {
     chests: { walletId: string; chest: string }[];
   }) {
     const res = await request<UserFullData>({
-        method: 'POST',
+        method: post,
         path: `${this.prefix}user/password/master`,
         data,
       }),
@@ -176,7 +182,7 @@ export class AuthService {
   static async dropSessions(id?: string) {
     return (
       await request<RefreshToken[]>({
-        method: 'DELETE',
+        method: del,
         path: `${this.prefix}user/session`,
         data: { id },
       })
@@ -185,14 +191,14 @@ export class AuthService {
 
   static async unsubscribe(unsubscribeToken: string) {
     return request({
-      method: 'POST',
+      method: post,
       path: `${this.prefix}unsubscribe/${unsubscribeToken}`,
     });
   }
 
   static async dropUser(password: string) {
     await request({
-      method: 'DELETE',
+      method: del,
       path: `${this.prefix}user`,
       data: { password },
     });
@@ -201,7 +207,7 @@ export class AuthService {
 
   static async logout() {
     await request<UserEncrState>({
-      method: 'POST',
+      method: post,
       path: `${this.prefix}/user/session/logout`,
     });
 

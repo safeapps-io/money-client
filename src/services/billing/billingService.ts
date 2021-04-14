@@ -1,5 +1,5 @@
 import type { PlanFull, Providers } from '$stores/billing';
-import { request as apiRequest } from '$services/request';
+import { post, request as apiRequest } from '$services/request';
 import { billingPath } from '$services/config';
 
 export class BillingService {
@@ -12,6 +12,6 @@ export class BillingService {
   }
 
   static createCharge(provider: Providers) {
-    return this.request<{ link: string }>({ method: 'POST', path: `/charge/${provider}` });
+    return this.request<{ link: string }>({ method: post, path: `/charge/${provider}` });
   }
 }

@@ -20,23 +20,18 @@ import { lastWalletUserChosenCacheKey, lastWalletUserChosenStore } from './decr/
 import { schemeCacheKey, schemeStore } from './scheme';
 import { metaCategoryCacheKey, metaCategoryStore } from './metaCategory';
 import {
-  assetCleaner,
-  categoryCleaner,
-  correctionTransactionCleaner,
-  encrCleaner,
-  referenceTransactionCleaner,
-  searchFilterCleaner,
-  transactionCleaner,
-  walletDataCleaner,
+  decrDataCleaner,
+  encrDataCleaner,
   walletEncryptedDataCleaner,
-} from '$services/sync/dataCleaners';
-import { syncUser } from '$services/auth/userWsActions';
-import { syncWallets } from '$services/wallet/walletWsActions';
-import { syncData } from '$services/sync/syncWsActions';
+} from '$services/entity/dataCleaners';
 import { walletKeysSetter } from '$services/crypto/setWalletKeys';
 import { initialDecryption } from '$services/crypto/setDecryptedData';
-import { getAllMetaCategories, getAllSchemes } from '$services/simpleSync/simpleSyncWsActions';
-import { removeRequestHandler } from '$services/sync/remoteDeleteData';
+import { removeRequestHandler } from '$services/entity/remoteDeleteData';
+import { walletEvents } from '$services/wallet/walletEvents';
+import { syncEntities } from '$services/entity/entityEvents';
+import { syncUser } from '$services/auth/userEvents';
+import { billingEvents } from '$services/billing/billingEvents';
+import { updateMetaCategories, updateSchemes } from '$services/directory/directoryService';
 
 // Use it in top app layout component, wait for initialization, block the app from running
 // until it works
@@ -63,26 +58,24 @@ export const initStores = () =>
  */
 export const initApplicationLogic = derived(
   [
+    // Cleaners
     walletEncryptedDataCleaner,
+    decrDataCleaner,
+    encrDataCleaner,
 
-    assetCleaner,
-    categoryCleaner,
-    correctionTransactionCleaner,
-    referenceTransactionCleaner,
-    searchFilterCleaner,
-    transactionCleaner,
-    walletDataCleaner,
-
-    encrCleaner,
-
+    // Syncers
+    walletEvents,
+    billingEvents,
+    syncEntities,
     syncUser,
-    syncWallets,
-    syncData,
+    updateSchemes,
+    updateMetaCategories,
+
+    // Decryption
     walletKeysSetter,
     initialDecryption,
-    getAllSchemes,
-    getAllMetaCategories,
 
+    // Data removal
     removeRequestHandler,
   ],
   noop,

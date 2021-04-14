@@ -15,7 +15,7 @@
   import { fade } from 'svelte/transition';
 
   import { AuthService } from '$services/auth/authService';
-  import { syncStatusStore, SyncStatuses } from '$stores/sync';
+  import { isOnline } from '$services/auth/isOnline';
   import { userEncrStore } from '$stores/user';
   import { encryptionKeysStateStore } from '$stores/encr/keysState';
   import { walletStore } from '$stores/wallet';
@@ -90,5 +90,5 @@
     <StartPasswordRequest {user} />
   {/if}
 
-  <LoadingIndicator show={$syncStatusStore !== SyncStatuses.finished} />
+  <LoadingIndicator show={!$isOnline} />
 {/if}

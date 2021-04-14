@@ -1,4 +1,4 @@
-import { request } from '$services/request';
+import { del, post, put, request } from '$services/request';
 import { encryptionService } from '$services/crypto/cryptoService';
 
 import type { Wallet } from '$stores/wallet';
@@ -24,7 +24,7 @@ export class WalletService {
     const secret = await encryptionService.generateSecretKeyForWallet(),
       chest = await encryptionService.getChest(secret),
       { json: wallet } = await request<Wallet>({
-        method: 'POST',
+        method: post,
         path: this.prefix,
         data: { chest },
       });
@@ -46,7 +46,7 @@ export class WalletService {
 
   static async delete(id: string) {
     await request({
-      method: 'DELETE',
+      method: del,
       path: `${this.prefix}${id}`,
     });
 
@@ -55,7 +55,7 @@ export class WalletService {
 
   static async joinWallet(walletId: string, chest: string) {
     const { json: wallet } = await request<Wallet>({
-      method: 'PUT',
+      method: put,
       path: `${this.prefix}${walletId}`,
       data: { chest },
     });
@@ -70,7 +70,7 @@ export class WalletService {
 
   static async deleteUser(walletId: string, userId: string) {
     const { json: wallet } = await request<Wallet>({
-      method: 'DELET',
+      method: del,
       path: `${this.prefix}user`,
       data: { walletId, userId },
     });

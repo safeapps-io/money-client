@@ -41,44 +41,27 @@ export const walletEncryptedDataCleaner = derived(
  * becomes obsolete, it is just stored for consistency, but all the clients are synced by the time.
  * So maybe we should just delete them here and on remote if it hasn't been updated for a while.
  */
-
-const runGuardAgainstFlatMappedStore = ([$deleted, $guardFn]: [
-  {
-    [walletId: string]: string[];
-  },
-  (walletId: string, deletedIds: string[]) => void,
-]) => Object.entries($deleted).forEach(([walletId, deletedIds]) => $guardFn(walletId, deletedIds));
-
-export const assetCleaner = derived(
-    [flatMappedDeletedStore, assetDeleteGuard],
-    runGuardAgainstFlatMappedStore,
+export const decrDataCleaner = derived(
+    [
+      flatMappedDeletedStore,
+      assetDeleteGuard,
+      categoryDeleteGuard,
+      correctionTransactionDeleteGuard,
+      referenceTransactionDeleteGuard,
+      searchFilterDeleteGuard,
+      transactionDeleteGuard,
+      walletDataDeleteGuard,
+    ],
+    ([$deleted, ...$guardFns]) => {
+      for (const [walletId, deletedIds] of Object.entries($deleted)) {
+        for (const guardFn of $guardFns) {
+          guardFn(walletId, deletedIds);
+        }
+      }
+    },
   ),
-  categoryCleaner = derived(
-    [flatMappedDeletedStore, categoryDeleteGuard],
-    runGuardAgainstFlatMappedStore,
-  ),
-  correctionTransactionCleaner = derived(
-    [flatMappedDeletedStore, correctionTransactionDeleteGuard],
-    runGuardAgainstFlatMappedStore,
-  ),
-  referenceTransactionCleaner = derived(
-    [flatMappedDeletedStore, referenceTransactionDeleteGuard],
-    runGuardAgainstFlatMappedStore,
-  ),
-  searchFilterCleaner = derived(
-    [flatMappedDeletedStore, searchFilterDeleteGuard],
-    runGuardAgainstFlatMappedStore,
-  ),
-  transactionCleaner = derived(
-    [flatMappedDeletedStore, transactionDeleteGuard],
-    runGuardAgainstFlatMappedStore,
-  ),
-  walletDataCleaner = derived(
-    [flatMappedDeletedStore, walletDataDeleteGuard],
-    runGuardAgainstFlatMappedStore,
+  encrDataCleaner = derived(
+    [flatMappedDeletedStore, encryptedDeleteGuard],
+    ([$deleted, $encryptedGuardFn]) =>
+      $encryptedGuardFn(Object.values($deleted).flatMap(ent => ent)),
   );
-
-export const encrCleaner = derived(
-  [flatMappedDeletedStore, encryptedDeleteGuard],
-  ([$deleted, $encryptedGuardFn]) => $encryptedGuardFn(Object.values($deleted).flatMap(ent => ent)),
-);
