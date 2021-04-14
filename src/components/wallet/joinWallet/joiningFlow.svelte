@@ -76,7 +76,7 @@
 </script>
 
 <Modal canBeVoluntarilyClosed={false} bind:active noBox forceScale>
-  <CrossfadeWrapper replayAnimationKey={stage}>
+  <CrossfadeWrapper key={stage}>
     {#if stage == JoinStages.validatingInvite}
       <div class="item">
         <h2>{$_('cmps.wallet.userAccess.invite.join.validate')}</h2>

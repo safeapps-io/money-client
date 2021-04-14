@@ -55,7 +55,7 @@
       </svelte:fragment>
     </Onboarding>
 
-    <CrossfadeWrapper replayAnimationKey={JSON.stringify(transactionToResolve)}>
+    <CrossfadeWrapper key={JSON.stringify(transactionToResolve)}>
       <Onboarding preventSlotClick shouldShow={showOnboarding && currentStep == 'card'}>
         <div class="box" class:box--hoverable={!showEdit} class:my-4={showEdit}>
           <ParsedTransactionData

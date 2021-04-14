@@ -16,7 +16,7 @@
   });
 </script>
 
-<CrossfadeWrapper replayAnimationKey={state}>
+<CrossfadeWrapper key={state}>
   {#if state == 'l'}
     <ZeroData text={$_('cmps.nav.loading')} />
   {:else if state == 'd'}

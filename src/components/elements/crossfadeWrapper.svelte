@@ -6,7 +6,7 @@
   import { fade } from 'svelte/transition';
   import { tweened } from 'svelte/motion';
 
-  export let replayAnimationKey: string | number;
+  export let key: string | number;
 
   const duration = 500;
 
@@ -22,13 +22,15 @@
     $heightTweened = slotHeight;
   $: setHeight = typeof heightTweened == 'undefined' ? 'auto' : `${$heightTweened}px`;
 
+  $: console.log({ slotHeight, setHeight });
+
   let noOverflow = true;
   const set = () => (noOverflow = true),
     unset = () => (noOverflow = false);
 </script>
 
-<div class="wrapper" class:no-overflow={noOverflow} style={`height: ${setHeight}`}>
-  {#key replayAnimationKey}
+<div class="wrapper" class:no-overflow={noOverflow} style="height: {setHeight}">
+  {#key key}
     <div
       class="fullwidth-absolute"
       in:fade={{ easing: sineInOut, duration: inDuration }}

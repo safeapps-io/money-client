@@ -38,7 +38,7 @@
         {:else}<Link href={loginPath + queryParams}>{$_('cmps.user.signIn')}</Link>{/if}
       </h2>
 
-      <CrossfadeWrapper replayAnimationKey={$page.path}>
+      <CrossfadeWrapper key={$page.path}>
         <div class="py-1 px-1">
           <slot />
         </div>

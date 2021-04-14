@@ -54,7 +54,7 @@
     };
 </script>
 
-<CrossfadeWrapper replayAnimationKey={state}>
+<CrossfadeWrapper key={state}>
   {#if state == 'ch' || state == 'e'}
     <div class="columns is-multiline has-text-centered">
       {#if $userEncrStore && !$userEncrStore.email}

@@ -162,7 +162,7 @@
 </script>
 
 <div class="is-relative">
-  <CrossfadeWrapper replayAnimationKey={state}>
+  <CrossfadeWrapper key={state}>
     {#if state == State.hasCache}
       <div class="prev-cache">
         <p class="mb-4">
