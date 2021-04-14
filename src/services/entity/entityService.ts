@@ -31,5 +31,7 @@ export class EntityService {
       data: { clientId, data },
     });
     bulkSetEncrEntities(json);
+
+    return json;
   }
 }

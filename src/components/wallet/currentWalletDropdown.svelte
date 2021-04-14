@@ -2,6 +2,8 @@
   import Dropdown from '$components/elements/dropdown/generic.svelte';
   import WalletCreateModal from '$components/wallet/modalCreate.svelte';
 
+  import type { FullEntity, WalletData } from '$stores/decr/types';
+
   import { _ } from 'svelte-i18n';
   import layersSubtractIcon from 'teenyicons/outline/layers-subtract.svg';
 
@@ -9,18 +11,27 @@
 
   import { rootJointWalletPath, rootWalletPath } from '$core/routes';
 
-  import { selectedWalletStore, selectedJointWalletStore } from '$stores/wallet';
+  import { selectedWalletStore, selectedJointWalletStore, walletStore } from '$stores/wallet';
   import { walletDataStore } from '$stores/decr/wallet';
   import { jointWalletsStore } from '$stores/wallet';
 
   let active = false,
     triggerText: string | undefined;
 
-  $: if ($selectedWalletStore) {
+  $: if ($selectedWalletStore)
     triggerText = Object.values($walletDataStore).find(wd => wd.walletId == $selectedWalletStore)
       ?.decr.name;
-  } else if ($selectedJointWalletStore)
+  else if ($selectedJointWalletStore)
     triggerText = $jointWalletsStore![$selectedJointWalletStore!].name;
+
+  // It's a workaround for the case when you delete a wallet
+  let availableWalletData: FullEntity<WalletData>[] = [];
+  $: {
+    const availableWalletIds = Object.keys($walletStore!);
+    availableWalletData = Object.values($walletDataStore).filter(({ walletId }) =>
+      availableWalletIds.includes(walletId),
+    );
+  }
 </script>
 
 <WalletCreateModal bind:active />
@@ -41,7 +52,7 @@
         </div>
       </a>
     {/each}
-    {#each Object.values($walletDataStore) as { walletId, decr } (walletId)}
+    {#each availableWalletData as { walletId, decr } (walletId)}
       <a
         class="dropdown-item"
         class:is-active={$selectedWalletStore == walletId}

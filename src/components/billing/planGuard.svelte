@@ -21,14 +21,12 @@
   $: if (currentUserCheck) {
     canOfferToMakePurchase = true;
     planExpired = $isSubscriptionActiveStore;
-  } else {
-    if ($currentWalletStore) {
-      const { id, plans } = $currentWalletStore.users.find(
-        user => user.WalletAccess.accessLevel == AccessLevels.owner,
-      )!;
-      canOfferToMakePurchase = id == $userEncrStore!.id;
-      planExpired = !plans.some(plan => plan.expires && plan.expires > new Date().getTime());
-    }
+  } else if ($currentWalletStore) {
+    const { id, plans } = $currentWalletStore.users.find(
+      user => user.WalletAccess.accessLevel == AccessLevels.owner,
+    )!;
+    canOfferToMakePurchase = id == $userEncrStore!.id;
+    planExpired = !plans.some(plan => plan.expires && plan.expires > new Date().getTime());
   }
 
   let showModal = false;
