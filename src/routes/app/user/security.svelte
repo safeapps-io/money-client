@@ -15,11 +15,7 @@
 
 <Page title={$_('cmps.nav.menu.security')} nestColumnClass="is-8">
   <h2 class="subtitle">{$_('routes.user.masterPass')}</h2>
-  <SetNewMasterPassword
-    {userId}
-    isFirstPassword={false}
-    cleanup
-    notificationText={$_('routes.user.masterPassOk')} />
+  <SetNewMasterPassword {userId} isFirstPassword={false} />
   <hr />
   <h2 class="subtitle">{$_('routes.user.pin')}</h2>
   <SetPinCode />

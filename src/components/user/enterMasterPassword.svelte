@@ -67,6 +67,6 @@
   </Form>
 {:else}
   <Form success={masterPasswordSuccess} buttonText={$_('cmps.masterPassword.old.openSafe')}>
-    <MasterPasswordField label={$_('cmps.masterPassword.old.pass.label')} />
+    <MasterPasswordField label={$_('cmps.masterPassword.old.pass.label')} validate={false} />
   </Form>
 {/if}

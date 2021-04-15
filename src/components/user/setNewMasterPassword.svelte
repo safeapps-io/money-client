@@ -11,16 +11,24 @@
   import { setNewMasterPassword } from '$services/crypto/masterPassword';
 
   export let userId: string,
-    isFirstPassword: boolean = true,
-    cleanup: boolean = false,
-    notificationText: undefined | string = undefined;
+    isFirstPassword: boolean = true;
 
-  let shouldShowSecondPassword = false;
+  let shouldShowSecondPassword = false,
+    cleanup = false,
+    notificationText: string | undefined;
 
   const success = async ({ password, password2 }: { password: string; password2?: string }) => {
-    if (isFirstPassword && !shouldShowSecondPassword) return (shouldShowSecondPassword = true);
+    if (!shouldShowSecondPassword) {
+      shouldShowSecondPassword = true;
 
-    if (isFirstPassword && password !== password2)
+      if (isFirstPassword) return null;
+      setTimeout(() => {
+        cleanup = true;
+        notificationText = $_('routes.user.masterPassOk');
+      }, 100);
+    }
+
+    if (password !== password2)
       throw new FormError({
         code: 0,
         fieldErrors: { password2: [$_('cmps.masterPassword.old.pass.samePasswords')] },

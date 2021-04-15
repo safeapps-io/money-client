@@ -141,7 +141,7 @@
           "main": "We use your master-password to encrypt your data. {boldO}It cannot be restored{boldC}, so do remember it!"
         },
         "help": {
-          "common": "6 chars minimum, but we recommend using longer and varied passwords.",
+          "common": "12 chars minimum, but we recommend using longer passwords.",
           "invite": "All unaccapted wallet invites will become obsolete once you change your master-password."
         }
       },

@@ -21,7 +21,8 @@
 
   import { ensureString, trim, minLength, maxLength } from '$core/strict/string';
 
-  export let help: string | undefined = undefined,
+  export let validate = true,
+    help: string | undefined = undefined,
     label: string | undefined = undefined,
     isSecond: boolean = false;
 
@@ -31,7 +32,7 @@
     required: true,
     help,
     clean: [ensureString, trim],
-    validate: [minLength(6), maxLength(100)],
+    validate: validate ? [minLength(12), maxLength(100)] : [],
   };
 </script>
 
