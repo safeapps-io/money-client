@@ -68,13 +68,19 @@
   }
 
   main {
+    $margin: 3em;
+
     display: flex;
     flex-direction: column;
     place-content: center;
 
     @include mq($from: desktop) {
       width: 400px;
-      margin: 0 auto;
+      margin: $margin auto;
+    }
+    @include mq($until: desktop) {
+      margin-top: $margin;
+      margin-bottom: $margin * 2;
     }
   }
 </style>

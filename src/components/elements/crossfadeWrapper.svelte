@@ -6,6 +6,8 @@
   import { fade } from 'svelte/transition';
   import { tweened } from 'svelte/motion';
 
+  import { resize } from '$utils/actions/resize';
+
   export let key: string | number;
 
   const duration = 500;
@@ -27,6 +29,16 @@
   let noOverflow = true;
   const set = () => (noOverflow = true),
     unset = () => (noOverflow = false);
+
+  /**
+   * `bind:clientHeight` failed in cases, when the content of the slot changes.
+   * I didn't really catch when and why.
+   *
+   * (same in `onboarding.svelte`)
+   */
+  const resizeTrigger = (el: HTMLElement) => {
+    if (heightTweened) slotHeight = el.getBoundingClientRect().height;
+  };
 </script>
 
 <div class="wrapper" class:no-overflow={noOverflow} style="height: {setHeight}">
@@ -39,7 +51,7 @@
       on:outrostart={set}
       on:introend={unset}
       on:outroend={unset}
-      bind:clientHeight={slotHeight}>
+      use:resize={resizeTrigger}>
       <slot />
     </div>
   {/key}
