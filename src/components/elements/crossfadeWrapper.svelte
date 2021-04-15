@@ -22,9 +22,7 @@
   });
   $: if (typeof slotHeight != 'undefined' && typeof heightTweened != 'undefined')
     $heightTweened = slotHeight;
-  $: setHeight = typeof heightTweened == 'undefined' ? 'auto' : `${$heightTweened}px`;
-
-  $: console.log({ slotHeight, setHeight });
+  $: style = typeof heightTweened == 'undefined' ? '' : `height: ${$heightTweened}px`;
 
   let noOverflow = true;
   const set = () => (noOverflow = true),
@@ -37,11 +35,12 @@
    * (same in `onboarding.svelte`)
    */
   const resizeTrigger = (el: HTMLElement) => {
-    if (heightTweened) slotHeight = el.getBoundingClientRect().height;
+    const { height } = el.getBoundingClientRect();
+    if (heightTweened && height) slotHeight = height;
   };
 </script>
 
-<div class="wrapper" class:no-overflow={noOverflow} style="height: {setHeight}">
+<div class="wrapper" class:no-overflow={noOverflow} {style}>
   {#key key}
     <div
       class="fullwidth-absolute"
@@ -51,6 +50,7 @@
       on:outrostart={set}
       on:introend={unset}
       on:outroend={unset}
+      bind:clientHeight={slotHeight}
       use:resize={resizeTrigger}>
       <slot />
     </div>
