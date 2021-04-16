@@ -1,5 +1,5 @@
 import { HTTPError, AuthError, FormError } from './errors';
-import { adminPath, apiPath } from './config';
+import { apiPath } from './config';
 import { dropUserData } from './auth/dropUserData';
 
 type RequestParams = {
@@ -58,6 +58,3 @@ export const request = async <Res = {}>({
 
   return { json, res };
 };
-
-export const adminRequest = <Res = {}>(params: RequestParams) =>
-  request<Res>({ ...params, path: `${params.path}`, rootPath: adminPath });

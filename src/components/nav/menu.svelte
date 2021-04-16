@@ -17,8 +17,6 @@
     walletUsersSettingsPath,
     userSettingsPath,
     userSecurityPath,
-    adminEntityListPath,
-    adminSettingsPath,
     userBillingPath,
   } from '$core/routes';
 
@@ -26,12 +24,10 @@
   import { searchFilterSortedByTitleStore } from '$stores/decr/searchFilter';
   import { userEncrStore } from '$stores/user';
   import { draftTransactionStore } from '$stores/decr/transaction';
-  import { AdminEntityPrefixes } from '$core/admin/routes';
 
   export let showMenu = true;
 
   $: username = $userEncrStore?.username || '';
-  $: isAdmin = $userEncrStore?.isAdmin;
 
   const addActiveClass = 'is-active';
 </script>
@@ -115,25 +111,5 @@
     </ul>
     <hr class="menu-delimiter" />
     <p class="menu-label is-size-7">Version: {process.env.VERSION}</p>
-  {/if}
-
-  {#if isAdmin}
-    <hr class="menu-delimiter mt-5" />
-    <p class="menu-label">Admin</p>
-    <ul class="menu-list">
-      <li>
-        <Link href={adminSettingsPath} {addActiveClass}>Settings</Link>
-      </li>
-
-      <li>
-        <Link href={adminEntityListPath(AdminEntityPrefixes.category)} {addActiveClass}>
-          Meta Categories
-        </Link>
-      </li>
-
-      <li>
-        <Link href={adminEntityListPath(AdminEntityPrefixes.scheme)} {addActiveClass}>Schemes</Link>
-      </li>
-    </ul>
   {/if}
 </aside>

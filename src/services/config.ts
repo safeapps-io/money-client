@@ -13,6 +13,5 @@ export const wsHostNoPath = `${process.env.API_WS_SCHEME}://${process.env.API_HO
 export const siteHost = `${process.env.SITE_SCHEME}://${process.env.SITE_HOST}${sitePort}`;
 
 export const apiPath = `${apiHost}/api`,
-  adminPath = `${apiHost}/admin`,
   billingPath = `${apiHost}/billing`,
   wsPath = `${wsHost}/ws`;

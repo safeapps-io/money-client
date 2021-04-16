@@ -87,13 +87,6 @@ export const transactionDraftsPath = derived(
     `${root}/transaction/correction/${id}`,
   );
 
-const adminPath = `${appPath}/admin`;
-export const adminEntityListPath = (entity: string) => `${adminPath}/${entity}`,
-  adminEntityAddPath = (entity: string) => `${adminEntityListPath(entity)}/add`,
-  adminEntityPath = (entity: string, id: string) => `${adminEntityListPath(entity)}/${id}`;
-
-export const adminSettingsPath = `${adminPath}/settings`;
-
 // Root Site --------------
 const rootSite = 'https://safeapps.io';
 export const pricingPath = `${rootSite}/pricing`,
