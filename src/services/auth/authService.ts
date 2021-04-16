@@ -1,8 +1,15 @@
+import { get } from 'svelte/store';
+
+import { enterMasterPassword, getNewMasterPasswordData } from '$services/crypto/keys';
 import { del, patch, post, request } from '$services/request';
+import { walletEvents } from '$services/wallet/walletEvents';
 import type { PlanPartial } from '$stores/billing';
 import { plansStore } from '$stores/billing';
+import type { userDecrStore } from '$stores/decr/user';
 import type { UserEncrState, RefreshToken } from '$stores/user';
+import { updateKeyData } from '$stores/user';
 import { userEncrStore } from '$stores/user';
+import { updateChests } from '$stores/wallet';
 import { dropUserData } from './dropUserData';
 
 export enum InviteStringTypes {
@@ -155,20 +162,47 @@ export class AuthService {
     return user;
   }
 
-  static async setMasterPassword(data: {
-    b64salt: string;
-    b64InvitePublicKey: string;
-    b64EncryptedInvitePrivateKey: string;
-    chests: { walletId: string; chest: string }[];
-  }) {
-    const res = await request<UserFullData>({
+  static async setMasterPassword(
+    masterPassword: string,
+    currentChests: { walletId: string; chest: string }[],
+    userDecrState: StoreValue<typeof userDecrStore>,
+  ) {
+    try {
+      const { keyPair, newUserEncrState, b64salt, chests } = await getNewMasterPasswordData(
+          masterPassword,
+          currentChests,
+          userDecrState,
+        ),
+        commonData = {
+          b64salt,
+          encr: newUserEncrState,
+          b64InvitePublicKey: keyPair.public,
+          b64EncryptedInvitePrivateKey: keyPair.private,
+        },
+        // We need this `clientId` to prevent it from sending the events back to the same client
+        clientId = get(walletEvents);
+
+      await request({
         method: post,
         path: `${this.prefix}user/password/master`,
-        data,
-      }),
-      { user } = this.getUserAndPlan(res.json);
+        data: {
+          ...commonData,
+          chests,
+          clientId,
+        },
+      });
 
-    userEncrStore.set(user);
+      await enterMasterPassword({ input: masterPassword, ...commonData });
+      updateKeyData(commonData);
+      /**
+       * If there's no `userDecrState`, there can't be any chests definitely.
+       * This user just signed up.
+       */
+      if (userDecrState) updateChests(userDecrState.id, chests);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   static async getSessions() {

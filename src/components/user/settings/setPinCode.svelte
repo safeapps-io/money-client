@@ -5,7 +5,7 @@
   import { _ } from 'svelte-i18n';
 
   import { FormError } from '$services/errors';
-  import { setPinCode } from '$services/crypto/masterPassword';
+  import { setPinCode } from '$services/crypto/keys';
   import { keyWrappedWithPinStore } from '$stores/user';
 
   const success = async ({ pinCode }: { pinCode: string }) => {

@@ -7,7 +7,7 @@
 
   import { focusableShortcut } from '$utils/actions/shortcut';
 
-  import { enterMasterPassword, enterPinCode } from '$services/crypto/masterPassword';
+  import { enterMasterPassword, enterPinCode } from '$services/crypto/keys';
   import { keyWrappedWithPinStore } from '$stores/user';
 
   export let b64salt: string, b64InvitePublicKey: string, b64EncryptedInvitePrivateKey: string;

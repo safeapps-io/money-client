@@ -1,17 +1,17 @@
 <script>
   import { Onboarding, Text } from '$components/onboarding';
+  import { Form, MasterPasswordField } from '$components/strict';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
 
   import { FormError } from '$services/errors';
-  import { Form, MasterPasswordField } from '$components/strict';
+  import { AuthService } from '$services/auth/authService';
 
   import { currentChestsStore } from '$stores/wallet';
-  import { setNewMasterPassword } from '$services/crypto/masterPassword';
+  import { userDecrStore } from '$stores/decr/user';
 
-  export let userId: string,
-    isFirstPassword: boolean = true;
+  export let isFirstPassword: boolean = true;
 
   let shouldShowSecondPassword = false,
     cleanup = false,
@@ -35,11 +35,7 @@
       });
 
     try {
-      await setNewMasterPassword({
-        masterPassword: password,
-        currentChests: $currentChestsStore,
-        userId,
-      });
+      await AuthService.setMasterPassword(password, $currentChestsStore, $userDecrStore);
     } catch (error) {
       throw new FormError({
         code: 0,

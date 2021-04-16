@@ -4,12 +4,12 @@ import { encode } from 'base64-arraybuffer-es6';
 
 import { copy } from '$utils/object';
 
-import { encryptionService } from '$services/crypto/cryptoService';
 import type { UserEncrState } from '$stores/user';
 import { userEncrStore } from '$stores/user';
 import { encryptionKeysStateStore } from '$stores/encr/keysState';
 import type { AutomationSettings, BaseSimpleScheme } from '$core/import/types';
 import type { JointWallet } from './types';
+import { decrypt, encrypt } from '$services/crypto/keys';
 
 export type OnboardingSteps =
   | 'firstWallet'
@@ -42,13 +42,9 @@ export const userDecrStore = derived(
     const { encr, ...restUser } = $user;
     if (!encr) return set({ ...restUser, decr: copy(defaultDecrState) });
 
-    encryptionService
-      .decrypt<UserDecrPart>({
-        id: $user.id,
-        additionalData: $user.b64salt,
-        b64data: encr,
-      })
-      .then(res => set({ ...restUser, decr: res }));
+    decrypt<UserDecrPart>(encr, $user.id, $user.b64salt).then(res =>
+      set({ ...restUser, decr: res }),
+    );
   },
   null as
     | (Omit<UserEncrState, 'encr'> & {
@@ -74,11 +70,7 @@ const getStoreValueSafe = () => {
 
 export const updateUserDecr = async (data: Partial<UserDecrPart>) => {
   const $user = getStoreValueSafe(),
-    encrUserData = await encryptionService.encrypt({
-      id: $user.id,
-      additionalData: $user.b64salt!,
-      data: { ...$user.decr, ...data },
-    });
+    encrUserData = await encrypt({ ...$user.decr, ...data }, $user.id, $user.b64salt!);
 
   return userEncrStore.update($state => ({
     ...$state!,

@@ -1,13 +1,14 @@
-import { del, post, put, request } from '$services/request';
-import { encryptionService } from '$services/crypto/cryptoService';
+import { generateRandomColor } from '$utils/color';
+import { generateKey } from '$utils/crypto/encryption';
 
+import { del, post, put, request } from '$services/request';
 import type { Wallet } from '$stores/wallet';
 import { addWallet, setCurrentWallet, deleteWallet } from '$stores/wallet';
 import { walletDataAdd } from '$stores/decr/wallet';
 import { addDefaultSearchFilter } from '$stores/decr/searchFilter';
 import { walletUserAdd } from '$stores/decr/walletUser';
-import { generateRandomColor } from '$utils/color';
 import { assetAdd } from '$stores/decr/asset';
+import { generateChest, setWalletKeyFromChest } from '$services/crypto/keys';
 
 export class WalletService {
   private static prefix = '/wallet/';
@@ -21,8 +22,8 @@ export class WalletService {
     username: string;
     assetCode: string;
   }) {
-    const secret = await encryptionService.generateSecretKeyForWallet(),
-      chest = await encryptionService.getChest(secret),
+    const secret = await generateKey(),
+      chest = await generateChest(secret),
       { json: wallet } = await request<Wallet>({
         method: post,
         path: this.prefix,
@@ -30,7 +31,7 @@ export class WalletService {
       });
 
     // Setting key that is not exportable and will be used in all other places
-    await encryptionService.getSecretKeyFromChest(chest, wallet.id);
+    await setWalletKeyFromChest(chest, wallet.id);
 
     addWallet(wallet);
     await Promise.all([
@@ -60,7 +61,7 @@ export class WalletService {
       data: { chest },
     });
 
-    await encryptionService.getSecretKeyFromChest(chest, walletId);
+    await setWalletKeyFromChest(chest, walletId);
 
     addWallet(wallet);
     setCurrentWallet(wallet.id);

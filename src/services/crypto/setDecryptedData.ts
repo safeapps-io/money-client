@@ -1,6 +1,6 @@
 import { derived } from 'svelte/store';
 
-import { encryptionService } from '$services/crypto/cryptoService';
+import { decrypt } from './keys';
 
 import type { EncrEntity, EncrEntityLocal } from '$stores/encr/store';
 import { encryptedStore } from '$stores/encr/store';
@@ -41,12 +41,7 @@ export const setDecryptedFromEncrypted = async (
 ) => {
   const decrypted = await Promise.all(
       encryptedArray.map(encrEnt =>
-        encryptionService.decrypt<AllEntities>({
-          id: encrEnt.id,
-          walletId: encrEnt.walletId,
-          additionalData: encrEnt.walletId,
-          b64data: encrEnt.encr,
-        }),
+        decrypt<AllEntities>(encrEnt.encr, encrEnt.id, encrEnt.walletId, encrEnt.walletId),
       ),
     ),
     dataByEntityType = {} as {
