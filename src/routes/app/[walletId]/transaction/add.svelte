@@ -8,6 +8,6 @@
   import { appPath } from '$core/routes';
 </script>
 
-<Page title={$_('routes.wallet.addTr')} nestColumnClass="is-8">
+<Page activePlanOnly title={$_('routes.wallet.addTr')} nestColumnClass="is-8">
   <TransactionForm on:success={() => goto(appPath)} />
 </Page>

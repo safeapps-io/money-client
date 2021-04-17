@@ -7,8 +7,9 @@
   import Menu from '$components/nav/menu.svelte';
   import JoiningFlow from '$components/wallet/joinWallet/joiningFlow.svelte';
   import OwnerFlow from '$components/wallet/joinWallet/ownerFlow.svelte';
+  import PlanOfferModal from '$components/billing/planOfferModal.svelte';
 
-  import { onMount } from 'svelte';
+  import { onMount, setContext } from 'svelte';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import { media } from 'svelte-match-media';
@@ -22,6 +23,7 @@
   import { walletDataStore } from '$stores/decr/wallet';
   import { userDecrStore } from '$stores/decr/user';
   import { inviteToValidate } from '$services/invite/inviteStages';
+  import { planGuardStore } from '$stores/billing';
   import { initApplicationLogic } from '$stores/init';
   import { appPath, loginPath } from '$core/routes';
 
@@ -43,6 +45,23 @@
   $: hasWalletData = !!Object.keys($walletDataStore || {}).length;
 
   $: invite = atob($page.params.invite || '');
+
+  let planCheck: {
+      userCanBuy: boolean;
+      planActive: boolean;
+    } | null = null,
+    showModal = false;
+  setContext('isPlanActive', (currentUserCheck = false) => (e?: Event) => {
+    if (!shouldShow) return false;
+
+    planCheck = $planGuardStore(currentUserCheck);
+    showModal = !planCheck.planActive;
+
+    // Useful for links and other clickable stuff
+    if (showModal && e) e.preventDefault();
+
+    return !showModal;
+  });
 </script>
 
 {#if shouldShow}
@@ -50,6 +69,7 @@
     {#if $inviteToValidate}
       <OwnerFlow inviteToValidate={$inviteToValidate} userId={user.id} />
     {/if}
+    <PlanOfferModal {planCheck} bind:showModal />
 
     <!--
       If we have an invite, we immediately launch the process of joining the wallet.

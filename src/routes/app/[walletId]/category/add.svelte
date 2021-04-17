@@ -9,7 +9,7 @@
   import { categoryListPath } from '$core/routes';
 </script>
 
-<Page title={$_('routes.category.create')} nestColumnClass="is-8">
+<Page activePlanOnly title={$_('routes.category.create')} nestColumnClass="is-8">
   <CategoryForm
     on:success={() => goto($categoryListPath)}
     isIncomeCategory={$page.params.income === '1'} />

@@ -1,5 +1,6 @@
 import { derived, writable } from 'svelte/store';
-import { walletStore, AccessLevels } from './wallet';
+import { userEncrStore } from './user';
+import { walletStore, AccessLevels, currentWalletStore } from './wallet';
 
 export const plansStore = writable<PlanPartial[]>([]);
 
@@ -7,7 +8,7 @@ let timer: number;
 export const isSubscriptionActiveStore = derived(plansStore, $plans => {
   const currentPlan = $plans.sort((plan1, plan2) => (plan2.expires || 0) - (plan1.expires || 0))[0],
     now = new Date().getTime(),
-    isActive = currentPlan.expires && currentPlan.expires > now;
+    isActive = currentPlan?.expires && currentPlan.expires > now;
 
   // Always clearing the timeout
   clearTimeout(timer);
@@ -59,6 +60,34 @@ export const addCharge = (chargeEvent: ChargeEvent) => {
     $state.map(charge => charge.id).includes(chargeEvent.id) ? $state : [chargeEvent, ...$state],
   );
 };
+
+/**
+ * Usually we check if current wallet's owner has a subscription. It's a
+ * more popular requirement.
+ *
+ * But in some cases we need to check if current user has it. This flag
+ * enables this exact check over wallet's owner check.
+ */
+export const planGuardStore = derived(
+  [isSubscriptionActiveStore, currentWalletStore, userEncrStore],
+  ([$isSubscriptionActiveStore, $currentWalletStore, $userEncrStore]) => (
+    currentUserCheck: boolean,
+  ) => {
+    let userCanBuy: boolean, planActive: boolean;
+    if (currentUserCheck) {
+      userCanBuy = true;
+      planActive = $isSubscriptionActiveStore;
+    } else {
+      const { id: ownerId, plans } = $currentWalletStore!.users.find(
+        user => user.WalletAccess.accessLevel == AccessLevels.owner,
+      )!;
+      userCanBuy = ownerId == $userEncrStore!.id;
+      planActive = plans.some(plan => plan.expires && plan.expires > new Date().getTime());
+    }
+
+    return { userCanBuy, planActive };
+  },
+);
 
 type BaseModel = {
   id: string;

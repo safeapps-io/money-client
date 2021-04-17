@@ -1,5 +1,6 @@
 <script>
   import GenericTroubleshoot from '$components/elements/genericTroubleshoot.svelte';
+  import PlanRedirectGuard from '$components/billing/planRedirectGuard.svelte';
   import Profile from './profile.svelte';
 
   import { media } from 'svelte-match-media';
@@ -8,6 +9,9 @@
     boxedView: boolean = true,
     stretchContent: boolean = false,
     nestColumnClass: string | undefined = undefined;
+
+  export let activePlanOnly: boolean = false,
+    currentUserCheck: boolean | undefined = undefined;
 </script>
 
 <!-- 
@@ -68,13 +72,17 @@
       class:box={boxedView && !$media.mobile}
       class:flex-full={stretchContent}>
       <div class={`column ${nestColumnClass}`}>
-        <slot />
+        <PlanRedirectGuard {currentUserCheck} runCheck={activePlanOnly}>
+          <slot />
+        </PlanRedirectGuard>
       </div>
     </div>
   {:else}
     <slot name="no-margin">
       <div class="mx-2 my-3" class:flex-full={stretchContent}>
-        <slot />
+        <PlanRedirectGuard {currentUserCheck} runCheck={activePlanOnly}>
+          <slot />
+        </PlanRedirectGuard>
       </div>
     </slot>
   {/if}
