@@ -33,6 +33,8 @@
     remoteCheckResult = await AuthService.isUserStillValid();
     remoteCheckPerformed = true;
   });
+  if ($encryptionKeysStateStore.encryptionKeySet)
+    AuthService.isUserStillValid().then(res => (remoteCheckResult = res));
   // If user check was performed but we have no user, we need to redirect to login page
   $: if (remoteCheckPerformed && !$userEncrStore) goto(loginPath, { replaceState: true });
 
@@ -58,7 +60,10 @@
     showModal = !planCheck.planActive;
 
     // Useful for links and other clickable stuff
-    if (showModal && e) e.preventDefault();
+    if (showModal && e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
 
     return !showModal;
   });
@@ -69,7 +74,6 @@
     {#if $inviteToValidate}
       <OwnerFlow inviteToValidate={$inviteToValidate} userId={user.id} />
     {/if}
-    <PlanOfferModal {planCheck} bind:showModal />
 
     <!--
       If we have an invite, we immediately launch the process of joining the wallet.
@@ -109,6 +113,8 @@
   {:else}
     <StartPasswordRequest {user} />
   {/if}
+
+  <PlanOfferModal {planCheck} bind:showModal />
 
   <LoadingIndicator show={!$isOnline} />
 {/if}

@@ -63,7 +63,7 @@
 <div class:clickable={!showEdit}>
   {#if showEdit}
     <div class="py-3" transition:slide|local>
-      <Form showSubmit={false} bind:formStore on:success={success}>
+      <Form planLimit showSubmit={false} bind:formStore on:success={success}>
         <TransactionFields {defaultWalletUserId} {suggestedCategoryIds} ent={transaction} />
         <!-- 
           When used in unresolved.svelte, we pass no slot here and trigger submit from main.svelte.

@@ -74,11 +74,11 @@ export const planGuardStore = derived(
     currentUserCheck: boolean,
   ) => {
     let userCanBuy: boolean, planActive: boolean;
-    if (currentUserCheck) {
+    if (!$currentWalletStore || currentUserCheck) {
       userCanBuy = true;
       planActive = $isSubscriptionActiveStore;
     } else {
-      const { id: ownerId, plans } = $currentWalletStore!.users.find(
+      const { id: ownerId, plans } = $currentWalletStore.users.find(
         user => user.WalletAccess.accessLevel == AccessLevels.owner,
       )!;
       userCanBuy = ownerId == $userEncrStore!.id;

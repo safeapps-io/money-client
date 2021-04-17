@@ -8,10 +8,7 @@
   import { _ } from 'svelte-i18n';
 
   import { categoryStore } from '$stores/decr/category';
-  import {
-    bulkReplaceCategories,
-    transactionCountByCategoryStore,
-  } from '$stores/decr/transaction';
+  import { bulkReplaceCategories, transactionCountByCategoryStore } from '$stores/decr/transaction';
 
   const dispatch = createEventDispatcher();
 
@@ -60,7 +57,7 @@
   {/if}
 
   {#if showForm}
-    <Form success={switchCategory} buttonText={$_('cmps.category.delete.replace')}>
+    <Form planLimit success={switchCategory} buttonText={$_('cmps.category.delete.replace')}>
       <Field {field}>
         <SelectInput />
       </Field>

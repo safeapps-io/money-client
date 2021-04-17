@@ -22,7 +22,7 @@
     };
 </script>
 
-<Form {success}>
+<Form planLimit {success}>
   <NameField inputValue={ent ? ent.decr.name : undefined} />
   <ColorField inputValue={ent ? ent.decr.color : undefined} />
 

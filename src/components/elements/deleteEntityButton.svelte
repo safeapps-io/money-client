@@ -11,6 +11,7 @@
 
   const successNotif = getContext('success'),
     dangerNotif = getContext('danger'),
+    isPlanActive = getContext('isPlanActive')(),
     dispatch = createEventDispatcher();
 
   export let entityMap: { [walletId: string]: string[] },
@@ -20,6 +21,8 @@
   const shortcutSetting = { shift: true, code: 'Backspace' };
 
   const click = async () => {
+    if (!isPlanActive()) return;
+
     try {
       if (runBefore) {
         const goFurther = await runBefore();

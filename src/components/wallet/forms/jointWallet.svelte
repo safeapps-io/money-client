@@ -58,6 +58,7 @@
   </div>
 {:else}
   <Form
+    planLimit
     {success}
     {notificationText}
     buttonText={ent ? $_('common.form.update') : $_('common.form.create')}>

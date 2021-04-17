@@ -2,7 +2,7 @@
   import BalanceChart from './charts/balance.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   import { slide } from 'svelte/transition';
   import { media } from 'svelte-match-media';
 
@@ -21,6 +21,7 @@
     }[] = [];
 
   const dispatch = createEventDispatcher(),
+    isPlanActive = getContext('isPlanActive')(),
     adaptToChart = (history: typeof balanceHistory) =>
       history.map(({ date, value }) => ({ t: new Date(date), y: value }));
 
@@ -38,7 +39,7 @@
           class="has-text-dotted clickable has-text-link is-size-7"
           role="button"
           tabindex="0"
-          on:click={() => dispatch('correctBalance')}
+          on:click={() => isPlanActive() && dispatch('correctBalance')}
           use:focusableShortcut>
           {$_(
             $media.mobile

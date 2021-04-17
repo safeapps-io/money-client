@@ -52,7 +52,7 @@
   <CategorySwitchModal {ent} bind:active={showCategorySwitch} on:delete={launchDelete} />
 {/if}
 
-<Form buttonText={ent ? $_('common.form.update') : $_('common.form.create')} {success}>
+<Form planLimit buttonText={ent ? $_('common.form.update') : $_('common.form.create')} {success}>
   <WalletField walletId={ent?.walletId} />
 
   <NameField inputValue={ent?.decr.name} placeholder={$_('cmps.category.namePlaceholder')} />

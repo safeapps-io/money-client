@@ -1,14 +1,7 @@
 <script>
   import type { WalletData, FullEntity } from '$stores/decr/types';
 
-  import {
-    Form,
-    Field,
-    NameField,
-    TextInput,
-    SelectInput,
-    CheckboxInput,
-  } from '$strict';
+  import { Form, Field, NameField, TextInput, SelectInput, CheckboxInput } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -65,6 +58,7 @@
 </script>
 
 <Form
+  planLimit
   {success}
   {notificationText}
   buttonText={ent ? $_('common.form.update') : $_('common.form.create')}>

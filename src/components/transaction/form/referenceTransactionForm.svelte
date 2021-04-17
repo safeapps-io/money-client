@@ -37,7 +37,7 @@
     };
 </script>
 
-<Form {success}>
+<Form planLimit {success}>
   <Field field={balanceField}>
     <TextInput type="number" placeholder="120 319.89" />
   </Field>

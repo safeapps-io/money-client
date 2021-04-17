@@ -120,7 +120,7 @@
   }
 </script>
 
-<Form {success} bind:formStore>
+<Form planLimit {success} bind:formStore>
   {#if $selectedWalletStore}
     <NameField inputValue={name} />
   {/if}

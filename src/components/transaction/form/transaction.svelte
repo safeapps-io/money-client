@@ -63,6 +63,7 @@
 </script>
 
 <Form
+  planLimit
   {success}
   buttonText={ent ? $_('common.form.update') : $_('common.form.create')}
   bind:formStore>
