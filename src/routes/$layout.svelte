@@ -37,9 +37,4 @@
 
 <style global lang="scss">
   @import 'src/styles/layouts/app';
-
-  // This stinks, but can't do anything until it fixes: https://github.com/keenethics/svelte-notifications/issues/37
-  .default-position-style-bottom-right {
-    @include z(notification-toast);
-  }
 </style>
