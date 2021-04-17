@@ -36,6 +36,8 @@ module.exports = {
       resolve: {
         alias: {
           $components: path.resolve('src/components'),
+          $strict: path.resolve('src/components/strict'),
+          $validators: path.resolve('src/components/strict/validators'),
           $core: path.resolve('src/core'),
           $services: path.resolve('src/services'),
           $stores: path.resolve('src/stores'),

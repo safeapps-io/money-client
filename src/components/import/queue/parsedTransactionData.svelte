@@ -13,7 +13,7 @@
     Transaction,
     WalletUser,
   } from '$stores/decr/types';
-  import type { FormStore } from '$components/strict/base';
+  import type { FormStore } from '$strict/base';
   import type { TransactionFieldsForm } from '$core/transaction/setCorrectAmount';
 
   import { createEventDispatcher } from 'svelte';
@@ -22,7 +22,7 @@
   import TransactionFields from '$components/transaction/form/fields.svelte';
   import AutocompleteTable from '$components/transaction/card/autocompleteTable.svelte';
   import TransactionCard from '$components/transaction/card/transactionCard.svelte';
-  import { Form } from '$components/strict';
+  import { Form } from '$strict';
 
   import { setCorrectAmount } from '$core/transaction/setCorrectAmount';
 

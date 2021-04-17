@@ -1,6 +1,6 @@
 <script>
   import { FormError } from '$services/errors';
-  import { Form, MasterPasswordField, PinCodeField } from '$components/strict';
+  import { Form, MasterPasswordField, PinCodeField } from '$strict';
 
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';

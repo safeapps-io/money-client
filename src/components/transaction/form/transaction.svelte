@@ -1,10 +1,10 @@
 <script>
-  import type { FormStore } from '$components/strict/base';
+  import type { FormStore } from '$strict/base';
   import type { FullEntity, Transaction } from '$stores/decr/types';
   import type { TransactionFieldsForm } from '$core/transaction/setCorrectAmount';
 
   import Level from '$components/elements/level.svelte';
-  import { Form } from '$components/strict';
+  import { Form } from '$strict';
   import TransactionFields from './fields.svelte';
   import WalletField from '$components/wallet/walletField.svelte';
   import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';

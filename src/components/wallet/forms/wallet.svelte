@@ -8,12 +8,12 @@
     TextInput,
     SelectInput,
     CheckboxInput,
-  } from '$components/strict';
+  } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { ensureString, trim, minLength } from '$core/strict/string';
+  import { ensureString, trim, minLength } from '$validators';
   import { WalletService } from '$services/wallet/walletService';
   import { currencyListStore } from '$services/directory/directoryService';
   import { walletDataUpdate } from '$stores/decr/wallet';

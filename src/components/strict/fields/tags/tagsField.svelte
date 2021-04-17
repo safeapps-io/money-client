@@ -1,5 +1,5 @@
 <script>
-  import type { FormStore, LabeledChoice } from '$components/strict/base';
+  import type { FormStore, LabeledChoice } from '$strict/base';
 
   import { getContext, tick } from 'svelte';
   import { slide } from 'svelte/transition';

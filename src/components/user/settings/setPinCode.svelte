@@ -1,5 +1,5 @@
 <script>
-  import { Form, PinCodeField } from '$components/strict';
+  import { Form, PinCodeField } from '$strict';
   import { Onboarding, Text } from '$components/onboarding';
 
   import { _ } from 'svelte-i18n';

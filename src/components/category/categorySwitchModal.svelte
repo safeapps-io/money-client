@@ -2,7 +2,7 @@
   import type { Category, FullEntity } from '$stores/decr/types';
 
   import Modal from '$components/elements/modal.svelte';
-  import { Form, Field, SelectInput } from '$components/strict';
+  import { Form, Field, SelectInput } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';

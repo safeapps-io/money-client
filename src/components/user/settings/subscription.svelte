@@ -1,9 +1,9 @@
 <script>
-  import { CheckboxInput, Field, Form } from '$components/strict';
+  import { CheckboxInput, Field, Form } from '$strict';
 
   import { _ } from 'svelte-i18n';
 
-  import { ensureBoolean } from '$core/strict/boolean';
+  import { ensureBoolean } from '$validators';
   import { userEncrStore } from '$stores/user';
   import { AuthService } from '$services/auth/authService';
 

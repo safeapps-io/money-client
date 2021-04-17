@@ -1,5 +1,5 @@
 <script>
-  import { Form, PasswordField, UsernameField } from '$components/strict';
+  import { Form, PasswordField, UsernameField } from '$strict';
   import Modal from '$components/elements/modal.svelte';
 
   import { _ } from 'svelte-i18n';

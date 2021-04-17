@@ -1,5 +1,5 @@
 <script lang="typescript">
-  import type { FormStore } from '$components/strict/base';
+  import type { FormStore } from '$strict/base';
 
   import { getContext } from 'svelte';
 

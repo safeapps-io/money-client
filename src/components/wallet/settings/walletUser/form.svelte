@@ -1,7 +1,7 @@
 <script>
   import type { FullEntity, WalletUser } from '$stores/decr/types';
 
-  import { Form, NameField, ColorField } from '$components/strict';
+  import { Form, NameField, ColorField } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';

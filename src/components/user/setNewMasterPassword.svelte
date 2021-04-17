@@ -1,6 +1,6 @@
 <script>
   import { Onboarding, Text } from '$components/onboarding';
-  import { Form, MasterPasswordField } from '$components/strict';
+  import { Form, MasterPasswordField } from '$strict';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';

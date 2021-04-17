@@ -1,12 +1,12 @@
 <script>
-  import { Form, Field, TextInput } from '$components/strict';
+  import { Form, Field, TextInput } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
   import { inputFormatDate } from '$utils/date';
 
-  import { ensureNumber, ensureDate, dateIsAfter, dateIsBefore } from '$core/strict/number';
+  import { ensureNumber, ensureDate, dateIsAfter, dateIsBefore } from '$validators';
   import { referenceTransactionAdd } from '$stores/decr/referenceTransaction';
   import { defaultAssetStore } from '$stores/decr/asset';
 

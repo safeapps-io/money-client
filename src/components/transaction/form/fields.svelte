@@ -1,16 +1,9 @@
 <script>
   import type { OmitCommonFields, Transaction } from '$stores/decr/types';
-  import type { FormStore, Choices } from '$components/strict/base';
+  import type { FormStore, Choices } from '$strict/base';
 
   import EmbeddedCategoryField from '$components/category/embeddedField.svelte';
-  import {
-    Field,
-    FieldContext,
-    TextareaInput,
-    TextInput,
-    TagsField,
-    SelectInput,
-  } from '$components/strict';
+  import { Field, FieldContext, TextareaInput, TextInput, TagsField, SelectInput } from '$strict';
 
   import { _ } from 'svelte-i18n';
   import { getContext } from 'svelte';
@@ -18,15 +11,19 @@
   import { inputFormatDate } from '$utils/date';
   import { moneyFormat } from '$utils/number';
 
-  import { optionalString, ensureString, oneOf } from '$core/strict/string';
   import {
+    optionalString,
+    ensureString,
+    oneOf,
     ensureDate,
     dateIsBefore,
     dateIsAfter,
     ensureNumber,
     moreThan,
-  } from '$core/strict/number';
-  import { ensureArray, uniqueOnly, maxArrLength } from '$core/strict/array';
+    ensureArray,
+    uniqueOnly,
+    maxArrLength,
+  } from '$validators';
   import { categorySortedByTitleStore, currentWalletCategoryStore } from '$stores/decr/category';
   import { currentWalletUserStore } from '$stores/decr/walletUser';
   import { distinctTagNamesStore } from '$stores/decr/transaction';

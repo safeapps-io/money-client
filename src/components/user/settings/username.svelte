@@ -1,5 +1,5 @@
 <script>
-  import { Form, UsernameField } from '$components/strict';
+  import { Form, UsernameField } from '$strict';
 
   import { _ } from 'svelte-i18n';
   import { AuthService } from '$services/auth/authService';

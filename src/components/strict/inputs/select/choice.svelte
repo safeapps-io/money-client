@@ -1,5 +1,5 @@
 <script>
-  import type { Choices } from '$components/strict/base';
+  import type { Choices } from '$strict/base';
 
   export let choices: Choices;
 </script>

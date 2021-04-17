@@ -1,5 +1,5 @@
 <script>
-  import { Choices } from '$components/strict';
+  import { Choices } from '$strict';
 
   import { _ } from 'svelte-i18n';
 

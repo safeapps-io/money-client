@@ -4,7 +4,7 @@
   import { _ } from 'svelte-i18n';
 
   import { FormError } from '$services/errors';
-  import { createFormStore, setCleanedValue, runValidation } from '$components/strict/base';
+  import { createFormStore, setCleanedValue, runValidation } from '$strict/base';
 
   const dispatch = createEventDispatcher();
 

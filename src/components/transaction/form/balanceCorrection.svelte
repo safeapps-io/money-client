@@ -4,14 +4,14 @@
   import Level from '$components/elements/level.svelte';
   import WalletField from '$components/wallet/walletField.svelte';
   import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
-  import { Field, Form, TextInput } from '$components/strict';
+  import { Field, Form, TextInput } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
   import { inputFormatDate } from '$utils/date';
 
-  import { ensureDate, dateIsAfter, dateIsBefore, ensureNumber } from '$core/strict/number';
+  import { ensureDate, dateIsAfter, dateIsBefore, ensureNumber } from '$validators';
   import { selectedWalletStore } from '$stores/wallet';
   import { userEncrStore } from '$stores/user';
   import {

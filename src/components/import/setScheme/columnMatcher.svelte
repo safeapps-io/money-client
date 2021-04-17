@@ -3,7 +3,7 @@
 
   import { Onboarding, Text } from '$components/onboarding';
   import Tooltip from '$components/elements/tooltip.svelte';
-  import Choice from '$components/strict/inputs/select/choice.svelte';
+  import { Choices } from '$strict';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
@@ -55,7 +55,7 @@
       {#if i}
         <div class="select is-small is-fullwidth">
           <select bind:value={columnData.value}>
-            <Choice choices={columnData.choices} />
+            <Choices choices={columnData.choices} />
           </select>
         </div>
       {:else}
@@ -63,7 +63,7 @@
         <Onboarding bottom preventSlotClick shouldShow={currentStep == 'main'}>
           <div class="select is-small is-fullwidth">
             <select bind:value={columnData.value}>
-              <Choice choices={columnData.choices} />
+              <Choices choices={columnData.choices} />
             </select>
           </div>
 
