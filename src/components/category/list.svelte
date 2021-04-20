@@ -2,7 +2,6 @@
   import type { FullEntity, Category } from '$stores/decr/types';
 
   import ZeroData from '$components/elements/zeroData.svelte';
-  import Link from '$components/elements/link.svelte';
 
   import { _ } from 'svelte-i18n';
   import cssVars from 'svelte-css-vars';
@@ -19,7 +18,7 @@
   <div class="columns is-multiline">
     {#each categories as category (category.id)}
       <div class="column is-4" animate:flip={{ duration: 600, easing: quintOut }}>
-        <Link href={$categoryPathFn(category.id)}>
+        <a href={$categoryPathFn(category.id)}>
           <div class="box box--hoverable" use:cssVars={{ categoryColor: category.decr.color }}>
             <p class="is-size-6">{category.decr.name}</p>
             <p class="has-text-grey is-size-7">
@@ -28,7 +27,7 @@
               })}
             </p>
           </div>
-        </Link>
+        </a>
       </div>
     {/each}
   </div>

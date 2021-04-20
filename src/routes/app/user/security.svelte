@@ -7,10 +7,6 @@
   import DropUser from '$components/user/settings/dropUser.svelte';
 
   import { _ } from 'svelte-i18n';
-
-  import { userEncrStore } from '$stores/user';
-
-  $: userId = $userEncrStore!.id;
 </script>
 
 <Page title={$_('cmps.nav.menu.security')} nestColumnClass="is-8">
