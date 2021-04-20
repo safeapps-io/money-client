@@ -1,5 +1,5 @@
 import { HTTPError, AuthError, FormError } from './errors';
-import { apiPath } from './config';
+import { apiPath, getSSEClientId } from './config';
 import { dropUserData } from './auth/dropUserData';
 
 type RequestParams = {
@@ -30,7 +30,12 @@ export const request = async <Res = {}>({
     req = new Request(fullPath, {
       method,
       body,
-      headers: { Accept: 'application/json', 'Content-Type': 'application/json', ...headers },
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'SSE-ClientId': getSSEClientId(),
+        ...headers,
+      },
       credentials: 'include',
     });
 

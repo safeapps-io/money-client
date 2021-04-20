@@ -1,4 +1,5 @@
 import { dev } from '$app/env';
+import { nanoid } from 'nanoid';
 
 const apiPort = process.env.API_PORT ? ':' + process.env.API_PORT : '',
   sitePort = dev ? `:${process.env.SITE_PORT}` : '',
@@ -7,11 +8,11 @@ const apiPort = process.env.API_PORT ? ':' + process.env.API_PORT : '',
 export const apiHostNoPath = `${process.env.API_SCHEME}://${process.env.API_HOST}${apiPort}`,
   apiHost = `${apiHostNoPath}/${rootApiAppendix}`;
 
-export const wsHostNoPath = `${process.env.API_WS_SCHEME}://${process.env.API_HOST}${apiPort}`,
-  wsHost = `${wsHostNoPath}/${rootApiAppendix}`;
-
 export const siteHost = `${process.env.SITE_SCHEME}://${process.env.SITE_HOST}${sitePort}`;
 
 export const apiPath = `${apiHost}/api`,
-  billingPath = `${apiHost}/billing`,
-  wsPath = `${wsHost}/ws`;
+  billingPath = `${apiHost}/billing`;
+
+let clientId: string | null = null;
+export const getSSEClientId = () => clientId || (clientId = nanoid()),
+  ssePath = `${apiPath}/sse/${getSSEClientId()}`;
