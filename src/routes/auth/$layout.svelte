@@ -1,6 +1,5 @@
 <script>
   import Logo from '$components/nav/logo.svelte';
-  import Link from '$components/elements/link.svelte';
   import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
   import Footer from '$components/nav/footer.svelte';
 
@@ -19,8 +18,9 @@
     else show = true;
   });
 
-  let show = false;
-  $: queryParams = Object.keys($page.params).length ? window.location.search : '';
+  let show = false,
+    reactiveSearch = '';
+  $: if ($page.query) reactiveSearch = window.location.search;
 </script>
 
 <div class="wrapper">
@@ -31,11 +31,11 @@
       <h2 class="title is-4">
         {#if $page.path.includes('signup')}
           {$_('cmps.user.signup.cta')}
-        {:else}<Link href={signupPath + queryParams}>{$_('cmps.user.signup.cta')}</Link>{/if}
+        {:else}<a href={signupPath + reactiveSearch}>{$_('cmps.user.signup.cta')}</a>{/if}
         <span class="px-2 is-unselectable">|</span>
         {#if $page.path.includes('login')}
           {$_('cmps.user.signIn')}
-        {:else}<Link href={loginPath + queryParams}>{$_('cmps.user.signIn')}</Link>{/if}
+        {:else}<a href={loginPath + reactiveSearch}>{$_('cmps.user.signIn')}</a>{/if}
       </h2>
 
       <CrossfadeWrapper key={$page.path}>

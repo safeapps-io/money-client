@@ -12,14 +12,14 @@
 
   import { _ } from 'svelte-i18n';
 
-  import { isOnline } from '$services/auth/isOnline';
+  import { isOnlineStore } from '$stores/isOnline';
 
   export let hasEnt: boolean;
 </script>
 
 {#if hasEnt}
   <slot />
-{:else if $isOnline}
+{:else if $isOnlineStore}
   <h3 class="title">{$_('cmps.nav.loading')}</h3>
 {:else}
   <h3 class="title has-text-danger">{$_('cmps.nav.404.title')}</h3>

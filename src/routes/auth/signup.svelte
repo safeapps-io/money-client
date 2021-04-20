@@ -7,7 +7,7 @@
 
   let invite: string | undefined = undefined;
   $: try {
-    invite = atob($page.params.invite);
+    invite = atob($page.query.get('invite') || '');
   } catch (e) {}
 
   const success = ({ detail: isWalletInvite }: CustomEvent<boolean>) =>

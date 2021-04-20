@@ -16,7 +16,7 @@
   import { fade } from 'svelte/transition';
 
   import { AuthService } from '$services/auth/authService';
-  import { isOnline } from '$services/auth/isOnline';
+  import { isOnlineStore } from '$stores/isOnline';
   import { userEncrStore } from '$stores/user';
   import { encryptionKeysStateStore } from '$stores/encr/keysState';
   import { walletStore } from '$stores/wallet';
@@ -46,7 +46,7 @@
   $: hasWallets = !!Object.keys($walletStore || {}).length;
   $: hasWalletData = !!Object.keys($walletDataStore || {}).length;
 
-  $: invite = atob($page.params.invite || '');
+  $: invite = atob($page.query.get('invite') || '');
 
   let planCheck: {
       userCanBuy: boolean;
@@ -116,5 +116,5 @@
 
   <PlanOfferModal {planCheck} bind:showModal />
 
-  <LoadingIndicator show={!$isOnline} />
+  <LoadingIndicator show={!$isOnlineStore} />
 {/if}
