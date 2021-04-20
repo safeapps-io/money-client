@@ -17,14 +17,27 @@ import {
 } from '$services/crypto/keys';
 import { unwrapKey, wrapKey } from '$utils/crypto/encryption';
 
-export type WalletInviteObject = {
-  userId: string;
-  inviteId: string;
+export enum InviteStringTypes {
+  service = 'service',
+  wallet = 'wallet',
+}
+
+type ServiceInvitePayload = { userInviterId: string; inviteId: string };
+type WalletInviteObject = ServiceInvitePayload & {
   walletId: string;
 };
+type InvitePayload =
+  | {
+      type: InviteStringTypes.service;
+      payload: ServiceInvitePayload;
+    }
+  | {
+      type: InviteStringTypes.wallet;
+      payload: WalletInviteObject;
+    };
 
 export class InviteService {
-  static inviteJoinPathPrefix = '/invite/join';
+  static prefix = '/auth/invite';
 
   static async generateServiceInvite(userId: string) {
     const res = await sign({
@@ -43,6 +56,14 @@ export class InviteService {
     return gotoInviteFullPath(btoa(res.encoded));
   }
 
+  static isInviteValid(invite: string) {
+    return request<InvitePayload>({
+      method: post,
+      path: `${this.prefix}/is-valid`,
+      data: { invite },
+    });
+  }
+
   static async launchWalletJoin(inviteString: string) {
     const publicEcdhKey = await getEcdhPublicKey();
 
@@ -54,13 +75,12 @@ export class InviteService {
     const data = {
       b64InviteSignatureByJoiningUser: encoded,
       b64PublicECDHKey: publicEcdhKey,
-
-      ecdhPublicKeyHash,
+      b64InviteString: inviteString,
     };
 
     await request({
       method: post,
-      path: `${this.inviteJoinPathPrefix}/validate/request`,
+      path: `${this.prefix}/validate/request`,
       data,
     });
 
@@ -97,7 +117,7 @@ export class InviteService {
       | { allowJoin: true; b64PublicECDHKey: string; walletChest: string }
     ),
   ) {
-    const path = `${this.inviteJoinPathPrefix}/validate/result`;
+    const path = `${this.prefix}/validate/result`;
     if ('isValid' in data || !data.allowJoin) {
       return request({ method: post, path, data });
     } else {
@@ -141,7 +161,7 @@ export class InviteService {
     } catch (error) {
       await request({
         method: post,
-        path: `${this.inviteJoinPathPrefix}/fail`,
+        path: `${this.prefix}/fail`,
         data: { b64InviteString },
       });
       throw error;

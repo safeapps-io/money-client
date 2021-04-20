@@ -27,11 +27,10 @@ import {
 import { walletKeysSetter } from '$services/crypto/setWalletKeys';
 import { initialDecryption } from '$services/crypto/setDecryptedData';
 import { removeRequestHandler } from '$services/entity/remoteDeleteData';
-import { walletEvents } from '$services/wallet/walletEvents';
-import { syncEntities } from '$services/entity/entityEvents';
 import { syncUser } from '$services/auth/userEvents';
-import { billingEvents } from '$services/billing/billingEvents';
 import { updateMetaCategories, updateSchemes } from '$services/directory/directoryService';
+import { syncEntities } from '$services/entity/entityEvents';
+import { sseEndpointsStore } from '$services/sse';
 
 // Use it in top app layout component, wait for initialization, block the app from running
 // until it works
@@ -64,8 +63,7 @@ export const initApplicationLogic = derived(
     encrDataCleaner,
 
     // Syncers
-    walletEvents,
-    billingEvents,
+    sseEndpointsStore,
     syncEntities,
     syncUser,
     updateSchemes,

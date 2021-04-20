@@ -72,8 +72,7 @@ export class WalletService {
   static async deleteUser(walletId: string, userId: string) {
     const { json: wallet } = await request<Wallet>({
       method: del,
-      path: `${this.prefix}user`,
-      data: { walletId, userId },
+      path: `${this.prefix}${walletId}/user/${userId}`,
     });
 
     addWallet(wallet);

@@ -24,11 +24,11 @@ export class EntityService {
     markAsRemoteDeleted(walletIdToIds);
   }
 
-  static async uploadEntities(clientId: string, data: ClientChangesData) {
+  static async uploadEntities(data: ClientChangesData) {
     const { json } = await request<EncrEntity[]>({
       method: post,
       path: this.prefix,
-      data: { clientId, data },
+      data,
     });
     bulkSetEncrEntities(json);
 

@@ -3,7 +3,7 @@ import { derived } from 'svelte/store';
 import { userEncrStore } from '$stores/user';
 import { notYetRemoteDeletedStore } from '$stores/decr/deleted';
 import { EntityService } from './entityService';
-import { isOnline } from '$services/auth/isOnline';
+import { isOnlineStore } from '$stores/isOnline';
 
 /**
  * For now I'm positive that this logic is _just fine_.
@@ -16,7 +16,7 @@ import { isOnline } from '$services/auth/isOnline';
  * So based on this assumption we don't do anything smarter than this.
  */
 export const removeRequestHandler = derived(
-  [isOnline, userEncrStore, notYetRemoteDeletedStore],
+  [isOnlineStore, userEncrStore, notYetRemoteDeletedStore],
   async ([$isOnline, $user, $deleted]) => {
     if (!$isOnline) return;
 

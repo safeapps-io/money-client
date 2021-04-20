@@ -1,26 +1,19 @@
 import { derived } from 'svelte/store';
 
-import { eventSourceStoreConstructor } from '$utils/eventSourceStore';
-import { apiPath } from '$services/config';
 import type { UserEncrState } from '$stores/user';
 import { userEncrStore } from '$stores/user';
 import { AuthService } from './authService';
+import { isOnlineStore } from '$stores/isOnline';
 
-type UserBackMessage = { type: 'data'; data: UserEncrState };
+export const userEventsMap = new Map([
+  ['user/data', (data: UserEncrState) => userEncrStore.set(data)],
+]);
 
-const userEvents = eventSourceStoreConstructor({
-  path: `${apiPath}/auth/user/updates`,
-  handler: (message: UserBackMessage) => {
-    userEncrStore.set(message.data);
-  },
-});
-
-export const syncUser = derived([userEncrStore, userEvents], ([$user, $clientId]) => {
-  if ($user && $user.clientUpdated && $user.encr && $clientId) {
+export const syncUser = derived([isOnlineStore, userEncrStore], ([$isOnline, $user]) => {
+  if ($isOnline && $user?.clientUpdated && $user.encr) {
     AuthService.updateUser({
       encr: $user.encr,
       clientUpdated: $user.clientUpdated,
-      clientId: $clientId,
     }).catch(e => console.error('error updating user data', e));
   }
 });

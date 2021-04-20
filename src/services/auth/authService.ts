@@ -1,8 +1,5 @@
-import { get } from 'svelte/store';
-
 import { enterMasterPassword, getNewMasterPasswordData } from '$services/crypto/keys';
 import { del, patch, post, request } from '$services/request';
-import { walletEvents } from '$services/wallet/walletEvents';
 import type { PlanPartial } from '$stores/billing';
 import { plansStore } from '$stores/billing';
 import type { userDecrStore } from '$stores/decr/user';
@@ -12,32 +9,11 @@ import { userEncrStore } from '$stores/user';
 import { updateChests } from '$stores/wallet';
 import { dropUserData } from './dropUserData';
 
-export enum InviteStringTypes {
-  service = 'service',
-  wallet = 'wallet',
-}
-export enum InvitePurpose {
-  signup = 'signup',
-  walletJoin = 'walletJoin',
-}
-
-type ServiceInvitePayload = { userInviterId: string; inviteId: string };
-type WalletInviteObject = ServiceInvitePayload & {
-  walletId: string;
-};
-type InvitePayload =
-  | {
-      type: InviteStringTypes.service;
-      payload: ServiceInvitePayload;
-    }
-  | {
-      type: InviteStringTypes.wallet;
-      payload: WalletInviteObject;
-    };
 type UserFullData = UserEncrState & { plans: PlanPartial[] };
 
 export class AuthService {
   private static prefix = '/auth/';
+  private static userPrefix = `${AuthService.prefix}user/`;
 
   static async signIn(data: { usernameOrEmail: string; password: string }) {
     const res = await request<UserEncrState>({
@@ -68,16 +44,6 @@ export class AuthService {
     return { isWalletInvite };
   }
 
-  static async getWsTicket() {
-    const { ticket } = (
-      await request<{ ticket: string }>({
-        path: `${this.prefix}user/wsTicket`,
-      })
-    ).json;
-
-    return ticket;
-  }
-
   private static getUserAndPlan(data: UserFullData) {
     const { plans, ...user } = data;
     return { plans, user };
@@ -86,7 +52,7 @@ export class AuthService {
   static async isUserStillValid() {
     try {
       const res = await request<UserFullData>({
-          path: `${this.prefix}user`,
+          path: this.userPrefix,
         }),
         { plans, user } = this.getUserAndPlan(res.json);
 
@@ -98,13 +64,6 @@ export class AuthService {
       dropUserData();
       return false;
     }
-  }
-
-  static isInviteValid(invite: string) {
-    return request<InvitePayload>({
-      method: post,
-      path: `${this.prefix}invite/is-valid/${invite}`,
-    });
   }
 
   static resetPasswordRequest(email: string) {
@@ -139,7 +98,7 @@ export class AuthService {
   static changePassword(data: { oldPassword: string; newPassword: string }) {
     return request({
       method: post,
-      path: `${this.prefix}user/password`,
+      path: `${this.userPrefix}password`,
       data,
     });
   }
@@ -149,11 +108,11 @@ export class AuthService {
       | { username: string }
       | { email: string }
       | { isSubscribed: boolean }
-      | { encr: string; clientUpdated: number; clientId: string },
+      | { encr: string; clientUpdated: number },
   ) {
     const res = await request<UserFullData>({
         method: patch,
-        path: `${this.prefix}user`,
+        path: this.userPrefix,
         data,
       }),
       { user } = this.getUserAndPlan(res.json);
@@ -178,17 +137,14 @@ export class AuthService {
           encr: newUserEncrState,
           b64InvitePublicKey: keyPair.public,
           b64EncryptedInvitePrivateKey: keyPair.private,
-        },
-        // We need this `clientId` to prevent it from sending the events back to the same client
-        clientId = get(walletEvents);
+        };
 
       await request({
         method: post,
-        path: `${this.prefix}user/password/master`,
+        path: `${this.userPrefix}password/master`,
         data: {
           ...commonData,
           chests,
-          clientId,
         },
       });
 
@@ -208,7 +164,7 @@ export class AuthService {
   static async getSessions() {
     return (
       await request<RefreshToken[]>({
-        path: `${this.prefix}user/session`,
+        path: `${this.userPrefix}session`,
       })
     ).json;
   }
@@ -217,7 +173,7 @@ export class AuthService {
     return (
       await request<RefreshToken[]>({
         method: del,
-        path: `${this.prefix}user/session`,
+        path: `${this.userPrefix}session`,
         data: { id },
       })
     ).json;
@@ -233,7 +189,7 @@ export class AuthService {
   static async dropUser(password: string) {
     await request({
       method: del,
-      path: `${this.prefix}user`,
+      path: this.userPrefix,
       data: { password },
     });
     dropUserData();
@@ -242,7 +198,7 @@ export class AuthService {
   static async logout() {
     await request<UserEncrState>({
       method: post,
-      path: `${this.prefix}/user/session/logout`,
+      path: `${this.userPrefix}session/logout`,
     });
 
     dropUserData();

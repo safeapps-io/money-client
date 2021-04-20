@@ -5,8 +5,7 @@
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { AuthService, InviteStringTypes } from '$services/auth/authService';
-  import { InviteService } from '$services/invite/inviteService';
+  import { InviteService, InviteStringTypes } from '$services/invite/inviteService';
   import { InviteResolutions, inviteResolutionStore } from '$services/invite/inviteStages';
 
   const dispatch = createEventDispatcher();
@@ -31,7 +30,7 @@
   const validateInvite = async (inviteString: string) => {
       stage = JoinStages.validatingInvite;
       try {
-        const { json: res } = await AuthService.isInviteValid(inviteString);
+        const { json: res } = await InviteService.isInviteValid(inviteString);
         if (res.type != InviteStringTypes.wallet) throw new Error();
         stage = JoinStages.ask;
       } catch (error) {
