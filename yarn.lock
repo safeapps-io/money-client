@@ -920,24 +920,24 @@
     estree-walker "^2.0.1"
     picomatch "^2.2.2"
 
-"@sveltejs/adapter-node@^1.0.0-next.12":
-  version "1.0.0-next.12"
-  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-1.0.0-next.12.tgz#556ec9902f72b8ea095d0bf2d500c2067d160147"
-  integrity sha512-DGP3dT5ijsTV0zmLDmZP8wI4RjZlifGGzA0y4HLoWNEKhZJLDjFDJnNcA+O5S9QBxQOVaYUlAY2z19r+skBVjA==
+"@sveltejs/adapter-node@next":
+  version "1.0.0-next.16"
+  resolved "https://registry.yarnpkg.com/@sveltejs/adapter-node/-/adapter-node-1.0.0-next.16.tgz#69da2d4d9911bdf4a93eeed881d28130d26456be"
+  integrity sha512-XXZtiyX8dT1shmiKF2DwB2mCrMrUzFVRItYAV0B3BFF+U5775hpNS5krgtZnJdbA1AoW0Ay2OT+u6MKeQ5/KUQ==
 
-"@sveltejs/kit@^1.0.0-next.74":
-  version "1.0.0-next.74"
-  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.74.tgz#3d7650eb45d9ebf59a022385daba512720f4ee4c"
-  integrity sha512-2a8iW2h25CXpAnKc0c9QRqnbJ/gF2IzN43l29nPWoPmhbV4214qrAbr+JFaW61B0P0C619g8IHXJNB1DpluX/A==
+"@sveltejs/kit@next":
+  version "1.0.0-next.84"
+  resolved "https://registry.yarnpkg.com/@sveltejs/kit/-/kit-1.0.0-next.84.tgz#8906f15b84f3de558874015f941132674b6b87b1"
+  integrity sha512-v3XsG2Gvl4Fo7j5Uqmeq7NxpdzL6ODi9fV7eQhVNF2/J1Dko2ptG786jC3ynuCR7vrp67Mv+1MgraqGwIBETAQ==
   dependencies:
-    "@sveltejs/vite-plugin-svelte" "^1.0.0-next.5"
+    "@sveltejs/vite-plugin-svelte" "^1.0.0-next.7"
     cheap-watch "^1.0.3"
     sade "^1.7.4"
 
-"@sveltejs/vite-plugin-svelte@^1.0.0-next.5":
-  version "1.0.0-next.6"
-  resolved "https://registry.yarnpkg.com/@sveltejs/vite-plugin-svelte/-/vite-plugin-svelte-1.0.0-next.6.tgz#c1667af9b8245d31dcacc8a914221d817d6bc202"
-  integrity sha512-P+skZslGT+zPXRH9SlEu21LXuFpkQITRcvQb/NRpZHrxj04VDRbuKwksOfq+vDHO/K4HWioXIAQoQnJ3oomItw==
+"@sveltejs/vite-plugin-svelte@^1.0.0-next.7":
+  version "1.0.0-next.7"
+  resolved "https://registry.yarnpkg.com/@sveltejs/vite-plugin-svelte/-/vite-plugin-svelte-1.0.0-next.7.tgz#77e7649ab6fd1452b3ccddd2ad8456c4d63a6026"
+  integrity sha512-ENvKYY36jrvFP7h1G87k5uOoEh5UM1m8n40J2duqV/R3wHnxfW81SCR1aXo+5CVU8Prm3/jtS4TWs8CUTqO1fw==
   dependencies:
     "@rollup/pluginutils" "^4.1.0"
     chalk "^4.1.0"
