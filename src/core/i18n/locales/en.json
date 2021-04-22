@@ -611,6 +611,17 @@
       "sessions": "Open sessions",
       "billing": "Billing",
       "plan": "Plan"
+    },
+    "pay": {
+      "ok": {
+        "title": "Purchase was successful!",
+        "redirect": "You will be redirected in 5 seconds. Press the button to skip the waiting."
+      },
+      "notOk": {
+        "title": "Purchase was unsuccessful",
+        "support": "If you have any problems, don't hesitate to write to us via email: {linkO}{email}{linkC}. We'll be happy to help you!"
+      },
+      "goto": "Go to app"
     }
   }
 }
