@@ -1,44 +1,28 @@
-import { request } from '$services/request';
+import { enterMasterPassword, getNewMasterPasswordData } from '$services/crypto/keys';
+import { del, patch, post, request } from '$services/request';
+import type { PlanPartial } from '$stores/billing';
+import { plansStore } from '$stores/billing';
+import type { userDecrStore } from '$stores/decr/user';
 import type { UserEncrState, RefreshToken } from '$stores/user';
+import { updateKeyData } from '$stores/user';
 import { userEncrStore } from '$stores/user';
+import { updateChests } from '$stores/wallet';
 import { dropUserData } from './dropUserData';
 
-export enum InviteStringTypes {
-  service = 'service',
-  wallet = 'wallet',
-}
-export enum InvitePurpose {
-  signup = 'signup',
-  walletJoin = 'walletJoin',
-}
-
-type ServiceInvitePayload = { userInviterId: string; inviteId: string };
-type WalletInviteObject = ServiceInvitePayload & {
-  walletId: string;
-};
-type InvitePayload =
-  | {
-      type: InviteStringTypes.service;
-      payload: ServiceInvitePayload;
-    }
-  | {
-      type: InviteStringTypes.wallet;
-      payload: WalletInviteObject;
-    };
+type UserFullData = UserEncrState & { plans: PlanPartial[] };
 
 export class AuthService {
   private static prefix = '/auth/';
+  private static userPrefix = `${AuthService.prefix}user/`;
 
   static async signIn(data: { usernameOrEmail: string; password: string }) {
-    const { user } = (
-      await request<{ user: UserEncrState }>({
-        method: 'POST',
-        path: `${this.prefix}signin`,
-        data,
-      })
-    ).json;
+    const res = await request<UserEncrState>({
+      method: post,
+      path: `${this.prefix}signin`,
+      data,
+    });
 
-    userEncrStore.set(user);
+    userEncrStore.set(res.json);
   }
 
   static async signUp(data: {
@@ -49,7 +33,7 @@ export class AuthService {
   }) {
     const { user, isWalletInvite } = (
       await request<{ user: UserEncrState; isWalletInvite: boolean }>({
-        method: 'POST',
+        method: post,
         path: `${this.prefix}signup`,
         data,
       })
@@ -60,22 +44,21 @@ export class AuthService {
     return { isWalletInvite };
   }
 
-  static async getWsTicket() {
-    const { ticket } = (
-      await request<{ ticket: string }>({
-        method: 'POST',
-        path: `${this.prefix}user/wsTicket`,
-      })
-    ).json;
-
-    return ticket;
+  private static getUserAndPlan(data: UserFullData) {
+    const { plans, ...user } = data;
+    return { plans, user };
   }
 
   static async isUserStillValid() {
     try {
-      await request<UserEncrState>({
-        path: `${this.prefix}user`,
-      });
+      const res = await request<UserFullData>({
+          path: this.userPrefix,
+        }),
+        { plans, user } = this.getUserAndPlan(res.json);
+
+      userEncrStore.set(user);
+      plansStore.set(plans);
+
       return true;
     } catch (e) {
       dropUserData();
@@ -83,131 +66,130 @@ export class AuthService {
     }
   }
 
-  static isInviteValid(invite: string, purpose?: InvitePurpose) {
-    return request<InvitePayload>({
-      method: 'POST',
-      path: `${this.prefix}invite/isValid`,
-      data: { invite, purpose },
-    });
-  }
-
   static resetPasswordRequest(email: string) {
     return request({
-      method: 'POST',
-      path: `${this.prefix}requestPasswordReset`,
+      method: post,
+      path: `${this.prefix}reset-password/request`,
       data: { email },
     });
   }
 
   static isResetPasswordTokenValid(token: string) {
     return request({
-      method: 'POST',
-      path: `${this.prefix}isResetTokenValid`,
-      data: { token },
+      path: `${this.prefix}reset-password/${token}`,
     });
   }
 
-  static async setPasswordFromToken(data: { token: string; password: string }) {
+  static async setPasswordFromToken({ token, password }: { token: string; password: string }) {
     return request({
-      method: 'POST',
-      path: `${this.prefix}setPasswordFromResetToken`,
-      data,
+      method: post,
+      path: `${this.prefix}reset-password/${token}`,
+      data: { password },
     });
   }
 
   static validateEmail(emailToken: string) {
     return request({
-      method: 'POST',
-      path: `${this.prefix}validateEmail/${emailToken}`,
+      method: post,
+      path: `${this.prefix}validate-email/${emailToken}`,
     });
   }
 
   static changePassword(data: { oldPassword: string; newPassword: string }) {
     return request({
-      method: 'POST',
-      path: `${this.prefix}changePassword`,
+      method: post,
+      path: `${this.userPrefix}password`,
       data,
     });
   }
 
-  static async updateUsername(username: string) {
-    const user = (
-      await request<UserEncrState>({
-        method: 'POST',
-        path: `${this.prefix}updateUsername`,
-        data: { username },
-      })
-    ).json;
-
-    userEncrStore.set(user);
-  }
-
-  static updateEmail(email: string) {
-    return request({
-      method: 'POST',
-      path: `${this.prefix}updateEmail`,
-      data: { email },
-    });
-  }
-
-  static async updateIsSubscribed(isSubscribed: boolean) {
-    const user = (
-      await request<UserEncrState>({
-        method: 'POST',
-        path: `${this.prefix}updateIsSubscribed`,
-        data: { isSubscribed },
-      })
-    ).json;
-
-    userEncrStore.set(user);
-  }
-
-  static async setMasterPassword(data: {
-    b64salt: string;
-    b64InvitePublicKey: string;
-    b64EncryptedInvitePrivateKey: string;
-    chests: { walletId: string; chest: string }[];
-  }) {
-    const user = (
-      await request<UserEncrState>({
-        method: 'POST',
-        path: `${this.prefix}updateMasterPassword`,
+  static async updateUser(
+    data:
+      | { username: string }
+      | { email: string }
+      | { isSubscribed: boolean }
+      | { encr: string; clientUpdated: number },
+  ) {
+    const res = await request<UserFullData>({
+        method: patch,
+        path: this.userPrefix,
         data,
-      })
-    ).json;
+      }),
+      { user } = this.getUserAndPlan(res.json);
 
     userEncrStore.set(user);
+    return user;
+  }
+
+  static async setMasterPassword(
+    masterPassword: string,
+    currentChests: { walletId: string; chest: string }[],
+    userDecrState: StoreValue<typeof userDecrStore>,
+  ) {
+    try {
+      const { keyPair, newUserEncrState, b64salt, chests } = await getNewMasterPasswordData(
+          masterPassword,
+          currentChests,
+          userDecrState,
+        ),
+        commonData = {
+          b64salt,
+          encr: newUserEncrState,
+          b64InvitePublicKey: keyPair.public,
+          b64EncryptedInvitePrivateKey: keyPair.private,
+        };
+
+      await request({
+        method: post,
+        path: `${this.userPrefix}password/master`,
+        data: {
+          ...commonData,
+          chests,
+        },
+      });
+
+      await enterMasterPassword({ input: masterPassword, ...commonData });
+      updateKeyData(commonData);
+      /**
+       * If there's no `userDecrState`, there can't be any chests definitely.
+       * This user just signed up.
+       */
+      if (userDecrState) updateChests(userDecrState.id, chests);
+    } catch (e) {
+      console.error(e);
+      throw e;
+    }
   }
 
   static async getSessions() {
     return (
       await request<RefreshToken[]>({
-        path: `${this.prefix}user/sessions`,
+        path: `${this.userPrefix}session`,
       })
     ).json;
   }
 
-  static async dropSessions(ids: string[]) {
+  static async dropSessions(id?: string) {
     return (
       await request<RefreshToken[]>({
-        method: 'DELETE',
-        path: `${this.prefix}user/sessions`,
-        data: { ids },
+        method: del,
+        path: `${this.userPrefix}session`,
+        data: { id },
       })
     ).json;
   }
 
   static async unsubscribe(unsubscribeToken: string) {
     return request({
-      method: 'POST',
+      method: post,
       path: `${this.prefix}unsubscribe/${unsubscribeToken}`,
     });
   }
 
   static async dropUser(password: string) {
-    await request<{}>({
-      method: 'DELETE',
-      path: `${this.prefix}user`,
+    await request({
+      method: del,
+      path: this.userPrefix,
       data: { password },
     });
     dropUserData();
@@ -215,8 +197,8 @@ export class AuthService {
 
   static async logout() {
     await request<UserEncrState>({
-      method: 'POST',
-      path: `${this.prefix}logout`,
+      method: post,
+      path: `${this.userPrefix}session/logout`,
     });
 
     dropUserData();

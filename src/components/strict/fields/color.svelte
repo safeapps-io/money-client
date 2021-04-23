@@ -5,7 +5,7 @@
   import { _ } from 'svelte-i18n';
 
   import { generateRandomColor } from '$utils/color';
-  import { ensureString, trim, hexColorFormat } from '$core/strict/string';
+  import { ensureString, trim, hexColorFormat } from '$validators';
 
   export let inputValue: string | undefined = undefined;
 

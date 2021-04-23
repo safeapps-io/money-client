@@ -4,7 +4,7 @@
   import { _ } from 'svelte-i18n';
 
   import { FormError } from '$services/errors';
-  import { createFormStore, setCleanedValue, runValidation } from '$components/strict/base';
+  import { createFormStore, setCleanedValue, runValidation } from '$strict/base';
 
   const dispatch = createEventDispatcher();
 
@@ -14,6 +14,14 @@
     formDisabled = false as boolean,
     cleanup: undefined | boolean = undefined,
     notificationText: undefined | string = undefined;
+
+  export let currentUserCheck = false,
+    planLimit = false;
+
+  const isPlanActiveRaw = getContext('isPlanActive');
+
+  const isPlanActive = isPlanActiveRaw ? isPlanActiveRaw(currentUserCheck) : null,
+    handleClick = (e?: Event) => planLimit && isPlanActive?.(e);
 
   export let formStore = createFormStore();
   setContext('form', formStore);
@@ -32,6 +40,8 @@
    * we just use it as a `let`.
    */
   export let submit = async () => {
+    if (planLimit && !handleClick()) return;
+
     // Saving ourselves from multiple submissions
     if ($formStore.loading) return;
 
@@ -112,6 +122,7 @@
     <slot
       name="submit"
       {buttonText}
+      {handleClick}
       disabled={$formStore.submitDisabled || $formStore.formDisabled}
       loading={$formStore.loading}>
       <div class="field">
@@ -119,7 +130,8 @@
           <button
             class="button is-outlined"
             class:is-color-loading={$formStore.loading}
-            disabled={$formStore.submitDisabled || $formStore.formDisabled}>
+            disabled={$formStore.submitDisabled || $formStore.formDisabled}
+            on:click={handleClick}>
             {buttonText}
           </button>
         </div>

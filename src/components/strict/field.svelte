@@ -1,11 +1,11 @@
 <script lang="typescript">
-  import type { FormStore, FieldState, RequiredFieldState } from '$components/strict/base';
+  import type { FormStore, FieldState, RequiredFieldState } from '$strict/base';
 
   import { getContext, setContext } from 'svelte';
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
 
-  import { setCleanedValue, runValidation } from '$components/strict/base';
+  import { setCleanedValue, runValidation } from '$strict/base';
 
   export let field: RequiredFieldState;
 

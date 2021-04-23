@@ -314,7 +314,7 @@
     </Tabs>
 
     <svelte:fragment slot="text">
-      <CrossfadeWrapper replayAnimationKey={currentStep}>
+      <CrossfadeWrapper key={currentStep}>
         {#if currentStep == 'tabsUnS'}
           <Text>
             {@html $_('cmps.import.queue.onboarding.tabs.queue', {
@@ -350,7 +350,7 @@
   </Onboarding>
 
   <div class="tab-container py-4" bind:this={rootFormRef}>
-    <CrossfadeWrapper replayAnimationKey={activeTab}>
+    <CrossfadeWrapper key={activeTab}>
       {#if activeTab == unresolvedTab}
         <Unresolved
           {transactionToResolve}

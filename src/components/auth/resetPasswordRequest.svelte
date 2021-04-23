@@ -1,5 +1,5 @@
 <script>
-  import { Form, EmailField } from '$components/strict';
+  import { Form, EmailField } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';

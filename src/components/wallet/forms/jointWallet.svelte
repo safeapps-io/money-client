@@ -1,12 +1,12 @@
 <script>
   import type { JointWallet } from '$stores/decr/types';
 
-  import { Form, FieldContext, NameField, TagsField } from '$components/strict';
+  import { Form, FieldContext, NameField, TagsField } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { uniqueOnly, ensureArray, maxArrLength, minArrLength } from '$core/strict/array';
+  import { uniqueOnly, ensureArray, maxArrLength, minArrLength } from '$validators';
   import { walletDataStore } from '$stores/decr/wallet';
   import { assetStore } from '$stores/decr/asset';
   import { addJointWallet, updateJointWallet } from '$stores/decr/user';
@@ -58,6 +58,7 @@
   </div>
 {:else}
   <Form
+    planLimit
     {success}
     {notificationText}
     buttonText={ent ? $_('common.form.update') : $_('common.form.create')}>

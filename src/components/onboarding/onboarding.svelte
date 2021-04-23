@@ -8,6 +8,7 @@
   import { randBetween } from '$utils/random';
   import { range } from '$utils/array';
   import { generateRandomColor } from '$utils/color';
+  import { resize } from '$utils/actions/resize';
   import { restrictBodyScroll } from '$utils/actions/restrictBodyScroll';
 
   import { hasUserSeenOnboarding, setUserOnboardingSetting } from '$stores/decr/user';
@@ -73,6 +74,17 @@
     squareVars = {},
     circleVars = {},
     textVars = {};
+
+  /**
+   * `bind:clientHeight` failed in cases, when the content of the slot changes.
+   * I didn't really catch when and why.
+   *
+   * (same in `crossfadeWrapper.svelte`)
+   */
+  const slotResized = (e: HTMLElement) => {
+    const { height } = e.getBoundingClientRect();
+    if (height) slotHeight = height;
+  };
 
   $: originalSlotRect =
     show && slotEl && slotHeight && innerHeight && innerWidth
@@ -160,7 +172,7 @@
   {/if}
 {/if}
 
-<div class="slot" bind:this={slotEl} bind:clientHeight={slotHeight}>
+<div class="slot" bind:this={slotEl} bind:clientHeight={slotHeight} use:resize={slotResized}>
   <slot {finishOnboarding} />
 </div>
 

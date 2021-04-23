@@ -1,12 +1,12 @@
 <script>
   import type { OmitCommonFields, Transaction } from '$stores/decr/types';
+  import type { CsvParsedTransactionResolution } from '$core/import/constants';
 
   import { createEventDispatcher } from 'svelte';
 
   import TransactionList from '$components/transaction/list.svelte';
   import ResolvedTransaction from './transaction.svelte';
 
-  import { CsvParsedTransactionResolution } from '$core/import/constants';
   import { defaultWalletUserIdStore } from '$stores/decr/walletUser';
 
   const dispatch = createEventDispatcher();

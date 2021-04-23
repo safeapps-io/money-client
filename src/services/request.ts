@@ -1,25 +1,41 @@
 import { HTTPError, AuthError, FormError } from './errors';
-import { adminPath, apiPath } from './config';
+import { apiPath, getSSEClientId } from './config';
 import { dropUserData } from './auth/dropUserData';
 
 type RequestParams = {
-  method?: string;
+  method?: 'GET' | 'POST' | 'PATCH' | 'DELETE' | 'PUT';
   path?: string;
+  queryParams?: { [param: string]: string };
+  headers?: { [header: string]: string };
   data?: Object;
   rootPath?: string;
 };
 
+export const get = 'GET',
+  post = 'POST',
+  put = 'PUT',
+  patch = 'PATCH',
+  del = 'DELETE';
+
 export const request = async <Res = {}>({
-  method = 'GET',
+  method = get,
   path = '',
+  queryParams,
+  headers = {},
   data = {},
   rootPath = apiPath,
 }: RequestParams) => {
-  const body = method === 'GET' ? undefined : JSON.stringify(data),
-    req = new Request(`${rootPath}${path}`, {
+  const fullPath = `${rootPath}${path}${queryParams ? '?' + new URLSearchParams(queryParams) : ''}`,
+    body = method === get ? undefined : JSON.stringify(data),
+    req = new Request(fullPath, {
       method,
       body,
-      headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'SSE-ClientId': getSSEClientId(),
+        ...headers,
+      },
       credentials: 'include',
     });
 
@@ -47,6 +63,3 @@ export const request = async <Res = {}>({
 
   return { json, res };
 };
-
-export const adminRequest = <Res = {}>(params: RequestParams) =>
-  request<Res>({ ...params, path: `${params.path}`, rootPath: adminPath });

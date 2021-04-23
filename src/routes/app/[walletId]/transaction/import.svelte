@@ -9,6 +9,10 @@
   import { appPath } from '$core/routes';
 </script>
 
-<Page title={$_('routes.wallet.import')} nestColumnClass="is-12" stretchContent={$media.mobile}>
+<Page
+  activePlanOnly
+  title={$_('routes.wallet.import')}
+  nestColumnClass="is-12"
+  stretchContent={$media.mobile}>
   <MainCsv on:success={() => goto(appPath)} />
 </Page>

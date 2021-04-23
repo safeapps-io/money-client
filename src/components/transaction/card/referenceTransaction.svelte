@@ -4,7 +4,7 @@
   import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
   import ActionsDropdown from '$components/elements/dropdown/actions.svelte';
 
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   import { _ } from 'svelte-i18n';
 
   import { focusableShortcut } from '$utils/actions/shortcut';
@@ -17,6 +17,7 @@
     activeTransactionId: string | undefined = undefined;
 
   const dispatch = createEventDispatcher(),
+    isPlanActive = getContext('isPlanActive')(),
     setActiveStatus = () => dispatch('setActive', referenceTransaction.id);
 </script>
 
@@ -40,8 +41,12 @@
           class="dropdown-item has-text-success-dark"
           role="button"
           tabindex="0"
-          on:click={setActiveStatus}
-          on:click={hide}
+          on:click={() => {
+            if (isPlanActive()) {
+              setActiveStatus();
+              hide();
+            }
+          }}
           use:focusableShortcut>
           {$_('cmps.transaction.reference.activate')}
         </div>

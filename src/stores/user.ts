@@ -40,6 +40,7 @@ export const resetUserStore = () => {
     resetStore(keyWrappedWithPinStore);
   },
   updateKeyData = (data: {
+    encr: string | null;
     b64salt: string;
     b64InvitePublicKey: string;
     b64EncryptedInvitePrivateKey: string;

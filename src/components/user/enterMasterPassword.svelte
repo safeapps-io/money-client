@@ -1,13 +1,13 @@
 <script>
   import { FormError } from '$services/errors';
-  import { Form, MasterPasswordField, PinCodeField } from '$components/strict';
+  import { Form, MasterPasswordField, PinCodeField } from '$strict';
 
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
 
   import { focusableShortcut } from '$utils/actions/shortcut';
 
-  import { enterMasterPassword, enterPinCode } from '$services/crypto/masterPassword';
+  import { enterMasterPassword, enterPinCode } from '$services/crypto/keys';
   import { keyWrappedWithPinStore } from '$stores/user';
 
   export let b64salt: string, b64InvitePublicKey: string, b64EncryptedInvitePrivateKey: string;
@@ -67,6 +67,6 @@
   </Form>
 {:else}
   <Form success={masterPasswordSuccess} buttonText={$_('cmps.masterPassword.old.openSafe')}>
-    <MasterPasswordField label={$_('cmps.masterPassword.old.pass.label')} />
+    <MasterPasswordField label={$_('cmps.masterPassword.old.pass.label')} validate={false} />
   </Form>
 {/if}

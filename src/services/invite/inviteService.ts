@@ -3,21 +3,44 @@ import { get } from 'svelte/store';
 
 import { getEmojiHash } from '$utils/hashEmoji';
 
-import { invitationSignatureService, encryptionService } from '$services/crypto/cryptoService';
 import { WalletService } from '$services/wallet/walletService';
 import { gotoInviteFullPath } from '$core/routes';
-import type { Wallet } from '$stores/wallet';
 import { walletStore } from '$stores/wallet';
+import { post, request } from '$services/request';
+import {
+  deriveKeyFromPublicEcdh,
+  generateChest,
+  getEcdhPublicKey,
+  getWalletKeyFromChest,
+  sign,
+  verify,
+} from '$services/crypto/keys';
+import { unwrapKey, wrapKey } from '$utils/crypto/encryption';
 
-export type WalletInviteObject = {
-  userId: string;
-  inviteId: string;
+export enum InviteStringTypes {
+  service = 'service',
+  wallet = 'wallet',
+}
+
+type ServiceInvitePayload = { userInviterId: string; inviteId: string };
+type WalletInviteObject = ServiceInvitePayload & {
   walletId: string;
 };
+type InvitePayload =
+  | {
+      type: InviteStringTypes.service;
+      payload: ServiceInvitePayload;
+    }
+  | {
+      type: InviteStringTypes.wallet;
+      payload: WalletInviteObject;
+    };
 
 export class InviteService {
+  static prefix = '/auth/invite';
+
   static async generateServiceInvite(userId: string) {
-    const res = await invitationSignatureService.sign({
+    const res = await sign({
       inviteId: nanoid(),
       userInviterId: userId,
     });
@@ -25,7 +48,7 @@ export class InviteService {
   }
 
   static async generateWalletInvite(data: { walletId: string; userId: string }) {
-    const res = await invitationSignatureService.sign({
+    const res = await sign({
       inviteId: nanoid(),
       walletId: data.walletId,
       userInviterId: data.userId,
@@ -33,20 +56,35 @@ export class InviteService {
     return gotoInviteFullPath(btoa(res.encoded));
   }
 
-  static async joiningInitial(inviteString: string) {
-    await invitationSignatureService.generateEcdhKey();
+  static isInviteValid(invite: string) {
+    return request<InvitePayload>({
+      method: post,
+      path: `${this.prefix}/is-valid`,
+      data: { invite },
+    });
+  }
+
+  static async launchWalletJoin(inviteString: string) {
+    const publicEcdhKey = await getEcdhPublicKey();
 
     const [{ encoded }, ecdhPublicKeyHash] = await Promise.all([
-      invitationSignatureService.sign(inviteString),
-      getEmojiHash(invitationSignatureService.ecdhKeyPair.b64publicKey),
+      sign(inviteString),
+      getEmojiHash(publicEcdhKey),
     ]);
 
-    return {
+    const data = {
       b64InviteSignatureByJoiningUser: encoded,
-      b64PublicECDHKey: invitationSignatureService.ecdhKeyPair.b64publicKey,
-
-      ecdhPublicKeyHash,
+      b64PublicECDHKey: publicEcdhKey,
+      b64InviteString: inviteString,
     };
+
+    await request({
+      method: post,
+      path: `${this.prefix}/validate/request`,
+      data,
+    });
+
+    return ecdhPublicKeyHash;
   }
 
   static async ownerValidateInitialRequest({
@@ -57,12 +95,10 @@ export class InviteService {
     b64PublicECDHKey: string;
   }) {
     const [{ data, isValid }, hash] = await Promise.all([
-        invitationSignatureService.verify<WalletInviteObject>(b64InviteString),
+        verify<WalletInviteObject>(b64InviteString),
         getEmojiHash(b64PublicECDHKey),
       ]),
-      wallet = (get(walletStore) as StoreValue<typeof walletStore>)?.[data?.walletId] as
-        | Wallet
-        | undefined;
+      wallet = get(walletStore)?.[data?.walletId];
 
     if (!wallet || !isValid || wallet.users.find(u => u.WalletAccess.inviteId == data.inviteId))
       throw new Error();
@@ -70,47 +106,65 @@ export class InviteService {
     return { hash, wallet };
   }
 
-  static async ownerAllowJoin({
-    b64PublicECDHKey,
-    walletChest,
-  }: {
-    b64PublicECDHKey: string;
-    walletChest: string;
-  }) {
-    await invitationSignatureService.generateEcdhKey();
-    const [derivedKey, walletKey] = await Promise.all([
-      invitationSignatureService.deriveEncryptionKeyFromEcdh(b64PublicECDHKey),
-      encryptionService.getSecretKeyFromChest(walletChest),
-    ]);
-    return {
-      b64PublicECDHKey: invitationSignatureService.ecdhKeyPair.b64publicKey,
-      encryptedSecretKey: await encryptionService.wrapKey({
-        wrappingKey: derivedKey,
-        keyToWrap: walletKey,
-      }),
-    };
+  static async ownerResolution(
+    data: {
+      joiningUserId: string;
+      b64InviteSignatureByJoiningUser: string;
+      b64InviteString: string;
+    } & (
+      | { isValid: false }
+      | { allowJoin: false }
+      | { allowJoin: true; b64PublicECDHKey: string; walletChest: string }
+    ),
+  ) {
+    const path = `${this.prefix}/validate/result`;
+    if ('isValid' in data || !data.allowJoin) {
+      return request({ method: post, path, data });
+    } else {
+      const ecdhPublicKey = await getEcdhPublicKey(),
+        [derivedKey, walletKey] = await Promise.all([
+          deriveKeyFromPublicEcdh(data.b64PublicECDHKey),
+          getWalletKeyFromChest(data.walletChest),
+        ]);
+
+      return request({
+        path,
+        method: post,
+        data: {
+          ...data,
+          b64PublicECDHKey: ecdhPublicKey,
+          encryptedSecretKey: await wrapKey(walletKey, derivedKey),
+        },
+      });
+    }
   }
 
   static async joiningFinal({
     encryptedSecretKey,
     b64PublicECDHKey,
-
     walletId,
+
+    b64InviteString,
   }: {
     encryptedSecretKey: string;
     b64PublicECDHKey: string;
-
     walletId: string;
-  }) {
-    const wrappingKey = await invitationSignatureService.deriveEncryptionKeyFromEcdh(
-        b64PublicECDHKey,
-      ),
-      walletKey = await encryptionService.unwrapKey({
-        wrappedKey: encryptedSecretKey,
-        wrappingKey,
-      }),
-      chest = await encryptionService.getChest(walletKey);
 
-    return WalletService.joinWallet(walletId, chest);
+    b64InviteString: string;
+  }) {
+    const wrappingKey = await deriveKeyFromPublicEcdh(b64PublicECDHKey),
+      walletKey = await unwrapKey(encryptedSecretKey, wrappingKey),
+      chest = await generateChest(walletKey);
+
+    try {
+      await WalletService.joinWallet(walletId, chest);
+    } catch (error) {
+      await request({
+        method: post,
+        path: `${this.prefix}/fail`,
+        data: { b64InviteString },
+      });
+      throw error;
+    }
   }
 }

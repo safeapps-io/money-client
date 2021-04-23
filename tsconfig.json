@@ -25,8 +25,14 @@
       "$service-worker": [
         ".svelte/build/runtime/service-worker"
       ],
-      "$lib/*": [
-        "src/lib/*"
+      "$strict": [
+        "src/components/strict"
+      ],
+      "$validators": [
+        "src/components/strict/validators"
+      ],
+      "$strict/*": [
+        "src/components/strict/*"
       ],
       "$components/*": [
         "src/components/*"
@@ -51,7 +57,6 @@
     "strictNullChecks": true,
     "resolveJsonModule": true,
     "allowJs": true,
-    "checkJs": true,
     "noEmit": true,
   },
 }

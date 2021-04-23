@@ -1,10 +1,10 @@
 <script>
-  import type { Choices } from '$components/strict/base';
+  import type { Choices } from '$strict/base';
   import type { Transaction, FullEntity, Category, OmitCommonFields } from '$stores/decr/types';
 
   import Modal from '$components/elements/modal.svelte';
   import CategoryForm from './form.svelte';
-  import { Field, SelectInput } from '$components/strict';
+  import { Field, SelectInput } from '$strict';
 
   import { _ } from 'svelte-i18n';
 

@@ -7,13 +7,12 @@
     WalletUser,
   } from '$stores/decr/types';
   import type { TransactionFieldsForm } from '$core/transaction/setCorrectAmount';
+  import type { CsvParsedTransactionResolution } from '$core/import/constants';
 
   import { createEventDispatcher } from 'svelte';
 
   import ParsedTransactionData from '../parsedTransactionData.svelte';
   import SubmitButtons from '../submitButtons.svelte';
-
-  import { CsvParsedTransactionResolution } from '$core/import/constants';
 
   const dispatch = createEventDispatcher();
 

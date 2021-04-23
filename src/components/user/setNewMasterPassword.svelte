@@ -1,37 +1,41 @@
 <script>
   import { Onboarding, Text } from '$components/onboarding';
+  import { Form, MasterPasswordField } from '$strict';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
 
   import { FormError } from '$services/errors';
-  import { Form, MasterPasswordField } from '$components/strict';
+  import { AuthService } from '$services/auth/authService';
 
   import { currentChestsStore } from '$stores/wallet';
-  import { setNewMasterPassword } from '$services/crypto/masterPassword';
+  import { userDecrStore } from '$stores/decr/user';
 
-  export let userId: string,
-    isFirstPassword: boolean = true,
-    cleanup: boolean = false,
-    notificationText: undefined | string = undefined;
+  export let isFirstPassword: boolean = true;
 
-  let shouldShowSecondPassword = false;
+  let shouldShowSecondPassword = false,
+    cleanup = false,
+    notificationText: string | undefined;
 
   const success = async ({ password, password2 }: { password: string; password2?: string }) => {
-    if (isFirstPassword && !shouldShowSecondPassword) return (shouldShowSecondPassword = true);
+    if (!shouldShowSecondPassword) {
+      shouldShowSecondPassword = true;
 
-    if (isFirstPassword && password !== password2)
+      if (isFirstPassword) return null;
+      setTimeout(() => {
+        cleanup = true;
+        notificationText = $_('routes.user.masterPassOk');
+      }, 100);
+    }
+
+    if (password !== password2)
       throw new FormError({
         code: 0,
         fieldErrors: { password2: [$_('cmps.masterPassword.old.pass.samePasswords')] },
       });
 
     try {
-      await setNewMasterPassword({
-        masterPassword: password,
-        currentChests: $currentChestsStore,
-        userId,
-      });
+      await AuthService.setMasterPassword(password, $currentChestsStore, $userDecrStore);
     } catch (error) {
       throw new FormError({
         code: 0,

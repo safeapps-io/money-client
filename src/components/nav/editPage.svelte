@@ -12,15 +12,14 @@
 
   import { _ } from 'svelte-i18n';
 
-  import { syncStatusStore, SyncStatuses } from '$stores/sync';
+  import { isOnlineStore } from '$stores/isOnline';
 
   export let hasEnt: boolean;
-  $: loading = $syncStatusStore !== SyncStatuses.finished;
 </script>
 
 {#if hasEnt}
   <slot />
-{:else if loading}
+{:else if $isOnlineStore}
   <h3 class="title">{$_('cmps.nav.loading')}</h3>
 {:else}
   <h3 class="title has-text-danger">{$_('cmps.nav.404.title')}</h3>

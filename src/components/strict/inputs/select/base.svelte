@@ -1,12 +1,12 @@
 <script>
-  import type { FormStore } from '$components/strict/base';
+  import type { FormStore } from '$strict/base';
 
   import ChoiceCmp from './choice.svelte';
 
   import { getContext } from 'svelte';
 
-  import { oneOf } from '$core/strict/string';
-  import { getValueFromChoisesRecursively } from '$components/strict/base';
+  import { oneOf } from '$validators';
+  import { getValueFromChoisesRecursively } from '$strict/base';
 
   import { debugLog } from '$core/logger';
 

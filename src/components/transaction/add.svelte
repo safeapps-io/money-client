@@ -1,6 +1,7 @@
 <script>
   import { Onboarding, Text } from '$components/onboarding';
 
+  import { getContext } from 'svelte';
   import { _ } from 'svelte-i18n';
   import { goto } from '$app/navigation';
   import { media } from 'svelte-match-media';
@@ -10,6 +11,7 @@
 
   export let shouldShowOnboarding = true;
 
+  const isPlanActive = getContext('isPlanActive')();
   const key = 'howToAdd';
 
   $: mobileMode = $media.mobile;
@@ -25,7 +27,8 @@
       class:is-light={mobileMode}
       class:is-fullwidth={mobileMode}
       href={$importPath}
-      on:click={() => finishOnboarding().then(onbClickSlot)}>{$_('cmps.transaction.import')}</a>
+      on:click={e => isPlanActive(e) && finishOnboarding().then(onbClickSlot)}
+      >{$_('cmps.transaction.import')}</a>
 
     <svelte:fragment slot="text">
       <Text header>{$_('routes.wallet.import')}</Text>
@@ -38,13 +41,14 @@
           },
         })}
       </Text>
-
       <button class="button is-small my-3" on:click={finishOnboarding}
         >{$_('common.tryLater')}</button>
     </svelte:fragment>
   </Onboarding>
   <div class={manualAddClasses}>
-    <a class={'is-size-7 is-underlined ' + manualAddClasses} href={$addTransactionPath}
-      >{$_('cmps.transaction.add')}</a>
+    <a
+      class={'is-size-7 is-underlined ' + manualAddClasses}
+      href={$addTransactionPath}
+      on:click={isPlanActive}>{$_('cmps.transaction.add')}</a>
   </div>
 </div>

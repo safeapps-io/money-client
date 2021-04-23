@@ -66,7 +66,7 @@
     currentStep == 'finish'}
   let:finishOnboarding>
   <svelte:fragment slot="text">
-    <CrossfadeWrapper replayAnimationKey={currentStep}>
+    <CrossfadeWrapper key={currentStep}>
       {#if currentStep == 'unknown'}
         <Text header>{$_('cmps.import.scheme.onboarding.unknown.title')}</Text>
         <Text>{$_('cmps.import.scheme.onboarding.unknown.main')}</Text>

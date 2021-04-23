@@ -1,4 +1,6 @@
 <script>
+  import '../styles/layouts/_app.scss';
+
   import Meta from '$components/nav/meta.svelte';
   import Notifications from '$components/elements/notifications.svelte';
 
@@ -25,21 +27,10 @@
   $: if (!$isLoading) localesLoaded = true;
 </script>
 
-<Meta
-  title="Trustless manifesto // @safeapps.io"
-  description="My vision on how we should build apps that are safe for user's data." />
+<Meta title="[safe] money" />
 
 {#if appInitialized && localesLoaded}
   <Notifications>
     <slot />
   </Notifications>
 {/if}
-
-<style global lang="scss">
-  @import 'src/styles/layouts/app';
-
-  // This stinks, but can't do anything until it fixes: https://github.com/keenethics/svelte-notifications/issues/37
-  .default-position-style-bottom-right {
-    @include z(notification-toast);
-  }
-</style>

@@ -4,6 +4,7 @@
   import ReferenceTransactionCard from '$components/transaction/card/referenceTransaction.svelte';
   import ReferenceTransactionForm from '$components/transaction/form/referenceTransactionForm.svelte';
 
+  import { getContext } from 'svelte';
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
 
@@ -12,7 +13,8 @@
   export let transactions: FullEntity<ReferenceTransaction>[], wallet: FullEntity<WalletData>;
   let showForm = !transactions.length;
 
-  const setActive = ({ detail: refTransactionId }: { detail: string }) =>
+  const isPlanActive = getContext('isPlanActive')(),
+    setActive = ({ detail: refTransactionId }: { detail: string }) =>
       walletDataUpdate({
         ent: wallet,
         decr: { ...wallet.decr, activeTransactionId: refTransactionId },
@@ -49,7 +51,10 @@
   </div>
 {:else}
   <div transition:slide|local>
-    <button type="button" class="button is-light" on:click={() => (showForm = !showForm)}>
+    <button
+      type="button"
+      class="button is-light"
+      on:click={() => isPlanActive() && (showForm = !showForm)}>
       {$_('common.form.set')}
     </button>
   </div>

@@ -7,19 +7,11 @@
   import DropUser from '$components/user/settings/dropUser.svelte';
 
   import { _ } from 'svelte-i18n';
-
-  import { userEncrStore } from '$stores/user';
-
-  $: userId = $userEncrStore!.id;
 </script>
 
 <Page title={$_('cmps.nav.menu.security')} nestColumnClass="is-8">
   <h2 class="subtitle">{$_('routes.user.masterPass')}</h2>
-  <SetNewMasterPassword
-    {userId}
-    isFirstPassword={false}
-    cleanup
-    notificationText={$_('routes.user.masterPassOk')} />
+  <SetNewMasterPassword isFirstPassword={false} />
   <hr />
   <h2 class="subtitle">{$_('routes.user.pin')}</h2>
   <SetPinCode />

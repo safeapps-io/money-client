@@ -1,3 +1,5 @@
+// https://github.com/sveltejs/kit/pull/1156
+// @ts-expect-error
 import { build, files, timestamp } from '$service-worker';
 
 declare var self: ServiceWorkerGlobalScope;

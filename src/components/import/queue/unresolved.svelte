@@ -6,6 +6,7 @@
     Transaction,
     WalletUser,
   } from '$stores/decr/types';
+  import type { CsvParsedTransactionResolution } from '$core/import/constants';
 
   import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
   import ParsedTransactionData from './parsedTransactionData.svelte';
@@ -16,7 +17,6 @@
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
 
-  import { CsvParsedTransactionResolution } from '$core/import/constants';
 
   const dispatch = createEventDispatcher();
 
@@ -55,7 +55,7 @@
       </svelte:fragment>
     </Onboarding>
 
-    <CrossfadeWrapper replayAnimationKey={JSON.stringify(transactionToResolve)}>
+    <CrossfadeWrapper key={JSON.stringify(transactionToResolve)}>
       <Onboarding preventSlotClick shouldShow={showOnboarding && currentStep == 'card'}>
         <div class="box" class:box--hoverable={!showEdit} class:my-4={showEdit}>
           <ParsedTransactionData

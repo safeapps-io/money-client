@@ -2,7 +2,7 @@
   import type { FullEntity, Category } from '$stores/decr/types';
 
   import Level from '$components/elements/level.svelte';
-  import { Form, NameField, ColorField } from '$components/strict';
+  import { Form, NameField, ColorField } from '$strict';
   import WalletField from '$components/wallet/walletField.svelte';
   import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
   import CategorySwitchModal from './categorySwitchModal.svelte';
@@ -52,7 +52,7 @@
   <CategorySwitchModal {ent} bind:active={showCategorySwitch} on:delete={launchDelete} />
 {/if}
 
-<Form buttonText={ent ? $_('common.form.update') : $_('common.form.create')} {success}>
+<Form planLimit buttonText={ent ? $_('common.form.update') : $_('common.form.create')} {success}>
   <WalletField walletId={ent?.walletId} />
 
   <NameField inputValue={ent?.decr.name} placeholder={$_('cmps.category.namePlaceholder')} />

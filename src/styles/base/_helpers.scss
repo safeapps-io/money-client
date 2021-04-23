@@ -8,6 +8,12 @@
   right: 0;
 }
 
+.fullwidth-overlay {
+  @extend .fullwidth-absolute;
+  bottom: 0;
+  top: 0;
+}
+
 .is-flex {
   display: flex;
 }

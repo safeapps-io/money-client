@@ -1,7 +1,7 @@
 <script>
   import type { FullEntity, WalletUser } from '$stores/decr/types';
 
-  import { Form, NameField, ColorField } from '$components/strict';
+  import { Form, NameField, ColorField } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
@@ -22,7 +22,7 @@
     };
 </script>
 
-<Form {success}>
+<Form planLimit {success}>
   <NameField inputValue={ent ? ent.decr.name : undefined} />
   <ColorField inputValue={ent ? ent.decr.color : undefined} />
 

@@ -5,9 +5,7 @@
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { AuthService, InvitePurpose, InviteStringTypes } from '$services/auth/authService';
-  import { joiningError, launchWalletJoin } from '$services/invite/inviteWsActions';
-  import { InviteService } from '$services/invite/inviteService';
+  import { InviteService, InviteStringTypes } from '$services/invite/inviteService';
   import { InviteResolutions, inviteResolutionStore } from '$services/invite/inviteStages';
 
   const dispatch = createEventDispatcher();
@@ -32,10 +30,7 @@
   const validateInvite = async (inviteString: string) => {
       stage = JoinStages.validatingInvite;
       try {
-        const { json: res } = await AuthService.isInviteValid(
-          inviteString,
-          InvitePurpose.walletJoin,
-        );
+        const { json: res } = await InviteService.isInviteValid(inviteString);
         if (res.type != InviteStringTypes.wallet) throw new Error();
         stage = JoinStages.ask;
       } catch (error) {
@@ -54,9 +49,7 @@
   const launchJoin = async () => {
     hashData = undefined;
     try {
-      const { ecdhPublicKeyHash, ...requestData } = await InviteService.joiningInitial(invite);
-      $launchWalletJoin({ ...requestData, b64InviteString: invite });
-
+      const ecdhPublicKeyHash = await InviteService.launchWalletJoin(invite);
       stage = JoinStages.joinLaunched;
       hashData = ecdhPublicKeyHash;
     } catch (error) {
@@ -65,33 +58,24 @@
   };
 
   $: validateInvite(invite);
-  $: {
-    const state = $inviteResolutionStore;
-    if (state) {
-      switch (state.type) {
-        case InviteResolutions.error:
-          stage = JoinStages.joinError;
-          break;
+  $: switch ($inviteResolutionStore?.type) {
+    case InviteResolutions.error:
+      stage = JoinStages.joinError;
+      break;
 
-        case InviteResolutions.reject:
-          stage = JoinStages.joinRejected;
-          break;
+    case InviteResolutions.reject:
+      stage = JoinStages.joinRejected;
+      break;
 
-        case InviteResolutions.accept:
-          InviteService.joiningFinal(state.payload)
-            .then(() => (stage = JoinStages.joinAccepted))
-            .catch(() => {
-              $joiningError({ b64InviteString: invite });
-              stage = JoinStages.joinError;
-            });
-          break;
-      }
-    }
+    case InviteResolutions.accept:
+      InviteService.joiningFinal({ ...$inviteResolutionStore.payload, b64InviteString: invite })
+        .then(() => (stage = JoinStages.joinAccepted))
+        .catch(() => (stage = JoinStages.joinError));
   }
 </script>
 
 <Modal canBeVoluntarilyClosed={false} bind:active noBox forceScale>
-  <CrossfadeWrapper replayAnimationKey={stage}>
+  <CrossfadeWrapper key={stage}>
     {#if stage == JoinStages.validatingInvite}
       <div class="item">
         <h2>{$_('cmps.wallet.userAccess.invite.join.validate')}</h2>
