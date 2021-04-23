@@ -15,4 +15,4 @@ export const apiPath = `${apiHost}/api`,
 
 let clientId: string | null = null;
 export const getSSEClientId = () => clientId || (clientId = nanoid()),
-  ssePath = `${apiPath}/sse/${getSSEClientId()}`;
+  ssePath = `${apiPath}/sse?clientId=${getSSEClientId()}`;
