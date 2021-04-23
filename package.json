@@ -46,6 +46,7 @@
     "cssnano": "^4.1.10",
     "dotenv-flow": "^3.2.0",
     "fake-indexeddb": "^3.0.1",
+    "helmet": "^4.5.0",
     "postcss": "^8.1.14",
     "postcss-100vh-fix": "^1.0.2",
     "postcss-easing-gradients": "^3.0.1",

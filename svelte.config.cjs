@@ -4,6 +4,7 @@ config();
 const sveltePreprocess = require('svelte-preprocess'),
   path = require('path'),
   node = require('@sveltejs/adapter-node'),
+  helmet = require('helmet'),
   pkg = require('./package.json');
 
 const mode = process.env.NODE_ENV,
@@ -11,15 +12,17 @@ const mode = process.env.NODE_ENV,
   version = `${pkg.version}${dev ? ' (dev)' : ''}`;
 
 const envKeys = [
-  'API_WS_SCHEME',
-  'API_SCHEME',
-  'API_HOST',
-  'API_PORT',
-  'SITE_SCHEME',
-  'SITE_HOST',
-  'SITE_PORT',
-  'ROOT_HOST',
-];
+    'API_WS_SCHEME',
+    'API_SCHEME',
+    'API_HOST',
+    'API_PORT',
+    'SITE_SCHEME',
+    'SITE_HOST',
+    'SITE_PORT',
+    'ROOT_HOST',
+  ],
+  apiHost = `${process.env.API_SCHEME}://${process.env.API_HOST}`,
+  analyticsHost = `sa.${process.env.ROOT_HOST}`;
 
 /** @type {import('@sveltejs/kit').Config} */
 module.exports = {
@@ -45,6 +48,29 @@ module.exports = {
         },
         dedupe: ['svelte'],
       },
+      plugins: [
+        (() => ({
+          name: 'configure-server',
+          configureServer(server) {
+            server.middlewares.use(
+              helmet({
+                contentSecurityPolicy: {
+                  // TODO: those are not restricting at all. Rework after Kit adds support for it.
+                  // https://github.com/sveltejs/kit/issues/887
+                  // Same headers are applied in nginx config.
+                  directives: {
+                    defaultSrc: ["'self' 'unsafe-inline'"],
+                    scriptSrc: ["'self' 'unsafe-inline'"],
+                    styleSrc: ["'self' 'unsafe-inline'"],
+                    connectSrc: ["'self'", apiHost, analyticsHost, 'ws://localhost:24678/'],
+                    imgSrc: ["'self' data:", analyticsHost],
+                  },
+                },
+              }),
+            );
+          },
+        }))(),
+      ],
       ssr: {
         /**
          * Currently we have problems with 3 deps:
