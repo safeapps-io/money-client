@@ -21,7 +21,7 @@ const envKeys = [
     'SITE_PORT',
     'ROOT_HOST',
   ],
-  apiHost = `${process.env.API_SCHEME}://${process.env.API_HOST}`,
+  apiHost = `${process.env.API_SCHEME}://${process.env.API_HOST}:${process.env.API_PORT}`,
   analyticsHost = `sa.${process.env.ROOT_HOST}`;
 
 /** @type {import('@sveltejs/kit').Config} */
