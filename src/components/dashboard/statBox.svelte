@@ -1,6 +1,6 @@
 <script>
-  import { moneyFormat, percentFormat } from '@/utils/number';
-  import { defaultAssetStore } from '@/stores/decr/asset';
+  import { moneyFormat, percentFormat } from '$utils/number';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
   export let label: string,
     labelClass: string,

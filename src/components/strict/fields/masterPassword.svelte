@@ -16,12 +16,13 @@
    * So to disable this behaviour we use `type='text'` and `text-security: disc`, which does
    * not work in Firefox, but that's not that important.
    */
-  import Field from '@/components/strict/field.svelte';
-  import Text from '@/components/strict/inputs/text.svelte';
+  import Field from '$components/strict/field.svelte';
+  import TextInput from '$components/strict/inputs/text.svelte';
 
-  import { ensureString, trim, minLength, maxLength } from '@/core/strict/string';
+  import { ensureString, trim, minLength, maxLength } from '$validators';
 
-  export let help: string | undefined = undefined,
+  export let validate = true,
+    help: string | undefined = undefined,
     label: string | undefined = undefined,
     isSecond: boolean = false;
 
@@ -31,13 +32,13 @@
     required: true,
     help,
     clean: [ensureString, trim],
-    validate: [minLength(6), maxLength(100)],
+    validate: validate ? [minLength(12), maxLength(100)] : [],
   };
 </script>
 
 <div class="field">
   <Field {field}>
-    <Text type="text" placeholder="correct-horse-staple-battery" />
+    <TextInput type="text" placeholder="correct-horse-staple-battery" />
   </Field>
 </div>
 

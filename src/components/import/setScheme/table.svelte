@@ -1,14 +1,14 @@
 <script>
-  import Tooltip from '@/components/elements/tooltip.svelte';
+  import Tooltip from '$components/elements/tooltip.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { copy } from '@/utils/object';
+  import { copy } from '$utils/object';
 
-  import { runSimpleScheme } from '@/core/import/simpleSchemes';
-  import { ParseErrorCodes } from '@/core/import/types';
-  import { FieldResolution } from '@/core/import/constants';
-  import { guessDateFormat } from '@/core/import/guessDateFormat';
-  import { transactionsToIgnoreSetStore } from '@/stores/decr/ignoredTransaction';
+  import { runSimpleScheme } from '$core/import/simpleSchemes';
+  import { ParseErrorCodes } from '$core/import/types';
+  import { FieldResolution } from '$core/import/constants';
+  import { guessDateFormat } from '$core/import/guessDateFormat';
+  import { transactionsToIgnoreSetStore } from '$stores/decr/ignoredTransaction';
 
   export let dataRows: string[][],
     headerRow: string[] | undefined = undefined,

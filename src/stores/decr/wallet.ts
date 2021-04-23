@@ -1,7 +1,8 @@
 import { derived } from 'svelte/store';
 
 import { createDecrEntityStore } from './base';
-import { WalletData, EntityTypes, FullEntity } from './types';
+import type { WalletData, FullEntity } from './types';
+import { EntityTypes } from './types';
 
 const {
   store: _walletDataStore,

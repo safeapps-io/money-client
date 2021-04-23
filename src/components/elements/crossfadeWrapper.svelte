@@ -6,7 +6,9 @@
   import { fade } from 'svelte/transition';
   import { tweened } from 'svelte/motion';
 
-  export let replayAnimationKey: string | number;
+  import { resize } from '$utils/actions/resize';
+
+  export let key: string | number;
 
   const duration = 500;
 
@@ -20,24 +22,36 @@
   });
   $: if (typeof slotHeight != 'undefined' && typeof heightTweened != 'undefined')
     $heightTweened = slotHeight;
-  $: setHeight = typeof heightTweened == 'undefined' ? 'auto' : `${$heightTweened}px`;
+  $: style = typeof heightTweened == 'undefined' ? '' : `height: ${$heightTweened}px`;
 
   let noOverflow = true;
   const set = () => (noOverflow = true),
     unset = () => (noOverflow = false);
+
+  /**
+   * `bind:clientHeight` failed in cases, when the content of the slot changes.
+   * I didn't really catch when and why.
+   *
+   * (same in `onboarding.svelte`)
+   */
+  const resizeTrigger = (el: HTMLElement) => {
+    const { height } = el.getBoundingClientRect();
+    if (heightTweened && height) slotHeight = height;
+  };
 </script>
 
-<div class="wrapper" class:no-overflow={noOverflow} style={`height: ${setHeight}`}>
-  {#key replayAnimationKey}
+<div class="wrapper" class:no-overflow={noOverflow} {style}>
+  {#key key}
     <div
-      class="slot"
+      class="fullwidth-absolute"
       in:fade={{ easing: sineInOut, duration: inDuration }}
       out:fade|local={{ easing: sineInOut }}
       on:introstart={set}
       on:outrostart={set}
       on:introend={unset}
       on:outroend={unset}
-      bind:clientHeight={slotHeight}>
+      bind:clientHeight={slotHeight}
+      use:resize={resizeTrigger}>
       <slot />
     </div>
   {/key}
@@ -53,10 +67,7 @@
     overflow: hidden;
   }
 
-  .slot {
-    position: absolute;
+  .fullwidth-absolute {
     top: 0;
-    left: 0;
-    right: 0;
   }
 </style>

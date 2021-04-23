@@ -1,11 +1,11 @@
 import { derived } from 'svelte/store';
 
-import { areArraysTheSame } from '@/utils/array';
+import { areArraysTheSame } from '$utils/array';
 
-import { encryptionKeysStateStore, walletKeysSet } from '@/stores/encr/keysState';
-import { currentChestsStore } from '@/stores/wallet';
+import { encryptionKeysStateStore, walletKeysSet } from '$stores/encr/keysState';
+import { currentChestsStore } from '$stores/wallet';
 
-import { encryptionService } from './cryptoService';
+import { setWalletKeyFromChest } from './keys';
 
 /**
  * Store that sets wallet encryption keys on encryptionService every time wallets
@@ -22,11 +22,7 @@ export const walletKeysSetter = derived(
 
     lastKeySet = walletIds;
 
-    await Promise.all(
-      $chests.map(({ chest, walletId }) =>
-        encryptionService.getSecretKeyFromChest(chest, walletId),
-      ),
-    );
+    await Promise.all($chests.map(({ chest, walletId }) => setWalletKeyFromChest(chest, walletId)));
     walletKeysSet(true);
   },
 );

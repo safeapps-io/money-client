@@ -1,4 +1,4 @@
-import { SimpleScheme } from '@/core/import/types';
+import type { SimpleScheme } from '$core/import/types';
 import { derived, writable } from 'svelte/store';
 import { userDecrStore } from './decr/user';
 

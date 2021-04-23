@@ -1,10 +1,14 @@
-import { derived, get, writable, Writable } from 'svelte/store';
+import type { UserEncrState } from './user';
+import type { Writable } from 'svelte/store';
 
-import { UserEncrState, userEncrStore } from './user';
-import { resetStore } from '@/utils/persistStore';
+import { derived, get, writable } from 'svelte/store';
 
-import { userDecrStore } from '@/stores/decr/user';
-import { debugLog } from '@/core/logger';
+import { userEncrStore } from './user';
+import type { PlanPartial } from './billing';
+import { resetStore } from '$utils/persistStore';
+
+import { userDecrStore } from '$stores/decr/user';
+import { debugLog } from '$core/logger';
 
 export enum AccessLevels {
   owner = 'owner',
@@ -25,6 +29,7 @@ export type PublicUserData = Omit<
     chest: string;
     accessLevel: AccessLevels;
   };
+  plans: PlanPartial[];
 };
 
 export type Wallet = {

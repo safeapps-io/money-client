@@ -2,14 +2,14 @@
   import BalanceChart from './charts/balance.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, getContext } from 'svelte';
   import { slide } from 'svelte/transition';
   import { media } from 'svelte-match-media';
 
-  import { focusableShortcut } from '@/utils/actions/shortcut';
-  import { moneyFormat, percentFormat } from '@/utils/number';
+  import { focusableShortcut } from '$utils/actions/shortcut';
+  import { moneyFormat, percentFormat } from '$utils/number';
 
-  import { defaultAssetStore } from '@/stores/decr/asset';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
   // Undefined if there is not balance at all at this point (time before first transaction)
   export let balanceNumber: number | undefined,
@@ -21,6 +21,7 @@
     }[] = [];
 
   const dispatch = createEventDispatcher(),
+    isPlanActive = getContext('isPlanActive')(),
     adaptToChart = (history: typeof balanceHistory) =>
       history.map(({ date, value }) => ({ t: new Date(date), y: value }));
 
@@ -38,7 +39,7 @@
           class="has-text-dotted clickable has-text-link is-size-7"
           role="button"
           tabindex="0"
-          on:click={() => dispatch('correctBalance')}
+          on:click={() => isPlanActive() && dispatch('correctBalance')}
           use:focusableShortcut>
           {$_(
             $media.mobile

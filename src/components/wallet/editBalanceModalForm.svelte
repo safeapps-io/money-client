@@ -1,6 +1,6 @@
 <script>
-  import Modal from '@/components/elements/modal.svelte';
-  import BalanceCorrectionForm from '@/components/transaction/form/balanceCorrection.svelte';
+  import Modal from '$components/elements/modal.svelte';
+  import BalanceCorrectionForm from '$components/transaction/form/balanceCorrection.svelte';
 
   import { _ } from 'svelte-i18n';
 

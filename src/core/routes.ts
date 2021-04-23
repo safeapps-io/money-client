@@ -1,8 +1,8 @@
 import { derived } from 'svelte/store';
 
-import { siteHost } from '@/services/config';
-import { selectedWalletStore, selectedJointWalletStore, jointWalletsStore } from '@/stores/wallet';
-import { getDefaultSearchFromWalletState, searchFilterStore } from '@/stores/decr/searchFilter';
+import { siteHost } from '$services/config';
+import { selectedWalletStore, selectedJointWalletStore, jointWalletsStore } from '$stores/wallet';
+import { getDefaultSearchFromWalletState, searchFilterStore } from '$stores/decr/searchFilter';
 import { debugLog } from './logger';
 
 export const gotoInviteFullPath = (token: string) => `${siteHost}/goto/${token}/invite`;
@@ -20,7 +20,8 @@ export const appPath = '/app';
 
 const userPath = `${appPath}/user`;
 export const userSettingsPath = `${userPath}/general`,
-  userSecurityPath = `${userPath}/security`;
+  userSecurityPath = `${userPath}/security`,
+  userBillingPath = `${userPath}/billing`;
 
 /**
  * They are not exported because they are not intended to be used outside of this module.
@@ -85,13 +86,6 @@ export const transactionDraftsPath = derived(
   transactionCorrectionPathFn = derived(rootCurrentWalletPath, root => (id: string) =>
     `${root}/transaction/correction/${id}`,
   );
-
-const adminPath = `${appPath}/admin`;
-export const adminEntityListPath = (entity: string) => `${adminPath}/${entity}`,
-  adminEntityAddPath = (entity: string) => `${adminEntityListPath(entity)}/add`,
-  adminEntityPath = (entity: string, id: string) => `${adminEntityListPath(entity)}/${id}`;
-
-export const adminSettingsPath = `${adminPath}/settings`;
 
 // Root Site --------------
 const rootSite = 'https://safeapps.io';

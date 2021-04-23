@@ -1,12 +1,12 @@
-import { areArraysOverlapping } from '@/utils/array';
-import {
+import { areArraysOverlapping } from '$utils/array';
+import type {
   SearchFilter,
   FullEntity,
   CorrectionTransaction,
   ReferenceTransaction,
   Transaction,
-  EntityTypes,
-} from '@/stores/decr/types';
+} from '$stores/decr/types';
+import { EntityTypes } from '$stores/decr/types';
 
 export const getTransactionFilter = ({
   searchFilter,

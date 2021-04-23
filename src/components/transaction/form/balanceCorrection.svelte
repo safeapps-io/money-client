@@ -1,24 +1,24 @@
 <script>
-  import type { FullEntity, CorrectionTransaction } from '@/stores/decr/types';
+  import type { FullEntity, CorrectionTransaction } from '$stores/decr/types';
 
-  import Level from '@/components/elements/level.svelte';
-  import WalletField from '@/components/wallet/walletField.svelte';
-  import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
-  import { Field, Form, TextInput } from '@/components/strict';
+  import Level from '$components/elements/level.svelte';
+  import WalletField from '$components/wallet/walletField.svelte';
+  import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
+  import { Field, Form, TextInput } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { inputFormatDate } from '@/utils/date';
+  import { inputFormatDate } from '$utils/date';
 
-  import { ensureDate, dateIsAfter, dateIsBefore, ensureNumber } from '@/core/strict/number';
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { userEncrStore } from '@/stores/user';
+  import { ensureDate, dateIsAfter, dateIsBefore, ensureNumber } from '$validators';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { userEncrStore } from '$stores/user';
   import {
     correctionTransactionUpdate,
     correctionTransactionAdd,
-  } from '@/stores/decr/correctionTransaction';
-  import { defaultAssetStore } from '@/stores/decr/asset';
+  } from '$stores/decr/correctionTransaction';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
   /**
    * This form can create a new balance correction and can edit a pre-existing correction.
@@ -65,7 +65,7 @@
   };
 </script>
 
-<Form {success}>
+<Form planLimit {success}>
   <WalletField walletId={ent ? ent.walletId : undefined} />
 
   <Field field={amountField}>
@@ -74,21 +74,19 @@
   <Field field={datetimeField}>
     <TextInput type="date" />
   </Field>
-  <div slot="submit">
-    <Level>
-      <div class="column is-narrow" slot="left">
-        <slot name="left">
-          <button class="button is-success is-outlined"
-            >{ent ? $_('common.form.update') : $_('common.form.create')}</button>
-        </slot>
-      </div>
-      <div class="column is-narrow" slot="right">
-        <slot name="right">
-          {#if ent}
-            <DeleteEntityButton entityMap={{ [ent.walletId]: [ent.id] }} on:delete />
-          {/if}
-        </slot>
-      </div>
-    </Level>
-  </div>
+  <Level slot="submit">
+    <div class="column is-narrow" slot="left">
+      <slot name="left">
+        <button class="button is-success is-outlined"
+          >{ent ? $_('common.form.update') : $_('common.form.create')}</button>
+      </slot>
+    </div>
+    <div class="column is-narrow" slot="right">
+      <slot name="right">
+        {#if ent}
+          <DeleteEntityButton entityMap={{ [ent.walletId]: [ent.id] }} on:delete />
+        {/if}
+      </slot>
+    </div>
+  </Level>
 </Form>

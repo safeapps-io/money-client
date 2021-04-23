@@ -12,19 +12,19 @@
     OmitCommonFields,
     Transaction,
     WalletUser,
-  } from '@/stores/decr/types';
-  import type { FormStore } from '@/components/strict/base';
-  import type { TransactionFieldsForm } from '@/core/transaction/setCorrectAmount';
+  } from '$stores/decr/types';
+  import type { FormStore } from '$strict/base';
+  import type { TransactionFieldsForm } from '$core/transaction/setCorrectAmount';
 
   import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
 
-  import TransactionFields from '@/components/transaction/form/fields.svelte';
-  import AutocompleteTable from '@/components/transaction/card/autocompleteTable.svelte';
-  import TransactionCard from '@/components/transaction/card/transactionCard.svelte';
-  import { Form } from '@/components/strict';
+  import TransactionFields from '$components/transaction/form/fields.svelte';
+  import AutocompleteTable from '$components/transaction/card/autocompleteTable.svelte';
+  import TransactionCard from '$components/transaction/card/transactionCard.svelte';
+  import { Form } from '$strict';
 
-  import { setCorrectAmount } from '@/core/transaction/setCorrectAmount';
+  import { setCorrectAmount } from '$core/transaction/setCorrectAmount';
 
   const dispatch = createEventDispatcher();
 
@@ -63,7 +63,7 @@
 <div class:clickable={!showEdit}>
   {#if showEdit}
     <div class="py-3" transition:slide|local>
-      <Form showSubmit={false} bind:formStore on:success={success}>
+      <Form planLimit showSubmit={false} bind:formStore on:success={success}>
         <TransactionFields {defaultWalletUserId} {suggestedCategoryIds} ent={transaction} />
         <!-- 
           When used in unresolved.svelte, we pass no slot here and trigger submit from main.svelte.

@@ -5,12 +5,12 @@
     CorrectionTransaction,
     WalletUser,
     Category,
-  } from '@/stores/decr/types';
+  } from '$stores/decr/types';
 
   import TransactionCard from './transactionCard.svelte';
   import CorrectionCard from './correctionTransaction.svelte';
 
-  import { EntityTypes } from '@/stores/decr/types';
+  import { EntityTypes } from '$stores/decr/types';
 
   export let transaction: Transaction | CorrectionTransaction,
     walletUser: FullEntity<WalletUser> | undefined = undefined,

@@ -1,7 +1,7 @@
 <script>
-  import type { LabeledChoice } from '@/components/strict/base';
+  import type { LabeledChoice } from '$strict/base';
 
-  import { focusableShortcut } from '@/utils/actions/shortcut';
+  import { focusableShortcut } from '$utils/actions/shortcut';
 
   export let tabs: LabeledChoice[],
     sticky: boolean = false,

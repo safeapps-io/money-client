@@ -1,9 +1,9 @@
 <script lang="typescript">
-  import type { FormStore } from '@/components/strict/base';
+  import type { FormStore } from '$strict/base';
 
   import { getContext } from 'svelte';
 
-  import { autofocus as autofocusAction } from '@/utils/actions/autofocus';
+  import { autofocus as autofocusAction } from '$utils/actions/autofocus';
 
   export let type: string | undefined = 'text',
     autocomplete: string | undefined = 'off',

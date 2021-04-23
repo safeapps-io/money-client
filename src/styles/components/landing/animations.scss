@@ -1,7 +1,0 @@
-$name: slight-rotation;
-
-@include slight-rotation($name);
-.anim-rotate {
-  transform-origin: bottom;
-  animation: $name 1.5s infinite;
-}

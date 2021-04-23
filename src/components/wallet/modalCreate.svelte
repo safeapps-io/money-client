@@ -1,16 +1,16 @@
 <script>
-  import Modal from '@/components/elements/modal.svelte';
+  import Modal from '$components/elements/modal.svelte';
   import WalletForm from './forms/wallet.svelte';
   import JointWalletForm from './forms/jointWallet.svelte';
-  import { Onboarding, Text } from '@/components/onboarding';
-  import Tabs from '@/components/elements/tabs.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
+  import Tabs from '$components/elements/tabs.svelte';
 
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
   import { tick } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { searchIdPathFn } from '@/core/routes';
-  import { defaultSearchFilter } from '@/stores/decr/searchFilter';
+  import { searchIdPathFn } from '$core/routes';
+  import { defaultSearchFilter } from '$stores/decr/searchFilter';
 
   export let firstWallet: boolean = false,
     active: boolean = false;
@@ -48,10 +48,10 @@
     <Onboarding shouldShow={firstWallet} key="firstWallet">
       <WalletForm on:created={created} alwaysCreateDefaultCategories={firstWallet} />
 
-      <div slot="text">
+      <svelte:fragment slot="text">
         <Text header>{$_('cmps.wallet.common.wallets')}</Text>
         <Text>{$_('cmps.wallet.onboarding.main')}</Text>
-      </div>
+      </svelte:fragment>
     </Onboarding>
   {:else}
     <h1 class="title">{$_('cmps.wallet.create.jointWallet')}</h1>

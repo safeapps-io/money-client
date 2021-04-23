@@ -1,11 +1,11 @@
 <script>
-  import { CheckboxInput, Field, Form } from '@/components/strict';
+  import { CheckboxInput, Field, Form } from '$strict';
 
   import { _ } from 'svelte-i18n';
 
-  import { ensureBoolean } from '@/core/strict/boolean';
-  import { userEncrStore } from '@/stores/user';
-  import { AuthService } from '@/services/auth/authService';
+  import { ensureBoolean } from '$validators';
+  import { userEncrStore } from '$stores/user';
+  import { AuthService } from '$services/auth/authService';
 
   $: field = {
     name: 'isSubscribed',
@@ -15,9 +15,8 @@
     clean: [ensureBoolean],
   };
 
-  const success = async ({ isSubscribed }: { isSubscribed: boolean }) => {
-    await AuthService.updateIsSubscribed(isSubscribed);
-  };
+  const success = async ({ isSubscribed }: { isSubscribed: boolean }) =>
+    AuthService.updateUser({ isSubscribed });
 </script>
 
 <Form {success} buttonText={$_('common.form.save')} notificationText={$_('common.form.okNotif')}>

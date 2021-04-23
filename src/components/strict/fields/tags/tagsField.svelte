@@ -1,10 +1,10 @@
 <script>
-  import type { FormStore, LabeledChoice } from '@/components/strict/base';
+  import type { FormStore, LabeledChoice } from '$strict/base';
 
   import { getContext, tick } from 'svelte';
   import { slide } from 'svelte/transition';
 
-  import { clickOutside } from '@/utils/actions/clickOutside';
+  import { clickOutside } from '$utils/actions/clickOutside';
 
   import TagChoices from './tagChoices.svelte';
   import TagInput from './tagInput.svelte';

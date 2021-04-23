@@ -1,39 +1,39 @@
 <script>
-  import type { ParsedTransaction } from '@/core/import/types';
-  import type { OmitCommonFields, Transaction } from '@/stores/decr/types';
+  import type { ParsedTransaction } from '$core/import/types';
+  import type { OmitCommonFields, Transaction } from '$stores/decr/types';
 
-  import { Onboarding, Text } from '@/components/onboarding';
-  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
-  import Tabs from '@/components/elements/tabs.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
+  import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
+  import Tabs from '$components/elements/tabs.svelte';
   import Unresolved from './unresolved.svelte';
   import AutomationSettings from './automationSettings.svelte';
   import ResolvedTransactionList from './resolved/transactionList.svelte';
   import ResolvedAutoTransactionList from './resolved/autoTransactionList.svelte';
-  import Troubleshoot from '@/components/elements/dropdown/troubleshoot.svelte';
+  import Troubleshoot from '$components/elements/dropdown/troubleshoot.svelte';
 
   import { _ } from 'svelte-i18n';
   import { media } from 'svelte-match-media';
   import { createEventDispatcher, tick } from 'svelte';
   import arrowRightIcon from 'teenyicons/outline/arrow-right.svg';
 
-  import { accentTags, generateLinkTags } from '@/utils/accentTags';
+  import { accentTags, generateLinkTags } from '$utils/accentTags';
 
-  import { CsvParsedTransactionResolution } from '@/core/import/constants';
+  import { CsvParsedTransactionResolution } from '$core/import/constants';
   import {
     autocompleteDataStore,
     mutateStateWithTransactionData,
-  } from '@/stores/decr/autocomplete';
-  import { getTransposedAutocomplete } from '@/core/import/selfUpdatingAutocomplete';
-  import { getInitialTransactionState } from '@/core/import/getInitialTransactionState';
-  import { userEncrStore } from '@/stores/user';
-  import { defaultAssetStore } from '@/stores/decr/asset';
-  import { currentWalletUserStore, defaultWalletUserIdStore } from '@/stores/decr/walletUser';
-  import { automationSettingsStore } from '@/stores/decr/user';
-  import { currentWalletTransactionStore } from '@/stores/decr/transaction';
-  import { getInitialParsingState } from '@/core/import/getInitialParsingState';
-  import { shouldTransactionBeAutoResolved } from '@/core/import/autoResolve';
-  import { currentWalletCategoryStore } from '@/stores/decr/category';
-  import { forumHelpPath } from '@/core/routes';
+  } from '$stores/decr/autocomplete';
+  import { getTransposedAutocomplete } from '$core/import/selfUpdatingAutocomplete';
+  import { getInitialTransactionState } from '$core/import/getInitialTransactionState';
+  import { userEncrStore } from '$stores/user';
+  import { defaultAssetStore } from '$stores/decr/asset';
+  import { currentWalletUserStore, defaultWalletUserIdStore } from '$stores/decr/walletUser';
+  import { automationSettingsStore } from '$stores/decr/user';
+  import { currentWalletTransactionStore } from '$stores/decr/transaction';
+  import { getInitialParsingState } from '$core/import/getInitialParsingState';
+  import { shouldTransactionBeAutoResolved } from '$core/import/autoResolve';
+  import { currentWalletCategoryStore } from '$stores/decr/category';
+  import { forumHelpPath } from '$core/routes';
 
   const dispatch = createEventDispatcher(),
     unresolvedTab = 'Unresolved';
@@ -274,12 +274,12 @@
   {textSlotWidth}
   {key}
   shouldShow={currentStep == 'intro' && !!state[unresolvedTab].length}>
-  <div slot="text">
+  <svelte:fragment slot="text">
     <Text header>{$_('cmps.import.queue.onboarding.automation.header')}</Text>
     <Text>{$_('cmps.import.queue.onboarding.automation.main')}</Text>
     <button class="button mt-3" on:click={() => (currentStep = 'tabsUnS')}
       >{$_('common.letsStart')}</button>
-  </div>
+  </svelte:fragment>
 </Onboarding>
 
 <div class="settings-area mb-3">
@@ -313,8 +313,8 @@
       <span>{tab.label || tab.value}</span>
     </Tabs>
 
-    <div slot="text">
-      <CrossfadeWrapper replayAnimationKey={currentStep}>
+    <svelte:fragment slot="text">
+      <CrossfadeWrapper key={currentStep}>
         {#if currentStep == 'tabsUnS'}
           <Text>
             {@html $_('cmps.import.queue.onboarding.tabs.queue', {
@@ -346,11 +346,11 @@
             >{$_('common.allClear')}</button>
         {/if}
       </CrossfadeWrapper>
-    </div>
+    </svelte:fragment>
   </Onboarding>
 
   <div class="tab-container py-4" bind:this={rootFormRef}>
-    <CrossfadeWrapper replayAnimationKey={activeTab}>
+    <CrossfadeWrapper key={activeTab}>
       {#if activeTab == unresolvedTab}
         <Unresolved
           {transactionToResolve}
@@ -388,11 +388,11 @@
         ><img src={arrowRightIcon} alt="arrow right" height="15" width="15" /></span>
     </button>
 
-    <div slot="text">
+    <svelte:fragment slot="text">
       <Text>{$_('cmps.import.queue.onboarding.final.clickWhenSave')}</Text>
       <Text>{$_('cmps.import.queue.onboarding.final.savePlace')}</Text>
       <button class="button mt-5" on:click={finishOnboarding}>{$_('common.letsStart')}</button>
-    </div>
+    </svelte:fragment>
   </Onboarding>
 </div>
 

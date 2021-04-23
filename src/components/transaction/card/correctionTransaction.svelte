@@ -1,12 +1,12 @@
 <script>
-  import type { CorrectionTransaction } from '@/stores/decr/types';
+  import type { CorrectionTransaction } from '$stores/decr/types';
 
   import AmountDisplay from './amountDisplay.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { defaultAssetStore } from '@/stores/decr/asset';
-  import { relativeDate } from '@/core/i18n/relativeDate';
+  import { defaultAssetStore } from '$stores/decr/asset';
+  import { relativeDate } from '$core/i18n/relativeDate';
 
   export let transaction: CorrectionTransaction;
 </script>

@@ -1,16 +1,16 @@
 <script>
   import type { SetSchemeOnboardingSteps } from '../types';
 
-  import { Onboarding, Text } from '@/components/onboarding';
-  import Tooltip from '@/components/elements/tooltip.svelte';
-  import Choice from '@/components/strict/inputs/select/choice.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
+  import Tooltip from '$components/elements/tooltip.svelte';
+  import { Choices } from '$strict';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
 
-  import { generateLinkTags } from '@/utils/accentTags';
+  import { generateLinkTags } from '$utils/accentTags';
 
-  import { FieldResolution, fieldChoices } from '@/core/import/constants';
+  import { FieldResolution, fieldChoices } from '$core/import/constants';
 
   export let columnCount: number,
     columnMatch: Array<string | null>,
@@ -55,7 +55,7 @@
       {#if i}
         <div class="select is-small is-fullwidth">
           <select bind:value={columnData.value}>
-            <Choice choices={columnData.choices} />
+            <Choices choices={columnData.choices} />
           </select>
         </div>
       {:else}
@@ -63,18 +63,18 @@
         <Onboarding bottom preventSlotClick shouldShow={currentStep == 'main'}>
           <div class="select is-small is-fullwidth">
             <select bind:value={columnData.value}>
-              <Choice choices={columnData.choices} />
+              <Choices choices={columnData.choices} />
             </select>
           </div>
 
-          <div slot="text">
+          <svelte:fragment slot="text">
             <Text header>{$_('cmps.import.scheme.onboarding.main.title')}</Text>
             <Text>{$_('cmps.import.scheme.onboarding.main.main1')}</Text>
             <Text
               >{$_('cmps.import.scheme.onboarding.main.main2', { values: { emoji: '👌' } })}</Text>
             <button class="button is-small mt-3" on:click={() => (currentStep = 'finish')}
               >{$_('cmps.import.scheme.onboarding.main.cta', { values: { emoji: '👌' } })}</button>
-          </div>
+          </svelte:fragment>
         </Onboarding>
       {/if}
     </div>

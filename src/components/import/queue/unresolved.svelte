@@ -5,18 +5,18 @@
     OmitCommonFields,
     Transaction,
     WalletUser,
-  } from '@/stores/decr/types';
+  } from '$stores/decr/types';
+  import type { CsvParsedTransactionResolution } from '$core/import/constants';
 
-  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
+  import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
   import ParsedTransactionData from './parsedTransactionData.svelte';
   import SubmitButtons from './submitButtons.svelte';
-  import ZeroData from '@/components/elements/zeroData.svelte';
-  import { Onboarding, Text } from '@/components/onboarding';
+  import ZeroData from '$components/elements/zeroData.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
 
-  import { CsvParsedTransactionResolution } from '@/core/import/constants';
 
   const dispatch = createEventDispatcher();
 
@@ -48,14 +48,14 @@
         <SubmitButtons {submitDisabled} on:submit={submit} />
       </div>
 
-      <div slot="text">
+      <svelte:fragment slot="text">
         <Text>{$_('cmps.import.queue.onboarding.saveTransactions')}</Text>
         <button class="button mt-3" on:click={() => dispatch('onboardingFinish')}
           >{$_('common.allClear')}</button>
-      </div>
+      </svelte:fragment>
     </Onboarding>
 
-    <CrossfadeWrapper replayAnimationKey={JSON.stringify(transactionToResolve)}>
+    <CrossfadeWrapper key={JSON.stringify(transactionToResolve)}>
       <Onboarding preventSlotClick shouldShow={showOnboarding && currentStep == 'card'}>
         <div class="box" class:box--hoverable={!showEdit} class:my-4={showEdit}>
           <ParsedTransactionData
@@ -67,12 +67,12 @@
             bind:showEdit
             on:success={success} />
         </div>
-        <div slot="text">
+        <svelte:fragment slot="text">
           <Text header>{$_('cmps.import.queue.onboarding.parsed.header')}</Text>
           <Text>{$_('cmps.import.queue.onboarding.parsed.main')}</Text>
           <button class="button mt-3" on:click={() => (currentStep = 'submit')}
             >{$_('common.form.ok')}</button>
-        </div>
+        </svelte:fragment>
       </Onboarding>
     </CrossfadeWrapper>
   </div>

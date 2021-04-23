@@ -1,14 +1,14 @@
 <script>
-  import { Form, Field, TextInput, PasswordField } from '@/components/strict';
+  import { Form, Field, TextInput, PasswordField } from '$strict';
   import ResetPasswordRequest from './resetPasswordRequest.svelte';
-  import Modal from '@/components/elements/modal.svelte';
+  import Modal from '$components/elements/modal.svelte';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
-  import { focusableShortcut } from '@/utils/actions/shortcut';
+  import { focusableShortcut } from '$utils/actions/shortcut';
 
-  import { AuthService } from '@/services/auth/authService';
-  import { ensureString, trim, minLength } from '@/core/strict/string';
+  import { AuthService } from '$services/auth/authService';
+  import { ensureString, trim, minLength } from '$validators';
 
   const dispatch = createEventDispatcher();
 

@@ -1,8 +1,8 @@
 <script>
-  import Link from '@/components/elements/link.svelte';
-  import Logout from '@/components/user/logout.svelte';
-  import TransactionAdd from '@/components/transaction/add.svelte';
-  import CurrentWalletDropdown from '@/components/wallet/currentWalletDropdown.svelte';
+  import Link from '$components/elements/link.svelte';
+  import Logout from '$components/user/logout.svelte';
+  import TransactionAdd from '$components/transaction/add.svelte';
+  import CurrentWalletDropdown from '$components/wallet/currentWalletDropdown.svelte';
 
   import { _ } from 'svelte-i18n';
   import { slide } from 'svelte/transition';
@@ -17,20 +17,17 @@
     walletUsersSettingsPath,
     userSettingsPath,
     userSecurityPath,
-    adminEntityListPath,
-    adminSettingsPath,
-  } from '@/core/routes';
+    userBillingPath,
+  } from '$core/routes';
 
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { searchFilterSortedByTitleStore } from '@/stores/decr/searchFilter';
-  import { userEncrStore } from '@/stores/user';
-  import { draftTransactionStore } from '@/stores/decr/transaction';
-  import { AdminEntityPrefixes } from '@/core/admin/routes';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { searchFilterSortedByTitleStore } from '$stores/decr/searchFilter';
+  import { userEncrStore } from '$stores/user';
+  import { draftTransactionStore } from '$stores/decr/transaction';
 
   export let showMenu = true;
 
   $: username = $userEncrStore?.username || '';
-  $: isAdmin = $userEncrStore?.isAdmin;
 
   const addActiveClass = 'is-active';
 </script>
@@ -104,31 +101,15 @@
       <li>
         <Link href={userSecurityPath} {addActiveClass}>{$_('cmps.nav.menu.security')}</Link>
       </li>
+
+      <li>
+        <Link href={userBillingPath} {addActiveClass}>{$_('routes.user.billing')}</Link>
+      </li>
       <li class="mt-4">
         <Logout class="has-text-danger" />
       </li>
     </ul>
     <hr class="menu-delimiter" />
     <p class="menu-label is-size-7">Version: {process.env.VERSION}</p>
-  {/if}
-
-  {#if isAdmin}
-    <hr class="menu-delimiter mt-5" />
-    <p class="menu-label">Admin</p>
-    <ul class="menu-list">
-      <li>
-        <Link href={adminSettingsPath} {addActiveClass}>Settings</Link>
-      </li>
-
-      <li>
-        <Link href={adminEntityListPath(AdminEntityPrefixes.category)} {addActiveClass}>
-          Meta Categories
-        </Link>
-      </li>
-
-      <li>
-        <Link href={adminEntityListPath(AdminEntityPrefixes.scheme)} {addActiveClass}>Schemes</Link>
-      </li>
-    </ul>
   {/if}
 </aside>

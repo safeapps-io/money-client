@@ -1,11 +1,11 @@
 <script>
-  import CopyText from '@/components/elements/copyText.svelte';
+  import CopyText from '$components/elements/copyText.svelte';
 
   import { onMount } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { InviteService } from '@/services/invite/inviteService';
-  import { userEncrStore } from '@/stores/user';
+  import { InviteService } from '$services/invite/inviteService';
+  import { userEncrStore } from '$stores/user';
 
   // Setting empty string as first item to prevent flashes
   let inviteLink: string = '';

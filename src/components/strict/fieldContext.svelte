@@ -1,8 +1,8 @@
 <script>
   import { getContext, setContext } from 'svelte';
 
-  import type { FormStore, FieldState, RequiredFieldState } from '@/components/strict/base';
-  import { setCleanedValue, runValidation } from '@/components/strict/base';
+  import type { FormStore, FieldState, RequiredFieldState } from '$strict/base';
+  import { setCleanedValue, runValidation } from '$strict/base';
 
   export let field: RequiredFieldState;
 

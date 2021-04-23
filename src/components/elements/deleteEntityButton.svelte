@@ -2,17 +2,16 @@
   import Shortcut from './shortcut.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { createEventDispatcher } from 'svelte';
-  import { getNotificationsContext } from 'svelte-notifications/src/context';
+  import { createEventDispatcher, getContext } from 'svelte';
 
-  import { shortcut } from '@/utils/actions/shortcut';
+  import { shortcut } from '$utils/actions/shortcut';
 
-  import { notification, NotificationStyles } from '@/core/notification';
+  import { deletedAdd } from '$stores/decr/deleted';
+  import { userEncrStore } from '$stores/user';
 
-  import { deletedAdd } from '@/stores/decr/deleted';
-  import { userEncrStore } from '@/stores/user';
-
-  const { addNotification } = getNotificationsContext(),
+  const successNotif = getContext('success'),
+    dangerNotif = getContext('danger'),
+    isPlanActive = getContext('isPlanActive')(),
     dispatch = createEventDispatcher();
 
   export let entityMap: { [walletId: string]: string[] },
@@ -22,6 +21,8 @@
   const shortcutSetting = { shift: true, code: 'Backspace' };
 
   const click = async () => {
+    if (!isPlanActive()) return;
+
     try {
       if (runBefore) {
         const goFurther = await runBefore();
@@ -40,11 +41,9 @@
           deletedAdd(walletId, { ids, remoteDeleted: false, initiatorId: $userEncrStore!.id }),
         ),
       );
-      addNotification(notification({ text: $_('cmps.deleteEntity.success') }));
+      successNotif($_('cmps.deleteEntity.success'));
     } catch (error) {
-      addNotification(
-        notification({ text: $_('cmps.deleteEntity.error'), type: NotificationStyles.danger }),
-      );
+      dangerNotif($_('cmps.deleteEntity.error'));
     }
   };
 </script>

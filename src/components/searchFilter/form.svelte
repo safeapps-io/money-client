@@ -1,22 +1,22 @@
 <script>
-  import type { SearchFilter, FullEntity, OmitCommonFields } from '@/stores/decr/types';
-  import type { FormStore } from '@/components/strict/base';
+  import type { SearchFilter, FullEntity, OmitCommonFields } from '$stores/decr/types';
+  import type { FormStore } from '$strict/base';
 
-  import { Form, FieldContext, NameField, TagsField } from '@/components/strict';
-  import Level from '@/components/elements/level.svelte';
-  import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
+  import { Form, FieldContext, NameField, TagsField } from '$strict';
+  import Level from '$components/elements/level.svelte';
+  import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { areArraysTheSame } from '@/utils/array';
-  import { copy } from '@/utils/object';
+  import { areArraysTheSame } from '$utils/array';
+  import { copy } from '$utils/object';
 
-  import { ensureArray, uniqueOnly } from '@/core/strict/array';
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { distinctTagNamesStore } from '@/stores/decr/transaction';
-  import { categorySortedByTitleStore } from '@/stores/decr/category';
-  import { searchFilterAdd, searchFilterUpdate } from '@/stores/decr/searchFilter';
+  import { ensureArray, uniqueOnly } from '$validators';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { distinctTagNamesStore } from '$stores/decr/transaction';
+  import { categorySortedByTitleStore } from '$stores/decr/category';
+  import { searchFilterAdd, searchFilterUpdate } from '$stores/decr/searchFilter';
 
   export let searchFilter: FullEntity<SearchFilter>;
 
@@ -120,7 +120,7 @@
   }
 </script>
 
-<Form {success} bind:formStore>
+<Form planLimit {success} bind:formStore>
   {#if $selectedWalletStore}
     <NameField inputValue={name} />
   {/if}
@@ -141,39 +141,35 @@
     <TagsField />
   </FieldContext>
 
-  <div slot="submit" let:disabled let:loading>
-    <Level>
-      <div class="column is-narrow" slot="left">
-        {#if $selectedWalletStore}
-          {#if !isProtected}
-            <button class="button" class:is-color-loading={loading} {disabled}
-              >{$_('common.form.save')}</button>
-          {/if}
-
-          <button
-            class="button is-success is-outlined"
-            class:is-color-loading={loading}
-            {disabled}
-            on:click={() => (saveAsNew = true)}>
-            {$_('cmps.searchFilter.form.saveAsNew')}
-          </button>
-        {/if}
-      </div>
-
-      <div class="column is-narrow" slot="right">
+  <Level slot="submit" let:disabled let:loading>
+    <div class="column is-narrow" slot="left">
+      {#if $selectedWalletStore}
         {#if !isProtected}
-          <DeleteEntityButton
-            entityMap={{ [searchFilter.walletId]: [searchFilter.id] }}
-            on:delete />
+          <button class="button" class:is-color-loading={loading} {disabled}
+            >{$_('common.form.save')}</button>
         {/if}
+
         <button
-          class="button"
+          class="button is-success is-outlined"
           class:is-color-loading={loading}
-          type="button"
-          on:click={() => dispatch('reset')}>
-          {$_('common.form.cancel')}
+          {disabled}
+          on:click={() => (saveAsNew = true)}>
+          {$_('cmps.searchFilter.form.saveAsNew')}
         </button>
-      </div>
-    </Level>
-  </div>
+      {/if}
+    </div>
+
+    <div class="column is-narrow" slot="right">
+      {#if !isProtected}
+        <DeleteEntityButton entityMap={{ [searchFilter.walletId]: [searchFilter.id] }} on:delete />
+      {/if}
+      <button
+        class="button"
+        class:is-color-loading={loading}
+        type="button"
+        on:click={() => dispatch('reset')}>
+        {$_('common.form.cancel')}
+      </button>
+    </div>
+  </Level>
 </Form>

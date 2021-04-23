@@ -2,7 +2,7 @@
   import { fly } from 'svelte/transition';
   import caretVerticalSmallIcon from 'teenyicons/outline/caret-vertical-small.svg';
 
-  import { clickOutside } from '@/utils/actions/clickOutside';
+  import { clickOutside } from '$utils/actions/clickOutside';
 
   export let triggerText = '',
     show: boolean = false,

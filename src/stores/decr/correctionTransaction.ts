@@ -1,5 +1,6 @@
 import { createDecrEntityStore } from './base';
-import { CorrectionTransaction, EntityTypes } from './types';
+import type { CorrectionTransaction } from './types';
+import { EntityTypes } from './types';
 
 export const {
   store: correctionTransactionStore,

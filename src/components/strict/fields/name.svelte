@@ -1,10 +1,10 @@
 <script>
   import { _ } from 'svelte-i18n';
 
-  import Field from '@/components/strict/field.svelte';
-  import TextInput from '@/components/strict/inputs/text.svelte';
+  import Field from '$components/strict/field.svelte';
+  import TextInput from '$components/strict/inputs/text.svelte';
 
-  import { ensureString, trim, minLength } from '@/core/strict/string';
+  import { ensureString, trim, minLength } from '$validators';
 
   export let placeholder = undefined as string | undefined,
     inputValue: string | undefined;

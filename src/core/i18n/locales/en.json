@@ -93,6 +93,47 @@
       "copy": "Made by {linkO}@dkzlv{linkC}",
       "forum": "Forum"
     },
+    "billing": {
+      "price": "Price",
+      "state": {
+        "title": "State",
+        "active": "Active",
+        "expired": "Expired",
+        "trial": "Trial"
+      },
+      "expiryDate": "Expiration date",
+      "changeHistory": "History of changes",
+      "payMethods": {
+        "title": "Payment method",
+        "choose": "Choose payment method",
+        "crypto": "Cryptocurrency",
+        "card": "Bank card"
+      },
+      "expiryDateChanged": "Change to expiration date",
+      "providers": {
+        "thirdParty": "We use third-party services to manage purchases.",
+        "canUseIncognito": "You'll be able to use incognito mode for it.",
+        "tinkoff": {
+          "intro": "Our payment provider for bank cards is {tagO}Tinkoff Bank{tagC}",
+          "rubles": "You will be charged in {tagO}Russian Rubles{tagC} based on today's exchange rate. Sorry for inconvenience."
+        },
+        "coinbase": {
+          "intro": "Our payment provider for cryptocurrency is {tagO}Coinbase{tagC}",
+          "support": "They support: Bitcoin, Bitcoin Cash, Ethereum, Litecoin, Dai, and USD Coin."
+        },
+        "goto": "Go to Payment Provider",
+        "useInc": "You can use incognito mode or VPN."
+      },
+      "emailNotSet": {
+        "title": "Email is not set",
+        "shouldSet": "You haven't set or validated your email. Even though you can make a purchase without setting it, {linkO}we offer you to do it anyways{linkC}. It would simplify the support in case you have troubles with the payment."
+      },
+      "planGuard": {
+        "requires": "This action requires a subscription",
+        "buyToUse": "Your subscription is expired. Please renew it to use all the features of [safe] money.",
+        "askOwner": "Ask the wallet's owner to renew the subscription"
+      }
+    },
     "masterPassword": {
       "setNew": {
         "onboarding": {
@@ -100,7 +141,7 @@
           "main": "We use your master-password to encrypt your data. {boldO}It cannot be restored{boldC}, so do remember it!"
         },
         "help": {
-          "common": "6 chars minimum, but we recommend using longer and varied passwords.",
+          "common": "12 chars minimum, but we recommend using longer passwords.",
           "invite": "All unaccapted wallet invites will become obsolete once you change your master-password."
         }
       },
@@ -263,6 +304,7 @@
         },
         "user": "User",
         "mcc": "MCC code",
+        "mccUnknown": "Unknown code",
         "merchant": "Merchant name",
         "account": "Account",
         "category": {
@@ -566,7 +608,20 @@
       "username": "Change username",
       "dropUser": "Delete account",
       "dropUserHelp": "Account will not be removed when you click this button.",
-      "sessions": "Open sessions"
+      "sessions": "Open sessions",
+      "billing": "Billing",
+      "plan": "Plan"
+    },
+    "pay": {
+      "ok": {
+        "title": "Purchase was successful!",
+        "redirect": "You will be redirected in 5 seconds. Press the button to skip the waiting."
+      },
+      "notOk": {
+        "title": "Purchase was unsuccessful",
+        "support": "If you have any problems, don't hesitate to write to us via email: {linkO}{email}{linkC}. We'll be happy to help you!"
+      },
+      "goto": "Go to app"
     }
   }
 }

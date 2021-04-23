@@ -1,24 +1,20 @@
 <script>
-  import { Form, PasswordField } from '@/components/strict';
+  import { Form, PasswordField } from '$strict';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
-  import { getNotificationsContext } from 'svelte-notifications/src/context';
 
-  import { AuthService } from '@/services/auth/authService';
-  import { notification, NotificationStyles } from '@/core/notification';
+  import { AuthService } from '$services/auth/authService';
+  import { getContext } from 'svelte/internal';
 
   export let token: string;
 
   const dispatch = createEventDispatcher(),
-    { addNotification } = getNotificationsContext(),
+    successNotif = getContext('success'),
+    dangerNotif = getContext('danger'),
     success = async (data: { password: string }) => {
       await AuthService.setPasswordFromToken({ ...data, token });
-      addNotification(
-        notification({
-          text: $_('cmps.user.password.changed'),
-        }),
-      );
+      successNotif($_('cmps.user.password.changed'));
       dispatch('success');
     };
 
@@ -27,12 +23,7 @@
     .then(() => (isValid = true))
     .catch(() => {
       isValid = false;
-      addNotification(
-        notification({
-          text: $_('common.errors.linkExpired'),
-          type: NotificationStyles.danger,
-        }),
-      );
+      dangerNotif($_('common.errors.linkExpired'));
       dispatch('invalid');
     });
 </script>

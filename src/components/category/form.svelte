@@ -1,17 +1,17 @@
 <script>
-  import type { FullEntity, Category } from '@/stores/decr/types';
+  import type { FullEntity, Category } from '$stores/decr/types';
 
-  import Level from '@/components/elements/level.svelte';
-  import { Form, NameField, ColorField } from '@/components/strict';
-  import WalletField from '@/components/wallet/walletField.svelte';
-  import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
+  import Level from '$components/elements/level.svelte';
+  import { Form, NameField, ColorField } from '$strict';
+  import WalletField from '$components/wallet/walletField.svelte';
+  import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
   import CategorySwitchModal from './categorySwitchModal.svelte';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { categoryAdd, categoryUpdate } from '@/stores/decr/category';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { categoryAdd, categoryUpdate } from '$stores/decr/category';
 
   export let ent = undefined as FullEntity<Category> | undefined,
     isIncomeCategory: boolean = false;
@@ -52,26 +52,24 @@
   <CategorySwitchModal {ent} bind:active={showCategorySwitch} on:delete={launchDelete} />
 {/if}
 
-<Form buttonText={ent ? $_('common.form.update') : $_('common.form.create')} {success}>
+<Form planLimit buttonText={ent ? $_('common.form.update') : $_('common.form.create')} {success}>
   <WalletField walletId={ent?.walletId} />
 
   <NameField inputValue={ent?.decr.name} placeholder={$_('cmps.category.namePlaceholder')} />
 
   <ColorField inputValue={ent?.decr.color} />
 
-  <div slot="submit" let:buttonText>
-    <Level>
-      <div class="column is-narrow" slot="left">
-        <button class="button is-success">{buttonText}</button>
-      </div>
-      <div class="column is-narrow" slot="right">
-        {#if ent}
-          <DeleteEntityButton
-            entityMap={{ [ent.walletId]: [ent.id] }}
-            runBefore={offerCategorySwitch}
-            on:delete />
-        {/if}
-      </div>
-    </Level>
-  </div>
+  <Level slot="submit" let:buttonText>
+    <div class="column is-narrow" slot="left">
+      <button class="button is-success">{buttonText}</button>
+    </div>
+    <div class="column is-narrow" slot="right">
+      {#if ent}
+        <DeleteEntityButton
+          entityMap={{ [ent.walletId]: [ent.id] }}
+          runBefore={offerCategorySwitch}
+          on:delete />
+      {/if}
+    </div>
+  </Level>
 </Form>

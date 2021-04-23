@@ -1,24 +1,24 @@
 <script>
-  import type { FormStore } from '@/components/strict/base';
-  import type { FullEntity, Transaction } from '@/stores/decr/types';
-  import type { TransactionFieldsForm } from '@/core/transaction/setCorrectAmount';
+  import type { FormStore } from '$strict/base';
+  import type { FullEntity, Transaction } from '$stores/decr/types';
+  import type { TransactionFieldsForm } from '$core/transaction/setCorrectAmount';
 
-  import Level from '@/components/elements/level.svelte';
-  import { Form } from '@/components/strict';
+  import Level from '$components/elements/level.svelte';
+  import { Form } from '$strict';
   import TransactionFields from './fields.svelte';
-  import WalletField from '@/components/wallet/walletField.svelte';
-  import DeleteEntityButton from '@/components/elements/deleteEntityButton.svelte';
+  import WalletField from '$components/wallet/walletField.svelte';
+  import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
   import AutocompleteTable from '../card/autocompleteTable.svelte';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
 
-  import { selectedWalletStore } from '@/stores/wallet';
-  import { transactionAdd, transactionUpdate } from '@/stores/decr/transaction';
-  import { setCorrectAmount } from '@/core/transaction/setCorrectAmount';
-  import { userEncrStore } from '@/stores/user';
-  import { defaultWalletUserIdStore } from '@/stores/decr/walletUser';
-  import { defaultAssetStore } from '@/stores/decr/asset';
+  import { selectedWalletStore } from '$stores/wallet';
+  import { transactionAdd, transactionUpdate } from '$stores/decr/transaction';
+  import { setCorrectAmount } from '$core/transaction/setCorrectAmount';
+  import { userEncrStore } from '$stores/user';
+  import { defaultWalletUserIdStore } from '$stores/decr/walletUser';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
   export let ent: FullEntity<Transaction> | undefined = undefined;
 
@@ -63,6 +63,7 @@
 </script>
 
 <Form
+  planLimit
   {success}
   buttonText={ent ? $_('common.form.update') : $_('common.form.create')}
   bind:formStore>
@@ -81,23 +82,25 @@
 
   <div slot="submit" class="field mt-5" let:disabled let:loading let:buttonText>
     <Level>
-      <div class="column is-narrow" slot="left">
-        <button class="button is-success" class:is-color-loading={loading} {disabled}
-          >{buttonText}</button>
-      </div>
-      <div class="column is-narrow" slot="left">
-        {#if !ent || ent.decr.isDraft}
-          <div class="level-item">
-            <button
-              class="button is-text"
-              class:is-color-loading={loading}
-              {disabled}
-              on:click={() => (isDraft = true)}>
-              {$_('cmps.transaction.form.saveDraft')}
-            </button>
-          </div>
-        {/if}
-      </div>
+      <svelte:fragment slot="left">
+        <div class="column is-narrow">
+          <button class="button is-success" class:is-color-loading={loading} {disabled}
+            >{buttonText}</button>
+        </div>
+        <div class="column is-narrow">
+          {#if !ent || ent.decr.isDraft}
+            <div class="level-item">
+              <button
+                class="button is-text"
+                class:is-color-loading={loading}
+                {disabled}
+                on:click={() => (isDraft = true)}>
+                {$_('cmps.transaction.form.saveDraft')}
+              </button>
+            </div>
+          {/if}
+        </div>
+      </svelte:fragment>
 
       <div class="column is-narrow" slot="right">
         {#if ent}

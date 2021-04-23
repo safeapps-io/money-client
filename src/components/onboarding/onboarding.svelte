@@ -1,16 +1,18 @@
 <script>
-  import type { OnboardingSteps } from '@/stores/decr/user';
+  import type { OnboardingSteps } from '$stores/decr/user';
 
   import { fade, fly, scale } from 'svelte/transition';
   import cssVars from 'svelte-css-vars';
+  import { browser } from '$app/env';
 
-  import { randBetween } from '@/utils/random';
-  import { range } from '@/utils/array';
-  import { generateRandomColor } from '@/utils/color';
-  import { restrictBodyScroll } from '@/utils/actions/restrictBodyScroll';
+  import { randBetween } from '$utils/random';
+  import { range } from '$utils/array';
+  import { generateRandomColor } from '$utils/color';
+  import { resize } from '$utils/actions/resize';
+  import { restrictBodyScroll } from '$utils/actions/restrictBodyScroll';
 
-  import { hasUserSeenOnboarding, setUserOnboardingSetting } from '@/stores/decr/user';
-  import { debugLog } from '@/core/logger';
+  import { hasUserSeenOnboarding, setUserOnboardingSetting } from '$stores/decr/user';
+  import { debugLog } from '$core/logger';
 
   export let shouldShow: boolean,
     key: OnboardingSteps | undefined = undefined,
@@ -28,7 +30,7 @@
   let show = false,
     timeout: number | undefined;
   $: if (!shouldShow) show = false;
-  $: if (process.env.BROWSER && !show) {
+  $: if (browser && !show) {
     clearTimeout(timeout);
     if (shouldShow && !shownKeyBefore) timeout = window.setTimeout(() => (show = true), delay);
   }
@@ -72,6 +74,17 @@
     squareVars = {},
     circleVars = {},
     textVars = {};
+
+  /**
+   * `bind:clientHeight` failed in cases, when the content of the slot changes.
+   * I didn't really catch when and why.
+   *
+   * (same in `crossfadeWrapper.svelte`)
+   */
+  const slotResized = (e: HTMLElement) => {
+    const { height } = e.getBoundingClientRect();
+    if (height) slotHeight = height;
+  };
 
   $: originalSlotRect =
     show && slotEl && slotHeight && innerHeight && innerWidth
@@ -159,7 +172,7 @@
   {/if}
 {/if}
 
-<div class="slot" bind:this={slotEl} bind:clientHeight={slotHeight}>
+<div class="slot" bind:this={slotEl} bind:clientHeight={slotHeight} use:resize={slotResized}>
   <slot {finishOnboarding} />
 </div>
 

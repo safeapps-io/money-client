@@ -1,11 +1,11 @@
 <script>
-  import type { ParsingResult } from '@/core/import/types';
-  import type { AllowedSchemeFields, BaseSimpleScheme } from '@/core/import/types';
+  import type { ParsingResult } from '$core/import/types';
+  import type { AllowedSchemeFields, BaseSimpleScheme } from '$core/import/types';
   import type { SetSchemeOnboardingSteps } from '../types';
 
-  import { Onboarding, Text } from '@/components/onboarding';
-  import CrossfadeWrapper from '@/components/elements/crossfadeWrapper.svelte';
-  import Troubleshoot from '@/components/elements/dropdown/troubleshoot.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
+  import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
+  import Troubleshoot from '$components/elements/dropdown/troubleshoot.svelte';
   import SchemaSettings from './settings.svelte';
   import ColumnMatcher from './columnMatcher.svelte';
   import Table from './table.svelte';
@@ -14,12 +14,12 @@
   import { createEventDispatcher } from 'svelte';
   import cssVars from 'svelte-css-vars';
 
-  import { longpress } from '@/utils/actions/longpress';
-  import { bufferToString } from '@/utils/buffer/conversions';
-  import { accentTags, generateLinkTags } from '@/utils/accentTags';
+  import { longpress } from '$utils/actions/longpress';
+  import { bufferToString } from '$utils/buffer/conversions';
+  import { accentTags, generateLinkTags } from '$utils/accentTags';
 
-  import { parseCsv } from '@/core/import/parseCsv';
-  import { forumBankHelpPath } from '@/core/routes';
+  import { parseCsv } from '$core/import/parseCsv';
+  import { forumBankHelpPath } from '$core/routes';
 
   const dispatch = createEventDispatcher();
 
@@ -65,8 +65,8 @@
     currentStep == 'notBank' ||
     currentStep == 'finish'}
   let:finishOnboarding>
-  <div slot="text">
-    <CrossfadeWrapper replayAnimationKey={currentStep}>
+  <svelte:fragment slot="text">
+    <CrossfadeWrapper key={currentStep}>
       {#if currentStep == 'unknown'}
         <Text header>{$_('cmps.import.scheme.onboarding.unknown.title')}</Text>
         <Text>{$_('cmps.import.scheme.onboarding.unknown.main')}</Text>
@@ -92,7 +92,7 @@
           >{$_('cmps.import.scheme.onboarding.finish.cta')}</button>
       {/if}
     </CrossfadeWrapper>
-  </div>
+  </svelte:fragment>
 </Onboarding>
 
 <div
@@ -118,12 +118,12 @@
 
   <Onboarding right bottom preventSlotClick shouldShow={currentStep == 'settings'}>
     <SchemaSettings bind:encoding bind:header bind:decimal />
-    <div slot="text">
+    <svelte:fragment slot="text">
       <Text header>{$_('cmps.import.scheme.onboarding.settings.title')}</Text>
       <Text>{$_('cmps.import.scheme.onboarding.settings.main')}</Text>
       <button class="button is-small mt-3" on:click={() => (currentStep = 'main')}
         >{$_('common.allClear')}</button>
-    </div>
+    </svelte:fragment>
   </Onboarding>
 </div>
 

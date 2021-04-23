@@ -1,16 +1,19 @@
 <script>
-  import type { FullEntity, WalletData } from '@/stores/decr/types';
+  import type { FullEntity, WalletData } from '$stores/decr/types';
 
   import ReferenceTransactionList from './referenceTransactionList.svelte';
-  import { Onboarding, Text } from '@/components/onboarding';
+  import { Onboarding, Text } from '$components/onboarding';
 
   import { _ } from 'svelte-i18n';
+  import { getContext } from 'svelte';
   import { slide } from 'svelte/transition';
 
-  import { walletDataUpdate } from '@/stores/decr/wallet';
-  import { currentWalletReferenceTransactionStore } from '@/stores/decr/referenceTransaction';
+  import { walletDataUpdate } from '$stores/decr/wallet';
+  import { currentWalletReferenceTransactionStore } from '$stores/decr/referenceTransaction';
 
   export let wallet: FullEntity<WalletData>;
+
+  const isPlanActive = getContext('isPlanActive')();
 
   let checked = wallet.decr.balance;
   $: if (checked != wallet.decr.balance)
@@ -20,7 +23,7 @@
 </script>
 
 <Onboarding preventSlotClick key="balance" shouldShow={!checked} let:finishOnboarding>
-  <div class="field">
+  <div class="field" on:click={isPlanActive}>
     <label class="checkbox">
       {$_('cmps.transaction.reference.balanceOn')}
       <input type="checkbox" bind:checked />
@@ -28,12 +31,12 @@
     </label>
   </div>
 
-  <div slot="text">
+  <svelte:fragment slot="text">
     <Text header>{$_('routes.wallet.balance')}</Text>
     <Text>{$_('cmps.transaction.reference.seeDynamics')}</Text>
 
     <button class="button mt-3" on:click={finishOnboarding}>{$_('common.allClear')}</button>
-  </div>
+  </svelte:fragment>
 </Onboarding>
 
 {#if wallet.decr.balance}

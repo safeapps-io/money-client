@@ -1,8 +1,8 @@
 <script>
-  import Field from '@/components/strict/field.svelte';
-  import Text from '@/components/strict/inputs/text.svelte';
+  import Field from '$components/strict/field.svelte';
+  import TextInput from '$components/strict/inputs/text.svelte';
 
-  import { ensureString, trim, minLength, maxLength } from '@/core/strict/string';
+  import { ensureString, trim, minLength, maxLength } from '$validators';
 
   export let name: string = 'password',
     help: string | undefined = undefined,
@@ -19,5 +19,5 @@
 </script>
 
 <Field {field}>
-  <Text type="password" placeholder="correct-horse-staple-battery" />
+  <TextInput type="password" placeholder="correct-horse-staple-battery" />
 </Field>

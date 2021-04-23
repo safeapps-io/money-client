@@ -1,4 +1,4 @@
-import { SearchFilter, WalletData, FullEntity } from '@/stores/decr/types';
+import type { SearchFilter, WalletData, FullEntity } from '$stores/decr/types';
 
 export const shouldShowBalance = ({
   walletData,

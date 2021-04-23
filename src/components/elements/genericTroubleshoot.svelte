@@ -1,15 +1,14 @@
 <script>
-  import Troubleshoot from '@/components/elements/dropdown/troubleshoot.svelte';
-  import Link from '@/components/elements/link.svelte';
+  import Troubleshoot from '$components/elements/dropdown/troubleshoot.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { forumBugsPath, forumHelpPath, forumIdeasPath } from '@/core/routes';
+  import { forumBugsPath, forumHelpPath, forumIdeasPath } from '$core/routes';
 </script>
 
 <div class="wrapper is-size-7">
   <Troubleshoot text={$_('cmps.nav.feedback.cta')} {...$$restProps}>
-    <Link href={forumBugsPath} class="dropdown-item">
+    <a href={forumBugsPath} class="dropdown-item">
       <p class="has-text-danger is-size-6">
         <!-- © https://teenyicons.com/ bug -->
         <span class="icon"
@@ -26,8 +25,8 @@
         {$_('cmps.nav.feedback.bug.title')}
       </p>
       <p>{$_('cmps.nav.feedback.bug.main')}</p>
-    </Link>
-    <Link href={forumHelpPath} class="dropdown-item">
+    </a>
+    <a href={forumHelpPath} class="dropdown-item">
       <p class="has-text-warning is-size-6">
         <!-- © https://teenyicons.com/ info -->
         <span class="icon"
@@ -44,8 +43,8 @@
         {$_('cmps.nav.feedback.help.title')}
       </p>
       <p>{$_('cmps.nav.feedback.help.main')}</p>
-    </Link>
-    <Link href={forumIdeasPath} class="dropdown-item">
+    </a>
+    <a href={forumIdeasPath} class="dropdown-item">
       <p class="has-text-success is-size-6">
         <!-- © https://teenyicons.com/ message-plus -->
         <span class="icon"
@@ -62,7 +61,7 @@
         {$_('cmps.nav.feedback.featureReq.title')}
       </p>
       <p>{$_('cmps.nav.feedback.featureReq.main')}</p>
-    </Link>
+    </a>
   </Troubleshoot>
 </div>
 
@@ -70,7 +69,7 @@
   .wrapper {
     --dropdown-min-width: 340px;
 
-    :global(a) {
+    a {
       /* Resetting bulma's behavoir */
       white-space: normal !important;
     }

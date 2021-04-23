@@ -1,4 +1,4 @@
-import { stringToBuffer } from '@/utils/buffer/conversions';
+import { stringToBuffer } from '$utils/buffer/conversions';
 
 // 80 different emojis
 // prettier-ignore

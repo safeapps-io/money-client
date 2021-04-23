@@ -1,8 +1,8 @@
 <script>
-  import Field from '@/components/strict/field.svelte';
-  import Text from '@/components/strict/inputs/text.svelte';
+  import Field from '$components/strict/field.svelte';
+  import TextInput from '$components/strict/inputs/text.svelte';
 
-  import { optionalString, ensureString, trim, emailFormat } from '@/core/strict/string';
+  import { optionalString, ensureString, trim, emailFormat } from '$validators';
 
   export let required: boolean,
     help: string | undefined = undefined;
@@ -18,5 +18,5 @@
 </script>
 
 <Field {field}>
-  <Text type="email" autocomplete="email" />
+  <TextInput type="email" autocomplete="email" />
 </Field>

@@ -1,8 +1,8 @@
 <script>
-  import { Form, PasswordField } from '@/components/strict';
+  import { Form, PasswordField } from '$strict';
 
   import { _ } from 'svelte-i18n';
-  import { AuthService } from '@/services/auth/authService';
+  import { AuthService } from '$services/auth/authService';
 
   const success = async (data: { newPassword: string; oldPassword: string }) =>
     AuthService.changePassword(data);

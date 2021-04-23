@@ -1,14 +1,14 @@
 <script>
-  import { Field, SelectInput } from '@/components/strict';
+  import { Field, SelectInput } from '$strict';
 
   import { _ } from 'svelte-i18n';
 
   import {
     getSelectedJointWalletIds,
     getJointWalletFieldChoices,
-  } from '@/core/wallet/getJointWalletFieldChoices';
-  import { walletDataStore } from '@/stores/decr/wallet';
-  import { selectedJointWalletStore, jointWalletsStore } from '@/stores/wallet';
+  } from '$core/wallet/getJointWalletFieldChoices';
+  import { walletDataStore } from '$stores/decr/wallet';
+  import { selectedJointWalletStore, jointWalletsStore } from '$stores/wallet';
 
   export let walletId: string | undefined = undefined;
 

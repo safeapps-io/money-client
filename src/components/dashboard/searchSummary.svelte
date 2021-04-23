@@ -1,5 +1,5 @@
 <script>
-  import type { SearchFilter, FullEntity } from '@/stores/decr/types';
+  import type { SearchFilter, FullEntity } from '$stores/decr/types';
 
   import { _ } from 'svelte-i18n';
 

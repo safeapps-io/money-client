@@ -1,13 +1,11 @@
 <script>
-  import FullpageLoader from '@/components/elements/fullpageLoader.svelte';
+  import FullpageLoader from '$components/elements/fullpageLoader.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { createEventDispatcher, onMount } from 'svelte';
-  import { getNotificationsContext } from 'svelte-notifications/src/context';
+  import { createEventDispatcher, getContext, onMount } from 'svelte';
 
-  import { notification, NotificationStyles } from '@/core/notification';
-
-  const { addNotification } = getNotificationsContext(),
+  const successNotif = getContext('success'),
+    dangerNotif = getContext('success'),
     dispatch = createEventDispatcher();
 
   export let req: () => Promise<any>, successMessage: string, errorMessage: string;
@@ -15,19 +13,10 @@
   onMount(async () => {
     try {
       await req();
-      addNotification(
-        notification({
-          text: successMessage,
-        }),
-      );
+      successNotif(successMessage);
       dispatch('success');
     } catch (error) {
-      addNotification(
-        notification({
-          text: errorMessage,
-          type: NotificationStyles.danger,
-        }),
-      );
+      dangerNotif(errorMessage);
       dispatch('fail');
     }
   });

@@ -1,6 +1,7 @@
 import { derived } from 'svelte/store';
 
-import { DeletedEntity, EntityTypes } from './types';
+import type { DeletedEntity } from './types';
+import { EntityTypes } from './types';
 import { createDecrEntityStore } from './base';
 
 export const {

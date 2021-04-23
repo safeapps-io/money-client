@@ -1,17 +1,14 @@
 <script>
-  import type { Category, FullEntity } from '@/stores/decr/types';
+  import type { Category, FullEntity } from '$stores/decr/types';
 
-  import Modal from '@/components/elements/modal.svelte';
-  import { Form, Field, SelectInput } from '@/components/strict';
+  import Modal from '$components/elements/modal.svelte';
+  import { Form, Field, SelectInput } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { categoryStore } from '@/stores/decr/category';
-  import {
-    bulkReplaceCategories,
-    transactionCountByCategoryStore,
-  } from '@/stores/decr/transaction';
+  import { categoryStore } from '$stores/decr/category';
+  import { bulkReplaceCategories, transactionCountByCategoryStore } from '$stores/decr/transaction';
 
   const dispatch = createEventDispatcher();
 
@@ -60,7 +57,7 @@
   {/if}
 
   {#if showForm}
-    <Form success={switchCategory} buttonText={$_('cmps.category.delete.replace')}>
+    <Form planLimit success={switchCategory} buttonText={$_('cmps.category.delete.replace')}>
       <Field {field}>
         <SelectInput />
       </Field>

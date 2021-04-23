@@ -1,14 +1,14 @@
 <script>
-  import type { Choices } from '@/components/strict/base';
-  import type { Transaction, FullEntity, Category, OmitCommonFields } from '@/stores/decr/types';
+  import type { Choices } from '$strict/base';
+  import type { Transaction, FullEntity, Category, OmitCommonFields } from '$stores/decr/types';
 
-  import Modal from '@/components/elements/modal.svelte';
+  import Modal from '$components/elements/modal.svelte';
   import CategoryForm from './form.svelte';
-  import { Field, SelectInput } from '@/components/strict';
+  import { Field, SelectInput } from '$strict';
 
   import { _ } from 'svelte-i18n';
 
-  import { focusableShortcut } from '@/utils/actions/shortcut';
+  import { focusableShortcut } from '$utils/actions/shortcut';
 
   export let ent = undefined as Transaction | OmitCommonFields<Transaction> | undefined,
     categoryChoices: Choices = [] as Choices,

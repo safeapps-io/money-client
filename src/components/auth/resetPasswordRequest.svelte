@@ -1,10 +1,10 @@
 <script>
-  import { Form, EmailField } from '@/components/strict';
+  import { Form, EmailField } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { AuthService } from '@/services/auth/authService';
+  import { AuthService } from '$services/auth/authService';
 
   const dispatch = createEventDispatcher(),
     success = async ({ email }: { email: string }) => {

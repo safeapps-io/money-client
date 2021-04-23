@@ -1,14 +1,14 @@
 <script>
-  import SettingsDropdown from '@/components/elements/dropdown/settings.svelte';
-  import { Field, FieldContext, SelectInput, CheckboxInput } from '@/components/strict';
+  import SettingsDropdown from '$components/elements/dropdown/settings.svelte';
+  import { Field, FieldContext, SelectInput, CheckboxInput } from '$strict';
 
   import { _ } from 'svelte-i18n';
   import { setContext } from 'svelte';
   import { noop } from 'svelte/internal';
 
-  import { ensureBoolean } from '@/core/strict/boolean';
-  import { createFormStore } from '@/components/strict/base';
-  import { decimalDelimitersChoices, encodings } from '@/core/import/constants';
+  import { ensureBoolean } from '$validators';
+  import { createFormStore } from '$strict/base';
+  import { decimalDelimitersChoices, encodings } from '$core/import/constants';
 
   export let encoding: string,
     decimal: string,

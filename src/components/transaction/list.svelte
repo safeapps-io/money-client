@@ -1,14 +1,14 @@
 <script>
-  import type { Transaction, CorrectionTransaction, OmitCommonFields } from '@/stores/decr/types';
+  import type { Transaction, CorrectionTransaction, OmitCommonFields } from '$stores/decr/types';
 
-  import Pagination from '@/components/elements/pagination.svelte';
-  import ZeroData from '@/components/elements/zeroData.svelte';
+  import Pagination from '$components/elements/pagination.svelte';
+  import ZeroData from '$components/elements/zeroData.svelte';
 
   import { _ } from 'svelte-i18n';
   import cssVars from 'svelte-css-vars';
 
-  import { currentWalletCategoryStore } from '@/stores/decr/category';
-  import { currentWalletUserStore } from '@/stores/decr/walletUser';
+  import { currentWalletCategoryStore } from '$stores/decr/category';
+  import { currentWalletUserStore } from '$stores/decr/walletUser';
 
   type Tr = OmitCommonFields<Transaction> | OmitCommonFields<CorrectionTransaction>;
 
@@ -35,7 +35,5 @@
       showDelimiter={index} />
   </div>
 
-  <div slot="zero">
-    <ZeroData text={$_('cmps.transaction.zeroData')} />
-  </div>
+  <ZeroData slot="zero" text={$_('cmps.transaction.zeroData')} />
 </Pagination>

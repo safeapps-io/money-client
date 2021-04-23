@@ -1,28 +1,31 @@
 <script>
-  import LoadingIndicator from '@/components/nav/loadingIndicator.svelte';
-  import StartPasswordRequest from '@/components/user/startPasswordRequest.svelte';
-  import WalletModalCreate from '@/components/wallet/modalCreate.svelte';
-  import ExpandableMenu from '@/components/nav/expandableMenu.svelte';
-  import Logo from '@/components/nav/logo.svelte';
-  import Menu from '@/components/nav/menu.svelte';
-  import JoiningFlow from '@/components/wallet/joinWallet/joiningFlow.svelte';
-  import OwnerFlow from '@/components/wallet/joinWallet/ownerFlow.svelte';
+  import LoadingIndicator from '$components/nav/loadingIndicator.svelte';
+  import StartPasswordRequest from '$components/user/startPasswordRequest.svelte';
+  import WalletModalCreate from '$components/wallet/modalCreate.svelte';
+  import ExpandableMenu from '$components/nav/expandableMenu.svelte';
+  import Logo from '$components/nav/logo.svelte';
+  import Menu from '$components/nav/menu.svelte';
+  import JoiningFlow from '$components/wallet/joinWallet/joiningFlow.svelte';
+  import OwnerFlow from '$components/wallet/joinWallet/ownerFlow.svelte';
+  import PlanOfferModal from '$components/billing/planOfferModal.svelte';
 
-  import { onMount } from 'svelte';
-  import { goto, stores } from '@sapper/app';
+  import { onMount, setContext } from 'svelte';
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import { media } from 'svelte-match-media';
   import { fade } from 'svelte/transition';
 
-  import { AuthService } from '@/services/auth/authService';
-  import { syncStatusStore, SyncStatuses } from '@/stores/sync';
-  import { userEncrStore } from '@/stores/user';
-  import { encryptionKeysStateStore } from '@/stores/encr/keysState';
-  import { walletStore } from '@/stores/wallet';
-  import { walletDataStore } from '@/stores/decr/wallet';
-  import { userDecrStore } from '@/stores/decr/user';
-  import { inviteToValidate } from '@/services/invite/inviteStages';
-  import { initApplicationLogic } from '@/stores/init';
-  import { appPath, loginPath } from '@/core/routes';
+  import { AuthService } from '$services/auth/authService';
+  import { isOnlineStore } from '$stores/isOnline';
+  import { userEncrStore } from '$stores/user';
+  import { encryptionKeysStateStore } from '$stores/encr/keysState';
+  import { walletStore } from '$stores/wallet';
+  import { walletDataStore } from '$stores/decr/wallet';
+  import { userDecrStore } from '$stores/decr/user';
+  import { inviteToValidate } from '$services/invite/inviteStages';
+  import { planGuardStore } from '$stores/billing';
+  import { initApplicationLogic } from '$stores/init';
+  import { appPath, loginPath } from '$core/routes';
 
   let remoteCheckPerformed = false,
     remoteCheckResult = false;
@@ -30,6 +33,8 @@
     remoteCheckResult = await AuthService.isUserStillValid();
     remoteCheckPerformed = true;
   });
+  if ($encryptionKeysStateStore.encryptionKeySet)
+    AuthService.isUserStillValid().then(res => (remoteCheckResult = res));
   // If user check was performed but we have no user, we need to redirect to login page
   $: if (remoteCheckPerformed && !$userEncrStore) goto(loginPath, { replaceState: true });
 
@@ -41,8 +46,27 @@
   $: hasWallets = !!Object.keys($walletStore || {}).length;
   $: hasWalletData = !!Object.keys($walletDataStore || {}).length;
 
-  const { page } = stores();
-  $: invite = atob($page.query.invite || '');
+  $: invite = atob($page.query.get('invite') || '');
+
+  let planCheck: {
+      userCanBuy: boolean;
+      planActive: boolean;
+    } | null = null,
+    showModal = false;
+  setContext('isPlanActive', (currentUserCheck = false) => (e?: Event) => {
+    if (!shouldShow) return false;
+
+    planCheck = $planGuardStore(currentUserCheck);
+    showModal = !planCheck.planActive;
+
+    // Useful for links and other clickable stuff
+    if (showModal && e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    return !showModal;
+  });
 </script>
 
 {#if shouldShow}
@@ -90,5 +114,7 @@
     <StartPasswordRequest {user} />
   {/if}
 
-  <LoadingIndicator show={$syncStatusStore !== SyncStatuses.finished} />
+  <PlanOfferModal {planCheck} bind:showModal />
+
+  <LoadingIndicator show={!$isOnlineStore} />
 {/if}

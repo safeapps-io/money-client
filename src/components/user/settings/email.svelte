@@ -1,10 +1,10 @@
 <script>
-  import type { UserEncrState } from '@/stores/user';
+  import type { UserEncrState } from '$stores/user';
 
-  import { Form, EmailField } from '@/components/strict';
+  import { Form, EmailField } from '$strict';
 
   import { _ } from 'svelte-i18n';
-  import { AuthService } from '@/services/auth/authService';
+  import { AuthService } from '$services/auth/authService';
 
   export let user: UserEncrState;
 
@@ -12,7 +12,7 @@
     ? $_('cmps.user.email.setNew', { values: { email: user.email } })
     : $_('cmps.user.email.notSet');
 
-  const success = ({ email }: { email: string }) => AuthService.updateEmail(email);
+  const success = ({ email }: { email: string }) => AuthService.updateUser({ email });
 </script>
 
 <Form

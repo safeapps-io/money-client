@@ -1,9 +1,9 @@
 <script>
-  import Field from '@/components/strict/field.svelte';
-  import Text from '@/components/strict/inputs/text.svelte';
+  import Field from '$components/strict/field.svelte';
+  import TextInput from '$components/strict/inputs/text.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { ensureString, trim, minLength, maxLength } from '@/core/strict/string';
+  import { ensureString, trim, minLength, maxLength } from '$validators';
 
   $: field = {
     name: 'username',
@@ -15,5 +15,5 @@
 </script>
 
 <Field {field}>
-  <Text autocomplete="username" placeholder="whitfield.hellman" />
+  <TextInput autocomplete="username" placeholder="whitfield.hellman" />
 </Field>

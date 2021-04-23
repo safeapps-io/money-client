@@ -1,12 +1,12 @@
 <script>
-  import { Form, PinCodeField } from '@/components/strict';
-  import { Onboarding, Text } from '@/components/onboarding';
+  import { Form, PinCodeField } from '$strict';
+  import { Onboarding, Text } from '$components/onboarding';
 
   import { _ } from 'svelte-i18n';
 
-  import { FormError } from '@/services/errors';
-  import { setPinCode } from '@/services/crypto/masterPassword';
-  import { keyWrappedWithPinStore } from '@/stores/user';
+  import { FormError } from '$services/errors';
+  import { setPinCode } from '$services/crypto/keys';
+  import { keyWrappedWithPinStore } from '$stores/user';
 
   const success = async ({ pinCode }: { pinCode: string }) => {
     try {
@@ -29,11 +29,11 @@
     <PinCodeField />
   </Form>
 
-  <div slot="text">
+  <svelte:fragment slot="text">
     <Text header>{$_('cmps.masterPassword.old.pin.onboarding.header')}</Text>
     <Text>{$_('cmps.masterPassword.old.pin.onboarding.main')}</Text>
     <Text>{$_('cmps.masterPassword.old.pin.onboarding.device')}</Text>
 
     <button class="button mt-3" on:click={finishOnboarding}>{$_('common.okDok')}</button>
-  </div>
+  </svelte:fragment>
 </Onboarding>

@@ -1,12 +1,10 @@
 <script>
-  import { createEventDispatcher, setContext } from 'svelte';
+  import { createEventDispatcher, getContext, setContext } from 'svelte';
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
-  import { getNotificationsContext } from 'svelte-notifications/src/context';
 
-  import { FormError } from '@/services/errors';
-  import { notification } from '@/core/notification';
-  import { createFormStore, setCleanedValue, runValidation } from '@/components/strict/base';
+  import { FormError } from '$services/errors';
+  import { createFormStore, setCleanedValue, runValidation } from '$strict/base';
 
   const dispatch = createEventDispatcher();
 
@@ -17,10 +15,18 @@
     cleanup: undefined | boolean = undefined,
     notificationText: undefined | string = undefined;
 
+  export let currentUserCheck = false,
+    planLimit = false;
+
+  const isPlanActiveRaw = getContext('isPlanActive');
+
+  const isPlanActive = isPlanActiveRaw ? isPlanActiveRaw(currentUserCheck) : null,
+    handleClick = (e?: Event) => planLimit && isPlanActive?.(e);
+
   export let formStore = createFormStore();
   setContext('form', formStore);
 
-  const { addNotification } = getNotificationsContext();
+  const successNotif = getContext('success');
 
   $: ({ formDisabled } = $formStore);
 
@@ -34,6 +40,8 @@
    * we just use it as a `let`.
    */
   export let submit = async () => {
+    if (planLimit && !handleClick()) return;
+
     // Saving ourselves from multiple submissions
     if ($formStore.loading) return;
 
@@ -66,7 +74,7 @@
       try {
         await success(data);
 
-        if (notificationText) addNotification(notification({ text: notificationText }));
+        if (notificationText) successNotif(notificationText);
         if (cleanup) {
           /**
            * If user still focuses on an input element (say, enter was pressed), we blur it before
@@ -114,6 +122,7 @@
     <slot
       name="submit"
       {buttonText}
+      {handleClick}
       disabled={$formStore.submitDisabled || $formStore.formDisabled}
       loading={$formStore.loading}>
       <div class="field">
@@ -121,7 +130,8 @@
           <button
             class="button is-outlined"
             class:is-color-loading={$formStore.loading}
-            disabled={$formStore.submitDisabled || $formStore.formDisabled}>
+            disabled={$formStore.submitDisabled || $formStore.formDisabled}
+            on:click={handleClick}>
             {buttonText}
           </button>
         </div>

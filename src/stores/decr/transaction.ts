@@ -1,9 +1,11 @@
 import { derived, get } from 'svelte/store';
 
-import { getSortedStore } from '@/utils/getSortedStore';
+import { getSortedStore } from '$utils/getSortedStore';
 
-import { Transaction, EntityTypes } from './types';
-import { createDecrEntityStore, StoreData } from './base';
+import type { Transaction } from './types';
+import { EntityTypes } from './types';
+import type { StoreData } from './base';
+import { createDecrEntityStore } from './base';
 
 export const {
   store: transactionStore,

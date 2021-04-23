@@ -1,12 +1,12 @@
 <script>
-  import type { SearchFilter, FullEntity } from '@/stores/decr/types';
+  import type { SearchFilter, FullEntity } from '$stores/decr/types';
 
   import { slide } from 'svelte/transition';
-  import { goto } from '@sapper/app';
+  import { goto } from '$app/navigation';
 
-  import SearchFilterForm from '@/components/searchFilter/form.svelte';
+  import SearchFilterForm from '$components/searchFilter/form.svelte';
 
-  import { searchIdPathFn } from '@/core/routes';
+  import { searchIdPathFn } from '$core/routes';
 
   export let searchFilter: FullEntity<SearchFilter>, edit: boolean;
 

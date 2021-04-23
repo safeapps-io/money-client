@@ -1,11 +1,11 @@
 <script>
-  import TextInput from '../inputs/text.svelte';
-  import Field from '../field.svelte';
+  import Field from '$components/strict//field.svelte';
+  import TextInput from '$components/strict//inputs/text.svelte';
 
   import { _ } from 'svelte-i18n';
 
-  import { ensureString, maxLength, minLength, numberFormat, trim } from '@/core/strict/string';
-  import { randBetween } from '@/utils/random';
+  import { randBetween } from '$utils/random';
+  import { ensureString, maxLength, minLength, numberFormat, trim } from '$validators';
 
   const getPlaceholder = () => {
     let res = randBetween(0, 999999).toFixed(0);

@@ -1,20 +1,29 @@
 <script>
-  import type { Transaction } from '@/stores/decr/types';
+  import type { Transaction } from '$stores/decr/types';
 
   import { _ } from 'svelte-i18n';
-  import { getMccDescription } from '@/services/mcc/mccWsActions';
+  import { getMccDescriptionStore } from '$services/directory/directoryService';
 
   export let autocomplete: Transaction['autocomplete'];
 
-  $: mcc = autocomplete.mcc ? $getMccDescription(autocomplete.mcc) : null;
+  let mcc: string | null | undefined;
+  $: if (autocomplete.mcc) mcc = $getMccDescriptionStore(autocomplete.mcc);
 </script>
 
 <table class="table">
   <tbody>
-    {#if mcc}
+    {#if autocomplete.mcc}
       <tr>
         <td>{$_('cmps.transaction.form.mcc')}</td>
-        <td>{mcc}</td>
+        <td>
+          {#if typeof mcc == 'undefined'}
+            {$_('cmps.nav.loading')}
+          {:else if mcc}
+            {mcc}
+          {:else}
+            {$_('cmps.transaction.form.mccUnknown')}
+          {/if}
+        </td>
       </tr>
     {/if}
     {#if autocomplete.merchant}

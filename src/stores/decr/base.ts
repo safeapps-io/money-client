@@ -1,11 +1,12 @@
 import { nanoid } from 'nanoid';
-import { encode } from 'base64-arraybuffer';
+import { encode } from 'base64-arraybuffer-es6';
 import { writable, derived } from 'svelte/store';
 
-import { FullEntity, AllEntities, EntityTypes, OmitCommonFields } from './types';
-import { bulkUpdateEncrEntity } from '@/stores/encr/store';
-import { encryptionService } from '@/services/crypto/cryptoService';
-import { deriveCurrentEnts } from '@/stores/wallet';
+import type { FullEntity, AllEntities, OmitCommonFields } from './types';
+import { EntityTypes } from './types';
+import { bulkUpdateEncrEntity } from '$stores/encr/store';
+import { deriveCurrentEnts } from '$stores/wallet';
+import { encrypt } from '$services/crypto/keys';
 
 type UpdateData<T extends AllEntities> = { ent: FullEntity<T>; decr: T };
 export type WalletState<T extends AllEntities> = {
@@ -69,14 +70,7 @@ export const createDecrEntityStore = <T extends AllEntities>(
     globalOverwrite = async (data: Array<FullEntity<T>>) => {
       // Encrypting all at once
       const encrArray = await Promise.all(
-        data.map(({ decr, id, walletId }) =>
-          encryptionService.encrypt({
-            data: decr,
-            id,
-            walletId,
-            additionalData: walletId,
-          }),
-        ),
+        data.map(({ decr, id, walletId }) => encrypt(decr, id, walletId, walletId)),
       );
 
       // Writing it all at once

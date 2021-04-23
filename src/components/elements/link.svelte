@@ -1,5 +1,5 @@
-<script lang="typescript">
-  import { stores } from '@sapper/app';
+<script>
+  import { page } from '$app/stores';
 
   export let href: string,
     targetBlank = false as boolean,
@@ -18,7 +18,6 @@
 
   export let addActiveClass: string | undefined = undefined;
   let ref: HTMLAnchorElement;
-  const { page } = stores();
   $: if (ref && addActiveClass) {
     if ($page.path.startsWith(href)) ref.classList.add(addActiveClass);
     else ref.classList.remove(addActiveClass);

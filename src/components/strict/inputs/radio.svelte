@@ -1,5 +1,5 @@
 <script lang="typescript">
-  import type { FormStore, LabeledChoice } from '@/components/strict/base';
+  import type { FormStore, LabeledChoice } from '$strict/base';
 
   import { getContext } from 'svelte';
 

@@ -1,5 +1,6 @@
-import { writable, Writable } from 'svelte/store';
-import { CleanFunction, ValidateFunction, ValidateValidReturn } from '@/core/strict/types';
+import type { CleanFunction, ValidateFunction, ValidateValidReturn } from './validators/types';
+import type { Writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 export type LabeledChoice = { value: any; label?: string; disabled?: true };
 export type GroupedChoice = { group: string; choices: Choices };

@@ -1,6 +1,6 @@
-import { BaseSimpleScheme } from './types';
+import type { BaseSimpleScheme } from './types';
 import { customSchemes } from './customSchemes';
-import { bufferToString } from '@/utils/buffer/conversions';
+import { bufferToString } from '$utils/buffer/conversions';
 import { parseData } from './parseData';
 
 const previewLines = 15;

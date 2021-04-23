@@ -1,49 +1,51 @@
 <script>
-  import type { OwnerInviteValidate } from '@/services/invite/inviteStages';
-  import type { Wallet } from '@/stores/wallet';
+  import type { OwnerInviteValidate } from '$services/invite/inviteStages';
+  import type { Wallet } from '$stores/wallet';
 
-  import Modal from '@/components/elements/modal.svelte';
+  import Modal from '$components/elements/modal.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { accentTags } from '@/utils/accentTags';
+  import { accentTags } from '$utils/accentTags';
 
-  import { invitationError, invitationResolution } from '@/services/invite/inviteWsActions';
-  import { InviteService } from '@/services/invite/inviteService';
-  import { walletDataStore } from '@/stores/decr/wallet';
-  import { removeInvite } from '@/services/invite/inviteStages';
+  import { InviteService } from '$services/invite/inviteService';
+  import { walletDataStore } from '$stores/decr/wallet';
+  import { removeInvite } from '$services/invite/inviteStages';
 
   export let inviteToValidate: OwnerInviteValidate | undefined, userId: string;
 
   let active = false,
-    modalData:
-      | {
-          hash: { emojiString: string; hashHex: string };
-          joiningUsername: string;
-          walletName: string;
-        }
-      | undefined = undefined,
-    wallet: Wallet | undefined = undefined;
+    modalData: {
+      hash: { emojiString: string; hashHex: string };
+      joiningUsername: string;
+      walletName: string;
+    } | null,
+    wallet: Wallet | null;
 
-  const validateInvite = async (data: OwnerInviteValidate) => {
+  const validateInvite = async ({
+    joiningUser,
+    b64InviteSignatureByJoiningUser,
+    b64InviteString,
+  }: OwnerInviteValidate) => {
     try {
       const { hash, wallet: _wallet } = await InviteService.ownerValidateInitialRequest({
-        b64InviteString: data.b64InviteString,
-        b64PublicECDHKey: data.joiningUser.b64PublicECDHKey,
+        b64InviteString,
+        b64PublicECDHKey: joiningUser.b64PublicECDHKey,
       });
       wallet = _wallet;
       modalData = {
         hash,
-        joiningUsername: data.joiningUser.username,
+        joiningUsername: joiningUser.username,
         walletName: Object.values($walletDataStore).find(wd => wd.walletId == wallet!.id)!.decr
           .name,
       };
       active = true;
     } catch (error) {
-      $invitationError({
-        joiningUserId: data.joiningUser.id,
-        b64InviteSignatureByJoiningUser: data.b64InviteSignatureByJoiningUser,
-        b64InviteString: data.b64InviteString,
-      });
+      InviteService.ownerResolution({
+        joiningUserId: joiningUser.id,
+        b64InviteSignatureByJoiningUser,
+        b64InviteString,
+        isValid: false,
+      }).catch(() => {});
     }
   };
 
@@ -53,34 +55,34 @@
   const resolution = async (allowJoin: boolean) => {
       loading = true;
 
-      const { joiningUser, b64InviteString, b64InviteSignatureByJoiningUser } = inviteToValidate!;
-      let obj = {
-        joiningUserId: joiningUser.id,
-        b64InviteSignatureByJoiningUser: b64InviteSignatureByJoiningUser,
-        b64InviteString: b64InviteString,
-      };
+      const { joiningUser, b64InviteString, b64InviteSignatureByJoiningUser } = inviteToValidate!,
+        obj = {
+          joiningUserId: joiningUser.id,
+          b64InviteSignatureByJoiningUser,
+          b64InviteString,
+        };
       try {
-        if (allowJoin)
-          obj = {
-            ...obj,
-            ...(await InviteService.ownerAllowJoin({
-              walletChest: wallet?.users.find(u => u.id == userId)?.WalletAccess.chest || '',
-              b64PublicECDHKey: joiningUser.b64PublicECDHKey,
-            })),
-          };
-
-        $invitationResolution({ ...obj, allowJoin });
+        await InviteService.ownerResolution(
+          allowJoin
+            ? {
+                ...obj,
+                allowJoin,
+                walletChest: wallet?.users.find(u => u.id == userId)?.WalletAccess.chest || '',
+                b64PublicECDHKey: joiningUser.b64PublicECDHKey,
+              }
+            : { ...obj, allowJoin },
+        );
         close();
       } catch (error) {
         error = true;
-        $invitationError(obj);
+        InviteService.ownerResolution({ ...obj, isValid: false }).catch(() => {});
       }
     },
     close = () => {
       active = false;
       error = false;
       loading = false;
-      modalData = undefined;
+      modalData = null;
 
       /**
        * TODO: get rid of this workaround when it's clarified if Svelte has a bug.

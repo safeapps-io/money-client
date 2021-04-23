@@ -1,31 +1,29 @@
 <script>
-  import Page from '@/components/nav/page.svelte';
-  import Link from '@/components/elements/link.svelte';
-  import Tabs from '@/components/elements/tabs.svelte';
-  import CategoryList from '@/components/category/list.svelte';
+  import Page from '$components/nav/page.svelte';
+  import Tabs from '$components/elements/tabs.svelte';
+  import CategoryList from '$components/category/list.svelte';
 
+  import { getContext } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { addCategoryPath } from '@/core/routes';
-  import { categorySortedByTitleStore } from '@/stores/decr/category';
+  import { addCategoryPath } from '$core/routes';
+  import { categorySortedByTitleStore } from '$stores/decr/category';
 
-  const enum CategoryType {
-    expense = '0',
-    income = '1',
-  }
+  let isIncome = false;
+  $: sortedCategories = $categorySortedByTitleStore.filter(cat => cat.decr.isIncome === isIncome);
 
-  let selectedType = CategoryType.expense;
-  $: sortedCategories = $categorySortedByTitleStore.filter(
-    cat => cat.decr.isIncome === (selectedType === CategoryType.income),
-  );
+  const isPlanActive = getContext('isPlanActive')();
 </script>
 
 <Page boxedView={false}>
   <div class="is-flex" slot="title">
     <h1 class="title is-3 mr-3">{$_('cmps.category.common.categories')}</h1>
-    <Link href={`${$addCategoryPath}?income=${selectedType}`} class="button is-success">
+    <a
+      href="{$addCategoryPath}?income={isIncome}"
+      class="button is-success"
+      on:click={isPlanActive}>
       {$_('common.form.create')}
-    </Link>
+    </a>
   </div>
 
   <div class="is-flex flex-columns">
@@ -33,10 +31,10 @@
       sticky
       classes="is-centered"
       tabs={[
-        { value: CategoryType.expense, label: $_('cmps.transaction.common.expense') },
-        { value: CategoryType.income, label: $_('cmps.transaction.common.income') },
+        { value: false, label: $_('cmps.transaction.common.expense') },
+        { value: true, label: $_('cmps.transaction.common.income') },
       ]}
-      bind:activeTab={selectedType} />
+      bind:activeTab={isIncome} />
 
     <div class="flex-full">
       <CategoryList categories={sortedCategories} />

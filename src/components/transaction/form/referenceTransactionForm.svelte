@@ -1,14 +1,14 @@
 <script>
-  import { Form, Field, TextInput } from '@/components/strict';
+  import { Form, Field, TextInput } from '$strict';
 
   import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
-  import { inputFormatDate } from '@/utils/date';
+  import { inputFormatDate } from '$utils/date';
 
-  import { ensureNumber, ensureDate, dateIsAfter, dateIsBefore } from '@/core/strict/number';
-  import { referenceTransactionAdd } from '@/stores/decr/referenceTransaction';
-  import { defaultAssetStore } from '@/stores/decr/asset';
+  import { ensureNumber, ensureDate, dateIsAfter, dateIsBefore } from '$validators';
+  import { referenceTransactionAdd } from '$stores/decr/referenceTransaction';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
   export let walletId: string;
 
@@ -37,7 +37,7 @@
     };
 </script>
 
-<Form {success}>
+<Form planLimit {success}>
   <Field field={balanceField}>
     <TextInput type="number" placeholder="120 319.89" />
   </Field>

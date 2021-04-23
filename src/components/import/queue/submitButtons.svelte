@@ -1,14 +1,14 @@
 <script>
-  import type { ShortcutSetting } from '@/utils/actions/shortcut';
+  import type { ShortcutSetting } from '$utils/actions/shortcut';
 
-  import Shortcut from '@/components/elements/shortcut.svelte';
+  import Shortcut from '$components/elements/shortcut.svelte';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
 
-  import { shortcut } from '@/utils/actions/shortcut';
+  import { shortcut } from '$utils/actions/shortcut';
 
-  import { CsvParsedTransactionResolution } from '@/core/import/constants';
+  import { CsvParsedTransactionResolution } from '$core/import/constants';
 
   const dispatch = createEventDispatcher();
 
