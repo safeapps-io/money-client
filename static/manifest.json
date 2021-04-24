@@ -2,17 +2,17 @@
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "name": "[safe] money",
-  "short_name": "[] 💰",
+  "short_name": "[safe] money",
   "display": "fullscreen",
   "start_url": "/app",
   "icons": [
     {
-      "src": "/static/logo/192.png",
+      "src": "/static/logo/192-v2.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/static/logo/512.png",
+      "src": "/static/logo/512-v2.png",
       "type": "image/png",
       "sizes": "512x512"
     }
