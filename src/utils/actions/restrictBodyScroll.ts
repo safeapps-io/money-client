@@ -1,14 +1,14 @@
 const keys = ['ArrowUp', 'ArrowDown', 'Space', 'Left', 'Right'],
   wheelOpt = { passive: false };
 
-export const restrictBodyScroll: Action<boolean | void> = (node, active = true) => {
+export const restrictBodyScroll: Action<boolean | void> = (node, active: boolean | void = true) => {
   const wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel',
     preventEvent = (e: Event) => {
       if (!node.contains(e.target as Node)) e.preventDefault();
     },
     preventKeyEvent = (e: KeyboardEvent) => keys.includes(e.key) && preventEvent(e);
 
-  const update = (shouldPrevent: boolean) => {
+  const update = (shouldPrevent?: boolean | void) => {
     if (shouldPrevent) {
       window.addEventListener(wheelEvent, preventEvent, wheelOpt);
       window.addEventListener('touchmove', preventEvent, wheelOpt);

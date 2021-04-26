@@ -4,7 +4,7 @@
 
   import { optionalString, ensureString, trim, emailFormat } from '$validators';
 
-  export let required: boolean,
+  export let required: boolean = false,
     help: string | undefined = undefined;
 
   $: field = {

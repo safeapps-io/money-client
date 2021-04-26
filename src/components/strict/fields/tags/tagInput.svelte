@@ -1,7 +1,7 @@
 <script>
   import { createEventDispatcher } from 'svelte';
 
-  export let id: string, inputValue: string, placeholder: string | undefined;
+  export let id: string | undefined, inputValue: string, placeholder: string | undefined;
 
   let ref: HTMLInputElement;
 
@@ -38,7 +38,6 @@
   bind:this={ref}
   bind:value={inputValue}
   on:keydown={onInput}
-  on:change={onInput}
   on:blur={onBlur}
   on:focus={onFocus} />
 

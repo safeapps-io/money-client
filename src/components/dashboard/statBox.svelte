@@ -6,9 +6,9 @@
     labelClass: string,
     betterToIncrease: boolean,
     currentValue: number,
-    previousValue: number;
+    previousValue: number | undefined = undefined;
 
-  $: diff = currentValue - previousValue;
+  $: diff = currentValue - (previousValue || 0);
   $: gotBetter = betterToIncrease ? diff >= 0 : diff <= 0;
   $: classes = `number-stat overflow-ellipsis ${labelClass}`;
 

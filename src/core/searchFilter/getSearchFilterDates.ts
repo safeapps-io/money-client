@@ -57,7 +57,7 @@ export const getSearchFilterDates = ({
 
   const startDate = subtractorFn(startFn(today), page).getTime(),
     endDate = endFn(startDate).getTime(),
-    prevStartDate = havePrev ? subtractorFn(startDate, page + 1).getTime() : undefined;
+    prevStartDate = havePrev ? subtractorFn(new Date(startDate), page + 1).getTime() : undefined;
 
   /**
    * We always return both start and end dates.
