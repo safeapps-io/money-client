@@ -15,7 +15,7 @@
   $: choices = getJointWalletFieldChoices($walletDataStore!, jointWalletIds);
 
   const id = Math.random().toString();
-  export let walletId: string;
+  export let walletId: string | undefined = undefined;
 
   $: if (!walletId) walletId = choices[0]?.value;
 </script>

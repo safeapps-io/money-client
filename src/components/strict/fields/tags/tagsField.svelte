@@ -34,7 +34,7 @@
     : null;
 
   // We need to print out the label rather than the real value
-  $: fieldDisplayValue = (field.inputValue || []).map((value: string) => {
+  $: fieldDisplayValue = ((field.inputValue as string[] | undefined) || []).map((value: string) => {
     if (field.choices) {
       const theChosenOne = (field.choices as LabeledChoice[]).find(
         choice => choice.value === value,

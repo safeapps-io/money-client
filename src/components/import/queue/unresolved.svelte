@@ -17,13 +17,13 @@
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
 
-
   const dispatch = createEventDispatcher();
 
   export let transactionToResolve: OmitCommonFields<Transaction> | undefined,
     suggestedCategoryIds: string[] | undefined,
     category: FullEntity<Category> | undefined = undefined,
     walletUser: FullEntity<WalletUser> | undefined = undefined,
+    defaultWalletUserId: string,
     showOnboarding = false;
 
   let submitDisabled = false,
@@ -62,6 +62,7 @@
             {suggestedCategoryIds}
             {category}
             {walletUser}
+            {defaultWalletUserId}
             transaction={transactionToResolve}
             bind:submitDisabled
             bind:showEdit

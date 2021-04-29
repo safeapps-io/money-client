@@ -73,6 +73,14 @@
   <hr />
 
   <button class="button" on:click={() => (showButton = false)}>Hide admin button</button>
+
+  <hr />
+
+  <button
+    class="button is-danger"
+    on:click={() => {
+      throw new Error('Admin error trigger');
+    }}>Trigger error</button>
 </Modal>
 
 <style>

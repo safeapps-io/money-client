@@ -19,10 +19,7 @@
   import { accentTags, generateLinkTags } from '$utils/accentTags';
 
   import { CsvParsedTransactionResolution } from '$core/import/constants';
-  import {
-    autocompleteDataStore,
-    mutateStateWithTransactionData,
-  } from '$stores/decr/autocomplete';
+  import { autocompleteDataStore, mutateStateWithTransactionData } from '$stores/decr/autocomplete';
   import { getTransposedAutocomplete } from '$core/import/selfUpdatingAutocomplete';
   import { getInitialTransactionState } from '$core/import/getInitialTransactionState';
   import { userEncrStore } from '$stores/user';
@@ -357,6 +354,7 @@
           {suggestedCategoryIds}
           category={getCategory(transactionToResolve?.categoryId)}
           walletUser={getWalletUser(transactionToResolve?.walletUserId)}
+          defaultWalletUserId={$defaultWalletUserIdStore}
           showOnboarding={currentStep == 'transaction'}
           on:onboardingFinish={() => (currentStep = 'final')}
           on:triggerManualSubmit={triggerManualSubmit}

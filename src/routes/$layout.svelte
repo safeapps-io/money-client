@@ -8,11 +8,13 @@
   import { isLoading } from 'svelte-i18n';
 
   import { initStores } from '$stores/init';
+  import { initTrackErrors } from '$services/trackErrors';
   import { i18nInit } from '$core/i18n';
   import { matchMediaInit } from '$core/matchMedia';
 
   let appInitialized = false;
   onMount(async () => {
+    initTrackErrors();
     i18nInit();
     matchMediaInit();
 
