@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "svelte-kit dev",
     "type": "tsc --noEmit && svelte-check",
-    "build": "find . -name .DS_Store | xargs rm && NODE_ENV=production svelte-kit build"
+    "build": "rm -rf ./build && find . -name .DS_Store | xargs rm && NODE_ENV=production svelte-kit build"
   },
   "dependencies": {
     "base64-arraybuffer-es6": "^0.7.0",

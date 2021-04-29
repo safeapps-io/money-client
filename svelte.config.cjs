@@ -82,6 +82,7 @@ module.exports = {
           name => !['emoji-regex', 'svelte-i18n', 'nanoid'].includes(name),
         ),
       },
+      build: { sourcemap: true },
     }),
   },
   preprocess: sveltePreprocess({
