@@ -4,50 +4,33 @@
   import { _ } from 'svelte-i18n';
   import { generateLinkTags } from '$utils/accentTags';
 
-  import { aboutPath, pricingPath, termsPath, howItWorksPath, forumPath } from '$core/routes';
+  import { aboutPath, termsPath, forumPath, privacyPolicyPath } from '$core/routes';
 
-  $: leftLinks = [
+  $: links = [
     [aboutPath, $_('cmps.footer.about')],
-    [pricingPath, $_('cmps.footer.pricing')],
-    [howItWorksPath, $_('cmps.footer.howItWorks')],
     [forumPath, $_('cmps.footer.forum')],
-  ];
-  $: rightLinks = [
     [termsPath, $_('cmps.footer.terms')],
-    ['https://github.com/safeapps-io', $_('cmps.footer.openSource')],
+    [privacyPolicyPath, $_('cmps.footer.privacy')],
+    ['https://github.com/safeapps-io', 'github'],
   ];
 </script>
 
-<footer class="columns">
-  <div class="column is-9">
-    <div class="columns">
-      <div class="column is-4">
-        {#each leftLinks as [url, text]}
-          <div>
-            <a href={url} target="_blank" rel="noopener">{text.toLowerCase()}</a>
-          </div>
-        {/each}
+<footer>
+  <div class="columns">
+    <ul class="column is-9">
+      {#each links as [url, text]}
+        <li><a href={url}>{text.toLocaleLowerCase()}</a></li>
+      {/each}
+    </ul>
+    <div class="column is-3 copy">
+      <p>
+        {@html $_('cmps.footer.copy', {
+          values: generateLinkTags('https://dkzlv.com/'),
+        })}
+      </p>
+      <div class="mt-3 is-size-7">
+        <Locale />
       </div>
-      <div class="column is-4">
-        <div>
-          {#each rightLinks as [url, text]}
-            <div>
-              <a href={url} target="_blank" rel="noopener">{text.toLowerCase()}</a>
-            </div>
-          {/each}
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="column is-3 copy">
-    <p>
-      {@html $_('cmps.footer.copy', {
-        values: generateLinkTags('https://dkzlv.com/'),
-      })}
-    </p>
-
-    <div class="mt-3 is-size-7">
-      <Locale />
     </div>
   </div>
 </footer>
@@ -61,5 +44,16 @@
     // .columns is just display:block on mobile devices, so we move the copy up by
     // setting negative order when .columns is flex — on desktops
     order: -1;
+  }
+
+  ul {
+    display: flex;
+    align-content: flex-start;
+    flex-wrap: wrap;
+
+    li:not(:last-child):after {
+      content: '·';
+      padding: 0.5em;
+    }
   }
 </style>

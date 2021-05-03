@@ -88,11 +88,7 @@ export const transactionDraftsPath = derived(
   );
 
 // Root Site --------------
-const rootSite = 'https://safeapps.io';
-export const pricingPath = `${rootSite}/pricing`,
-  howItWorksPath = `${rootSite}/how-it-works`;
-
-const content = `${rootSite}/content`;
+const content = 'https://safeapps.io/content';
 export const aboutPath = `${content}/about`,
   termsPath = `${content}/terms`,
   privacyPolicyPath = `${content}/privacy`;
