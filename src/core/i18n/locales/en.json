@@ -116,7 +116,7 @@
         "neverShare": "We never share any of your data with our payment providers. Read more in our {linkO}Privacy Policy{linkC}. You'll be able to use incognito mode while purchasing.",
         "tinkoff": {
           "intro": "Our payment provider for bank cards is {tagO}Tinkoff Bank{tagC}",
-          "rubles": "You will be charged in {tagO}Russian Rubles{tagC} based on today's exchange rate. Sorry for inconvenience."
+          "rubles": "You will be charged in {tagO}Russian Rubles{tagC}. Today's exchange rate: $1 = {exchangeRate, number, ::currency/RUB}. Final price: {tagO}{price, number, ::currency/RUB}{tagC}. Sorry for inconvenience."
         },
         "coinbase": {
           "intro": "Our payment provider for cryptocurrency is {tagO}Coinbase{tagC}",

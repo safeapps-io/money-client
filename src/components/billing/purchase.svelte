@@ -13,7 +13,8 @@
   // [ch]oose, [l]ink, [e]rror
   let state: 'ch' | 'l' | 'e' = 'ch',
     choosenProvider: Providers | false = false,
-    link: string | null = null;
+    link: string | null = null,
+    chargeResult: ThenArg<ReturnType<typeof BillingService.createCharge>>['json'] | null = null;
 
   const buttons: { iconClass: string; d: string; text: string; provider: Providers }[] = [
     {
@@ -38,8 +39,10 @@
       choosenProvider = provider;
 
       try {
-        const { json } = await BillingService.createCharge(provider);
-        link = json.link;
+        const { json: providerData } = await BillingService.createCharge(provider);
+        link = providerData.link;
+        chargeResult = providerData;
+
         state = 'l';
       } catch (error) {
         choosenProvider = false;
@@ -53,59 +56,61 @@
     };
 </script>
 
-<CrossfadeWrapper key={state}>
-  {#if state == 'ch' || state == 'e'}
-    <div class="columns is-multiline has-text-centered">
-      <div class="column is-full">{$_('cmps.billing.payMethods.choose')}</div>
-      {#each buttons as { d, iconClass, text, provider } (provider)}
-        <div class="column is-half">
-          <button
-            class="button is-primary is-fullwidth"
-            class:is-color-loading={choosenProvider == provider}
-            disabled={choosenProvider && choosenProvider != provider}
-            on:click={() => initPayment(provider)}>
-            {#if !choosenProvider || choosenProvider != provider}
-              <span class="icon {iconClass}"
-                ><svg
-                  viewBox="0 0 15 15"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="15"
-                  height="15"><path {d} stroke="currentColor" /></svg
-                ></span>
-            {/if}
-            <span>{text}</span></button>
-        </div>
-      {/each}
-      {#if state == 'e'}
-        <div class="column has-text-centered" transition:slide|local>
-          <p class="help is-danger">{$_('common.errors.tryLater')}</p>
-        </div>
-      {:else}
-        <div class="column has-text-centered" transition:slide|local>
-          <p class="help">
-            {@html $_('cmps.billing.providers.neverShare', {
-              values: generateLinkTags(privacyPolicyPath),
-            })}
-          </p>
-        </div>
-      {/if}
-    </div>
-  {:else if state == 'l'}
-    <div class="has-text-centered">
-      <div class="mb-3">
+<div class="has-text-centered">
+  <CrossfadeWrapper key={state}>
+    {#if state == 'ch' || state == 'e'}
+      <div class="columns is-multiline">
+        <div class="column is-full">{$_('cmps.billing.payMethods.choose')}</div>
+        {#each buttons as { d, iconClass, text, provider } (provider)}
+          <div class="column is-half">
+            <button
+              class="button is-primary is-fullwidth"
+              class:is-color-loading={choosenProvider == provider}
+              disabled={choosenProvider && choosenProvider != provider}
+              on:click={() => initPayment(provider)}>
+              {#if !choosenProvider || choosenProvider != provider}
+                <span class="icon {iconClass}"
+                  ><svg
+                    viewBox="0 0 15 15"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="15"
+                    height="15"><path {d} stroke="currentColor" /></svg
+                  ></span>
+              {/if}
+              <span>{text}</span></button>
+          </div>
+        {/each}
+        {#if state == 'e'}
+          <div class="column" transition:slide|local>
+            <p class="help is-danger">{$_('common.errors.tryLater')}</p>
+          </div>
+        {:else}
+          <div class="column" transition:slide|local>
+            <p class="help">
+              {@html $_('cmps.billing.providers.neverShare', {
+                values: generateLinkTags(privacyPolicyPath),
+              })}
+            </p>
+          </div>
+        {/if}
+      </div>
+    {:else if state == 'l'}
+      <div class="my-5">
         {#if choosenProvider == 'tinkoff'}
           <p>
             {@html $_('cmps.billing.providers.tinkoff.intro', { values: accentTags })}
           </p>
-          <p>
-            {@html $_('cmps.billing.providers.tinkoff.rubles', { values: accentTags })}
+          <p class="help">
+            {@html $_('cmps.billing.providers.tinkoff.rubles', {
+              values: { ...accentTags, ...chargeResult },
+            })}
           </p>
         {:else}
           <p>
             {@html $_('cmps.billing.providers.coinbase.intro', { values: accentTags })}
           </p>
-          <p class="is-size-7">
+          <p class="help">
             {$_('cmps.billing.providers.coinbase.support')}
           </p>
         {/if}
@@ -115,6 +120,6 @@
       <p class="help">{$_('common.or').toLowerCase()}</p>
       <button class="button is-small is-danger is-outlined" on:click={cancel}
         >{$_('common.form.cancel')}</button>
-    </div>
-  {/if}
-</CrossfadeWrapper>
+    {/if}
+  </CrossfadeWrapper>
+</div>
