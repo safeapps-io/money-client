@@ -94,7 +94,8 @@ export const pricingPath = `${rootSite}/pricing`,
 
 const content = `${rootSite}/content`;
 export const aboutPath = `${content}/about`,
-  termsPath = `${content}/terms`;
+  termsPath = `${content}/terms`,
+  privacyPolicyPath = `${content}/privacy`;
 
 export const forumPath = 'https://forum.safeapps.io',
   forumHelpPath = `${forumPath}/c/help/6`,

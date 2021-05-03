@@ -3,16 +3,14 @@
   import Tabs from '$components/elements/tabs.svelte';
   import CategoryList from '$components/category/list.svelte';
 
-  import { getContext } from 'svelte';
   import { _ } from 'svelte-i18n';
 
   import { addCategoryPath } from '$core/routes';
   import { categorySortedByTitleStore } from '$stores/decr/category';
+  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
 
   let isIncome = false;
   $: sortedCategories = $categorySortedByTitleStore.filter(cat => cat.decr.isIncome === isIncome);
-
-  const isPlanActive = getContext('isPlanActive')();
 </script>
 
 <Page boxedView={false}>
@@ -21,7 +19,7 @@
     <a
       href="{$addCategoryPath}?income={isIncome}"
       class="button is-success"
-      on:click={isPlanActive}>
+      on:click={runCurrentWalletPlanCheck}>
       {$_('common.form.create')}
     </a>
   </div>

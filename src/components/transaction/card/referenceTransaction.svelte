@@ -4,7 +4,7 @@
   import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
   import ActionsDropdown from '$components/elements/dropdown/actions.svelte';
 
-  import { createEventDispatcher, getContext } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import { _ } from 'svelte-i18n';
 
   import { focusableShortcut } from '$utils/actions/shortcut';
@@ -12,12 +12,12 @@
 
   import { defaultAssetStore } from '$stores/decr/asset';
   import { relativeDate } from '$core/i18n/relativeDate';
+  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
 
   export let referenceTransaction: FullEntity<ReferenceTransaction>,
     activeTransactionId: string | undefined = undefined;
 
   const dispatch = createEventDispatcher(),
-    isPlanActive = getContext('isPlanActive')(),
     setActiveStatus = () => dispatch('setActive', referenceTransaction.id);
 </script>
 
@@ -42,7 +42,7 @@
           role="button"
           tabindex="0"
           on:click={() => {
-            if (isPlanActive()) {
+            if (runCurrentWalletPlanCheck()) {
               setActiveStatus();
               hide();
             }

@@ -1,17 +1,16 @@
 <script>
   import { Onboarding, Text } from '$components/onboarding';
 
-  import { getContext } from 'svelte';
   import { _ } from 'svelte-i18n';
   import { goto } from '$app/navigation';
   import { media } from 'svelte-match-media';
   import { accentTags } from '$utils/accentTags';
 
   import { addTransactionPath, importPath } from '$core/routes';
+  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
 
   export let shouldShowOnboarding = true;
 
-  const isPlanActive = getContext('isPlanActive')();
   const key = 'howToAdd';
 
   $: mobileMode = $media.mobile;
@@ -27,7 +26,7 @@
       class:is-light={mobileMode}
       class:is-fullwidth={mobileMode}
       href={$importPath}
-      on:click={e => isPlanActive(e) && finishOnboarding().then(onbClickSlot)}
+      on:click={e => runCurrentWalletPlanCheck(e) && finishOnboarding().then(onbClickSlot)}
       >{$_('cmps.transaction.import')}</a>
 
     <svelte:fragment slot="text">
@@ -49,6 +48,6 @@
     <a
       class={'is-size-7 is-underlined ' + manualAddClasses}
       href={$addTransactionPath}
-      on:click={isPlanActive}>{$_('cmps.transaction.add')}</a>
+      on:click={runCurrentWalletPlanCheck}>{$_('cmps.transaction.add')}</a>
   </div>
 </div>

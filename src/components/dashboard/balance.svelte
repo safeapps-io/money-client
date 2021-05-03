@@ -2,7 +2,7 @@
   import BalanceChart from './charts/balance.svelte';
 
   import { _ } from 'svelte-i18n';
-  import { createEventDispatcher, getContext } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import { slide } from 'svelte/transition';
   import { media } from 'svelte-match-media';
 
@@ -10,9 +10,10 @@
   import { moneyFormat, percentFormat } from '$utils/number';
 
   import { defaultAssetStore } from '$stores/decr/asset';
+  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
 
   // Undefined if there is not balance at all at this point (time before first transaction)
-  export let balanceNumber: number | undefined,
+  export let balanceNumber: number | undefined = undefined,
     balanceComparison: number | undefined = undefined,
     // Stores a sorted (old -> new) history of all the balance positions from the very beginning
     balanceHistory: {
@@ -21,7 +22,6 @@
     }[] = [];
 
   const dispatch = createEventDispatcher(),
-    isPlanActive = getContext('isPlanActive')(),
     adaptToChart = (history: typeof balanceHistory) =>
       history.map(({ date, value }) => ({ t: new Date(date), y: value }));
 
@@ -39,7 +39,7 @@
           class="has-text-dotted clickable has-text-link is-size-7"
           role="button"
           tabindex="0"
-          on:click={() => isPlanActive() && dispatch('correctBalance')}
+          on:click={e => runCurrentWalletPlanCheck(e) && dispatch('correctBalance')}
           use:focusableShortcut>
           {$_(
             $media.mobile

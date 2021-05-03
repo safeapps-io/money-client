@@ -22,5 +22,6 @@
   "jest.autoEnable": false,
   "i18n-ally.localesPaths": "src/core/i18n/locales",
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.sourceLanguage": "en"
+  "i18n-ally.sourceLanguage": "en",
+  "svelte.plugin.svelte.rename.enable": false
 }

@@ -4,7 +4,6 @@
 
   import type { FullEntity, WalletData } from '$stores/decr/types';
 
-  import { getContext } from 'svelte';
   import { _ } from 'svelte-i18n';
   import layersSubtractIcon from 'teenyicons/outline/layers-subtract.svg';
 
@@ -12,11 +11,10 @@
 
   import { rootJointWalletPath, rootWalletPath } from '$core/routes';
 
+  import { runCurrentUserPlanCheck } from '$components/billing/planOfferModal.svelte';
   import { selectedWalletStore, selectedJointWalletStore, walletStore } from '$stores/wallet';
   import { walletDataStore } from '$stores/decr/wallet';
   import { jointWalletsStore } from '$stores/wallet';
-
-  const isPlanActive = getContext('isPlanActive')(true);
 
   let active = false,
     triggerText: string | undefined;
@@ -71,7 +69,7 @@
       class="dropdown-item has-text-success clickable"
       on:click={() => {
         hide();
-        active = isPlanActive();
+        active = runCurrentUserPlanCheck();
       }}
       use:focusableShortcut>
       {$_('cmps.wallet.create.wallet')}

@@ -1,6 +1,6 @@
 <script>
   import Meta from '$components/nav/meta.svelte';
-  import Main from '$components/nav/main.svelte';
+  import Main from '$components/nav/main/index.svelte';
 
   import { userEncrStore } from '$stores/user';
 </script>
