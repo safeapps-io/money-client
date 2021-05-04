@@ -1,7 +1,7 @@
 {
   "name": "money-client",
   "license": "AGPL-3.0",
-  "version": "29.04.2021v2",
+  "version": "04.05.2021v1",
   "type": "module",
   "scripts": {
     "dev": "svelte-kit dev",
