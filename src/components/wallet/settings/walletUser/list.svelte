@@ -4,23 +4,22 @@
   import Modal from '$components/elements/modal.svelte';
   import WalletUserForm from '$components/wallet/settings/walletUser/form.svelte';
 
-  import { getContext } from 'svelte';
   import { _ } from 'svelte-i18n';
   import cssVars from 'svelte-css-vars';
 
   import { walletUserSortedByCreatedStore } from '$stores/decr/walletUser';
+  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
 
   let active = false,
     ent: FullEntity<WalletUser> | undefined = undefined;
 
-  const isPlanActive = getContext('isPlanActive')(),
-    handleClick = (newEnt: typeof ent) => (e: Event) => {
-      const res = isPlanActive(e);
-      if (res) {
-        ent = newEnt;
-        active = true;
-      }
-    };
+  const handleClick = (newEnt: typeof ent) => (e: Event) => {
+    const res = runCurrentWalletPlanCheck(e);
+    if (res) {
+      ent = newEnt;
+      active = true;
+    }
+  };
 </script>
 
 <Modal bind:active>

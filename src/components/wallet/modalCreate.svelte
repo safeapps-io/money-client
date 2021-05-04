@@ -12,8 +12,8 @@
   import { searchIdPathFn } from '$core/routes';
   import { defaultSearchFilter } from '$stores/decr/searchFilter';
 
-  export let firstWallet: boolean = false,
-    active: boolean = false;
+  export let firstWallet = false,
+    active = false;
 
   const enum WalletCreateModes {
     wallet,

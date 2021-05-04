@@ -5,6 +5,10 @@
 
   import { FormError } from '$services/errors';
   import { createFormStore, setCleanedValue, runValidation } from '$strict/base';
+  import {
+    runCurrentUserPlanCheck,
+    runCurrentWalletPlanCheck,
+  } from '$components/billing/planOfferModal.svelte';
 
   const dispatch = createEventDispatcher();
 
@@ -18,10 +22,8 @@
   export let currentUserCheck = false,
     planLimit = false;
 
-  const isPlanActiveRaw = getContext('isPlanActive');
-
-  const isPlanActive = isPlanActiveRaw ? isPlanActiveRaw(currentUserCheck) : null,
-    handleClick = (e?: Event) => planLimit && isPlanActive?.(e);
+  const isPlanActive = currentUserCheck ? runCurrentUserPlanCheck : runCurrentWalletPlanCheck,
+    handleClick = (e?: Event) => planLimit && isPlanActive(e);
 
   export let formStore = createFormStore();
   setContext('form', formStore);

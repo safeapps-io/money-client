@@ -8,10 +8,10 @@
 
   import { deletedAdd } from '$stores/decr/deleted';
   import { userEncrStore } from '$stores/user';
+  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
 
   const successNotif = getContext('success'),
     dangerNotif = getContext('danger'),
-    isPlanActive = getContext('isPlanActive')(),
     dispatch = createEventDispatcher();
 
   export let entityMap: { [walletId: string]: string[] },
@@ -21,7 +21,7 @@
   const shortcutSetting = { shift: true, code: 'Backspace' };
 
   const click = async () => {
-    if (!isPlanActive()) return;
+    if (!runCurrentWalletPlanCheck()) return;
 
     try {
       if (runBefore) {

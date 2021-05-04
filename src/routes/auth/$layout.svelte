@@ -26,7 +26,7 @@
       {#if $page.path.includes('signup')}
         {$_('cmps.user.signup.cta')}
       {:else}<a href={signupPath + reactiveSearch}>{$_('cmps.user.signup.cta')}</a>{/if}
-      <span class="px-2 is-unselectable">|</span>
+      <span class="delimiter" />
       {#if $page.path.includes('login')}
         {$_('cmps.user.signIn')}
       {:else}<a href={loginPath + reactiveSearch}>{$_('cmps.user.signIn')}</a>{/if}
@@ -39,3 +39,15 @@
     </CrossfadeWrapper>
   </UnAuthLayout>
 {/if}
+
+<style>
+  h2 {
+    align-self: center;
+  }
+
+  .delimiter::after {
+    content: '|';
+    font-weight: normal;
+    padding: 0 0.4em;
+  }
+</style>

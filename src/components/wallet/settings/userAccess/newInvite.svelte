@@ -1,19 +1,17 @@
 <script>
   import CopyText from '$components/elements/copyText.svelte';
 
-  import { getContext } from 'svelte';
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
 
   import { InviteService } from '$services/invite/inviteService';
+  import { runCurrentUserPlanCheck } from '$components/billing/planOfferModal.svelte';
 
   export let walletId: string, userId: string;
 
-  const isPlanActive = getContext('isPlanActive')(true);
-
   let inviteLinks: string[] = [];
   const createNewInvite = async (e: Event) => {
-    if (!isPlanActive(e)) return;
+    if (!runCurrentUserPlanCheck(e)) return;
     try {
       const res = await InviteService.generateWalletInvite({ userId, walletId });
       inviteLinks = [...inviteLinks, res];

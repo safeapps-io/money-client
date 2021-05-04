@@ -5,15 +5,13 @@
   import { Onboarding, Text } from '$components/onboarding';
 
   import { _ } from 'svelte-i18n';
-  import { getContext } from 'svelte';
   import { slide } from 'svelte/transition';
 
   import { walletDataUpdate } from '$stores/decr/wallet';
   import { currentWalletReferenceTransactionStore } from '$stores/decr/referenceTransaction';
+  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
 
   export let wallet: FullEntity<WalletData>;
-
-  const isPlanActive = getContext('isPlanActive')();
 
   let checked = wallet.decr.balance;
   $: if (checked != wallet.decr.balance)
@@ -23,7 +21,7 @@
 </script>
 
 <Onboarding preventSlotClick key="balance" shouldShow={!checked} let:finishOnboarding>
-  <div class="field" on:click={isPlanActive}>
+  <div class="field" on:click={runCurrentWalletPlanCheck}>
     <label class="checkbox">
       {$_('cmps.transaction.reference.balanceOn')}
       <input type="checkbox" bind:checked />

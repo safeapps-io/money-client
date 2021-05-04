@@ -89,7 +89,8 @@
       "pricing": "Pricing",
       "howItWorks": "How it works",
       "openSource": "Open source",
-      "terms": "Terms of use",
+      "terms": "Terms of service",
+      "privacy": "Privacy policy",
       "copy": "Made by {linkO}@dkzlv{linkC}",
       "forum": "Forum"
     },
@@ -111,11 +112,11 @@
       },
       "expiryDateChanged": "Change to expiration date",
       "providers": {
-        "thirdParty": "We use third-party services to manage purchases.",
-        "canUseIncognito": "You'll be able to use incognito mode for it.",
+        "moneyback": "30-day moneyback guarantee",
+        "neverShare": "We never share any of your data with our payment providers. Read more in our {linkO}Privacy Policy{linkC}. You'll be able to use incognito mode while purchasing.",
         "tinkoff": {
           "intro": "Our payment provider for bank cards is {tagO}Tinkoff Bank{tagC}",
-          "rubles": "You will be charged in {tagO}Russian Rubles{tagC} based on today's exchange rate. Sorry for inconvenience."
+          "rubles": "You will be charged in {tagO}Russian Rubles{tagC}. Today's exchange rate: $1 = {exchangeRate, number, ::currency/RUB}. Final price: {tagO}{price, number, ::currency/RUB}{tagC}. Sorry for inconvenience."
         },
         "coinbase": {
           "intro": "Our payment provider for cryptocurrency is {tagO}Coinbase{tagC}",
@@ -123,10 +124,6 @@
         },
         "goto": "Go to Payment Provider",
         "useInc": "You can use incognito mode or VPN."
-      },
-      "emailNotSet": {
-        "title": "Email is not set",
-        "shouldSet": "You haven't set or validated your email. Even though you can make a purchase without setting it, {linkO}we offer you to do it anyways{linkC}. It would simplify the support in case you have troubles with the payment."
       },
       "planGuard": {
         "requires": "This action requires a subscription",
