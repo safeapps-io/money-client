@@ -46,6 +46,9 @@
       "$stores/*": [
         "src/stores/*"
       ],
+      "$static/*": [
+        "src/static/static"
+      ],
       "$utils/*": [
         "src/utils/*"
       ],

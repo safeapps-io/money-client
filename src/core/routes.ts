@@ -91,7 +91,8 @@ export const transactionDraftsPath = derived(
 const content = 'https://safeapps.io/content';
 export const aboutPath = `${content}/about`,
   termsPath = `${content}/terms`,
-  privacyPolicyPath = `${content}/privacy`;
+  privacyPolicyPath = `${content}/privacy`,
+  cookiePolicyPath = `${content}/cookie`;
 
 export const forumPath = 'https://forum.safeapps.io',
   forumHelpPath = `${forumPath}/c/help/6`,

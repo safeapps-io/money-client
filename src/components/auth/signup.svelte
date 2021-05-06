@@ -8,7 +8,7 @@
   import { generateLinkTags } from '$utils/accentTags';
 
   import { ensureBoolean } from '$validators';
-  import { termsPath } from '$core/routes';
+  import { privacyPolicyPath, termsPath } from '$core/routes';
   import { AuthService } from '$services/auth/authService';
   import { FormError } from '$services/errors';
 
@@ -65,6 +65,9 @@
 
 <p class="help mt-3">
   {@html $_('cmps.user.signup.agree', {
-    values: generateLinkTags(termsPath),
+    values: {
+      ...generateLinkTags(termsPath, true, 'terms'),
+      ...generateLinkTags(privacyPolicyPath, true, 'priv'),
+    },
   })}
 </p>

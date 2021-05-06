@@ -40,6 +40,7 @@ module.exports = {
         alias: {
           $components: path.resolve('src/components'),
           $strict: path.resolve('src/components/strict'),
+          $static: path.resolve('static/static'),
           $validators: path.resolve('src/components/strict/validators'),
           $core: path.resolve('src/core'),
           $services: path.resolve('src/services'),

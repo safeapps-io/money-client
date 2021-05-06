@@ -1,6 +1,7 @@
 <script>
   import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
   import UnAuthLayout from '$components/nav/unAuthLayout.svelte';
+  import Cookie from '$components/auth/cookie.svelte';
 
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
@@ -38,6 +39,8 @@
       </div>
     </CrossfadeWrapper>
   </UnAuthLayout>
+
+  <Cookie />
 {/if}
 
 <style>
