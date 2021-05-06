@@ -94,6 +94,11 @@
       "copy": "Made by {linkO}@dkzlv{linkC}",
       "forum": "Forum"
     },
+    "cookies": {
+      "brute": "Et tu, Brute?",
+      "yeah": "(yeah, cookies)",
+      "text": "After you log in or sign up we will set essential cookies. We do not use any performance, functional, marketing, or analytics cookies. More in our {linkO}cookie policy{linkC}."
+    },
     "billing": {
       "price": "Price",
       "state": {
@@ -399,7 +404,7 @@
       "signup": {
         "cta": "Sign up",
         "whyEmail": "We need email so you can restore access to the account in case you forget the password. it is unnecessary though.",
-        "agree": "By creating an account you agree with the {linkO}terms and conditions{linkC}.",
+        "agree": "By creating an account you agree with the {termsO}terms of service{termsC} and {privO}privacy policy{privC}.",
         "subscribe": "I want to get updates on the project (~1 email a month)"
       },
       "signIn": "Sign in",
