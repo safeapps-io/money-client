@@ -4,13 +4,20 @@
   import { _ } from 'svelte-i18n';
   import { generateLinkTags } from '$utils/accentTags';
 
-  import { aboutPath, termsPath, forumPath, privacyPolicyPath } from '$core/routes';
+  import {
+    aboutPath,
+    termsPath,
+    forumPath,
+    privacyPolicyPath,
+    cookiePolicyPath,
+  } from '$core/routes';
 
   $: links = [
     [aboutPath, $_('cmps.footer.about')],
     [forumPath, $_('cmps.footer.forum')],
     [termsPath, $_('cmps.footer.terms')],
     [privacyPolicyPath, $_('cmps.footer.privacy')],
+    [cookiePolicyPath, $_('cmps.footer.cookie')],
     ['https://github.com/safeapps-io', 'github'],
   ];
 </script>
@@ -19,7 +26,7 @@
   <div class="columns">
     <ul class="column is-9">
       {#each links as [url, text]}
-        <li><a href={url}>{text.toLocaleLowerCase()}</a></li>
+        <li><a href={url} target="_blank" rel="noreferrer">{text.toLocaleLowerCase()}</a></li>
       {/each}
     </ul>
     <div class="column is-3 copy">
