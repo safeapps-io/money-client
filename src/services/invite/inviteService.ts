@@ -22,7 +22,7 @@ export enum InviteStringTypes {
   wallet = 'wallet',
 }
 
-type ServiceInvitePayload = { userInviterId: string; inviteId: string };
+type ServiceInvitePayload = { inviterId: string; inviteId: string };
 type WalletInviteObject = ServiceInvitePayload & {
   walletId: string;
 };
@@ -40,19 +40,21 @@ export class InviteService {
   static prefix = '/auth/invite';
 
   static async generateServiceInvite(userId: string) {
-    const res = await sign({
-      inviteId: nanoid(),
-      userInviterId: userId,
-    });
+    const payload: ServiceInvitePayload = {
+        inviteId: nanoid(),
+        inviterId: userId,
+      },
+      res = await sign(payload);
     return gotoInviteFullPath(btoa(res.encoded));
   }
 
   static async generateWalletInvite(data: { walletId: string; userId: string }) {
-    const res = await sign({
-      inviteId: nanoid(),
-      walletId: data.walletId,
-      userInviterId: data.userId,
-    });
+    const payload: WalletInviteObject = {
+        inviteId: nanoid(),
+        walletId: data.walletId,
+        inviterId: data.userId,
+      },
+      res = await sign(payload);
     return gotoInviteFullPath(btoa(res.encoded));
   }
 
