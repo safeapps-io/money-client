@@ -8,10 +8,8 @@
   import { loginPath } from '$core/routes';
 
   const redirect = () => goto(loginPath);
-
-  $: token = $page.params.token as string;
 </script>
 
-<Modal active canBeVoluntarilyClosed={false}>
-  <ResetPassword {token} on:success={redirect} on:invalid={redirect} />
+<Modal active noBox forceScale canBeVoluntarilyClosed={false}>
+  <ResetPassword token={$page.params.token} on:success={redirect} on:invalid={redirect} />
 </Modal>
