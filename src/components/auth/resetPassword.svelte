@@ -2,10 +2,9 @@
   import { Form, PasswordField } from '$strict';
 
   import { _ } from 'svelte-i18n';
-  import { createEventDispatcher } from 'svelte';
+  import { getContext, onMount, createEventDispatcher } from 'svelte';
 
   import { AuthService } from '$services/auth/authService';
-  import { getContext } from 'svelte/internal';
 
   export let token: string;
 
@@ -19,13 +18,15 @@
     };
 
   let isValid = false;
-  $: AuthService.isResetPasswordTokenValid(token)
-    .then(() => (isValid = true))
-    .catch(() => {
-      isValid = false;
-      dangerNotif($_('common.errors.linkExpired'));
-      dispatch('invalid');
-    });
+  onMount(() => {
+    AuthService.isResetPasswordTokenValid(token)
+      .then(() => (isValid = true))
+      .catch(() => {
+        isValid = false;
+        dangerNotif($_('common.errors.linkExpired'));
+        dispatch('invalid');
+      });
+  });
 </script>
 
 <Form {success} buttonText={$_('common.form.change')} formDisabled={!isValid}>
