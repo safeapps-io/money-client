@@ -6,13 +6,13 @@ export type EncryptionKeysState = {
   initialDecryptionFinished: boolean;
 };
 
-const startState = {
+const getStartState = () => ({
   encryptionKeySet: false,
   walletKeysSet: false,
   initialDecryptionFinished: false,
-};
+});
 
-export const encryptionKeysStateStore = writable(startState);
+export const encryptionKeysStateStore = writable(getStartState());
 
 const partialSetTrue = (key: keyof EncryptionKeysState) => (value: boolean) =>
   encryptionKeysStateStore.update($state => ({ ...$state, [key]: value }));
@@ -20,4 +20,4 @@ const partialSetTrue = (key: keyof EncryptionKeysState) => (value: boolean) =>
 export const encryptionKeySet = partialSetTrue('encryptionKeySet'),
   walletKeysSet = partialSetTrue('walletKeysSet'),
   initialDecryptionSet = partialSetTrue('initialDecryptionFinished'),
-  resetEncryptionKeysState = () => encryptionKeysStateStore.set(startState);
+  resetEncryptionKeysState = () => encryptionKeysStateStore.set(getStartState());
