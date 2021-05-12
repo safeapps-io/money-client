@@ -28,7 +28,7 @@
           "wrongValue": "Wrong data: {key} → {value}"
         },
         "string": {
-          "username": "You can use only letters, numbers, dot, underscode and dash",
+          "username": "You can use only letters, numbers, dot, underscore and dash",
           "email": "Must be a valid email address",
           "hexColor": "Must look like this: #123abc",
           "number": "Can only use digits",
@@ -127,7 +127,7 @@
         },
         "coinbase": {
           "intro": "Our payment provider for cryptocurrency is {tagO}Coinbase{tagC}",
-          "support": "They support: Bitcoin, Bitcoin Cash, Ethereum, Litecoin, Dai, and USD Coin."
+          "support": "They support Bitcoin, Bitcoin Cash, Ethereum, Litecoin, Dai, and USD Coin."
         },
         "goto": "Go to Payment Provider",
         "useInc": "You can use incognito mode or VPN."
@@ -146,12 +146,12 @@
         },
         "help": {
           "common": "12 chars minimum, but we recommend using longer passwords.",
-          "invite": "All unaccapted wallet invites will become obsolete once you change your master-password."
+          "invite": "All unaccepted wallet invites will become obsolete once you change your master password."
         }
       },
       "old": {
         "pin": {
-          "help": "Pin code is a 6-digit password, that you can enter each time you open the app instead of the master-password. It is only stored on the device, so it does not mitigate the security of your data.",
+          "help": "Pin code is a 6-digit password that you can enter each time you open the app instead of the master password. We only store it on the device, so it does not mitigate the security of your data.",
           "enter": "Enter pin-code",
           "invalid": "Incorrect pin-code",
           "label": "Pin-code",
@@ -182,7 +182,7 @@
       "form": {
         "currency": "Wallet currency",
         "defCategories": "Create a set of default categories",
-        "jointWalletsWarning": "You can create joint wallets once you have 2 or more wallets with the same currency. Joint wallet will allow you to analyze data from all the wallets at once.",
+        "jointWalletsWarning": "You can create joint wallets once you have a few wallets with the same currency. Joint wallet will allow you to analyze data from all the wallets at once.",
         "singleCurrencyError": "Wallets should have the same currency"
       },
       "create": {
@@ -227,7 +227,7 @@
             },
             "error": {
               "main": "Cannot tell you any details. Please try later.",
-              "title": "Some error occured"
+              "title": "Some error occurred"
             },
             "notWallet": {
               "main": "This is not a wallet invite, so you cannot redeem it.",
@@ -238,12 +238,12 @@
               "title": "The wallet owner refused to add you",
               "expl": "Settle your stuff somewhere and come with a new invite later, because this one is invalid now."
             },
-            "validate": "Validating the invitation"
+            "validate": "Validating the invite"
           }
         }
       },
       "onboarding": {
-        "main": "We do not use accounts in out app. The main entity is a wallet. Wallet unites all the accounts, assets and debts that correspond to a single idea: family, business, individual.",
+        "main": "We do not use accounts in our app. The main entity is a wallet. Wallet unites all the accounts, assets and debts that correspond to a single idea: family, business, individual.",
         "importFile": {
           "title": "Find a file",
           "main": "Upload a statement from your bank. We accept {tagO}.csv{tagC} and {tagO}.ofx{tagC} files."
@@ -351,7 +351,7 @@
       "allTransactions": "All transactions"
     },
     "dashboard": {
-      "zeroData": "No transactions were created yet. Go ahead and do that!",
+      "zeroData": "You haven't created transactions yet. Go ahead and do that!",
       "categoryChart": {
         "showLess": "Show less",
         "showAll": "Show all",
@@ -392,8 +392,8 @@
     "user": {
       "email": {
         "notSet": "You haven't set any email yet.",
-        "setNew": "Enter your new email address. We have this email saved: {email}.",
-        "toVerifyNotif": "You'll get a verification email. Press the only huge button there and that'll be it.",
+        "setNew": "Enter your new email address. Previously you set this: {email}.",
+        "toVerifyNotif": "You'll get a verification email. Press the only huge button there, and that'll be it.",
         "verifiedNotif": "Email is verified!",
         "verifyFail": "Email is not verified. The link is either incorrect or expired."
       },
@@ -431,7 +431,7 @@
       },
       "logs": {
         "label": "Logs for debugging",
-        "help": "Log data is saved upon many different actions. It is always wiped after you close the tab/app. It never has any personal data or data you expect to be encrypted."
+        "help": "We log many different actions. We always wipe logs after you close the tab/app. They never have any personal data or data you expect to be encrypted."
       },
       "session": {
         "current": "Current",
@@ -440,10 +440,10 @@
         "5min": "Changes may take effect in up to 5 minutes."
       },
       "drop": {
-        "aboutTo": "You're about to delete your account. We will also delete all the wallets owned by you, their data and your connection to other wallets.",
+        "aboutTo": "You're about to delete your account. We will also delete all the wallets owned by you, their data, and your connection to other wallets.",
         "irreversible": "We delete data forever. Like, you cannot restore it at all. We recommend you {linkO}to export data just in case{linkC}.",
-        "notification": "That's it, your account has been deleted. So Long, and Thanks for all the Fish!",
-        "validation": "Just to make sure you know what you're doing, we ask you to enter your username and account password. {tagO}If everything will be correct, your account will be deleted immediately{tagC}.",
+        "notification": "That's it, we've deleted your account. So Long, and Thanks for all the Fish!",
+        "validation": "We want to make sure you know what you're doing. Please enter your username and account password. {tagO}If everything will be correct, your account will be deleted immediately{tagC}.",
         "cta": "Delete account"
       }
     },
@@ -451,7 +451,7 @@
       "cache": {
         "prevFile": "You haven't finished importing a file {tagO}{filename}{tagC} on {date, date, short}.",
         "decision": "Do you wish to continue your work or drop it and upload a new file?",
-        "drop": "Drop previous and start new"
+        "drop": "Drop previous"
       },
       "scheme": {
         "errors": {
@@ -474,7 +474,7 @@
           "date": {
             "label": "Date format",
             "help": "Specify the date format",
-            "formatInfo": "Specify the format of the date. {tagO}dd{tagC} — day of month; {tagO}MM{tagC} — month; {tagO}yyyy{tagC} — year; {tagO}HH{tagC} — hour; {tagO}mm{tagC} — minutes; {tagO}ss{tagC} — seconds.",
+            "formatInfo": "Specify the format of the date. {tagO}dd{tagC} — day of month; {tagO}MM{tagC} — month; {tagO}yyyy{tagC} — year; {tagO}HH{tagC} — hour; {tagO}mm{tagC} — minutes; {tagO}ss{tagC} — seconds.",
             "formatExample": "For example, {tagO}2020-12-24{tagC} would have {tagO}yyyy-MM-dd{tagC} as format.",
             "docs": "For more options to specify date parts please {linkO}go here{linkC}."
           }
@@ -484,7 +484,7 @@
           "successNotif": "Settings will be used when you start a new import",
           "power": {
             "label": "Power",
-            "help": "Defines how often we will try to automatically resolve transactions based on your previous data. The higher it is the higher are the chances of errors in category or user assignment."
+            "help": "It defines how often we will try to resolve transactions automatically based on your previous data."
           },
           "disableLabel": "Disable automatic resolving"
         },
@@ -510,11 +510,11 @@
           },
           "settings": {
             "title": "Here are the settings",
-            "main": "If you see gibberish in the table below, your table doesn't have a header row or the numbers are not correct, then you should go here."
+            "main": "If you see gibberish in the table below, your table doesn't have a header row, or the numbers are not correct, then you should go here."
           },
           "main": {
             "title": "Match the columns with the data",
-            "main2": "The data will be parsed immediately. If there will be no errors, you'll see {emoji}.",
+            "main2": "We will parse the data at once. If there will be no errors, you'll see {emoji}.",
             "main1": "Choose what data the column has in the dropdown list.",
             "cta": "Ok {emoji}"
           },
@@ -542,8 +542,8 @@
           "tabs": {
             "save": "{tagO}{tab}{tagC} is what will be saved as a regular transaction, income or expense.",
             "queue": "{tagO}{tab}{tagC} is all the records that needs to be resolved.",
-            "ignore": "{tagO}{tab}{tagC} are transactions that shouldn't be shown in future. E.g. transfers between your accounts.",
-            "draft": "{tagO}{tab}{tagC} are unclear transactions. E.g. if it was made by your partner and you don't know what category it should belong. It will be saved into a separate section, but won't affect the balance."
+            "ignore": "{tagO}{tab}{tagC} are transactions that shouldn't be shown in future. For example, transfers between your accounts.",
+            "draft": "{tagO}{tab}{tagC} are unclear transactions. Like when your partner made it, and you have no idea what it is. We will save it, but it won't affect the balance."
           },
           "saveTransactions": "When you made your decision about this transaction, press one of these buttons. You can also use keyboard shortcuts on desktops.",
           "parsed": {
@@ -555,7 +555,7 @@
             "clickWhenSave": "Click this button when you just want to save what you've already resolved."
           },
           "automation": {
-            "main": "The import is smart. It'll catch all the duplicate transactions, try to guess the category and even automatically resolve most of the transactions after a while.",
+            "main": "The import is smart. It'll catch all the duplicate transactions, try to guess the category, and even automatically resolve most of the transactions after a while.",
             "header": "Automation. A hell of a lot of it."
           }
         }
