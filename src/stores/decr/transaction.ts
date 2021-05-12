@@ -15,6 +15,7 @@ export const {
   overwrite: transactionOverwrite,
   update: transactionUpdate,
   bulkUpdate: transactionBulkUpdate,
+  reset: transactionReset,
   deletedDataConsistencyGuardStore: transactionDeleteGuard,
 } = createDecrEntityStore<Transaction>(EntityTypes.transaction, (ent, deletedEntityIds) =>
   ent.decr.categoryId && deletedEntityIds.includes(ent.decr.categoryId)

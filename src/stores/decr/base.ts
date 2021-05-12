@@ -133,6 +133,7 @@ export const createDecrEntityStore = <T extends AllEntities>(
       await globalOverwrite(ents);
       return ents;
     },
+    reset: () => store.set({}),
     deletedDataConsistencyGuardStore: derived(
       store,
       $state => (walletId: string, deletedIds: string[]) => {

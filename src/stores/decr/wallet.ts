@@ -10,6 +10,7 @@ const {
   currentWalletStore,
   overwrite: walletDataOverwrite,
   update: walletDataUpdate,
+  reset: walletDataReset,
   deletedDataConsistencyGuardStore: walletDataDeleteGuard,
 } = createDecrEntityStore<WalletData>(EntityTypes.walletData, (ent, deletedEntityIds) =>
   ent.decr.activeTransactionId && deletedEntityIds.includes(ent.decr.activeTransactionId)
@@ -34,4 +35,5 @@ export {
   walletDataAdd,
   walletDataOverwrite,
   walletDataUpdate,
+  walletDataReset,
 };

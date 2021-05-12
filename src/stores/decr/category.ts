@@ -11,6 +11,7 @@ export const {
     bulkAdd: categoryBulkAdd,
     overwrite: categoryOverwrite,
     update: categoryUpdate,
+    reset: categoryReset,
     deletedDataConsistencyGuardStore: categoryDeleteGuard,
   } = createDecrEntityStore<Category>(EntityTypes.category),
   categorySortedByTitleStore = getSortedByTitleStore(

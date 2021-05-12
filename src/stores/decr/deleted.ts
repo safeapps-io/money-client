@@ -8,6 +8,7 @@ export const {
   store: deletedStore,
   add: deletedAdd,
   overwrite: deletedOverwrite,
+  reset: deletedReset,
 } = createDecrEntityStore<DeletedEntity>(EntityTypes.deleted);
 
 export const flatMappedDeletedStore = derived(deletedStore, $deleted => {

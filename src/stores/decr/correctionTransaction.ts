@@ -8,5 +8,6 @@ export const {
   add: correctionTransactionAdd,
   overwrite: correctionTransactionOverwrite,
   update: correctionTransactionUpdate,
+  reset: correctionTransactionReset,
   deletedDataConsistencyGuardStore: correctionTransactionDeleteGuard,
 } = createDecrEntityStore<CorrectionTransaction>(EntityTypes.correctionTransaction);

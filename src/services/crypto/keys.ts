@@ -34,6 +34,11 @@ let invitationKeyPair: {
   } | null = null,
   ecdhPrivateKey: CryptoKey | null = null;
 
+export const setStartStateForKeys = () => {
+  salt = encryptionKey = invitationKeyPair = ecdhPrivateKey = null;
+  walletKeys = {};
+};
+
 export const enterMasterPassword = async ({
   input,
   b64salt,

@@ -9,6 +9,7 @@ export const {
   add: assetAdd,
   overwrite: assetOverwrite,
   update: assetUpdate,
+  reset: assetReset,
   deletedDataConsistencyGuardStore: assetDeleteGuard,
 } = createDecrEntityStore<Asset>(EntityTypes.asset);
 

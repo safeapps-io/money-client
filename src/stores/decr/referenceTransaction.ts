@@ -8,6 +8,7 @@ export const {
   add: referenceTransactionAdd,
   overwrite: referenceTransactionOverwrite,
   update: referenceTransactionUpdate,
+  reset: referenceTransactionReset,
   bulkUpdate: referenceTransactionBulkUpdate,
   deletedDataConsistencyGuardStore: referenceTransactionDeleteGuard,
 } = createDecrEntityStore<ReferenceTransaction>(EntityTypes.referenceTransaction);
