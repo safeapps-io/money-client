@@ -105,8 +105,9 @@
       "state": {
         "title": "State",
         "active": "Active",
-        "expired": "Expired",
-        "trial": "Trial"
+        "expired": "Inactive",
+        "trial": "Trial",
+        "daysCount": "{days, plural, one {# day} other {# days}}"
       },
       "expiryDate": "Expiration date",
       "changeHistory": "History of changes",

@@ -612,9 +612,10 @@
       },
       "state": {
         "active": "Активная",
-        "expired": "Истёкшая",
+        "expired": "Неактивная",
         "title": "Состояние",
-        "trial": "Пробный период"
+        "trial": "Пробный период",
+        "daysCount": "{days, plural, =0 {# дней} one {# день} few {# дня} other {# дней}}"
       },
       "planGuard": {
         "requires": "Требуется подписка",

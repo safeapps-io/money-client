@@ -52,7 +52,7 @@ export const isPlanActiveByWallet = derived(walletStore, $wallets => {
 
 export const unsortedChargeEventsStore = writable<ChargeEvent[]>([]),
   chargeEventsStore = derived(unsortedChargeEventsStore, $charges =>
-    $charges.filter(ch => ch.eventType != 'created').sort((ch1, ch2) => ch1.created - ch2.created),
+    $charges.filter(ch => ch.eventType != 'created').sort((ch1, ch2) => ch2.created - ch1.created),
   );
 
 export const addCharge = (chargeEvent: ChargeEvent) => {
@@ -70,23 +70,22 @@ export const addCharge = (chargeEvent: ChargeEvent) => {
  */
 export const planGuardStore = derived(
   [isSubscriptionActiveStore, currentWalletStore, userEncrStore],
-  ([$isSubscriptionActiveStore, $currentWalletStore, $userEncrStore]) => (
-    currentUserCheck: boolean,
-  ) => {
-    let userCanBuy: boolean, planActive: boolean;
-    if (!$currentWalletStore || currentUserCheck) {
-      userCanBuy = true;
-      planActive = $isSubscriptionActiveStore;
-    } else {
-      const { id: ownerId, plans } = $currentWalletStore.users.find(
-        user => user.WalletAccess.accessLevel == AccessLevels.owner,
-      )!;
-      userCanBuy = ownerId == $userEncrStore!.id;
-      planActive = plans.some(plan => plan.expires && plan.expires > new Date().getTime());
-    }
+  ([$isSubscriptionActiveStore, $currentWalletStore, $userEncrStore]) =>
+    (currentUserCheck: boolean) => {
+      let userCanBuy: boolean, planActive: boolean;
+      if (!$currentWalletStore || currentUserCheck) {
+        userCanBuy = true;
+        planActive = $isSubscriptionActiveStore;
+      } else {
+        const { id: ownerId, plans } = $currentWalletStore.users.find(
+          user => user.WalletAccess.accessLevel == AccessLevels.owner,
+        )!;
+        userCanBuy = ownerId == $userEncrStore!.id;
+        planActive = plans.some(plan => plan.expires && plan.expires > new Date().getTime());
+      }
 
-    return { userCanBuy, planActive };
-  },
+      return { userCanBuy, planActive };
+    },
 );
 
 type BaseModel = {

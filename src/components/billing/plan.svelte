@@ -14,13 +14,13 @@
 
   let plan: PlanFull,
     isActive: boolean,
-    formattedExpires: string,
     duration: string,
-    planType: ChargeEvent['chargeType'];
+    formattedExpires: string | null,
+    planType: ChargeEvent['chargeType'] | undefined;
 
   $: if (plan) {
     isActive = isAfter(plan.expires || 0, now);
-    formattedExpires = $date(plan.expires || 0);
+    formattedExpires = plan.expires ? $date(plan.expires) : null;
     switch (plan.product.duration) {
       case 30:
         duration = $_('cmps.searchFilter.period.month');
@@ -31,11 +31,11 @@
         break;
 
       default:
-        duration = '';
+        duration = $_('cmps.billing.state.daysCount', { values: { days: plan.product.duration } });
     }
 
     $unsortedChargeEventsStore = plan.chargeEvents;
-    planType = $chargeEventsStore[0].chargeType;
+    planType = $chargeEventsStore[0]?.chargeType;
   }
 
   const chargeExpiredText = (dt: number | null) => (dt ? $date(dt) : '—');
@@ -50,8 +50,10 @@
       {isActive ? $_('cmps.billing.state.active') : $_('cmps.billing.state.expired')}
       {#if planType == 'trial'}({$_('cmps.billing.state.trial')}){/if}
     </p>
-    <p>{$_('cmps.billing.expiryDate')}</p>
-    <p>{formattedExpires}</p>
+    {#if formattedExpires}
+      <p>{$_('cmps.billing.expiryDate')}</p>
+      <p>{formattedExpires}</p>
+    {/if}
   </div>
 
   <!--
@@ -66,38 +68,40 @@
     </div>
   {/if}
 
-  <h3 class="is-size-5 has-text-weight-bold mb-3">{$_('cmps.billing.changeHistory')}</h3>
-  <ul>
-    {#each $chargeEventsStore as charge (charge.id)}
-      <li class="py-3 px-5 mb-5">
-        <p class="is-size-5 mb-4">
-          #<span class="has-text-weight-bold">{charge.id}</span>
-          <span
-            class="tag"
-            class:is-success={charge.eventType == 'confirmed'}
-            class:is-info={charge.eventType == 'pending'}
-            class:is-danger={['refunded', 'failed'].includes(charge.eventType)}
-            >{charge.eventType}</span>
-          {#if charge.chargeType == 'trial'}
-            <span class="tag">{charge.chargeType}</span>
-          {/if}
-        </p>
-
-        <div class="data">
-          <p>{$_('cmps.transaction.common.date')}</p>
-          <p>{$date(charge.created)}</p>
-          <p>{$_('cmps.billing.payMethods.title')}</p>
-          <p>
-            {charge.provider == 'coinbase'
-              ? $_('cmps.billing.payMethods.crypto')
-              : $_('cmps.billing.payMethods.card')}
+  {#if $chargeEventsStore.length}
+    <h3 class="is-size-5 has-text-weight-bold mb-3">{$_('cmps.billing.changeHistory')}</h3>
+    <ul>
+      {#each $chargeEventsStore as charge (charge.id)}
+        <li class="py-3 px-5 mb-5">
+          <p class="is-size-5 mb-4">
+            #<span class="has-text-weight-bold">{charge.id}</span>
+            <span
+              class="tag"
+              class:is-success={charge.eventType == 'confirmed'}
+              class:is-info={charge.eventType == 'pending'}
+              class:is-danger={['refunded', 'failed'].includes(charge.eventType)}
+              >{charge.eventType}</span>
+            {#if charge.chargeType == 'trial'}
+              <span class="tag">{charge.chargeType}</span>
+            {/if}
           </p>
-          <p>{$_('cmps.billing.expiryDateChanged')}</p>
-          <p>{chargeExpiredText(charge.expiredOld)} ⇒ {chargeExpiredText(charge.expiredNew)}</p>
-        </div>
-      </li>
-    {/each}
-  </ul>
+
+          <div class="data">
+            <p>{$_('cmps.transaction.common.date')}</p>
+            <p>{$date(charge.created)}</p>
+            <p>{$_('cmps.billing.payMethods.title')}</p>
+            <p>
+              {charge.provider == 'coinbase'
+                ? $_('cmps.billing.payMethods.crypto')
+                : $_('cmps.billing.payMethods.card')}
+            </p>
+            <p>{$_('cmps.billing.expiryDateChanged')}</p>
+            <p>{chargeExpiredText(charge.expiredOld)} ⇒ {chargeExpiredText(charge.expiredNew)}</p>
+          </div>
+        </li>
+      {/each}
+    </ul>
+  {/if}
 </LoadingBlock>
 
 <style lang="scss">
