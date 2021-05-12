@@ -61,7 +61,6 @@ export class AuthService {
 
       return true;
     } catch (e) {
-      dropUserData();
       return false;
     }
   }
