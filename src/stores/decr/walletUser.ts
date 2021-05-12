@@ -10,6 +10,7 @@ export const {
     add: walletUserAdd,
     overwrite: walletUserOverwrite,
     update: walletUserUpdate,
+    reset: walletUserReset,
   } = createDecrEntityStore<WalletUser>(EntityTypes.walletUser),
   walletUserSortedByCreatedStore = derived(currentWalletUserStore, $wu =>
     Object.values($wu).sort((wu1, wu2) => wu1.decr.created - wu2.decr.created),

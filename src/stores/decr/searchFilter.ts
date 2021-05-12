@@ -13,6 +13,7 @@ const {
   add: _searchFilterAdd,
   overwrite: searchFilterOverwrite,
   update: _searchFilterUpdate,
+  reset: searchFilterReset,
   deletedDataConsistencyGuardStore: searchFilterDeleteGuard,
 } = createDecrEntityStore<SearchFilter>(EntityTypes.searchFilter, (ent, deletedEntityIds) => {
   const { oneOf, noneOf } = ent.decr.parameters.category,
@@ -33,6 +34,7 @@ export {
   currentWalletSearchFilterStore,
   searchFilterOverwrite,
   searchFilterDeleteGuard,
+  searchFilterReset,
 };
 
 export const addDefaultSearchFilter = (walletId: string) =>

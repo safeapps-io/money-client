@@ -13,6 +13,7 @@ export const {
   add: ignoredTransactionAdd,
   overwrite: ignoredTransactionOverwrite,
   update: ignoredTransactionUpdate,
+  reset: ignoredTransactionReset,
 } = createDecrEntityStore<IgnoredTransaction>(EntityTypes.ignoredTransaction);
 
 /**

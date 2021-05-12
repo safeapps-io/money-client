@@ -37,7 +37,7 @@ const defaultDecrState: UserDecrPart = {
 export const userDecrStore = derived(
   [userEncrStore, encryptionKeysStateStore],
   ([$user, $keysState], set) => {
-    if (!$user || !$user.b64salt || !$keysState.encryptionKeySet) return;
+    if (!$user || !$user.b64salt || !$keysState.encryptionKeySet) return set(null);
 
     const { encr, ...restUser } = $user;
     if (!encr) return set({ ...restUser, decr: copy(defaultDecrState) });
@@ -100,13 +100,14 @@ export const addUserScheme = async (data: BaseSimpleScheme) => {
   });
 };
 
-export const hasUserSeenOnboarding = derived(userDecrStore, $user => (key: OnboardingSteps) =>
-  $user?.decr.settings?.onboarding?.[key],
+export const hasUserSeenOnboarding = derived(
+  userDecrStore,
+  $user => (key: OnboardingSteps) => $user?.decr.settings?.onboarding?.[key],
 );
 
 export const setUserSetting = <
     K extends keyof BooleanCheck<UserDecrPart['settings']>,
-    V extends BooleanCheck<UserDecrPart['settings']>[K]
+    V extends BooleanCheck<UserDecrPart['settings']>[K],
   >(
     key: K,
     value: V,
