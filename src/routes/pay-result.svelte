@@ -6,11 +6,12 @@
   import { _ } from 'svelte-i18n';
   import { goto } from '$app/navigation';
 
-  import { appPath } from '$core/routes';
   import { generateLinkTags } from '$utils/accentTags';
 
+  import { appPath } from '$core/routes';
+  import { supportEmail } from '$services/config';
+
   const iconSize = 45,
-    supportEmail = 'hey@safeapps.io',
     isSuccess = $page.query.get('status') == 'ok';
 
   $: title = isSuccess ? $_('routes.pay.ok.title') : $_('routes.pay.notOk.title');
@@ -55,7 +56,8 @@
     </p>
     <h1 class="subtitle">{title}</h1>
     <p>{@html description}</p>
-    <a href={appPath} class="button is-success is-outlined mt-5">{$_('routes.pay.goto')}</a>
+    <a href={appPath} target="_blank" rel="noreferrer" class="button is-success is-outlined mt-5"
+      >{$_('routes.pay.goto')}</a>
   </div>
 </UnAuthLayout>
 
