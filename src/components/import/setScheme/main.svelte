@@ -20,6 +20,7 @@
 
   import { parseCsv } from '$core/import/parseCsv';
   import { forumBankHelpPath } from '$core/routes';
+  import { supportEmail } from '$services/config';
 
   const dispatch = createEventDispatcher();
 
@@ -108,7 +109,9 @@
           {@html $_('cmps.import.scheme.bankStatement.link', {
             values: {
               ...generateLinkTags(forumBankHelpPath, true),
+              ...generateLinkTags(`mailto:${supportEmail}`, true, 'email'),
               ...accentTags,
+              email: supportEmail,
             },
           })}
         </p>

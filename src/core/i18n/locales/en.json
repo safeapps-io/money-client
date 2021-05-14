@@ -490,7 +490,7 @@
         },
         "bankStatement": {
           "button": "This is a bank statement",
-          "link": "{linkO}Visit out forum{linkC} and ask for help. Most of the time we {tagO}only need 24 hours{tagC} to handle the problem.",
+          "link": "Send your file (or a small portion of it) to {emailO}{email}{emailC} or {linkO}share it on our forum{linkC}. Most of the time we {tagO}only need 48 hours{tagC} to add support for a new bank.",
           "main": "If the uploaded file is a bank statement then we'd be glad to add support for it! You and other clients of this bank will be able to upload their statements and get the transactions automatically."
         },
         "onboarding": {
@@ -500,7 +500,7 @@
           },
           "isBank": {
             "main1": "We can (and very much want) to support bank statements from all over the world.",
-            "main2": "If you downloaded a bank statement, then contact us. We'll support it in 24 hours.",
+            "main2": "If you downloaded a bank statement, then contact us. We'll support it in 48 hours.",
             "title": "Is it a bank statement?"
           },
           "unknown": {

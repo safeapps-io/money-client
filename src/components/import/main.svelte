@@ -32,9 +32,8 @@
     successNotif = getContext('success'),
     dangerNotif = getContext('danger');
 
-  const cachedStateStore = writable<{ state: any; timestamp: number; filename: string } | null>(
-      null,
-    ),
+  const cachedStateStore =
+      writable<{ state: any; timestamp: number; filename: string } | null>(null),
     unsub = persistStoreLs('csvImportState', cachedStateStore),
     setCache = ({ detail }: CustomEvent<any>) =>
       ($cachedStateStore = { state: detail, timestamp: new Date().getTime(), filename }),
@@ -247,7 +246,7 @@
 
   .main-wrapper {
     display: grid;
-    grid-template-columns: 4fr repeat(2, 1fr);
+    grid-template-columns: 4fr repeat(2, 1.5fr);
 
     --small-settings-area: 1 / 3 / 2 / 4;
     --big-settings-area: 1 / 2 / 2 / 4;
