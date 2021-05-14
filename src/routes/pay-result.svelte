@@ -10,7 +10,7 @@
   import { generateLinkTags } from '$utils/accentTags';
 
   const iconSize = 45,
-    supportEmail = 'support@safeapps.io',
+    supportEmail = 'hey@safeapps.io',
     isSuccess = $page.query.get('status') == 'ok';
 
   $: title = isSuccess ? $_('routes.pay.ok.title') : $_('routes.pay.notOk.title');
