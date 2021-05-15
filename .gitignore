@@ -123,4 +123,7 @@ build/
 # dotenv environment variables file
 .env.development
 
+# Ecosystem file
+ecosystem.config.yaml
+
 # .vscode/
