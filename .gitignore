@@ -122,6 +122,7 @@ build/
 
 # dotenv environment variables file
 .env.development
+.env.stage
 
 # Ecosystem file
 ecosystem.config.yaml
