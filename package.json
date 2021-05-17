@@ -1,12 +1,14 @@
 {
   "name": "money-client",
   "license": "AGPL-3.0",
-  "version": "14.05.2021v2",
+  "version": "17.05.2021v1",
   "type": "module",
   "scripts": {
     "dev": "svelte-kit dev",
     "type": "tsc --noEmit && svelte-check",
-    "build": "rm -rf ./build && find . -name .DS_Store | xargs rm && NODE_ENV=production svelte-kit build"
+    "build:common": "rm -rf ./build && find . -name .DS_Store | xargs rm",
+    "build:stage": "yarn build:common && STAGE=yep svelte-kit build",
+    "build:prod": "yarn build:common && svelte-kit build"
   },
   "dependencies": {
     "base64-arraybuffer-es6": "^0.7.0",
