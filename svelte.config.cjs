@@ -1,7 +1,9 @@
 const { config } = require('dotenv-flow');
 
-if (process.env.STAGE) config({ node_env: 'stage' });
-else if (dev) config();
+const mode = process.env.NODE_ENV,
+  dev = mode === 'development';
+
+config(process.env.STAGE ? { node_env: 'stage' } : undefined);
 
 const sveltePreprocess = require('svelte-preprocess'),
   path = require('path'),
@@ -9,9 +11,7 @@ const sveltePreprocess = require('svelte-preprocess'),
   helmet = require('helmet'),
   pkg = require('./package.json');
 
-const mode = process.env.NODE_ENV,
-  dev = mode === 'development',
-  version = `${pkg.version}${dev ? ' (dev)' : ''}`;
+const version = `${pkg.version}${dev ? ' (dev)' : ''}`;
 
 const envKeys = [
     'API_WS_SCHEME',
