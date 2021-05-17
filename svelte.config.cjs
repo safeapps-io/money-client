@@ -3,8 +3,7 @@ const { config } = require('dotenv-flow');
 const mode = process.env.NODE_ENV,
   dev = mode === 'development';
 
-if (process.env.STAGE) config({ node_env: 'stage' });
-else if (dev) config();
+config(process.env.STAGE ? { node_env: 'stage' } : undefined);
 
 const sveltePreprocess = require('svelte-preprocess'),
   path = require('path'),
