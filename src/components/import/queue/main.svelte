@@ -19,7 +19,11 @@
   import { accentTags, generateLinkTags } from '$utils/accentTags';
 
   import { CsvParsedTransactionResolution } from '$core/import/constants';
-  import { autocompleteDataStore, mutateStateWithTransactionData } from '$stores/decr/autocomplete';
+  import {
+    autocompleteDataStore,
+    mutateStateWithTransactionData,
+    getCategoryIdsBasedOnMccAndMetaCategories,
+  } from '$stores/decr/autocomplete';
   import { getTransposedAutocomplete } from '$core/import/selfUpdatingAutocomplete';
   import { getInitialTransactionState } from '$core/import/getInitialTransactionState';
   import { userEncrStore } from '$stores/user';
@@ -67,6 +71,7 @@
       defaultData: defaultInitialParsingStateData,
       settings: $automationSettingsStore,
       transactionCount: Object.keys($currentWalletTransactionStore).length,
+      getFallbackByMcc: $getCategoryIdsBasedOnMccAndMetaCategories,
       walletUserCount,
     });
 
@@ -102,6 +107,7 @@
       parsedTransaction,
       defaultData: defaultInitialParsingStateData,
       autocompleteData: transposedAutocomplete,
+      getFallbackByMcc: $getCategoryIdsBasedOnMccAndMetaCategories,
       walletUserCount,
     });
     if (

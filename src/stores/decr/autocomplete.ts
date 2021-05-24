@@ -1,4 +1,6 @@
+import { metaCategoryStore } from '$stores/metaCategory';
 import { derived } from 'svelte/store';
+import { currentWalletCategoryStore } from './category';
 
 import { transactionSortedByDatetimeStore } from './transaction';
 import type { Transaction, FullEntity, OmitCommonFields } from './types';
@@ -67,3 +69,24 @@ export const mutateStateWithTransactionData = (
 
   increaseKeyedObjectCount(state.categoryByPopularity, noNestedObjectsKey, categoryId);
 };
+
+export const getCategoryIdsBasedOnMccAndMetaCategories = derived(
+  [currentWalletCategoryStore, metaCategoryStore],
+  ([categories, metaCategories]) => {
+    const mccToCatId = new Map<string, { id: string; weight: number }[]>();
+
+    for (const category of Object.values(categories)) {
+      const associatedMeta = metaCategories?.[category.decr.metaId || ''];
+      if (!associatedMeta) continue;
+
+      associatedMeta.assignedMcc.forEach(({ code, weight }) => {
+        const curr = mccToCatId.get(code) || [];
+        curr.push({ id: category.id, weight });
+        mccToCatId.set(code, curr);
+      });
+    }
+
+    return (mccCode: string) =>
+      (mccToCatId.get(mccCode) || []).sort((a, b) => b.weight - a.weight).map(({ id }) => id);
+  },
+);
