@@ -1,9 +1,4 @@
-<script>
-  import type { ChartConfiguration } from 'chart.js';
-  import BaseChart from './base.svelte';
-
-  import { _ } from 'svelte-i18n';
-
+<script context="module">
   const color = 'hsl(141, 53%,  53%)';
 
   const commonDatasetSettings = {
@@ -22,17 +17,7 @@
     spanGaps: true,
   };
 
-  export let data: { y: number; t: Date }[];
-
-  $: datasets = [
-    {
-      label: $_('cmps.dashboard.balanceChart'),
-      data,
-      ...commonDatasetSettings,
-    },
-  ];
-
-  const chartSettings: ChartConfiguration = {
+  const chartSettings = {
     type: 'line',
     options: {
       responsive: true,
@@ -44,7 +29,7 @@
           {
             type: 'time',
             time: {
-              unit: 'day',
+              unit: 'day' as any,
             },
           },
         ],
@@ -53,4 +38,12 @@
   };
 </script>
 
-<BaseChart height={150} {chartSettings} data={{ datasets }} />
+<script>
+  import { chartjs } from '$utils/actions/chartjs';
+
+  export let data: { y: number; t: Date }[], label: string;
+
+  $: datasets = [{ ...commonDatasetSettings, label, data }];
+</script>
+
+<canvas height="150" use:chartjs={{ ...chartSettings, data: { datasets } }} />

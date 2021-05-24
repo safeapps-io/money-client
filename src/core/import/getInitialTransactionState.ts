@@ -6,6 +6,7 @@ export const getInitialTransactionState = ({
   defaultData,
   autocompleteData,
   walletUserCount,
+  getFallbackByMcc,
 }: {
   parsedTransaction: ParsedTransaction;
   defaultData: { assetId: string; userId: string; walletUserId: string };
@@ -16,6 +17,7 @@ export const getInitialTransactionState = ({
     merchant: OccurenciesSortedByPopularity;
     categoryByPopularity: string[];
   };
+  getFallbackByMcc: (mcc: string) => string[];
 }) => {
   const { accountNumber, mcc, merchant } = parsedTransaction.autocomplete,
     finalTransaction = {
@@ -43,7 +45,10 @@ export const getInitialTransactionState = ({
   let suggestedCategoryIds: string[] | undefined = undefined;
   if (merchant && autocompleteData.merchant[merchant])
     suggestedCategoryIds = autocompleteData.merchant[merchant];
-  else if (mcc && autocompleteData.mcc[mcc]) suggestedCategoryIds = autocompleteData.mcc[mcc];
+  else if (mcc) {
+    if (autocompleteData.mcc[mcc]) suggestedCategoryIds = autocompleteData.mcc[mcc];
+    else suggestedCategoryIds = getFallbackByMcc(mcc);
+  }
   finalTransaction.categoryId = suggestedCategoryIds?.[0];
 
   if (finalTransaction.amount == finalTransaction.originalAmount) {

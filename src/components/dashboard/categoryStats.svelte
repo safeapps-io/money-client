@@ -1,7 +1,8 @@
 <script>
   import type { CategorySplitReturn } from '$core/analytics/categorySplitPlugin';
+  import type { Dataset } from '$components/charts/bars.svelte';
 
-  import CategorySplit from './charts/categorySplit.svelte';
+  import BarChart from '$components/charts/bars.svelte';
   import Tabs from '$components/elements/tabs.svelte';
   import ZeroData from '$components/elements/zeroData.svelte';
 
@@ -11,13 +12,13 @@
   import { NoCategoryObjectKey } from '$core/analytics/categorySplitPlugin';
 
   // export let prevStats = [];
-  export let currStats: CategorySplitReturn['curr'] = [];
+  export let currStats: CategorySplitReturn['curr'] = [],
+    isIncome: boolean;
 
   // Index 9 of the array means the maximum of 10 categories to be shown
   const categoryShowCountToIndex = 9;
 
-  let limitShows = true,
-    isIncome = false;
+  let limitShows = true;
 
   const checkIfNoCategory = (id: any) => Object.values(NoCategoryObjectKey).includes(id);
 
@@ -40,8 +41,6 @@
         ? $_('cmps.dashboard.categoryChart.rest')
         : label;
     });
-
-  type Dataset = { backgroundColor: string[]; borderColor: string[]; data: number[] };
 
   const noCategoryColor = '#d0dbd1',
     restCategoryColor = '#dbd1d0';
@@ -79,7 +78,7 @@
   bind:activeTab={isIncome} />
 
 {#if dataset.data.length}
-  <CategorySplit {dataset} {labels} />
+  <BarChart {dataset} {labels} />
 {:else}
   <ZeroData text={$_('cmps.dashboard.categoryChart.zeroData')} />
 {/if}

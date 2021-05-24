@@ -13,6 +13,7 @@ export const getInitialParsingState = ({
   settings,
   transactionCount,
   walletUserCount,
+  getFallbackByMcc,
 }: {
   rawParsedTransactions: ParsedTransaction[];
   autocompleteData: StoreValue<typeof autocompleteDataStore>;
@@ -21,6 +22,7 @@ export const getInitialParsingState = ({
   settings: AutomationSettings;
   transactionCount: number;
   walletUserCount: number;
+  getFallbackByMcc: (mcc: string) => string[];
 }) => {
   const shouldRunAutoResolveAgainstAll = shouldAutoResolveAll({ settings, transactionCount }),
     toResolveAuto: OmitCommonFields<Transaction>[] = [],
@@ -35,6 +37,7 @@ export const getInitialParsingState = ({
         autocompleteData: transposedAutocomplete,
         defaultData,
         walletUserCount,
+        getFallbackByMcc,
       }).transaction;
       if (
         shouldTransactionBeAutoResolved({
