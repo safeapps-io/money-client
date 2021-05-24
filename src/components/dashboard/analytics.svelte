@@ -152,7 +152,7 @@
   @include mq($from: tablet) {
     .wrapper {
       grid-template-columns: 2fr 2fr 3fr;
-      grid-template-rows: auto auto 1fr;
+      grid-template-rows: auto auto auto 1fr;
     }
     .balance {
       grid-area: 1 / 1 / 2 / 3;
