@@ -1,5 +1,5 @@
 <script>
-  import BalanceChart from './charts/balance.svelte';
+  import LineChart from '$components/charts/line.svelte';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
@@ -68,6 +68,6 @@
 </div>
 {#if balanceNumber}
   <div transition:slide|local>
-    <BalanceChart data={adaptToChart(balanceHistory)} />
+    <LineChart data={adaptToChart(balanceHistory)} label={$_('cmps.dashboard.balanceChart')} />
   </div>
 {/if}
