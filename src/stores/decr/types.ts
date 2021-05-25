@@ -88,6 +88,7 @@ export type SearchFilter = BaseDecrEntity & {
   group: SearchFilterDatePeriods;
   parameters: {
     datetime?: { startDate?: number; endDate?: number };
+    query?: string;
     category: {
       oneOf: string[];
       noneOf: string[];

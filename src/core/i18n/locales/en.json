@@ -342,6 +342,7 @@
         "alltime": "All time"
       },
       "form": {
+        "query": "Search query",
         "wTag": "With these tags",
         "wCat": "With these categories",
         "saveAsNew": "Save as new",

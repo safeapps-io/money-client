@@ -2,7 +2,7 @@
   import type { SearchFilter, FullEntity, OmitCommonFields } from '$stores/decr/types';
   import type { FormStore } from '$strict/base';
 
-  import { Form, FieldContext, NameField, TagsField } from '$strict';
+  import { Form, FieldContext, Field, NameField, TagsField, TextInput } from '$strict';
   import Level from '$components/elements/level.svelte';
   import DeleteEntityButton from '$components/elements/deleteEntityButton.svelte';
 
@@ -12,7 +12,7 @@
   import { areArraysTheSame } from '$utils/array';
   import { copy } from '$utils/object';
 
-  import { ensureArray, uniqueOnly } from '$validators';
+  import { ensureArray, ensureString, trim, uniqueOnly } from '$validators';
   import { selectedWalletStore } from '$stores/wallet';
   import { distinctTagNamesStore } from '$stores/decr/transaction';
   import { categorySortedByTitleStore } from '$stores/decr/category';
@@ -36,6 +36,14 @@
    * Intentionally losing the reactivity to avoid value resetting after some change happens.
    * We mutate the value, so it goes up in binding, but we don't want it to be resetted.
    */
+  let query = searchFilter.decr.parameters.query;
+  $: queryField = {
+    name: 'query',
+    label: 'Поисковый запрос',
+    inputValue: query,
+    clean: [ensureString, trim],
+  };
+
   let cOneOf = searchFilter.decr.parameters.category.oneOf;
   $: categoryOneOf = {
     name: categoryFields.oneOf,
@@ -105,6 +113,9 @@
       const fields = $formStore.fields,
         { category, tag } = searchFilter.decr.parameters;
 
+      if (searchFilter.decr.parameters.query !== fields.query.inputValue)
+        searchFilter.decr.parameters.query = fields.query.inputValue;
+
       // Comparing the values and setting a copy of them if they differ somehow
       if (!areArraysTheSame(category.oneOf, fields[categoryFields.oneOf].inputValue))
         searchFilter.decr.parameters.category.oneOf = [...fields[categoryFields.oneOf].inputValue];
@@ -121,25 +132,41 @@
 </script>
 
 <Form planLimit {success} bind:formStore>
-  {#if $selectedWalletStore}
-    <NameField inputValue={name} />
-  {/if}
+  <div class="columns is-multiline">
+    {#if $selectedWalletStore}
+      <div class="column is-half">
+        <NameField inputValue={name} />
+      </div>
+      <div class="column is-half" />
+    {/if}
+    <div class="column is-half">
+      <Field field={queryField}>
+        <TextInput />
+      </Field>
+    </div>
+    <div class="column is-half" />
 
-  <FieldContext field={categoryOneOf}>
-    <TagsField />
-  </FieldContext>
-
-  <FieldContext field={categoryNoneOf}>
-    <TagsField />
-  </FieldContext>
-
-  <FieldContext field={tagOneOf}>
-    <TagsField />
-  </FieldContext>
-
-  <FieldContext field={tagNoneOf}>
-    <TagsField />
-  </FieldContext>
+    <div class="column is-half">
+      <FieldContext field={categoryOneOf}>
+        <TagsField />
+      </FieldContext>
+    </div>
+    <div class="column is-half">
+      <FieldContext field={categoryNoneOf}>
+        <TagsField />
+      </FieldContext>
+    </div>
+    <div class="column is-half">
+      <FieldContext field={tagOneOf}>
+        <TagsField />
+      </FieldContext>
+    </div>
+    <div class="column is-half">
+      <FieldContext field={tagNoneOf}>
+        <TagsField />
+      </FieldContext>
+    </div>
+  </div>
 
   <Level slot="submit" let:disabled let:loading>
     <div class="column is-narrow" slot="left">
