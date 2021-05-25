@@ -14,7 +14,7 @@ export type ParsingSettings = {
 export type ParsingResult = { dataRows: string[][]; errors: ParseError[]; headerRow?: string[] };
 
 export type ParsedTransaction = Pick<Transaction, 'amount' | 'datetime'> &
-  Partial<Pick<Transaction, 'originalAmount' | 'currency' | 'description'>> & {
+  Partial<Pick<Transaction, 'originalAmount' | 'currency' | 'description' | 'tags'>> & {
     autocomplete: Partial<Transaction['autocomplete']>;
     imported: Transaction['imported'];
   };

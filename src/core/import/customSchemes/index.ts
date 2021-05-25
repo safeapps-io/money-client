@@ -3,8 +3,14 @@ import type { CustomScheme, ParsedTransaction, SchemeRunner } from '../types';
 import { alfaClickCustomScheme } from './alfaBank/click';
 import { alfaDefaultCustomScheme } from './alfaBank/default';
 import { revolutCustomScheme } from './revolut';
+import { safeMoneyCustomScheme } from './safeMoney';
 
-export const customSchemes = [revolutCustomScheme, alfaDefaultCustomScheme, alfaClickCustomScheme];
+export const customSchemes = [
+  revolutCustomScheme,
+  alfaDefaultCustomScheme,
+  alfaClickCustomScheme,
+  safeMoneyCustomScheme,
+];
 
 export const runCustomScheme: SchemeRunner<CustomScheme> = async ({
   data,
