@@ -7,10 +7,16 @@ export const shouldShowBalance = ({
   walletData: FullEntity<WalletData>;
   searchFilter: FullEntity<SearchFilter>;
 }) => {
-  const { category, tag } = searchFilter.decr.parameters;
+  const { category, tag, query } = searchFilter.decr.parameters;
 
   return (
     walletData.decr.balance &&
-    !(category.oneOf.length || category.noneOf.length || tag.oneOf.length || tag.noneOf.length)
+    !(
+      category.oneOf.length ||
+      category.noneOf.length ||
+      tag.oneOf.length ||
+      tag.noneOf.length ||
+      query
+    )
   );
 };
