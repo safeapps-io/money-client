@@ -39,7 +39,7 @@
   let query = searchFilter.decr.parameters.query;
   $: queryField = {
     name: 'query',
-    label: 'Поисковый запрос',
+    label: $_('cmps.searchFilter.form.query'),
     inputValue: query,
     clean: [ensureString, trim],
   };
