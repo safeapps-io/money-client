@@ -1,8 +1,9 @@
 <script>
   import type { SearchFilter, FullEntity } from '$stores/decr/types';
 
-  import { slide } from 'svelte/transition';
   import { goto } from '$app/navigation';
+  import { tick } from 'svelte';
+  import { slide } from 'svelte/transition';
 
   import SearchFilterForm from '$components/searchFilter/form.svelte';
 
@@ -14,10 +15,22 @@
     edit = false;
     goto($searchIdPathFn(searchFilter.id));
   };
+
+  // Ugly Safari fix :(
+  let clip = false,
+    innerShow = false;
+  $: if (edit != innerShow) {
+    clip = true;
+    tick().then(() => (innerShow = edit));
+  }
 </script>
 
-{#if edit}
-  <div class="form is-clipped" transition:slide|local>
+{#if innerShow}
+  <div
+    class="form"
+    class:is-clipped={clip}
+    on:introend={() => (clip = false)}
+    transition:slide|local>
     <div class="py-3 px-3">
       <SearchFilterForm
         bind:searchFilter
