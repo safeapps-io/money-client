@@ -15,7 +15,7 @@ export const getTransactionFilter = ({
   searchFilter: FullEntity<SearchFilter>;
   shouldShowBalance: boolean;
 }) => {
-  const { category, tag } = searchFilter.decr.parameters;
+  const { category, tag, query } = searchFilter.decr.parameters;
 
   return (transaction: FullEntity<Transaction | CorrectionTransaction | ReferenceTransaction>) => {
     const { decr } = transaction;
@@ -32,7 +32,13 @@ export const getTransactionFilter = ({
     const categoryId = decr.categoryId || '',
       tags = decr.tags || [];
 
+    // We build a huge string in which we can look stuff up with a single `.includes`.
+    const stringToSearchIn = `${decr.description || ''}${decr.currency || ''}${(
+      decr.tags || []
+    ).join()}${decr.autocomplete.accountNumber || ''}${decr.autocomplete.merchant || ''}`;
+
     return (
+      stringToSearchIn.includes(query || '') &&
       (!category.oneOf.length || category.oneOf.includes(categoryId)) &&
       (!category.noneOf.length || !category.noneOf.includes(categoryId)) &&
       (!tag.oneOf.length || areArraysOverlapping(tag.oneOf, tags)) &&
