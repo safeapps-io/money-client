@@ -20,6 +20,7 @@
 
     const coveredIds: string[] = [];
     for (const { id, value } of stats) {
+      if (!$currentWalletUserStore[id]) continue;
       const { color, name } = $currentWalletUserStore[id].decr;
       coveredIds.push(id);
       pushToDataset(value, color, name);
