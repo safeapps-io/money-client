@@ -62,9 +62,8 @@
       height: height ? height + 'px' : 'auto',
     }),
     [circleColors, squareColors] = range(2).map(() =>
-      ['bg1', 'bg2', 'bg3', 'shadow'].reduce<{ [name: string]: string }>(
-        (result, name) => ((result[name] = generateRandomColor()), result),
-        {},
+      Object.fromEntries(
+        ['bg1', 'bg2', 'bg3', 'shadow'].map(color => [color, generateRandomColor()]),
       ),
     ),
     circleSize = randBetween(150, 250),

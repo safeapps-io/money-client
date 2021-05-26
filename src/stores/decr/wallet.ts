@@ -20,12 +20,11 @@ const {
 
 const currentWalletDataStore = derived(currentWalletStore, $state => Object.values($state)[0]),
   walletDataStore = derived(_walletDataStore, $state =>
-    Object.values($state)
-      .flatMap(walletBasedEntities => Object.values(walletBasedEntities))
-      .reduce(
-        (acc, curr) => ({ ...acc, [curr.id]: curr }),
-        {} as { [id: string]: FullEntity<WalletData> },
-      ),
+    Object.fromEntries(
+      Object.values($state)
+        .flatMap(walletBasedEntities => Object.values(walletBasedEntities))
+        .map(item => [item.id, item]),
+    ),
   );
 
 export {
