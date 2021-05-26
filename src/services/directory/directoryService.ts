@@ -5,6 +5,7 @@ import { post, request } from '$services/request';
 import { schemeStore } from '$stores/scheme';
 import { metaCategoryStore } from '$stores/metaCategory';
 import { mccStore, updateMccDescriptions } from '$stores/mcc';
+import { userEncrStore } from '$stores/user';
 
 type Currency = { label: string; code: string };
 
@@ -23,7 +24,9 @@ const getSyncGenericStore = <T extends { id: string; updated: number }>(
   const getMaxFromEnts = (ents: T[]) =>
     ents.length ? Math.max(...ents.map(ent => ent.updated)) : 0;
 
-  return derived(store, $state => {
+  return derived([store, userEncrStore], ([$state, $user]) => {
+    if (!$user) return;
+
     const ents = Object.values($state),
       latestUpdated = getMaxFromEnts(ents);
 
@@ -33,10 +36,13 @@ const getSyncGenericStore = <T extends { id: string; updated: number }>(
         path: `${prefix}/${path}`,
         queryParams: { from: latestUpdated.toString() },
       }).then(({ json }) => {
+        if (!json.length) return;
+
         prevLatestUpdated = getMaxFromEnts(json);
-        store.set(
-          json.reduce<{ [id: string]: T }>((acc, curr) => ((acc[curr.id] = curr), acc), {}),
-        );
+        store.update($state => ({
+          ...$state,
+          ...Object.fromEntries(json.map(item => [item.id, item])),
+        }));
       });
     }
   });

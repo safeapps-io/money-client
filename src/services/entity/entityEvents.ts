@@ -27,10 +27,9 @@ export const syncEntities = derived(
     const currentWalletIds = Object.keys($wallet);
 
     // Initial client data object for all local wallets
-    const clientData = currentWalletIds.reduce<ClientChangesData>((acc, curr) => {
-      acc[curr] = { entities: [], latestUpdated: 0 };
-      return acc;
-    }, {});
+    const clientData: ClientChangesData = Object.fromEntries(
+      currentWalletIds.map(key => [key, { entities: [], latestUpdated: 0 }]),
+    );
 
     // If we have a new wallet, we need to sync it
     let emptySync = areArraysTheSame(currentWalletIds, syncedWalletIds);

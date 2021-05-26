@@ -68,12 +68,7 @@ export const resetWalletStores = () => {
     resetStore(selectedJointWalletStore);
   },
   setWallets = (wallets: Wallet[]) =>
-    walletStore.set(
-      wallets.reduce((acc, curr) => {
-        acc[curr.id] = curr;
-        return acc;
-      }, {} as WalletState),
-    ),
+    walletStore.set(Object.fromEntries(wallets.map(wallet => [wallet.id, wallet]))),
   updateWallet = (wallet: Wallet) =>
     walletStore.update($state => {
       $state![wallet.id] = wallet;

@@ -10,9 +10,8 @@ export const parseCsv = ({
   config: ParsingSettings;
   preview?: number;
 }) => {
-  const clearedConfig = Object.entries(config).reduce(
-    (acc, [key, value]) => ((acc[key] = value ?? undefined), acc),
-    {} as any,
+  const clearedConfig = Object.fromEntries(
+    Object.entries(config).map(([key, value]) => [key, value ?? undefined]),
   );
 
   return new Promise<ParsingResult>(resolve =>
