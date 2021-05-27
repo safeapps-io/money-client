@@ -26,8 +26,8 @@
     "teenyicons": "^0.4.1"
   },
   "devDependencies": {
-    "@sveltejs/adapter-node": "next",
-    "@sveltejs/kit": "next",
+    "@sveltejs/adapter-node": "^1.0.0-next.22",
+    "@sveltejs/kit": "^1.0.0-next.109",
     "@tsconfig/svelte": "^1.0.10",
     "@types/chart.js": "^2.9.28",
     "@types/papaparse": "^5.0.4",

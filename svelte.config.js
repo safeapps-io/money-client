@@ -1,15 +1,17 @@
-const { config } = require('dotenv-flow');
+import { config } from 'dotenv-flow';
 
 const mode = process.env.NODE_ENV,
   dev = mode === 'development';
 
 config(process.env.STAGE ? { node_env: 'stage' } : undefined);
 
-const sveltePreprocess = require('svelte-preprocess'),
-  path = require('path'),
-  node = require('@sveltejs/adapter-node'),
-  helmet = require('helmet'),
-  pkg = require('./package.json');
+import sveltePreprocess from 'svelte-preprocess';
+import path from 'path';
+import { readFileSync } from 'fs';
+import node from '@sveltejs/adapter-node';
+import helmet from 'helmet';
+
+const pkg = JSON.parse(readFileSync('./package.json', { encoding: 'utf-8' }));
 
 const version = `${pkg.version}${dev ? ' (dev)' : ''}`;
 
@@ -26,8 +28,7 @@ const envKeys = [
   apiHost = `${process.env.API_SCHEME}://${process.env.API_HOST}:${process.env.API_PORT}`,
   analyticsHost = `sa.${process.env.ROOT_HOST}`;
 
-/** @type {import('@sveltejs/kit').Config} */
-module.exports = {
+export default {
   kit: {
     adapter: node(),
     vite: () => ({

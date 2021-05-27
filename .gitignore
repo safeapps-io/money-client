@@ -117,6 +117,7 @@ public/bundle.*
 /cypress/screenshots/
 /__sapper__/
 .svelte/
+.svelte-kit/
 build/
 
 
