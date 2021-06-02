@@ -1,4 +1,4 @@
-export const memoize = <T, A>(func: (t: T) => A) => {
+export const memoize = <T1, T2, T3, A>(func: (a: T1, b?: T2, c?: T3) => A) => {
   let cache: { [key: string]: A } = {};
 
   const memoized: typeof func = (...args) => {
