@@ -1,69 +1,76 @@
 <script>
-  export let triggerText = '?';
+  import { fade } from 'svelte/transition';
+
+  export let triggerText = '?',
+    showTooltip = true,
+    className: string = '';
+
+  const enter = () => (show = true),
+    leave = () => (show = false);
+
+  let show = false;
 </script>
 
-<div class="tooltip is-relative">
-  <div class="tooltip__trigger">
-    <slot name="trigger">{triggerText}</slot>
-  </div>
-  <div class="tooltip__invisible">
-    <div class="tooltip__content mt-4 px-5 py-4">
-      <slot />
-    </div>
+<div
+  class="tooltip {className}"
+  on:mouseenter={enter}
+  on:touchstart={enter}
+  on:mouseleave={leave}
+  on:touchend={leave}>
+  <slot name="trigger">
+    <span class="trigger">{triggerText}</span>
+  </slot>
+  <div class="is-relative">
+    {#if showTooltip && show}
+      <div class="tooltip-content" transition:fade|local={{ duration: 300 }}>
+        <div class="content px-3 py-2 is-size-7">
+          <slot />
+        </div>
+      </div>
+    {/if}
   </div>
 </div>
 
 <style lang="scss">
-  @import 'src/styles/importable';
-
-  $tooltip-color: $turquoise;
-
   .tooltip {
+    :global(span) {
+      cursor: pointer;
+    }
+
+    :global(span.trigger) {
+      padding-bottom: 1px;
+      border-bottom: 1px dotted $turquoise;
+    }
+  }
+
+  $width: 350px;
+
+  .tooltip-content {
+    position: absolute;
+    top: 100%;
+
+    @include mq($until: tablet) {
+      left: -1em;
+      right: -1em;
+    }
+
     @include mq($from: tablet) {
-      display: inline;
+      max-width: $width;
+      left: 0;
+      right: 0;
     }
 
-    &__trigger {
-      display: inline;
+    @include z(tooltip-content);
+  }
 
-      color: $tooltip-color;
-      border-bottom: 1px dashed $turquoise;
+  .content {
+    display: inline-block;
+    left: 0;
+    right: 0;
 
-      cursor: default;
-    }
+    background-color: $scheme-main;
 
-    $width: 350px;
-
-    &__invisible {
-      position: absolute;
-      top: 75%;
-      @include mq($until: tablet) {
-        left: -1em;
-        right: -1em;
-      }
-      @include mq($from: tablet) {
-        width: $width;
-      }
-
-      @include z(tooltip-content);
-      visibility: hidden;
-      opacity: 0;
-
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    &__content {
-      background-color: $scheme-main;
-
-      border: 2px solid $turquoise;
-      box-shadow: 0 1em 1em -0.6em change-color($turquoise, $alpha: 0.3);
-
-      line-height: 1.2;
-    }
-
-    &:hover &__invisible {
-      visibility: visible;
-      opacity: 1;
-    }
+    box-shadow: 0 1em 1em -0.6em change-color($turquoise, $alpha: 0.3);
+    background-color: rgb(250, 250, 250);
   }
 </style>
