@@ -119,7 +119,6 @@
       },
       "expiryDateChanged": "Change to expiration date",
       "providers": {
-        "moneyback": "30-day moneyback guarantee",
         "neverShare": "We never share any of your data with our payment providers. Read more in our {linkO}Privacy Policy{linkC}. You'll be able to use incognito mode while purchasing.",
         "tinkoff": {
           "intro": "Our payment provider for bank cards is {tagO}Tinkoff Bank{tagC}",
@@ -136,6 +135,61 @@
         "requires": "This action requires a subscription",
         "buyToUse": "Your subscription is expired. Please renew it to use all the features of [safe] money.",
         "askOwner": "Ask the wallet's owner to renew the subscription"
+      },
+      "onboarding": {
+        "problems": {
+          "title": "What problems do you want to solve?",
+          "control": "Control finances",
+          "family": "Manage family budget",
+          "debt": "Payoff debt",
+          "asset": {
+            "title": "Asset management",
+            "tooltip": "Expected in Q4 2021. We will provide an automated way of tracking publicly traded assets (crypto, stocks, ETFs, etc.) as well as a manual way of tracking non-publicly traded assets (house, business, etc.)."
+          },
+          "long": {
+            "title": "Long-term planning",
+            "tooltip": "Planned in Q2 2022."
+          },
+          "optimize": "Optimizing the experience…",
+          "forPersonalization": "This data will be encrypted and used to make the experience personalized."
+        },
+        "purchase": {
+          "about": {
+            "title": "About us",
+            "diff": "We differ from other products.",
+            "feat": "Feature-wise, we’re mostly the same.",
+            "priv": "But privacy-wise, we’re light years ahead 💫 We offer:",
+            "e2e": "complete end-to-end encryption",
+            "trac": "no behavior trackers",
+            "review": "every single line of code is open-sourced and peer-reviewed by the community",
+            "support": "Support us to help us build the privacy-first product you'll love ❤️"
+          },
+          "sec": {
+            "title": "Security model",
+            "algo": "Our security is based on two great algorithms: {pbkO}PBKDF2{pbkC} and {aesO}AES{aesC}.",
+            "mast": "PBKDF2 is the algorithm that creates a secure {markGrO}master key{markC} from your {markO}master password{markC}. It is the same algorithm that password managers like 1Password, KeePass, and Bitwarden use. If you use a strong enough {markO}master password{markC}, it may take trillions of years to brute force your {markGrO}master key{markC}.",
+            "coml": "It gets a little complicated from here:",
+            "sec": "when you're busy creating a wallet, your device generates a {markRO}secret key{markC}. Under the hood, we use it to encrypt this wallet's data. This key never leaves the device in plaintext — hence \"secret\".",
+            "secEncMas": "we then use your {markGrO}master key{markC} to encrypt the {markRO}secret key{markC} into a thing we call a {markBO}chest{markC}, which we upload to the server. Only you will be able to get the {markRO}secret key{markC} out of the {markBO}chest{markC} on, say, another device because nobody but you know the {markO}master password{markC}.",
+            "aes": "by the way, the said {markRO}secret key{markC} is an AES with a key length of 256 bit. It is used by many governments in the world for transmitting top-secret information and {linkO}is practically impossible to crack{linkC}.",
+            "summary": "So all and all your data is safe — even from us."
+          },
+          "paid": {
+            "title": "Why paid-only and paid only in rubles",
+            "paid": "Why paid-only",
+            "reasons": "There are two main reasons:",
+            "nobody": "{tagO}nobody likes managing finance{tagC}. It's a burden everyone hates. Since it gives us no pleasure, there's a super-high chance you will drop it very soon. But if you pay for the whole year upfront, it will be much harder for you to drop it. A paid-only strategy is a good way for you to build a habit — much like brushing teeth or going to the gym.",
+            "noVc": "{tagO}we're not VC-backed{tagC} and we plan to stay that way. Free is lava, free means you're being sold. Freemium is a very hard thing to pull off, it requires a lot of time that self-bootstrapped companies do not possess.",
+            "noRisk": "But it comes at no risk for you! We offer you a {markGrO}30-day moneyback guarantee{markC}. You don't like the product — we make a refund. That's it.",
+            "rubl": "Why rubles",
+            "russ": "Let's put the genie out of the box: we're from Russia. And we're physically located in Russia. And incorporated — surprise! — in Russia as well.",
+            "companies": "While we're aware of the shady reputation of our country, we really hope it won't cast any shadows on us, since there are a lot of products originating in Russia that millions of people all around the world love. Companies like {markGrO}Kaspersky{markC}, {markGrO}JetBrains{markC}, {markGrO}Acronis{markC}, {markGrO}Nginx{markC}, and countless others proved to be secure to use.",
+            "covid": "Covid travel restrictions limited our possibility to create a European company. Our laws and our market limit the possibility of getting payments in foreign currencies, that's why we must charge in rubles.",
+            "tcs": "There's no risk for you though: we use a very reputable bank, {linkO}Tinkoff Credit Systems{linkC}. It follows all the security guidelines and collects as little data as possible about our users.",
+            "moneyback": "And, once again, we offer you a {markGrO}30-day moneyback guarantee{markC}."
+          },
+          "feedback": "If you have any doubts, {linkO}write an email to Dan{linkC}, our founder. He can answer all your questions or setup a video-demo."
+        }
       }
     },
     "masterPassword": {

@@ -3,8 +3,9 @@
   import StartPasswordRequest from '$components/user/startPasswordRequest.svelte';
   import JoiningFlow from '$components/wallet/joinWallet/joiningFlow.svelte';
   import PlanOfferModal from '$components/billing/planOfferModal.svelte';
+  import InitialOnboarding from '$components/billing/initialOnboarding.svelte';
   import WalletDataContainer from './walletDataContainer.svelte';
-  import WalletCreateContainer from './walletCreateContainer.svelte';
+  import WalletModalCreate from '$components/wallet/modalCreate.svelte';
 
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
@@ -54,11 +55,13 @@
       <WalletDataContainer>
         <slot />
       </WalletDataContainer>
+      <PlanOfferModal />
     {/if}
   {:else}
-    <WalletCreateContainer />
+    <InitialOnboarding>
+      <WalletModalCreate firstWallet active />
+    </InitialOnboarding>
   {/if}
-  <PlanOfferModal />
 
   <LoadingIndicator show={!$isOnlineStore} />
 {/if}
