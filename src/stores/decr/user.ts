@@ -24,6 +24,10 @@ type UserDecrPart = {
   settings?: {
     automation?: AutomationSettings;
     onboarding?: Partial<{ [key in OnboardingSteps]: true }>;
+
+    // These are defined in Wizard.svelte in onboarding folder
+    // Holds ids of problems. Possibly we'll move them to DB later
+    userProblems?: number[];
   };
   schemes?: BaseSimpleScheme[];
 };

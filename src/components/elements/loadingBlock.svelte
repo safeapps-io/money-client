@@ -18,7 +18,7 @@
 
 <CrossfadeWrapper key={state}>
   {#if state == 'l'}
-    <ZeroData text={$_('cmps.nav.loading')} />
+    <slot name="loading"><ZeroData text={$_('cmps.nav.loading')} /></slot>
   {:else if state == 'd'}
     <slot />
   {:else}

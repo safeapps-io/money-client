@@ -50,7 +50,7 @@
 </script>
 
 {#each state as columnData, i}
-  <div class="main">
+  <div class="p-1">
     <div class="control">
       {#if i}
         <div class="select is-small is-fullwidth">
@@ -89,46 +89,31 @@
             bind:value={dateFormat} />
         </div>
 
-        <div>
-          <span class="help">{$_('cmps.import.scheme.columnMatcher.date.help')}</span>
+        <Tooltip>
+          <svelte:fragment slot="trigger">
+            <span class="help">
+              {$_('cmps.import.scheme.columnMatcher.date.help')}
+              <span class="trigger">?</span>
+            </span>
+          </svelte:fragment>
 
-          <Tooltip>
-            <div class="tooltip-content">
-              <p>
-                {@html $_('cmps.import.scheme.columnMatcher.date.formatInfo', {
-                  values: { tagO: '<code>', tagC: '</code>' },
-                })}
-              </p>
-              <p>
-                {@html $_('cmps.import.scheme.columnMatcher.date.formatExample', {
-                  values: { tagO: '<code>', tagC: '</code>' },
-                })}
-              </p>
-              <p>
-                {@html $_('cmps.import.scheme.columnMatcher.date.docs', {
-                  values: generateLinkTags('https://date-fns.org/v2.16.1/docs/format'),
-                })}
-              </p>
-            </div>
-          </Tooltip>
-        </div>
+          <p>
+            {@html $_('cmps.import.scheme.columnMatcher.date.formatInfo', {
+              values: { tagO: '<code>', tagC: '</code>' },
+            })}
+          </p>
+          <p>
+            {@html $_('cmps.import.scheme.columnMatcher.date.formatExample', {
+              values: { tagO: '<code>', tagC: '</code>' },
+            })}
+          </p>
+          <p>
+            {@html $_('cmps.import.scheme.columnMatcher.date.docs', {
+              values: generateLinkTags('https://date-fns.org/v2.16.1/docs/format'),
+            })}
+          </p>
+        </Tooltip>
       </div>
     {/if}
   </div>
 {/each}
-
-<style lang="scss">
-  .main {
-    padding: 0.7em;
-  }
-
-  .help {
-    display: inline;
-  }
-
-  .tooltip-content {
-    > p {
-      margin-bottom: 0.75em;
-    }
-  }
-</style>
