@@ -303,7 +303,7 @@
           "main": "Upload a statement from your bank. We accept {tagO}.csv{tagC} and {tagO}.ofx{tagC} files."
         },
         "contactUs": {
-          "title": "Any question get answered",
+          "title": "Any questions get answered",
           "text": "If you have {tagO}any{tagC} difficulties, please write to our founder Dan at {linkO}{email}{linkC}. We want to make sure you're okay.",
           "cta": "Will do"
         },
