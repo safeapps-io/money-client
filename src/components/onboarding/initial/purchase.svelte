@@ -12,6 +12,7 @@
   import { focusableShortcut } from '$utils/actions/shortcut';
   import { resize } from '$utils/actions/resize';
   import { accentTags, generateLinkTags, markTags } from '$utils/accentTags';
+  import { founderEmail } from '$services/config';
 
   export let plan: PlanFull;
 
@@ -176,7 +177,7 @@
     </div>
     <div class="column write-email">
       {@html $_('cmps.billing.onboarding.purchase.feedback', {
-        values: generateLinkTags('mailto:dan@safeapps.io'),
+        values: { ...generateLinkTags(`mailto:${founderEmail}`), email: founderEmail },
       })}
     </div>
   </div>
