@@ -17,4 +17,5 @@ let clientId: string | null = null;
 export const getSSEClientId = () => clientId || (clientId = nanoid()),
   ssePath = `${apiPath}/sse?clientId=${getSSEClientId()}`;
 
-export const supportEmail = 'hey@safeapps.io';
+export const supportEmail = 'hey@safeapps.io',
+  founderEmail = 'dan@safeapps.io';

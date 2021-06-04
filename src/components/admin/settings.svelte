@@ -10,12 +10,14 @@
   import { setUserSetting } from '$stores/decr/user';
   import { plansStore } from '$stores/billing';
   import { walletStore } from '$stores/wallet';
+  import { visitCounterStore } from '$stores/visitRecorder';
 
   let active = false,
     showButton = true;
 
   const resetOnboarding = async () => {
     await setUserSetting('onboarding', {});
+    $visitCounterStore = {};
     goto(appPath);
     location.reload();
   };
