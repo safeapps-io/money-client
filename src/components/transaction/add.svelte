@@ -4,23 +4,36 @@
   import { _ } from 'svelte-i18n';
   import { goto } from '$app/navigation';
   import { media } from 'svelte-match-media';
+
   import { accentTags } from '$utils/accentTags';
 
   import { addTransactionPath, importPath } from '$core/routes';
   import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
+  import { getPageStats } from '$stores/visitRecorder';
+  import { hasUserSeenOnboarding } from '$stores/decr/user';
 
-  export let shouldShowOnboarding = true;
+  export let openMenu: () => void;
 
   const key = 'howToAdd';
 
   $: mobileMode = $media.mobile;
   $: manualAddClasses = $media.mobile ? 'py-4 px-4 mb-3' : '';
 
+  let shouldShow = false;
+  $: if ($getPageStats('dashboard') >= 2) {
+    if ($media.mobile && !$hasUserSeenOnboarding('howToAdd')) {
+      setTimeout(() => {
+        openMenu();
+        shouldShow = true;
+      }, 500);
+    } else shouldShow = true;
+  }
+
   const onbClickSlot = () => goto($importPath);
 </script>
 
 <div class="has-text-centered">
-  <Onboarding bottom {key} shouldShow={shouldShowOnboarding} let:finishOnboarding>
+  <Onboarding bottom {key} {shouldShow} let:finishOnboarding>
     <a
       class="button is-success"
       class:is-light={mobileMode}

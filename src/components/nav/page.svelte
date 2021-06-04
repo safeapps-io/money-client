@@ -1,9 +1,12 @@
 <script>
+  import type { VisitPages } from '$stores/visitRecorder';
   import GenericTroubleshoot from '$components/elements/genericTroubleshoot.svelte';
   import PlanRedirectGuard from '$components/billing/planRedirectGuard.svelte';
   import Profile from './profile.svelte';
 
   import { media } from 'svelte-match-media';
+
+  import { addVisit } from '$stores/visitRecorder';
 
   export let title: string | undefined = undefined,
     boxedView: boolean = true,
@@ -12,6 +15,10 @@
 
   export let activePlanOnly: boolean = false,
     currentUserCheck: boolean | undefined = undefined;
+
+  export let counterName: VisitPages | null = null;
+
+  if (counterName) addVisit(counterName);
 </script>
 
 <!-- 

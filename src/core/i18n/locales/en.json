@@ -188,7 +188,7 @@
             "tcs": "There's no risk for you though: we use a very reputable bank, {linkO}Tinkoff Credit Systems{linkC}. It follows all the security guidelines and collects as little data as possible about our users.",
             "moneyback": "And, once again, we offer you a {markGrO}30-day moneyback guarantee{markC}."
           },
-          "feedback": "If you have any doubts, {linkO}write an email to Dan{linkC}, our founder. He can answer all your questions or setup a video-demo."
+          "feedback": "If you have any doubts, write an email to Dan at {linkO}{email}{linkC}, our founder. He can answer all your questions or setup a video-demo."
         }
       }
     },
@@ -301,6 +301,11 @@
         "importFile": {
           "title": "Find a file",
           "main": "Upload a statement from your bank. We accept {tagO}.csv{tagC} and {tagO}.ofx{tagC} files."
+        },
+        "contactUs": {
+          "title": "Any question get answered",
+          "text": "If you have {tagO}any{tagC} difficulties, please write to our founder Dan at {linkO}{email}{linkC}. We want to make sure you're okay.",
+          "cta": "Will do"
         },
         "importButton": {
           "itsEasy": "It works best when you create transactions by uploading bank statements. Works fast, doesn't make any errors, and makes most of the work automatically after a while.",

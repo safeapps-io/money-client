@@ -13,6 +13,7 @@ import { decrypt, encrypt } from '$services/crypto/keys';
 
 export type OnboardingSteps =
   | 'firstWallet'
+  | 'contactUs'
   | 'howToAdd'
   | 'fileImport'
   | 'setScheme'

@@ -2,19 +2,16 @@
   import Menu from './menu.svelte';
 
   import { fade } from 'svelte/transition';
-  import { media } from 'svelte-match-media';
   import { page } from '$app/stores';
   import menuIcon from 'teenyicons/outline/menu.svg';
 
   import { restrictBodyScroll } from '$utils/actions/restrictBodyScroll';
 
-  import { hasUserSeenOnboarding } from '$stores/decr/user';
-
   let showMenu = false;
 
   $: if ($page.path) showMenu = false;
-  $: if (!$hasUserSeenOnboarding('howToAdd') && $media.mobile)
-    setTimeout(() => (showMenu = true), 500);
+
+  const openMenu = () => (showMenu = true);
 </script>
 
 <div class="page-content fullheight">
@@ -37,7 +34,7 @@
   class:show-menu={showMenu}
   aria-hidden={!showMenu}>
   <div class="pt-2 pb-4 px-2" use:restrictBodyScroll={showMenu}>
-    <Menu {showMenu} />
+    <Menu {openMenu} />
   </div>
 </div>
 
