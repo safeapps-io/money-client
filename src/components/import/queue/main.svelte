@@ -200,7 +200,7 @@
    * The biggest problem is that Svelte has a very pesky bug when working with slots, transitions
    * and element/component references at the same time. TL;DR: references become `null` and
    * nothing really helps (even bindings fail to work correctly).
-   * FIXME: after this is fixed https://github.com/sveltejs/svelte/issues/5589
+   * TODO: fix after this is fixed https://github.com/sveltejs/svelte/issues/5589
    *
    * The solution is very bad, but it works: we try to find a node that is <button type=submit />.
    * If there is one, then the user entered the edit mode. We need to click on this, so the Form

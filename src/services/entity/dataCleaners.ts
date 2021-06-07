@@ -21,7 +21,7 @@ export const walletEncryptedDataCleaner = derived(
   [walletStore, encryptedStore],
   ([$wallet, $encrypted]) => {
     /**
-     * FIXME: delete decrypted data if it exists.
+     * TODO: drop decrypted data if it exists.
      * The deleted wallet can be opened at the time, so we should delete decrypted data as well.
      *
      * `currentWalletDropdown.svelte` has a workaround for this case, when a user drops a wallet,
