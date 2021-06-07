@@ -120,7 +120,8 @@
           </p>
         {/if}
       </div>
-      <a href={link || ''} class="button is-primary">{$_('cmps.billing.providers.goto')}</a>
+      <a href={link || ''} class="button is-primary" target="_blank" rel="noopener noreferrer"
+        >{$_('cmps.billing.providers.goto')}</a>
       <p class="help">{$_('cmps.billing.providers.useInc')}</p>
       <p class="help">{$_('common.or').toLowerCase()}</p>
       <button class="button is-small is-danger is-outlined" on:click={cancel}

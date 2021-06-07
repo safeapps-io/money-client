@@ -96,6 +96,8 @@
     slotVars = getPositionalVars(scrollY + y, scrollX + x, width, height);
   }
 
+  // IDEA: Do this using SVG blobs. Will look cooler (probably).
+
   // Setting figures variables
   const getEvenCoordsByCenterPoint = (x: number, y: number, neededSize: number) =>
     getPositionalVars(bottom ? y : y - neededSize / 2, x - neededSize / 2, neededSize, neededSize);

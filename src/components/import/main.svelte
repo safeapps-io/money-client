@@ -201,6 +201,8 @@
               values: { tagO: '<code>', tagC: '</code>' },
             })}
           </Text>
+          <button class="button is-small" on:click={finishOnboarding}
+            >{$_('common.tryLater')}</button>
         </svelte:fragment>
       </Onboarding>
     {:else}
