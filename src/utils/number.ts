@@ -1,3 +1,4 @@
+import type { NumberValue } from 'd3-scale';
 import { locale } from 'svelte-i18n';
 import { derived } from 'svelte/store';
 
@@ -95,4 +96,17 @@ export class SimpleNumberParser {
   getValidExample() {
     return `1432${this.decimalDelimiter}13`;
   }
+}
+
+export function kFormatter(_num: number | NumberValue | string) {
+  let num: number;
+  if (typeof _num == 'string') num = parseFloat(_num);
+  else num = _num.valueOf();
+
+  const noSign = Math.abs(num),
+    fixed = num.toFixed();
+  if (noSign < 1e3) return fixed;
+  else if (noSign < 1e6) return (num / 1e3).toFixed() + 'k';
+  else if (noSign < 1e9) return (num / 1e6).toFixed() + 'M';
+  else return fixed;
 }
