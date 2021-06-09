@@ -12,11 +12,13 @@
 </script>
 
 <div class="wrapper" bind:clientWidth={svgWidth}>
-  <svg height={svgHeight} width={svgWidth}>
-    <g transform="translate({marginLeft}, {marginTop})">
-      <slot {width} {height} />
-    </g>
-  </svg>
+  {#if svgWidth && svgHeight}
+    <svg height={svgHeight} width={svgWidth}>
+      <g transform="translate({marginLeft}, {marginTop})">
+        <slot {width} {height} />
+      </g>
+    </svg>
+  {/if}
 </div>
 
 <style lang="scss">

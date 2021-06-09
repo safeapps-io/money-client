@@ -1,17 +1,20 @@
 <script>
-  import UnAuthLayout from '$components/nav/unAuthLayout.svelte';
+  import type { BarChartDataset, LineChartDataset } from '$components/chart/types';
 
+  import UnAuthLayout from '$components/nav/unAuthLayout.svelte';
   import Line from '$components/chart/line.svelte';
-  import type { LineChartDataset } from '$components/chart/types';
+
   import { addDays } from 'date-fns';
+
   import { randBetween } from '$utils/random';
+  import { generateRandomColor } from '$utils/color';
+  import Bar from '$components/chart/bar.svelte';
 
   // FIXME: delete it
-
   const baseDate = new Date(2020, 3, 1);
   let data: LineChartDataset = [];
 
-  const generate = () => {
+  const generateLine = () => {
     data = [];
     let prevValue = -400;
     for (let i = 0; i < 100; i++) {
@@ -20,11 +23,29 @@
       data.push({ value: prevValue, date: addDays(baseDate, i) });
     }
   };
-  generate();
+  generateLine();
+
+  let barData: BarChartDataset = [];
+  const generateBar = () => {
+    barData = Array(Math.round(randBetween(3, 8)))
+      .fill(null)
+      .map((_, i) => ({
+        value: randBetween(-120, 1500),
+        label: `Bar ${i + 1}`,
+        color: generateRandomColor(),
+      }));
+  };
+  generateBar();
 </script>
 
 <UnAuthLayout>
-  <button class="button my-6" on:click={generate}>generate</button>
+  <hr />
+  <h2 class="subtitle">Bar</h2>
+  <button class="button my-6" on:click={generateBar}>generate</button>
+  <Bar data={barData} />
 
+  <hr />
+  <h2 class="subtitle">Line</h2>
+  <button class="button my-6" on:click={generateLine}>generate</button>
   <Line {data} />
 </UnAuthLayout>

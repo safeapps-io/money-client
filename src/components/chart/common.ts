@@ -2,11 +2,11 @@ import type { Axis } from 'd3-axis';
 import type { GetLine, LineChartDataset } from './types';
 
 import { select } from 'd3-selection';
-import { addDays, differenceInDays, isAfter, isSameDay, max, min } from 'date-fns';
+import { addDays, differenceInDays, isAfter, max, min } from 'date-fns';
 
 // Reexport is needed because otherwise Vite goes crazy
 export { axisBottom, axisLeft } from 'd3-axis';
-export { scaleUtc, scaleLinear } from 'd3-scale';
+export { scaleUtc, scaleLinear, scaleBand } from 'd3-scale';
 export { line } from 'd3-shape';
 
 export const setAxis: Action<Axis<any>, Element> = (node, oldScale) => {
@@ -24,12 +24,14 @@ export const setAxis: Action<Axis<any>, Element> = (node, oldScale) => {
 
 type GetLineParams = {
   data?: LineChartDataset;
-  getLine: GetLine<ArrayItem<LineChartDataset>>;
+  getLine?: GetLine<ArrayItem<LineChartDataset>>;
 };
 export const setLine: Action<GetLineParams, Element> = (node, params) => {
   node.id = 'b' + Math.round(Math.random() * 10000);
   const root = select(`#${node.id}`),
     update = ({ getLine, data = [] }: GetLineParams) => {
+      if (!getLine) return;
+
       root.selectAll('path').remove();
 
       root
