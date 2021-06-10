@@ -80,7 +80,7 @@
    *
    * (same in `crossfadeWrapper.svelte`)
    */
-  const slotResized = (e: HTMLElement) => {
+  const slotResized = (e: Element) => {
     const { height } = e.getBoundingClientRect();
     if (height) slotHeight = height;
   };

@@ -86,6 +86,9 @@ export default {
           name => !['emoji-regex', 'svelte-i18n', 'nanoid'].includes(name),
         ),
       },
+      optimizeDeps: {
+        include: ['d3'],
+      },
       build: { sourcemap: true },
     }),
   },

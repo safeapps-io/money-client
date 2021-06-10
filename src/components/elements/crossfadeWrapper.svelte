@@ -34,7 +34,7 @@
    *
    * (same in `onboarding.svelte`)
    */
-  const resizeTrigger = (el: HTMLElement) => {
+  const resizeTrigger = (el: Element) => {
     const { height } = el.getBoundingClientRect();
     if (heightTweened && height) slotHeight = height;
   };
