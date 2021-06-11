@@ -98,7 +98,22 @@ export class SimpleNumberParser {
   }
 }
 
-export function kFormatter(_num: number | NumberValue | string) {
+const formatNumber = (num: number, divider: number, maxVal: number, letter: string) =>
+  /**
+   * We check if maxVal in the array is less then twice the divider.
+   * This way, if we have multiple ticks with the same leading number, we won't stuck
+   * with
+   * 1k
+   * 1k
+   * 1k
+   * , but with
+   * 1.4k
+   * 1.2k
+   * 1.0k
+   */
+  (num / divider).toFixed(maxVal < divider * 2 ? 1 : 0) + letter;
+
+export function kFormatter(_num: number | NumberValue | string, maxVal = 0) {
   let num: number;
   if (typeof _num == 'string') num = parseFloat(_num);
   else num = _num.valueOf();
@@ -106,7 +121,8 @@ export function kFormatter(_num: number | NumberValue | string) {
   const noSign = Math.abs(num),
     fixed = num.toFixed();
   if (noSign < 1e3) return fixed;
-  else if (noSign < 1e6) return (num / 1e3).toFixed() + 'k';
-  else if (noSign < 1e9) return (num / 1e6).toFixed() + 'M';
-  else return fixed;
+  if (noSign < 1e6) return formatNumber(num, 1e3, maxVal, 'k');
+  if (noSign < 1e9) return formatNumber(num, 1e6, maxVal, 'M');
+
+  return fixed;
 }
