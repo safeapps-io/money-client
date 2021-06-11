@@ -15,8 +15,8 @@
 
   export let x: XTime | undefined, y: YValue | undefined, data: LineChartDataset;
 
-  export let focusPoint: null | ArrayItem<LineChartDataset> = null;
-  let fixedPosition = false;
+  export let focusPoint: null | ArrayItem<LineChartDataset> = null,
+    fixedPosition = false;
 
   const bisect = bisector((val: ArrayItem<LineChartDataset>) => val.date);
   const calcFocusPointPosition = (xCoord: number) => {

@@ -23,7 +23,8 @@
 
   let focusPoint: ArrayItem<LineChartDataset> | null,
     focusPointX: number | null,
-    focusPointY: number | null;
+    focusPointY: number | null,
+    fixedPosition: boolean;
 </script>
 
 <Base svgHeight={300} let:width let:height>
@@ -33,7 +34,13 @@
   <g use:setLine={{ getLine, data: filledBlanks }} />
   <!-- svelte-ignore component-name-lowercase -->
   {#if focusPoint && focusPointY && focusPointX}
-    <circle cx={focusPointX} cy={focusPointY} r="2" stroke-width="1" fill="white" stroke="gray" />
+    <circle
+      cx={focusPointX}
+      cy={focusPointY}
+      r={fixedPosition ? 4 : 2}
+      stroke-width={fixedPosition ? 2 : 1}
+      fill="white"
+      stroke="gray" />
     <line
       x1={focusPointX}
       x2={focusPointX}
@@ -56,6 +63,7 @@
     {y}
     data={filledBlanks}
     bind:focusPoint
+    bind:fixedPosition
     bind:yVal={focusPointY}
     bind:xVal={focusPointX} />
 
