@@ -30,6 +30,7 @@
     barData = Array(Math.round(randBetween(3, 8)))
       .fill(null)
       .map((_, i) => ({
+        id: Math.random().toString(),
         value: randBetween(-300, 1500),
         label: `Bar ${i + 1}`,
         color: generateRandomColor(),
@@ -39,8 +40,6 @@
 
   /**
    * 1. localize ticks?
-   * 2. add detailed data on each bar
-   * 3. kformatter should get a max data to change toFixed() notation for max <3k (e.g)
    * 4. horizontal bars?
    */
 </script>
