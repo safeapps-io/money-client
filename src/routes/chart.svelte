@@ -16,10 +16,10 @@
 
   const generateLine = () => {
     data = [];
-    let prevValue = -400;
-    for (let i = 0; i < 100; i++) {
+    let prevValue = 1000;
+    for (let i = 0; i < 10000; i++) {
       if (Math.random() > 0.6) continue;
-      prevValue += randBetween(-200, 300);
+      prevValue += randBetween(-300, 300);
       data.push({ value: prevValue, date: addDays(baseDate, i) });
     }
   };
@@ -30,12 +30,19 @@
     barData = Array(Math.round(randBetween(3, 8)))
       .fill(null)
       .map((_, i) => ({
-        value: randBetween(-120, 1500),
+        value: randBetween(-300, 1500),
         label: `Bar ${i + 1}`,
         color: generateRandomColor(),
       }));
   };
   generateBar();
+
+  /**
+   * 1. localize ticks?
+   * 2. add detailed data on each bar
+   * 3. kformatter should get a max data to change toFixed() notation for max <3k (e.g)
+   * 4. horizontal bars?
+   */
 </script>
 
 <UnAuthLayout>

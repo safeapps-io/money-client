@@ -1,23 +1,17 @@
 <script>
   import type { LineChartDataset, XTime, YValue } from '../types';
 
-  import { onDestroy } from 'svelte';
-
   import { bisector, pointer } from '../common';
 
   export let width: number, height: number;
 
-  let mousePosition: { x?: number; y?: number } = {},
-    timer = 0;
-  // Using timer, because sometimes it fires `{}` for some small gestures, and
-  // the whole thing blinks
-  const mouseOut = () => (timer = setTimeout(() => (mousePosition = {}), 100)),
+  let mousePosition: { x?: number; y?: number } = {};
+
+  const mouseOut = () => (mousePosition = {}),
     mouseMove = (e: MouseEvent) => {
-      clearTimeout(timer);
       const [x, y] = pointer(e);
       mousePosition = { x, y };
     };
-  onDestroy(() => clearTimeout(timer));
 
   export let x: XTime | undefined, y: YValue | undefined, data: LineChartDataset;
 

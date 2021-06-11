@@ -31,15 +31,6 @@
   <TimeX {data} {width} {height} y={y?.(0) || 0} bind:x />
 
   <g use:setLine={{ getLine, data: filledBlanks }} />
-  <HoverTracker
-    {width}
-    {height}
-    {x}
-    {y}
-    data={filledBlanks}
-    bind:focusPoint
-    bind:yVal={focusPointY}
-    bind:xVal={focusPointX} />
   <!-- svelte-ignore component-name-lowercase -->
   {#if focusPoint && focusPointY && focusPointX}
     <circle cx={focusPointX} cy={focusPointY} r="2" stroke-width="1" fill="white" stroke="gray" />
@@ -58,6 +49,15 @@
       stroke-dasharray="2 2"
       stroke="gray" />
   {/if}
+  <HoverTracker
+    {width}
+    {height}
+    {x}
+    {y}
+    data={filledBlanks}
+    bind:focusPoint
+    bind:yVal={focusPointY}
+    bind:xVal={focusPointX} />
 
   <svelte:fragment slot="overlay-div">
     {#if focusPoint}
@@ -82,8 +82,6 @@
     position: absolute;
     top: 30px;
     left: 45px;
-    width: 150px;
-    height: 50px;
 
     font-size: 75%;
     background-color: $white;
