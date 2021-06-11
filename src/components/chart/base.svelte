@@ -19,10 +19,17 @@
       </g>
     </svg>
   {/if}
+  <slot name="overlay-div" />
 </div>
 
 <style lang="scss">
-  svg :global(text) {
-    font-family: $family-monospace;
+  .wrapper {
+    position: relative;
+  }
+
+  svg {
+    :global(text) {
+      font-family: $family-monospace;
+    }
   }
 </style>

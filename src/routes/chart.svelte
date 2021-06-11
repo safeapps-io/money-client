@@ -3,12 +3,12 @@
 
   import UnAuthLayout from '$components/nav/unAuthLayout.svelte';
   import Line from '$components/chart/line.svelte';
+  import Bar from '$components/chart/bar.svelte';
 
   import { addDays } from 'date-fns';
 
   import { randBetween } from '$utils/random';
   import { generateRandomColor } from '$utils/color';
-  import Bar from '$components/chart/bar.svelte';
 
   // FIXME: delete it
   const baseDate = new Date(2020, 3, 1);

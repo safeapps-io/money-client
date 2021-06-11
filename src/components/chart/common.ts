@@ -8,6 +8,8 @@ import { addDays, differenceInDays, isAfter, max, min } from 'date-fns';
 export { axisBottom, axisLeft } from 'd3-axis';
 export { scaleUtc, scaleLinear, scaleBand } from 'd3-scale';
 export { line } from 'd3-shape';
+export { bisector } from 'd3-array';
+export { pointer } from 'd3-selection';
 
 export const setAxis: Action<Axis<any>, Element> = (node, oldScale) => {
   node.id = 'b' + Math.round(Math.random() * 10000);
@@ -38,7 +40,6 @@ export const setLine: Action<GetLineParams, Element> = (node, params) => {
         .append('path')
         .datum(data)
         .attr('fill', 'none')
-        .attr('stroke', 'green')
         .attr('stroke-width', 1)
         .attr('d', getLine(data) as any);
     };
