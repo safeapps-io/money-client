@@ -86,6 +86,7 @@
   "cmps": {
     "footer": {
       "about": "About",
+      "security": "Security",
       "pricing": "Pricing",
       "howItWorks": "How it works",
       "openSource": "Open source",
