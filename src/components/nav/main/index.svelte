@@ -24,11 +24,9 @@
   let remoteCheckPerformed = false,
     remoteCheckResult = false;
   onMount(async () => {
-    remoteCheckResult = await AuthService.isUserStillValid();
+    remoteCheckResult = await AuthService.init();
     remoteCheckPerformed = true;
   });
-  if ($encryptionKeysStateStore.encryptionKeySet)
-    AuthService.isUserStillValid().then(res => (remoteCheckResult = res));
   // If user check was performed but we have no user, we need to redirect to login page
   $: if (remoteCheckPerformed && !$userEncrStore) goto(loginPath, { replaceState: true });
 

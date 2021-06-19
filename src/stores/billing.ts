@@ -2,7 +2,8 @@ import { derived, writable } from 'svelte/store';
 import { userEncrStore } from './user';
 import { walletStore, AccessLevels, currentWalletStore } from './wallet';
 
-export const plansStore = writable<PlanPartial[]>([]);
+export const plansStore = writable<PlanPartial[]>([]),
+  limitStore = writable<number>(0);
 
 let timer: number;
 export const isSubscriptionActiveStore = derived(plansStore, $plans => {

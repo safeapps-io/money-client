@@ -6,7 +6,7 @@ export const billingEventsMap = new Map([
   [
     'billing/charge',
     (data: ChargeEvent) => {
-      if (data.eventType == 'confirmed') AuthService.isUserStillValid();
+      if (data.eventType == 'confirmed') AuthService.init();
       addCharge(data);
     },
   ],
