@@ -8,7 +8,7 @@
 
   import { deletedAdd } from '$stores/decr/deleted';
   import { userEncrStore } from '$stores/user';
-  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
+  import { runCheck } from '$components/billing/planOfferModal.svelte';
 
   const successNotif = getContext('success'),
     dangerNotif = getContext('danger'),
@@ -21,7 +21,7 @@
   const shortcutSetting = { shift: true, code: 'Backspace' };
 
   const click = async () => {
-    if (!runCurrentWalletPlanCheck()) return;
+    if (!runCheck()) return;
 
     try {
       if (runBefore) {

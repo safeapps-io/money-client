@@ -5,6 +5,7 @@
   import PlanOfferModal from '$components/billing/planOfferModal.svelte';
   import ProblemsInitialOnboarding from '$components/onboarding/initial/problemsInitialOnboarding.svelte';
   import WalletDataContainer from './walletDataContainer.svelte';
+  import LimitEntities from '$components/billing/limitEntities.svelte';
 
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
@@ -49,6 +50,7 @@
   {:else if hasWallets}
     <!-- There's a point when we have wallets, but `walletData` is not yet decrypted -->
     {#if hasWalletData}
+      <LimitEntities />
       <WalletDataContainer>
         <slot />
       </WalletDataContainer>

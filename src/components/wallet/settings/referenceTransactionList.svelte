@@ -8,7 +8,7 @@
   import { _ } from 'svelte-i18n';
 
   import { walletDataUpdate } from '$stores/decr/wallet';
-  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
+  import { runCheck } from '$components/billing/planOfferModal.svelte';
 
   export let transactions: FullEntity<ReferenceTransaction>[], wallet: FullEntity<WalletData>;
   let showForm = !transactions.length;
@@ -53,7 +53,7 @@
     <button
       type="button"
       class="button is-light"
-      on:click={() => runCurrentWalletPlanCheck() && (showForm = !showForm)}>
+      on:click={() => runCheck() && (showForm = !showForm)}>
       {$_('common.form.set')}
     </button>
   </div>

@@ -12,7 +12,7 @@
 
   import { defaultAssetStore } from '$stores/decr/asset';
   import { relativeDate } from '$core/i18n/relativeDate';
-  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
+  import { runCheck } from '$components/billing/planOfferModal.svelte';
 
   export let referenceTransaction: FullEntity<ReferenceTransaction>,
     activeTransactionId: string | undefined = undefined;
@@ -42,7 +42,7 @@
           role="button"
           tabindex="0"
           on:click={() => {
-            if (runCurrentWalletPlanCheck()) {
+            if (runCheck()) {
               setActiveStatus();
               hide();
             }

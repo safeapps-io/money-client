@@ -8,7 +8,7 @@
   import { accentTags } from '$utils/accentTags';
 
   import { addTransactionPath, importPath } from '$core/routes';
-  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
+  import { runCheck } from '$components/billing/planOfferModal.svelte';
   import { getPageStats } from '$stores/visitRecorder';
   import { hasUserSeenOnboarding } from '$stores/decr/user';
 
@@ -39,7 +39,7 @@
       class:is-light={mobileMode}
       class:is-fullwidth={mobileMode}
       href={$importPath}
-      on:click={e => runCurrentWalletPlanCheck(e) && finishOnboarding().then(onbClickSlot)}
+      on:click={e => runCheck(e) && finishOnboarding().then(onbClickSlot)}
       >{$_('cmps.transaction.import')}</a>
 
     <svelte:fragment slot="text">
@@ -61,6 +61,6 @@
     <a
       class={'is-size-7 is-underlined ' + manualAddClasses}
       href={$addTransactionPath}
-      on:click={runCurrentWalletPlanCheck}>{$_('cmps.transaction.add')}</a>
+      on:click={runCheck}>{$_('cmps.transaction.add')}</a>
   </div>
 </div>

@@ -25,7 +25,6 @@
   import { addUserScheme, hasUserSeenOnboarding } from '$stores/decr/user';
   import { allLocalSchemes } from '$stores/scheme';
   import { defaultAssetStore } from '$stores/decr/asset';
-  import { getPageStats } from '$stores/visitRecorder';
 
   import { CsvParsedTransactionResolution } from '$core/import/constants';
 

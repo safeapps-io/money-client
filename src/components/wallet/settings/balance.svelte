@@ -9,7 +9,7 @@
 
   import { walletDataUpdate } from '$stores/decr/wallet';
   import { currentWalletReferenceTransactionStore } from '$stores/decr/referenceTransaction';
-  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
+  import { runCheck } from '$components/billing/planOfferModal.svelte';
 
   export let wallet: FullEntity<WalletData>;
 
@@ -21,7 +21,7 @@
 </script>
 
 <Onboarding preventSlotClick key="balance" shouldShow={!checked} let:finishOnboarding>
-  <div class="field" on:click={runCurrentWalletPlanCheck}>
+  <div class="field" on:click={runCheck}>
     <label class="checkbox">
       {$_('cmps.transaction.reference.balanceOn')}
       <input type="checkbox" bind:checked />
