@@ -12,7 +12,7 @@
   import { getPageStats } from '$stores/visitRecorder';
   import { hasUserSeenOnboarding } from '$stores/decr/user';
 
-  export let openMenu: () => void;
+  export let openMenu: undefined | (() => void);
 
   const key = 'howToAdd';
 
@@ -23,7 +23,7 @@
   $: if ($getPageStats('dashboard') >= 2) {
     if ($media.mobile && !$hasUserSeenOnboarding('howToAdd')) {
       setTimeout(() => {
-        openMenu();
+        openMenu?.();
         shouldShow = true;
       }, 500);
     } else shouldShow = true;
