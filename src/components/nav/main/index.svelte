@@ -3,9 +3,8 @@
   import StartPasswordRequest from '$components/user/startPasswordRequest.svelte';
   import JoiningFlow from '$components/wallet/joinWallet/joiningFlow.svelte';
   import PlanOfferModal from '$components/billing/planOfferModal.svelte';
-  import InitialOnboarding from '$components/billing/initialOnboarding.svelte';
+  import ProblemsInitialOnboarding from '$components/onboarding/initial/problemsInitialOnboarding.svelte';
   import WalletDataContainer from './walletDataContainer.svelte';
-  import WalletModalCreate from '$components/wallet/modalCreate.svelte';
 
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
@@ -56,9 +55,7 @@
       <PlanOfferModal />
     {/if}
   {:else}
-    <InitialOnboarding>
-      <WalletModalCreate firstWallet active />
-    </InitialOnboarding>
+    <ProblemsInitialOnboarding />
   {/if}
 
   <LoadingIndicator show={!$isOnlineStore} />
