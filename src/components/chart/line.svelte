@@ -7,8 +7,9 @@
 
   import Base from './base.svelte';
   import TimeX from './axis/timeX.svelte';
-  import ValueY from './axis/valueY.svelte';
+  import ValueAxis from './axis/valueAxis.svelte';
   import HoverTracker from './axis/hoverTracker.svelte';
+  import { axisLeft } from 'd3-axis';
 
   export let data: LineChartDataset;
   $: filledBlanks = fillBlankDate(data);
@@ -16,7 +17,7 @@
   let y: YValue | undefined, x: XTime | undefined;
 
   let getLine: GetLine<ArrayItem<LineChartDataset>> | undefined;
-  $: if (x && y)
+  $: if (x && y && filledBlanks.length > 1)
     getLine = line<ArrayItem<LineChartDataset>>()
       .x(d => x!(d.date))
       .y(d => y!(d.value));
@@ -25,10 +26,20 @@
     focusPointX: number | null,
     focusPointY: number | null,
     fixedPosition: boolean;
+
+  /**
+   * FIXME: Adapt to 1 data point!
+   */
 </script>
 
 <Base svgHeight={300} let:width let:height>
-  <ValueY {data} {height} {width} bind:y />
+  <ValueAxis
+    {data}
+    gridDirection="left"
+    axisBuilder={axisLeft}
+    rangeMax={height}
+    gridSize={width}
+    bind:scale={y} />
   <TimeX {data} {width} {height} y={y?.(0) || 0} bind:x />
 
   <g use:setLine={{ getLine, data: filledBlanks }} />
@@ -70,6 +81,7 @@
   <svelte:fragment slot="overlay-div">
     {#if focusPoint}
       <div class="tooltip px-3 py-2">
+        <!-- FIXME: translations -->
         <p>Дата: {$date(focusPoint.date)}</p>
         <p>Значение: {$number(focusPoint.value)}</p>
       </div>

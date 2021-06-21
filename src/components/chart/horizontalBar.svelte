@@ -10,52 +10,46 @@
 
   export let data: BarChartDataset;
 
-  export let padding = 0.3;
+  export let heightPerBar = 50,
+    padding = 0.3;
 
-  let y: YValue | undefined, x: XBand | undefined;
-
-  $: getY = (value: number) => {
-    const zero = y!(0);
-    return value < 0 ? zero : zero - (zero - y!(value));
-  };
+  let y: XBand | undefined, x: YValue | undefined;
 
   let hoveredId: string | null = null;
+
+  /**
+   * FIXME: Решить проблему лейблов, вылезающих за пределычарта. Хз как :)
+   * А еще надо дропнуть, наконец, chartjs!!!!!!!!!
+   */
 </script>
 
-<Base svgHeight={300} let:width let:height>
+<Base svgHeight={100 + data.length * heightPerBar} let:width let:height>
   <ValueAxis
     {data}
-    gridDirection="left"
-    axisBuilder={axisLeft}
-    rangeMax={height}
-    gridSize={width}
-    bind:scale={y} />
+    axisBuilder={axisBottom}
+    rangeMax={width}
+    gridSize={height}
+    heightTranslate={height}
+    gridDirection="bottom"
+    bind:scale={x} />
 
   {#if y && x}
     {#each data as { id, color, value } (id)}
       <g on:mouseover={() => (hoveredId = id)} on:mouseleave={() => (hoveredId = null)}>
         <rect
-          x={x(id)}
-          width={x.bandwidth()}
-          y={getY(value)}
-          height={Math.abs(y(0) - y(value))}
+          x={0}
+          width={x(value)}
+          y={y(id)}
+          height={y.bandwidth()}
           opacity={hoveredId == id ? 0.8 : 1}
           style="fill: {color}" />
-        <text
-          x={((x && x(id)) || 0) + x.bandwidth() / 2}
-          y={getY(value) - 10}
-          style={id == hoveredId ? '' : 'display: none'}>{$number(value)}</text>
+        <text x={x(value) - 10} y={y(id)} style={id == hoveredId ? '' : 'display: none'}
+          >{$number(value)}</text>
       </g>
     {/each}
   {/if}
 
-  <IdAxis
-    {data}
-    {padding}
-    axisBuilder={axisBottom}
-    rangeMax={width}
-    heightTranslate={y?.(0) || 0}
-    bind:scale={x} />
+  <IdAxis {data} {padding} axisBuilder={axisLeft} rangeMax={height} bind:scale={y} />
 </Base>
 
 <style lang="scss">

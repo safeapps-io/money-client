@@ -1,14 +1,15 @@
 <script>
-  import type { NumberData, YValue } from '../types';
+  import type { AxisBuilder, NumberData, YValue } from '../types';
 
   import { kFormatter } from '$utils/number';
 
-  import { scaleLinear, axisLeft, setAxis } from '../common';
+  import { scaleLinear, setAxis } from '../common';
   import Gridlines from './gridlines.svelte';
 
-  export let height: number,
-    width: number,
-    x = 0;
+  export let rangeMax: number,
+    heightTranslate = 0,
+    gridSize: number,
+    gridDirection: 'bottom' | 'left';
 
   export let ticks = 5;
 
@@ -26,13 +27,15 @@
     allMax = Math.max(Math.abs(minValue), Math.abs(maxValue));
   }
 
-  export let y: YValue | undefined = undefined;
+  export let scale: YValue | undefined = undefined;
 
-  $: y = scaleLinear().domain([maxValue, minValue]).nice().range([0, height]);
-  $: axisY = axisLeft(y!)
+  export let axisBuilder: AxisBuilder;
+
+  $: scale = scaleLinear().domain([maxValue, minValue]).range([0, rangeMax]).nice();
+  $: axisY = axisBuilder(scale!)
     .tickFormat(val => kFormatter(val, allMax))
     .ticks(ticks);
 </script>
 
-<g class="axis" use:setAxis={axisY} />
-<Gridlines axisData={y} direction="left" size={width} {ticks} />
+<g class="axis" transform="translate(0, {heightTranslate})" use:setAxis={axisY} />
+<Gridlines axisData={scale} direction={gridDirection} size={gridSize} {ticks} />

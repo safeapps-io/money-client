@@ -1,5 +1,5 @@
 <script>
-  import LineChart from '$components/charts/line.svelte';
+  import LineChart from '$components/chart/line.svelte';
 
   import { _ } from 'svelte-i18n';
   import { createEventDispatcher } from 'svelte';
@@ -12,6 +12,8 @@
   import { defaultAssetStore } from '$stores/decr/asset';
   import { runCheck } from '$components/billing/planOfferModal.svelte';
 
+  const dispatch = createEventDispatcher();
+
   // Undefined if there is not balance at all at this point (time before first transaction)
   export let balanceNumber: number | undefined = undefined,
     balanceComparison: number | undefined = undefined,
@@ -20,10 +22,6 @@
       date: Date;
       value: number;
     }[] = [];
-
-  const dispatch = createEventDispatcher(),
-    adaptToChart = (history: typeof balanceHistory) =>
-      history.map(({ date, value }) => ({ t: new Date(date), y: value }));
 
   $: percentage = balanceNumber ? balanceNumber / (balanceComparison ?? balanceNumber) - 1 : null;
 </script>
@@ -68,6 +66,6 @@
 </div>
 {#if balanceNumber}
   <div transition:slide|local>
-    <LineChart data={adaptToChart(balanceHistory)} label={$_('cmps.dashboard.balanceChart')} />
+    <LineChart data={balanceHistory} />
   </div>
 {/if}

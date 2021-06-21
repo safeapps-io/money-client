@@ -40,7 +40,7 @@ export const setLine: Action<GetLineParams, Element> = (node, params) => {
         .append('path')
         .datum(data)
         .attr('fill', 'none')
-        .attr('stroke-width', 1)
+        .attr('stroke-width', 2)
         .attr('d', getLine(data) as any);
     };
 
@@ -57,7 +57,7 @@ export const fillBlankDate = (dataset: LineChartDataset) => {
   let currIndex = 0,
     prevValue = dataset[0].value;
 
-  for (let i = 0; i < differenceInDays(maxDate, minDate); i++) {
+  for (let i = 0; i <= differenceInDays(maxDate, minDate); i++) {
     const currDate = addDays(minDate, i),
       currentDataPoint = dataset[currIndex];
 
