@@ -6,7 +6,7 @@ import { copy } from '$utils/object';
 
 export const chartjs: Action<ChartConfiguration, HTMLCanvasElement> = (node, params) => {
   let oldParams = copy(params),
-    instance = new Chart(node, params);
+    instance = new Chart(node, copy(params));
 
   return {
     update: async newParams => {
@@ -18,7 +18,7 @@ export const chartjs: Action<ChartConfiguration, HTMLCanvasElement> = (node, par
         oldParams = copy(newParams);
 
         instance.destroy();
-        instance = new Chart(node, newParams);
+        instance = new Chart(node, copy(newParams));
       }
     },
     destroy: () => instance.destroy(),
