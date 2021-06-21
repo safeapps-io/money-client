@@ -110,40 +110,37 @@
 
 {#each header as { value, state, displayErrors, errorsMore }}
   <div class="header-row">
-    {value}
+    <Tooltip showTooltip={state == HeaderColumnState.error}>
+      <svelte:fragment slot="trigger">
+        {#if state == HeaderColumnState.success}
+          {value} 👌
+        {:else if state == HeaderColumnState.error}
+          <span class="trigger">{value}</span> ❌
+        {/if}
+      </svelte:fragment>
 
-    <div class="error-emoji" class:invisible={state == HeaderColumnState.ignore}>
-      {#if state == HeaderColumnState.success}
-        👌
-      {:else if state == HeaderColumnState.error}
-        <Tooltip>
-          <code class="trigger" slot="trigger">❌</code>
-          <div class="tooltip-content">
-            {#each displayErrors as err}
-              <p>
-                {$_('cmps.import.scheme.errors.row', { values: { row: err.row + 1 } })}:
-                {#if err.code == ParseErrorCodes.invalidDate}
-                  {$_('cmps.import.scheme.errors.invalidDate')}
-                {:else if err.code == ParseErrorCodes.invalidCurrency}
-                  {$_('cmps.import.scheme.errors.invalidCurrency')}
-                {:else if err.code == ParseErrorCodes.invalidNumber}
-                  {$_('cmps.import.scheme.errors.invalidNum')}
-                {/if}
+      {#each displayErrors as err}
+        <p>
+          {$_('cmps.import.scheme.errors.row', { values: { num: err.row + 1 } })}:
+          {#if err.code == ParseErrorCodes.invalidDate}
+            {$_('cmps.import.scheme.errors.invalidDate')}
+          {:else if err.code == ParseErrorCodes.invalidCurrency}
+            {$_('cmps.import.scheme.errors.invalidCurrency')}
+          {:else if err.code == ParseErrorCodes.invalidNumber}
+            {$_('cmps.import.scheme.errors.invalidNum')}
+          {/if}
 
-                {#if err.example}
-                  {@html $_('cmps.import.scheme.errors.example', {
-                    values: { example: err.example, tagO: '<code>', tagC: '</code>' },
-                  })}
-                {/if}
-              </p>
-            {/each}
-            {#if errorsMore}
-              <p>{$_('cmps.import.scheme.errors.andNErrors', { values: { count: errorsMore } })}</p>
-            {/if}
-          </div>
-        </Tooltip>
-      {:else}🤯{/if}
-    </div>
+          {#if err.example}
+            {@html $_('cmps.import.scheme.errors.example', {
+              values: { example: err.example, tagO: '<code>', tagC: '</code>' },
+            })}
+          {/if}
+        </p>
+      {/each}
+      {#if errorsMore}
+        <p>{$_('cmps.import.scheme.errors.andNErrors', { values: { count: errorsMore } })}</p>
+      {/if}
+    </Tooltip>
   </div>
 {/each}
 
@@ -172,22 +169,6 @@
     font-size: 80%;
     font-weight: bold;
     color: #888;
-  }
-
-  .error-emoji {
-    display: inline;
-  }
-
-  .trigger {
-    border: 1px black solid;
-    background-color: white;
-    padding: 2px 3px;
-  }
-
-  .tooltip-content {
-    > p {
-      margin-bottom: 0.75em;
-    }
   }
 
   .data-row {

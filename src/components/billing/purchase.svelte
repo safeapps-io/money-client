@@ -1,5 +1,5 @@
 <script>
-  import type { Providers } from '$stores/billing';
+  import type { PlanFull, Providers } from '$stores/billing';
 
   import CrossfadeWrapper from '$components/elements/crossfadeWrapper.svelte';
 
@@ -9,6 +9,8 @@
   import { accentTags, generateLinkTags } from '$utils/accentTags';
   import { BillingService } from '$services/billing/billingService';
   import { privacyPolicyPath } from '$core/routes';
+
+  export let plan: PlanFull | undefined = undefined;
 
   // [ch]oose, [l]ink, [e]rror
   let state: 'ch' | 'l' | 'e' = 'ch',
@@ -21,16 +23,14 @@
       iconClass: 'has-text-warning',
       provider: 'coinbase',
       // © https://teenyicons.com/ bitcoin
-      d:
-        'M3.5 1.5h5a3 3 0 110 6h-5m0-6v6m0-6H2m1.5 0V0m0 7.5h6a3 3 0 110 6h-6m0-6v6m0-6H2m1.5 6H2m1.5 0V15m4-15v1.5m0 12V15',
+      d: 'M3.5 1.5h5a3 3 0 110 6h-5m0-6v6m0-6H2m1.5 0V0m0 7.5h6a3 3 0 110 6h-6m0-6v6m0-6H2m1.5 6H2m1.5 0V15m4-15v1.5m0 12V15',
       text: $_('cmps.billing.payMethods.crypto'),
     },
     {
       iconClass: 'has-text-danger',
       provider: 'tinkoff',
       // © https://teenyicons.com/ card
-      d:
-        'M.5 5.5h14M2 9.5h6m2 0h3M.5 3.5v8a1 1 0 001 1h12a1 1 0 001-1v-8a1 1 0 00-1-1h-12a1 1 0 00-1 1z',
+      d: 'M.5 5.5h14M2 9.5h6m2 0h3M.5 3.5v8a1 1 0 001 1h12a1 1 0 001-1v-8a1 1 0 00-1-1h-12a1 1 0 00-1 1z',
       text: $_('cmps.billing.payMethods.card'),
     },
   ];
@@ -60,7 +60,12 @@
   <CrossfadeWrapper key={state}>
     {#if state == 'ch' || state == 'e'}
       <div class="columns is-multiline">
-        <div class="column is-full">{$_('cmps.billing.payMethods.choose')}</div>
+        <div class="column is-full">
+          {$_('cmps.billing.payMethods.choose')}
+          {#if plan}— <span class="has-text-weight-bold"
+              >${plan.product.price / 100}/{$_('cmps.searchFilter.period.year')}</span
+            >{/if}
+        </div>
         {#each buttons as { d, iconClass, text, provider } (provider)}
           <div class="column is-half">
             <button
@@ -115,7 +120,8 @@
           </p>
         {/if}
       </div>
-      <a href={link || ''} class="button is-primary">{$_('cmps.billing.providers.goto')}</a>
+      <a href={link || ''} class="button is-primary" target="_blank" rel="noopener noreferrer"
+        >{$_('cmps.billing.providers.goto')}</a>
       <p class="help">{$_('cmps.billing.providers.useInc')}</p>
       <p class="help">{$_('common.or').toLowerCase()}</p>
       <button class="button is-small is-danger is-outlined" on:click={cancel}

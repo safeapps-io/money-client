@@ -1,17 +1,20 @@
 <script>
+  import type { VisitPages } from '$stores/visitRecorder';
   import GenericTroubleshoot from '$components/elements/genericTroubleshoot.svelte';
-  import PlanRedirectGuard from '$components/billing/planRedirectGuard.svelte';
   import Profile from './profile.svelte';
 
   import { media } from 'svelte-match-media';
+
+  import { addVisit } from '$stores/visitRecorder';
 
   export let title: string | undefined = undefined,
     boxedView: boolean = true,
     stretchContent: boolean = false,
     nestColumnClass: string | undefined = undefined;
 
-  export let activePlanOnly: boolean = false,
-    currentUserCheck: boolean | undefined = undefined;
+  export let counterName: VisitPages | null = null;
+
+  if (counterName) addVisit(counterName);
 </script>
 
 <!-- 
@@ -72,17 +75,13 @@
       class:box={boxedView && !$media.mobile}
       class:flex-full={stretchContent}>
       <div class={`column ${nestColumnClass}`}>
-        <PlanRedirectGuard {currentUserCheck} runCheck={activePlanOnly}>
-          <slot />
-        </PlanRedirectGuard>
+        <slot />
       </div>
     </div>
   {:else}
     <slot name="no-margin">
       <div class="mx-2 my-3" class:flex-full={stretchContent}>
-        <PlanRedirectGuard {currentUserCheck} runCheck={activePlanOnly}>
-          <slot />
-        </PlanRedirectGuard>
+        <slot />
       </div>
     </slot>
   {/if}

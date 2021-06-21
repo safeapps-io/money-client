@@ -53,21 +53,23 @@ export const rootWalletPath = derived(
   ),
   rootJointWalletPath = derived(
     [searchFilterStore, jointWalletsStore],
-    ([$searchFiltersByWallet, $jointWallets]) => (jointWalletId: string) => {
-      const jointWallet = $jointWallets?.[jointWalletId],
-        defaultSearchFilterId =
-          getDefaultSearchFromWalletState(
-            $searchFiltersByWallet[jointWallet?.walletIds[0] || ''] || {},
-          )?.id || '';
+    ([$searchFiltersByWallet, $jointWallets]) =>
+      (jointWalletId: string) => {
+        const jointWallet = $jointWallets?.[jointWalletId],
+          defaultSearchFilterId =
+            getDefaultSearchFromWalletState(
+              $searchFiltersByWallet[jointWallet?.walletIds[0] || ''] || {},
+            )?.id || '';
 
-      return `${rootWalletPathFn(jointWalletId)}/${defaultSearchFilterId}`;
-    },
+        return `${rootWalletPathFn(jointWalletId)}/${defaultSearchFilterId}`;
+      },
   ),
   walletGeneralSettingsPath = derived(rootCurrentWalletPath, root => `${root}/settings/general`),
   walletUsersSettingsPath = derived(rootCurrentWalletPath, root => `${root}/settings/users`);
 
-export const searchIdPathFn = derived(rootCurrentWalletPath, root => (id: string) =>
-  `${root}/${id}`,
+export const searchIdPathFn = derived(
+  rootCurrentWalletPath,
+  root => (id: string) => `${root}/${id}`,
 );
 
 export const categoryListPath = derived(rootCurrentWalletPath, root => `${root}/category`),
@@ -80,17 +82,20 @@ export const transactionDraftsPath = derived(
   ),
   importPath = derived(rootCurrentWalletPath, root => `${root}/transaction/import`),
   addTransactionPath = derived(rootCurrentWalletPath, root => `${root}/transaction/add`),
-  transactionPathFn = derived(rootCurrentWalletPath, root => (id: string) =>
-    `${root}/transaction/${id}`,
+  transactionPathFn = derived(
+    rootCurrentWalletPath,
+    root => (id: string) => `${root}/transaction/${id}`,
   ),
-  transactionCorrectionPathFn = derived(rootCurrentWalletPath, root => (id: string) =>
-    `${root}/transaction/correction/${id}`,
+  transactionCorrectionPathFn = derived(
+    rootCurrentWalletPath,
+    root => (id: string) => `${root}/transaction/correction/${id}`,
   );
 
 // Root Site --------------
 const content = 'https://safeapps.io/content';
 export const aboutPath = `${content}/about`,
   termsPath = `${content}/terms`,
+  securityPath = `${content}/security`,
   privacyPolicyPath = `${content}/privacy`,
   cookiePolicyPath = `${content}/cookie`;
 

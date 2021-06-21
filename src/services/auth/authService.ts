@@ -1,6 +1,7 @@
 import { enterMasterPassword, getNewMasterPasswordData } from '$services/crypto/keys';
 import { del, patch, post, request } from '$services/request';
 import type { PlanPartial } from '$stores/billing';
+import { limitStore } from '$stores/billing';
 import { plansStore } from '$stores/billing';
 import type { userDecrStore } from '$stores/decr/user';
 import type { UserEncrState, RefreshToken } from '$stores/user';
@@ -49,15 +50,16 @@ export class AuthService {
     return { plans, user };
   }
 
-  static async isUserStillValid() {
+  static async init() {
     try {
-      const res = await request<UserFullData>({
-          path: this.userPrefix,
+      const { json } = await request<{ user: UserFullData; settings: { limit: number } }>({
+          path: `${this.userPrefix}init`,
         }),
-        { plans, user } = this.getUserAndPlan(res.json);
+        { plans, user } = this.getUserAndPlan(json.user);
 
       userEncrStore.set(user);
       plansStore.set(plans);
+      limitStore.set(json.settings.limit);
 
       return true;
     } catch (e) {

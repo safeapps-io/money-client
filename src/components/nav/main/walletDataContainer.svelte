@@ -18,15 +18,13 @@
   <OwnerFlow inviteToValidate={$inviteToValidate} userId={user.id} />
 {/if}
 
-<main class="container fullheight">
-  {#if $media.mobile}
-    <div class="fullheight" in:fade={{ duration: 1200 }}>
+<main class="container fullheight" in:fade={{ duration: 1200 }}>
+  <div class="fullheight {$media.mobile ? '' : 'columns pt-5'}">
+    {#if $media.mobile}
       <ExpandableMenu>
         <slot />
       </ExpandableMenu>
-    </div>
-  {:else}
-    <div class="columns pt-5 fullheight" in:fade={{ duration: 1200 }}>
+    {:else}
       <div class="column is-3 aside">
         <a href={appPath}><Logo showAnimation /></a>
         <Menu />
@@ -34,6 +32,6 @@
       <div class="column is-9">
         <slot />
       </div>
-    </div>
-  {/if}
+    {/if}
+  </div>
 </main>

@@ -19,6 +19,7 @@ import { mccCacheKey, mccStore } from './mcc';
 import { lastWalletUserChosenCacheKey, lastWalletUserChosenStore } from './decr/walletUser';
 import { schemeCacheKey, schemeStore } from './scheme';
 import { metaCategoryCacheKey, metaCategoryStore } from './metaCategory';
+import { visitCounterStore, visitCounterStoreKey } from './visitRecorder';
 import {
   decrDataCleaner,
   encrDataCleaner,
@@ -46,6 +47,7 @@ const storesToPersist: [string, Writable<any>][] = [
   [selectedJointWalletCacheKey, selectedJointWalletStore],
   [encryptedCacheKey, encryptedStore],
   [lastWalletUserChosenCacheKey, lastWalletUserChosenStore],
+  [visitCounterStoreKey, visitCounterStore],
 ];
 
 export const initStores = () =>

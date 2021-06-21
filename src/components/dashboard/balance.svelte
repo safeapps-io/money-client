@@ -10,7 +10,7 @@
   import { moneyFormat, percentFormat } from '$utils/number';
 
   import { defaultAssetStore } from '$stores/decr/asset';
-  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
+  import { runCheck } from '$components/billing/planOfferModal.svelte';
 
   // Undefined if there is not balance at all at this point (time before first transaction)
   export let balanceNumber: number | undefined = undefined,
@@ -39,7 +39,7 @@
           class="has-text-dotted clickable has-text-link is-size-7"
           role="button"
           tabindex="0"
-          on:click={e => runCurrentWalletPlanCheck(e) && dispatch('correctBalance')}
+          on:click={e => runCheck(e) && dispatch('correctBalance')}
           use:focusableShortcut>
           {$_(
             $media.mobile

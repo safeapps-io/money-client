@@ -10,10 +10,12 @@
     forumPath,
     privacyPolicyPath,
     cookiePolicyPath,
+    securityPath,
   } from '$core/routes';
 
   $: links = [
     [aboutPath, $_('cmps.footer.about')],
+    [securityPath, $_('cmps.footer.security')],
     [forumPath, $_('cmps.footer.forum')],
     [termsPath, $_('cmps.footer.terms')],
     [privacyPolicyPath, $_('cmps.footer.privacy')],

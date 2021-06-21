@@ -3,8 +3,9 @@
   import StartPasswordRequest from '$components/user/startPasswordRequest.svelte';
   import JoiningFlow from '$components/wallet/joinWallet/joiningFlow.svelte';
   import PlanOfferModal from '$components/billing/planOfferModal.svelte';
+  import ProblemsInitialOnboarding from '$components/onboarding/initial/problemsInitialOnboarding.svelte';
   import WalletDataContainer from './walletDataContainer.svelte';
-  import WalletCreateContainer from './walletCreateContainer.svelte';
+  import LimitEntities from '$components/billing/limitEntities.svelte';
 
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
@@ -23,11 +24,9 @@
   let remoteCheckPerformed = false,
     remoteCheckResult = false;
   onMount(async () => {
-    remoteCheckResult = await AuthService.isUserStillValid();
+    remoteCheckResult = await AuthService.init();
     remoteCheckPerformed = true;
   });
-  if ($encryptionKeysStateStore.encryptionKeySet)
-    AuthService.isUserStillValid().then(res => (remoteCheckResult = res));
   // If user check was performed but we have no user, we need to redirect to login page
   $: if (remoteCheckPerformed && !$userEncrStore) goto(loginPath, { replaceState: true });
 
@@ -51,14 +50,15 @@
   {:else if hasWallets}
     <!-- There's a point when we have wallets, but `walletData` is not yet decrypted -->
     {#if hasWalletData}
+      <LimitEntities />
       <WalletDataContainer>
         <slot />
       </WalletDataContainer>
+      <PlanOfferModal />
     {/if}
   {:else}
-    <WalletCreateContainer />
+    <ProblemsInitialOnboarding />
   {/if}
-  <PlanOfferModal />
 
   <LoadingIndicator show={!$isOnlineStore} />
 {/if}

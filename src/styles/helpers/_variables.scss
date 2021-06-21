@@ -11,16 +11,18 @@ $mq-breakpoints: (
 );
 @import 'sass-mq/mq';
 
-$turquoise: rgb(27, 27, 27);
-$green: hsl(115, 43%, 70%);
-$red: hsl(0, 43%, 70%);
-$blue: hsl(231, 42%, 70%);
-$yellow: hsl(60, 42%, 70%);
-
 $hacky-green: hsl(120, 82%, 58%);
 $hacky-cyan: hsl(180, 82%, 58%);
 $hacky-purple: hsl(303, 82%, 58%);
 $hacky-yellow: hsl(61, 82%, 58%);
+$hacky-blue: hsl(214, 100%, 70%);
+$hacky-red: hsl(0, 100%, 64%);
+
+$turquoise: rgb(27, 27, 27);
+$green: $hacky-green;
+$red: $hacky-red;
+$blue: $hacky-blue;
+$yellow: $hacky-yellow;
 
 $loader-colors: $hacky-green $hacky-cyan $hacky-purple $hacky-yellow;
 

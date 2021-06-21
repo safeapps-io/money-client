@@ -25,7 +25,7 @@
   import { userEncrStore } from '$stores/user';
   import { draftTransactionStore } from '$stores/decr/transaction';
 
-  export let showMenu = true;
+  export let openMenu: undefined | (() => void) = undefined;
 
   $: username = $userEncrStore?.username || '';
 
@@ -38,7 +38,7 @@
   <hr class="menu-delimiter" />
 
   <div class="my-5">
-    <TransactionAdd shouldShowOnboarding={showMenu} />
+    <TransactionAdd {openMenu} />
   </div>
 
   {#if $draftTransactionStore.length}

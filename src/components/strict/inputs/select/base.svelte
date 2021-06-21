@@ -12,6 +12,11 @@
 
   export let customClass: string | undefined = undefined;
 
+  /**
+   * IDEA: instead of using bind:value we can use {value} and on:change.
+   * In order to achieve the same affect of passing non-serialized values as value to <option>,
+   * we can create a map of random ID => value from `baseChoices`. Should work, probably.
+   */
   const fieldname = getContext('fieldname') as string,
     formStore = getContext('form') as FormStore,
     runChecks = getContext('runChecks') as () => void;
@@ -22,7 +27,8 @@
   // Setting first value, if no value came
   let initialUndefinedValueSet = false;
 
-  const setInputValue = (val: string | null) => ($formStore.fields[fieldname].inputValue = val);
+  const setInputValue = (val: string | null) =>
+    ($formStore.fields[fieldname].inputValue = selectValue = val);
   /**
    * We treat `null` as a valid value for `field.inputValue` — it may be, for example, the lack of
    * category (no category). So we don't want to set anything in this case here.
@@ -53,7 +59,7 @@
   // put JS values in <option> and get them in return. Very handy!
   let selectValue: any,
     needToInitializeValue = true;
-  $: if (needToInitializeValue) {
+  $: if (!initialUndefinedValueSet && needToInitializeValue) {
     debugLog('[select] setting initial value', {
       name: field.name,
       value: field.inputValue,

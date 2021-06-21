@@ -1,2 +1,2 @@
-export { default as Onboarding } from './onboarding.svelte';
-export { default as Text } from './text.svelte';
+export { default as Onboarding } from './featureDiscovery/onboarding.svelte';
+export { default as Text } from './featureDiscovery/text.svelte';
