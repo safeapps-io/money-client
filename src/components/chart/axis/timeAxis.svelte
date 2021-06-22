@@ -3,7 +3,7 @@
 
   import Gridlines from './gridlines.svelte';
 
-  import { min, max, isBefore, startOfDay } from 'date-fns';
+  import { min, max } from 'date-fns/esm';
 
   import { scaleUtc, axisBottom, setAxis } from '../common';
 

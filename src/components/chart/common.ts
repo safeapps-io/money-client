@@ -2,7 +2,6 @@ import type { Axis } from 'd3-axis';
 import type { GetLine, LineChartDataset } from './types';
 
 import { select } from 'd3-selection';
-import { addDays, differenceInDays, isAfter, isBefore, max, min, startOfDay } from 'date-fns';
 
 // Reexport is needed because otherwise Vite goes crazy
 export { axisBottom, axisLeft } from 'd3-axis';
@@ -46,32 +45,4 @@ export const setLine: Action<GetLineParams, Element> = (node, params) => {
 
   update(params);
   return { update };
-};
-
-export const fillBlankDate = (dataset: LineChartDataset, continueToToday: boolean) => {
-  const dates = dataset.map(d => d.date),
-    minDate = min(dates),
-    today = startOfDay(new Date());
-
-  let maxDate = max(dates);
-  if (continueToToday && isBefore(maxDate, today)) maxDate = today;
-
-  const result: LineChartDataset = [];
-  let currIndex = 0,
-    prevValue = dataset[0].value;
-
-  for (let i = 0; i <= differenceInDays(maxDate, minDate); i++) {
-    const currDate = addDays(minDate, i),
-      currentDataPoint = dataset[currIndex];
-
-    if (isAfter(currentDataPoint.date, currDate)) result.push({ date: currDate, value: prevValue });
-    else {
-      const value = currentDataPoint.value;
-      result.push({ date: currDate, value });
-      prevValue = value;
-      currIndex++;
-    }
-  }
-
-  return result;
 };

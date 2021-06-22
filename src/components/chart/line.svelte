@@ -1,24 +1,22 @@
 <script>
   import type { GetLine, LineChartDataset, XTime, YValue } from './types';
 
-  import { date, number } from 'svelte-i18n';
-
-  import { fillBlankDate, setLine, line } from './common';
-
   import Base from './base.svelte';
   import TimeAxis from './axis/timeAxis.svelte';
   import ValueAxis from './axis/valueAxis.svelte';
   import HoverTracker from './axis/hoverTracker.svelte';
+
+  import { _ } from 'svelte-i18n';
   import { axisLeft } from 'd3-axis';
 
-  export let data: LineChartDataset,
-    continueToToday = false;
-  $: filledBlanks = fillBlankDate(data, continueToToday);
+  import { setLine, line } from './common';
+
+  export let data: LineChartDataset;
 
   let y: YValue | undefined, x: XTime | undefined;
 
   let getLine: GetLine<ArrayItem<LineChartDataset>> | undefined;
-  $: if (x && y && filledBlanks.length > 1)
+  $: if (x && y && data.length > 1)
     getLine = line<ArrayItem<LineChartDataset>>()
       .x(d => x!(d.date))
       .y(d => y!(d.value));
@@ -43,9 +41,10 @@
     gridSize={height}
     gridDirection="bottom"
     heightTranslate={y?.(0) || 0}
+    ticks={width > 300 ? 8 : 3}
     bind:scale={x} />
 
-  <g use:setLine={{ getLine, data: filledBlanks }} />
+  <g use:setLine={{ getLine, data }} />
   <!-- svelte-ignore component-name-lowercase -->
   {#if focusPoint && focusPointY && focusPointX}
     <circle
@@ -75,7 +74,7 @@
     {height}
     {x}
     {y}
-    data={filledBlanks}
+    {data}
     bind:focusPoint
     bind:fixedPosition
     bind:yVal={focusPointY}
@@ -84,9 +83,8 @@
   <svelte:fragment slot="overlay-div">
     {#if focusPoint}
       <div class="tooltip px-3 py-2">
-        <!-- FIXME: translations -->
-        <p>Дата: {$date(focusPoint.date)}</p>
-        <p>Значение: {$number(focusPoint.value)}</p>
+        <p>{$_('cmps.elements.chartTooltip.date', { values: { date: focusPoint.date } })}</p>
+        <p>{$_('cmps.elements.chartTooltip.val', { values: { value: focusPoint.value } })}</p>
       </div>
     {/if}
   </svelte:fragment>

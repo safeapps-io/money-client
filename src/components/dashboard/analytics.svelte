@@ -118,7 +118,7 @@
     <div class="box box--hoverable category-split">
       <CategoryStats bind:isIncome currStats={categoryStats.curr} />
     </div>
-    {#if walletUserStatByType?.length}
+    {#if (walletUserStatByType?.length || 0) > 1}
       <div class="box box--hoverable user-split" transition:slide|local>
         <WalletUserStats stats={walletUserStatByType} />
       </div>

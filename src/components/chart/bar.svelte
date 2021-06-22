@@ -1,11 +1,11 @@
 <script>
   import type { BarChartDataset, XBand, YValue } from './types';
 
-  import { number } from 'svelte-i18n';
-
   import Base from './base.svelte';
   import IdAxis from './axis/idAxis.svelte';
   import ValueAxis from './axis/valueAxis.svelte';
+
+  import { number } from 'svelte-i18n';
   import { axisBottom, axisLeft } from 'd3-axis';
 
   export let data: BarChartDataset;

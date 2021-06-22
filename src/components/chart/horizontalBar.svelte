@@ -1,11 +1,11 @@
 <script>
   import type { BarChartDataset, XBand, YValue } from './types';
 
-  import { number } from 'svelte-i18n';
-
   import Base from './base.svelte';
   import IdAxis from './axis/idAxis.svelte';
   import ValueAxis from './axis/valueAxis.svelte';
+
+  import { number } from 'svelte-i18n';
   import { axisBottom, axisLeft } from 'd3-axis';
 
   export let data: BarChartDataset;
@@ -16,17 +16,13 @@
   let y: XBand | undefined, x: YValue | undefined;
 
   let hoveredId: string | null = null;
-
-  /**
-   * FIXME: Решить проблему лейблов, вылезающих за пределычарта. Хз как :)
-   * А еще надо дропнуть, наконец, chartjs!!!!!!!!!
-   */
 </script>
 
 <Base svgHeight={100 + data.length * heightPerBar} let:width let:height>
   <ValueAxis
     {data}
     axisBuilder={axisBottom}
+    domainOrder="usual"
     rangeMax={width}
     gridSize={height}
     heightTranslate={height}
@@ -34,7 +30,7 @@
     bind:scale={x} />
 
   {#if y && x}
-    {#each data as { id, color, value } (id)}
+    {#each data as { id, color, value, label } (id)}
       <g on:mouseover={() => (hoveredId = id)} on:mouseleave={() => (hoveredId = null)}>
         <rect
           x={0}
@@ -43,13 +39,17 @@
           height={y.bandwidth()}
           opacity={hoveredId == id ? 0.8 : 1}
           style="fill: {color}" />
-        <text x={x(value) - 10} y={y(id)} style={id == hoveredId ? '' : 'display: none'}
-          >{$number(value)}</text>
+        <text x={10} y={(y(id) || 0) + y.bandwidth() / 2}>
+          {label}
+          <tspan style={id == hoveredId ? '' : 'display: none'}>
+            {'  ' + $number(value)}
+          </tspan>
+        </text>
       </g>
     {/each}
   {/if}
 
-  <IdAxis {data} {padding} axisBuilder={axisLeft} rangeMax={height} bind:scale={y} />
+  <IdAxis hideLabels {data} {padding} axisBuilder={axisLeft} rangeMax={height} bind:scale={y} />
 </Base>
 
 <style lang="scss">
@@ -60,7 +60,13 @@
 
   text {
     z-index: 2;
-    text-anchor: middle;
-    font-size: 76%;
+    text-anchor: start;
+    dominant-baseline: middle;
+    font-size: 75%;
+
+    tspan {
+      font-size: 110%;
+      font-weight: bold;
+    }
   }
 </style>

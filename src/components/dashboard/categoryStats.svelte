@@ -37,7 +37,6 @@
   let data: BarChartDataset = [];
   $: {
     data = [];
-    console.log(currStats);
     for (const datapoint of isIncomeFiltered) {
       if (limitShows && data.length === categoryShowCountToIndex + 1) {
         if (!data[categoryShowCountToIndex])
