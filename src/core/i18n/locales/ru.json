@@ -459,7 +459,7 @@
       "copy": "Копировать",
       "defZeroData": "Здесь пока ничего нет",
       "chartTooltip": {
-        "val": "Значение: {value, number}",
+        "val": "Значение: {value}",
         "date": "Дата: {date, date, short}"
       }
     },

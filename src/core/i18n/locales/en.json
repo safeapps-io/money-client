@@ -605,7 +605,7 @@
       "defZeroData": "Nothing here yet",
       "chartTooltip": {
         "date": "Date: {date, date, short}",
-        "val": "Value: {value, number}"
+        "val": "Value: {value}"
       }
     }
   },

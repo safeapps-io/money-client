@@ -13,6 +13,8 @@
 
   export let data: LineChartDataset;
 
+  export let displayValue: (val: number) => string;
+
   let y: YValue | undefined, x: XTime | undefined;
 
   let getLine: GetLine<ArrayItem<LineChartDataset>> | undefined;
@@ -44,7 +46,17 @@
     ticks={width > 300 ? 8 : 3}
     bind:scale={x} />
 
-  <g use:setLine={{ getLine, data }} />
+  {#if data.length == 1}
+    <circle
+      class="single-point"
+      cx={x?.(data[0].date)}
+      cy={y?.(data[0].value)}
+      r={fixedPosition ? 4 : 2}
+      stroke-width={fixedPosition ? 2 : 1}
+      fill="white" />
+  {:else}
+    <g use:setLine={{ getLine, data }} />
+  {/if}
   <!-- svelte-ignore component-name-lowercase -->
   {#if focusPoint && focusPointY && focusPointX}
     <circle
@@ -84,7 +96,11 @@
     {#if focusPoint}
       <div class="tooltip px-3 py-2">
         <p>{$_('cmps.elements.chartTooltip.date', { values: { date: focusPoint.date } })}</p>
-        <p>{$_('cmps.elements.chartTooltip.val', { values: { value: focusPoint.value } })}</p>
+        <p>
+          {$_('cmps.elements.chartTooltip.val', {
+            values: { value: displayValue(focusPoint.value) },
+          })}
+        </p>
       </div>
     {/if}
   </svelte:fragment>
@@ -97,6 +113,9 @@
     :global(line) {
       stroke: $green;
     }
+  }
+  .single-point {
+    stroke: $green;
   }
 
   .tooltip {

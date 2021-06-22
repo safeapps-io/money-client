@@ -24,6 +24,8 @@
     }[] = [];
 
   $: percentage = balanceNumber ? balanceNumber / (balanceComparison ?? balanceNumber) - 1 : null;
+
+  $: displayValue = (val: number) => $moneyFormat(val, $defaultAssetStore.decr.code);
 </script>
 
 <div class="level is-mobile">
@@ -60,12 +62,12 @@
       </div>
     {/if}
     <div class="level-item">
-      {#if balanceNumber}{$moneyFormat(balanceNumber, $defaultAssetStore.decr.code)}{:else}N/A{/if}
+      {#if balanceNumber}{displayValue(balanceNumber)}{:else}N/A{/if}
     </div>
   </div>
 </div>
 {#if balanceNumber}
   <div transition:slide|local>
-    <LineChart data={balanceHistory} />
+    <LineChart data={balanceHistory} {displayValue} />
   </div>
 {/if}

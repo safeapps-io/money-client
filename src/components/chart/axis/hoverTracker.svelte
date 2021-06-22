@@ -27,9 +27,9 @@
       d0 = data[i - 1],
       d1 = data[i];
 
-    if (!d0 || !d1) return;
-
-    focusPoint = x0.getTime() - d0.date.getTime() > d1.date.getTime() - x0.getTime() ? d1 : d0;
+    if (!d0 && !d1) return;
+    else if ((!d0 && d1) || (d0 && !d1)) focusPoint = d0 || d1;
+    else focusPoint = x0.getTime() - d0.date.getTime() > d1.date.getTime() - x0.getTime() ? d1 : d0;
   };
 
   $: if (!fixedPosition) {

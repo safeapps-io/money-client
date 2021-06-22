@@ -8,8 +8,11 @@
 
   import { _ } from 'svelte-i18n';
 
+  import { moneyFormat } from '$utils/number';
+
   import { currentWalletCategoryStore } from '$stores/decr/category';
   import { NoCategoryObjectKey } from '$core/analytics/categorySplitPlugin';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
   // export let prevStats = [];
   export let currStats: CategorySplitReturn['curr'] = [],
@@ -61,6 +64,8 @@
       }
     }
   }
+
+  $: displayValue = (val: number) => $moneyFormat(val, $defaultAssetStore.decr.code);
 </script>
 
 <Tabs
@@ -72,7 +77,7 @@
   bind:activeTab={isIncome} />
 
 {#if data.length}
-  <HorizontalBar {data} />
+  <HorizontalBar {data} {displayValue} />
 {:else}
   <ZeroData text={$_('cmps.dashboard.categoryChart.zeroData')} />
 {/if}

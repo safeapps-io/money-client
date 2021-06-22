@@ -3,7 +3,7 @@
 
   import Gridlines from './gridlines.svelte';
 
-  import { min, max } from 'date-fns/esm';
+  import { min, max, addDays } from 'date-fns/esm';
 
   import { scaleUtc, axisBottom, setAxis } from '../common';
 
@@ -17,8 +17,16 @@
   export let data: DateData[];
   $: dateArr = data.map(d => d.date);
 
-  $: minDate = min(dateArr);
-  $: maxDate = max(dateArr);
+  let minDate: Date, maxDate: Date;
+
+  $: if (dateArr.length == 1) {
+    minDate = addDays(dateArr[0], -1);
+    maxDate = addDays(dateArr[0], 1);
+    ticks = 2;
+  } else {
+    minDate = min(dateArr);
+    maxDate = max(dateArr);
+  }
 
   export let scale: XTime | undefined = undefined;
 

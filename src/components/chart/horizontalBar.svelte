@@ -5,10 +5,11 @@
   import IdAxis from './axis/idAxis.svelte';
   import ValueAxis from './axis/valueAxis.svelte';
 
-  import { number } from 'svelte-i18n';
   import { axisBottom, axisLeft } from 'd3-axis';
 
   export let data: BarChartDataset;
+
+  export let displayValue: (val: number) => string;
 
   export let heightPerBar = 50,
     padding = 0.3;
@@ -42,7 +43,7 @@
         <text x={10} y={(y(id) || 0) + y.bandwidth() / 2}>
           {label}
           <tspan style={id == hoveredId ? '' : 'display: none'}>
-            {'  ' + $number(value)}
+            {'  ' + displayValue(value)}
           </tspan>
         </text>
       </g>
