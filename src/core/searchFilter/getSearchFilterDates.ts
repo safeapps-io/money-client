@@ -68,5 +68,5 @@ export const getSearchFilterDates = ({
    * If we don't have date filters, then we calculate period's start and end date and the start of a previous
    * date period. For `all` we have a start and end of min and max time ever.
    */
-  return { startDate: startDate || minTime, endDate: endDate || maxTime, prevStartDate };
+  return { startDate, endDate, prevStartDate };
 };

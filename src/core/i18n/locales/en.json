@@ -130,7 +130,11 @@
           "support": "They support Bitcoin, Bitcoin Cash, Ethereum, Litecoin, Dai, and USD Coin."
         },
         "goto": "Go to Payment Provider",
-        "useInc": "You can use incognito mode or VPN."
+        "useInc": "You can use incognito mode or VPN.",
+        "limit": {
+          "remaining": "{count, plural, one {# remaining entity} other {# remaining entities}}",
+          "upgrade": "Click here to upgrade service"
+        }
       },
       "planGuard": {
         "requires": "This action requires a subscription",
@@ -598,7 +602,11 @@
         "prev": "Previous",
         "page": "Page {curr} of {last}"
       },
-      "defZeroData": "Nothing here yet"
+      "defZeroData": "Nothing here yet",
+      "chartTooltip": {
+        "date": "Date: {date, date, short}",
+        "val": "Value: {value}"
+      }
     }
   },
   "routes": {

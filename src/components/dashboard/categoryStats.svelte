@@ -1,15 +1,18 @@
 <script>
+  import type { BarChartDataset } from '$components/chart/types';
   import type { CategorySplitReturn } from '$core/analytics/categorySplitPlugin';
-  import type { Dataset } from '$components/charts/bars.svelte';
 
-  import BarChart from '$components/charts/bars.svelte';
+  import HorizontalBar from '$components/chart/horizontalBar.svelte';
   import Tabs from '$components/elements/tabs.svelte';
   import ZeroData from '$components/elements/zeroData.svelte';
 
   import { _ } from 'svelte-i18n';
 
+  import { moneyFormat } from '$utils/number';
+
   import { currentWalletCategoryStore } from '$stores/decr/category';
   import { NoCategoryObjectKey } from '$core/analytics/categorySplitPlugin';
+  import { defaultAssetStore } from '$stores/decr/asset';
 
   // export let prevStats = [];
   export let currStats: CategorySplitReturn['curr'] = [],
@@ -22,7 +25,7 @@
 
   const checkIfNoCategory = (id: any) => Object.values(NoCategoryObjectKey).includes(id);
 
-  $: filteredCurr = currStats.filter(stat => {
+  $: isIncomeFiltered = currStats.filter(stat => {
     if (checkIfNoCategory(stat.id)) {
       return isIncome
         ? stat.id == NoCategoryObjectKey.income
@@ -31,42 +34,38 @@
     return $currentWalletCategoryStore[stat.id]?.decr.isIncome === isIncome;
   });
 
-  $: labels = filteredCurr
-    .slice(0, limitShows ? categoryShowCountToIndex + 1 : Infinity)
-    .map((stat, index) => {
-      const label = checkIfNoCategory(stat.id)
-        ? $_('cmps.category.common.noCategory')
-        : $currentWalletCategoryStore[stat.id].decr.name;
-      return limitShows && index === categoryShowCountToIndex
-        ? $_('cmps.dashboard.categoryChart.rest')
-        : label;
-    });
-
   const noCategoryColor = '#d0dbd1',
     restCategoryColor = '#dbd1d0';
-  $: dataset = filteredCurr.reduce<Dataset>(
-    (acc, stat) => {
-      if (limitShows && acc.data.length === categoryShowCountToIndex + 1) {
-        acc.backgroundColor[categoryShowCountToIndex] = noCategoryColor;
-        acc.borderColor[categoryShowCountToIndex] = noCategoryColor;
-        acc.data[categoryShowCountToIndex] += stat.value;
+
+  let data: BarChartDataset = [];
+  $: {
+    data = [];
+    for (const datapoint of isIncomeFiltered) {
+      if (limitShows && data.length === categoryShowCountToIndex + 1) {
+        if (!data[categoryShowCountToIndex])
+          data[categoryShowCountToIndex] = {
+            color: noCategoryColor,
+            id: '',
+            label: $_('cmps.dashboard.categoryChart.rest'),
+            value: 0,
+          };
+        data[categoryShowCountToIndex].value += datapoint.value;
       } else {
-        if (checkIfNoCategory(stat.id)) {
-          acc.backgroundColor.push(restCategoryColor);
-          acc.borderColor.push(restCategoryColor);
-          acc.data.push(stat.value);
-        } else {
-          const { decr: cat } = $currentWalletCategoryStore[stat.id];
-          acc.backgroundColor.push(cat.color);
-          acc.borderColor.push(cat.color);
-          acc.data.push(stat.value);
+        if (checkIfNoCategory(datapoint.id))
+          data.push({
+            ...datapoint,
+            color: restCategoryColor,
+            label: $_('cmps.category.common.noCategory'),
+          });
+        else {
+          const { decr: cat } = $currentWalletCategoryStore[datapoint.id];
+          data.push({ ...datapoint, color: cat.color, label: cat.name });
         }
       }
+    }
+  }
 
-      return acc;
-    },
-    { backgroundColor: [], borderColor: [], data: [] },
-  );
+  $: displayValue = (val: number) => $moneyFormat(val, $defaultAssetStore.decr.code);
 </script>
 
 <Tabs
@@ -77,13 +76,13 @@
   ]}
   bind:activeTab={isIncome} />
 
-{#if dataset.data.length}
-  <BarChart {dataset} {labels} />
+{#if data.length}
+  <HorizontalBar {data} {displayValue} />
 {:else}
   <ZeroData text={$_('cmps.dashboard.categoryChart.zeroData')} />
 {/if}
 
-{#if filteredCurr.length >= categoryShowCountToIndex + 1}
+{#if isIncomeFiltered.length >= categoryShowCountToIndex + 1}
   <button class="button is-fullwidth is-text" on:click={() => (limitShows = !limitShows)}>
     {#if limitShows}
       {$_('cmps.dashboard.categoryChart.showAll')}

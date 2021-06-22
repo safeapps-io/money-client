@@ -1,35 +1,19 @@
 <script>
-  import type { Dataset } from '$components/charts/bars.svelte';
+  import BarChart from '$components/chart/bar.svelte';
 
-  import BarChart from '$components/charts/bars.svelte';
+  import { defaultAssetStore } from '$stores/decr/asset';
   import { currentWalletUserStore } from '$stores/decr/walletUser';
 
-  export let stats: { id: string; value: number }[];
+  import { moneyFormat } from '$utils/number';
 
-  let dataset: Dataset | undefined, labels: string[] | undefined;
-  const pushToDataset = (value: number, color: string, name: string) => {
-    if (!dataset || !labels) return;
-    dataset.data.push(value);
-    dataset.backgroundColor.push(color);
-    dataset.borderColor.push(color);
-    labels.push(name);
-  };
-  $: {
-    dataset = { backgroundColor: [], borderColor: [], data: [] };
-    labels = [];
+  export let stats: { id: string; value: number }[] | undefined;
 
-    const coveredIds: string[] = [];
-    for (const { id, value } of stats) {
-      if (!$currentWalletUserStore[id]) continue;
-      const { color, name } = $currentWalletUserStore[id].decr;
-      coveredIds.push(id);
-      pushToDataset(value, color, name);
-    }
+  $: data = stats?.map(({ id, value }) => {
+    const { color, name } = $currentWalletUserStore[id].decr;
+    return { id, value, color, label: name };
+  });
 
-    for (const { id, decr } of Object.values($currentWalletUserStore)) {
-      if (!coveredIds.includes(id)) pushToDataset(0.00001, decr.color, decr.name);
-    }
-  }
+  $: displayValue = (val: number) => $moneyFormat(val, $defaultAssetStore.decr.code);
 </script>
 
-{#if dataset && labels}<BarChart type="bar" height={200} {labels} {dataset} />{/if}
+{#if data?.length}<BarChart {data} {displayValue} />{/if}

@@ -1,5 +1,6 @@
 <script>
   import { slide } from 'svelte/transition';
+  import { _ } from 'svelte-i18n';
 
   import { planGuardStore } from '$stores/billing';
   import { userBillingPath } from '$core/routes';
@@ -31,12 +32,11 @@
     class:has-background-success-light={state == 'ok'}
     class:has-background-danger-light={state == 'bad'}
     transition:slide|local>
-    <!-- FIXME: translations -->
-    {displayRemaining} remaining
+    {$_('cmps.billing.providers.limit.remaining', { values: { count: displayRemaining } })}
 
     {#if userCanBuy}
       <br />
-      <a href={userBillingPath}>Click here to upgrade service</a>
+      <a href={userBillingPath}>{$_('cmps.billing.providers.limit.upgrade')}</a>
     {/if}
   </p>
 {/if}

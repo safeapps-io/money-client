@@ -13,7 +13,6 @@
   "dependencies": {
     "base64-arraybuffer-es6": "^0.7.0",
     "bulma": "^0.9.2",
-    "chart.js": "^2.9.3",
     "d3": "^6.7.0",
     "date-fns": "^2.14.0",
     "emoji-regex": "^9.0.0",
@@ -30,7 +29,7 @@
     "@sveltejs/adapter-node": "^1.0.0-next.22",
     "@sveltejs/kit": "^1.0.0-next.109",
     "@tsconfig/svelte": "^1.0.10",
-    "@types/chart.js": "^2.9.28",
+    "@types/d3": "^6.7.0",
     "@types/papaparse": "^5.0.4",
     "autoprefixer": "^10.0.4",
     "cssnano": "^4.1.10",
