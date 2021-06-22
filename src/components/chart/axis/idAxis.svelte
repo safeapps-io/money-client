@@ -1,11 +1,13 @@
 <script>
   import type { AxisBuilder, IdBasedData, XBand } from '../types';
+  import type { Axis } from 'd3-axis';
 
   import { scaleBand, setAxis } from '../common';
 
   export let rangeMax: number,
     heightTranslate = 0,
-    padding: number;
+    padding: number,
+    hideLabels = false;
 
   export let data: IdBasedData[];
 
@@ -18,7 +20,13 @@
     .range([0, rangeMax])
     .paddingInner(padding)
     .paddingOuter(padding);
-  $: axisX = axisBuilder(scale!).tickFormat((_, i) => data[i].label || data[i].id);
+  let axis: Axis<string>;
+  $: {
+    axis = axisBuilder(scale!).tickFormat((_, i) =>
+      hideLabels ? '' : data[i].label || data[i].id,
+    );
+    if (hideLabels) axis.tickSize(0);
+  }
 </script>
 
-<g class="axis" transform="translate(0, {heightTranslate})" use:setAxis={axisX} />
+<g class="axis" transform="translate(0, {heightTranslate})" use:setAxis={axis} />

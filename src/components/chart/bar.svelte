@@ -42,7 +42,7 @@
           opacity={hoveredId == id ? 0.8 : 1}
           style="fill: {color}" />
         <text
-          x={((x && x(id)) || 0) + x.bandwidth() / 2}
+          x={(x(id) || 0) + x.bandwidth() / 2}
           y={getY(value) - 10}
           style={id == hoveredId ? '' : 'display: none'}>{$number(value)}</text>
       </g>

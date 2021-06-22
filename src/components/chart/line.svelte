@@ -6,13 +6,14 @@
   import { fillBlankDate, setLine, line } from './common';
 
   import Base from './base.svelte';
-  import TimeX from './axis/timeX.svelte';
+  import TimeAxis from './axis/timeAxis.svelte';
   import ValueAxis from './axis/valueAxis.svelte';
   import HoverTracker from './axis/hoverTracker.svelte';
   import { axisLeft } from 'd3-axis';
 
-  export let data: LineChartDataset;
-  $: filledBlanks = fillBlankDate(data);
+  export let data: LineChartDataset,
+    continueToToday = false;
+  $: filledBlanks = fillBlankDate(data, continueToToday);
 
   let y: YValue | undefined, x: XTime | undefined;
 
@@ -26,10 +27,6 @@
     focusPointX: number | null,
     focusPointY: number | null,
     fixedPosition: boolean;
-
-  /**
-   * FIXME: Adapt to 1 data point!
-   */
 </script>
 
 <Base svgHeight={300} let:width let:height>
@@ -40,7 +37,13 @@
     rangeMax={height}
     gridSize={width}
     bind:scale={y} />
-  <TimeX {data} {width} {height} y={y?.(0) || 0} bind:x />
+  <TimeAxis
+    {data}
+    rangeMax={width}
+    gridSize={height}
+    gridDirection="bottom"
+    heightTranslate={y?.(0) || 0}
+    bind:scale={x} />
 
   <g use:setLine={{ getLine, data: filledBlanks }} />
   <!-- svelte-ignore component-name-lowercase -->

@@ -8,6 +8,7 @@
 
   export let rangeMax: number,
     heightTranslate = 0,
+    domainOrder: 'usual' | 'reversed' = 'reversed',
     gridSize: number,
     gridDirection: 'bottom' | 'left';
 
@@ -31,11 +32,14 @@
 
   export let axisBuilder: AxisBuilder;
 
-  $: scale = scaleLinear().domain([maxValue, minValue]).range([0, rangeMax]).nice();
-  $: axisY = axisBuilder(scale!)
+  $: scale = scaleLinear()
+    .domain(domainOrder == 'usual' ? [minValue, maxValue] : [maxValue, minValue])
+    .range([0, rangeMax])
+    .nice();
+  $: axis = axisBuilder(scale!)
     .tickFormat(val => kFormatter(val, allMax))
     .ticks(ticks);
 </script>
 
-<g class="axis" transform="translate(0, {heightTranslate})" use:setAxis={axisY} />
+<g class="axis" transform="translate(0, {heightTranslate})" use:setAxis={axis} />
 <Gridlines axisData={scale} direction={gridDirection} size={gridSize} {ticks} />
