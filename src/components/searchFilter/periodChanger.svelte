@@ -22,7 +22,7 @@
 
   $: choices = [
     { label: $_('cmps.searchFilter.period.month'), value: SearchFilterDatePeriods.month },
-    { label: $_('cmps.searchFilter.period.quater'), value: SearchFilterDatePeriods.quarter },
+    { label: $_('cmps.searchFilter.period.quarter'), value: SearchFilterDatePeriods.quarter },
     { label: $_('cmps.searchFilter.period.year'), value: SearchFilterDatePeriods.year },
     { label: $_('cmps.searchFilter.period.alltime'), value: SearchFilterDatePeriods.all },
   ];
@@ -47,7 +47,7 @@
         break;
 
       case SearchFilterDatePeriods.quarter:
-        buttonText = $_('cmps.searchFilter.period.quater');
+        buttonText = $_('cmps.searchFilter.period.quarter');
         periodDescription = `${$relativeDate(dates.startDate)} → ${$relativeDate(dates.endDate)}`;
     }
   }

@@ -364,7 +364,7 @@
     "searchFilter": {
       "period": {
         "year": "Year",
-        "quater": "Quater",
+        "quarter": "Quarter",
         "month": "Month",
         "alltime": "All time"
       },
