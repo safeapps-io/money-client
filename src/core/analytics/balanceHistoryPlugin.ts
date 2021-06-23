@@ -1,45 +1,31 @@
-import { startOfDay, isBefore, isAfter, differenceInDays, addDays, minTime } from 'date-fns/esm';
+import {
+  startOfDay,
+  endOfDay,
+  isBefore,
+  isAfter,
+  differenceInDays,
+  addDays,
+  minTime,
+} from 'date-fns/esm';
 
 import type { IteratorPlugin } from './types';
 import { EntityTypes } from '$stores/decr/types';
 
-/**
- * This high-order function holds the context for dates and full transaction history.
- * It is actually `calculateBalance` function, that returns the filtered period as well
- * all the delta.
- */
 export const balanceHistoryPlugin = (
   periodStart: number,
   periodEnd: number,
   activeRefTransactionId?: string,
-): IteratorPlugin<ReturnType<typeof calculateBalance>> => {
+): IteratorPlugin<BalanceHistoryReturn> => {
   // Holds the balance history since the very beginning
   const fullHistory: TransactionHistory = [];
-
-  /**
-   * We need it to fill blank dates.
-   *
-   * Implementation detail. `periodStart`/`end` essensially has two possible values:
-   * 1. minTime/maxTime if it's all time period
-   * 2. real start/end of some calendar entity (month, year, etc.)
-   *
-   * So if periodStart == minTime, then we need to find the first and the last transaction
-   * ever and use it as the real min/maxDate; if not, we use the provided values as is.
-   */
-  const shouldSearchForPeriodStart = periodStart == minTime,
-    maxDate = isAfter(periodEnd, new Date()) ? addDays(new Date(), 1).getTime() : periodEnd;
-  let minDate = shouldSearchForPeriodStart ? periodEnd : periodStart;
 
   return {
     transactionHandler: tr => {
       const balanceRecordDate = startOfDay(tr.decr.datetime),
         { amount } = tr.decr;
 
-      if (shouldSearchForPeriodStart && isBefore(balanceRecordDate, minDate))
-        minDate = balanceRecordDate.getTime();
-
       /*
-       * We're looking for the latest record of balance history.
+       * We're looking for the latest record of balance fullHistory.
        *
        * If it doesn't exist, it means it is the first iteration ever.
        * If it exists and its date is the same as current transaction's, then we haven't
@@ -53,7 +39,7 @@ export const balanceHistoryPlugin = (
       if (typeof latestRecord === 'undefined' || isBefore(latestRecord.date, balanceRecordDate))
         fullHistory.push({
           date: balanceRecordDate,
-          value: latestRecord ? latestRecord.value : 0,
+          value: latestRecord?.value || 0,
         });
 
       const currentDateRecord = fullHistory[fullHistory.length - 1];
@@ -82,64 +68,83 @@ export const balanceHistoryPlugin = (
        */
       currentDateRecord.value += amount;
     },
-    getResult: () => calculateBalance(fullHistory, { periodStart, periodEnd, minDate, maxDate }),
+    getResult: () => {
+      let balance: number | undefined, balanceComparison: number | undefined;
+
+      for (let i = fullHistory.length - 1; i >= 0; i--) {
+        const balanceRecord = fullHistory[i];
+
+        // We go back in time until we find a record, which date equals the period end
+        if (typeof balance === 'undefined' && isBefore(balanceRecord.date, periodEnd))
+          balance = balanceRecord.value;
+
+        // We go back in time until we find a record, which date equals the period start; after that we break the cycle
+        if (typeof balanceComparison === 'undefined' && isBefore(balanceRecord.date, periodStart)) {
+          balanceComparison = balanceRecord.value;
+          break;
+        }
+      }
+
+      /**
+       * Filling in the blanks so the fullHistory is a daily record.
+       *
+       * periodStart/end can essentially have 2 states: _real_ period (like, a month) or min/maxTime.
+       * If it is min/maxTime, we want to show a chart from the earliest date to the latest in fullHistory.
+       * If it is a real period, we want to show a chart for this period, but periodEnd shouldn't
+       * be higher than now.
+       */
+      let minDate: Date | number, maxDate: Date | number;
+      if (periodStart == minTime) {
+        minDate = fullHistory[0].date;
+        maxDate = fullHistory[fullHistory.length - 1].date;
+      } else {
+        minDate = periodStart;
+        const now = endOfDay(new Date());
+        maxDate = isAfter(periodEnd, now) ? now : periodEnd;
+      }
+
+      let prevValue: number, currIndex: number;
+      // We need to find starting item for the balance. It's the one right before minDate.
+      for (let i = 0; i < fullHistory.length; i++) {
+        const curr = fullHistory[i];
+
+        // Once we go after minDate, we break, because we've found the prevValue for the chart.
+        if (isAfter(curr.date, minDate)) break;
+
+        prevValue = curr.value;
+        currIndex = i;
+      }
+
+      const resultHistory: TransactionHistory = [];
+      for (let i = 0; i <= differenceInDays(maxDate, minDate); i++) {
+        const currDate = addDays(minDate, i),
+          currentDataPoint = fullHistory[currIndex!];
+
+        // console.log(JSON.stringify({ i, currentDataPoint, currDate }, null, 2));
+
+        if (!currentDataPoint || isAfter(currentDataPoint.date, currDate))
+          resultHistory.push({ date: currDate, value: prevValue! });
+        else {
+          const value = currentDataPoint.value;
+          resultHistory.push({ date: currDate, value });
+          prevValue = value;
+          currIndex!++;
+        }
+      }
+
+      return {
+        balance,
+        balanceComparison: balanceComparison,
+        history: resultHistory,
+      };
+    },
   };
 };
 
-function calculateBalance(
-  history: TransactionHistory,
-  {
-    periodStart,
-    periodEnd,
-    minDate,
-    maxDate,
-  }: { periodStart: number; periodEnd: number; minDate: number; maxDate: number },
-) {
-  let balance: number | undefined, balanceComparison: number | undefined;
-
-  for (let i = history.length - 1; i >= 0; i--) {
-    const balanceRecord = history[i];
-
-    // We go back in time until we find a record, which date equals the period end
-    if (typeof balance === 'undefined' && isBefore(balanceRecord.date, periodEnd))
-      balance = balanceRecord.value;
-
-    // We go back in time until we find a record, which date equals the period start; after that we break the cycle
-    if (typeof balanceComparison === 'undefined' && isBefore(balanceRecord.date, periodStart)) {
-      balanceComparison = balanceRecord.value;
-      break;
-    }
-  }
-
-  // Filling in the blanks so the history is a daily record
-  const resultHistory: TransactionHistory = [];
-  let currIndex = 0,
-    prevValue = history[0].value;
-
-  for (let i = 0; i < differenceInDays(maxDate, minDate); i++) {
-    const currDate = addDays(minDate, i),
-      currentDataPoint = history[currIndex];
-
-    // Omitting the data that does not fit in the period
-    if (isAfter(currDate, periodEnd) && isBefore(currDate, periodStart)) continue;
-
-    if (!currentDataPoint || isAfter(currentDataPoint.date, currDate))
-      resultHistory.push({ date: currDate, value: prevValue });
-    else {
-      const value = currentDataPoint.value;
-      resultHistory.push({ date: currDate, value });
-      prevValue = value;
-      currIndex++;
-    }
-  }
-
-  return {
-    balance,
-    balanceComparison: balanceComparison,
-    history: resultHistory,
-  };
-}
-
 type TransactionHistory = { date: Date; value: number }[];
 
-export type BalanceHistoryReturn = ReturnType<typeof calculateBalance>;
+export type BalanceHistoryReturn = {
+  balance: number | undefined;
+  balanceComparison: number | undefined;
+  history: TransactionHistory;
+};

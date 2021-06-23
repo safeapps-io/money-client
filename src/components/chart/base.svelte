@@ -31,5 +31,10 @@
     :global(text) {
       font-family: $family-monospace;
     }
+
+    :global(tspan.value) {
+      font-size: 110%;
+      font-weight: bold;
+    }
   }
 </style>

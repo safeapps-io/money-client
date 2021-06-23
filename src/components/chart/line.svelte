@@ -43,7 +43,7 @@
     gridSize={height}
     gridDirection="bottom"
     heightTranslate={y?.(0) || 0}
-    ticks={width > 300 ? 8 : 3}
+    ticks={width > 300 ? 5 : 3}
     bind:scale={x} />
 
   {#if data.length == 1}
