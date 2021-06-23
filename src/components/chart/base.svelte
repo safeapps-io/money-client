@@ -1,7 +1,7 @@
 <script>
   export let marginTop = 30,
     marginBottom = 30,
-    marginLeft = 30,
+    marginLeft = 40,
     marginRight = 30;
 
   export let svgHeight: number;

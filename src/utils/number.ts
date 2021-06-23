@@ -111,7 +111,7 @@ const formatNumber = (num: number, divider: number, maxVal: number, letter: stri
    * 1.2k
    * 1.0k
    */
-  (num / divider).toFixed(maxVal < divider * 2 ? 1 : 0) + letter;
+  (num / divider).toFixed(maxVal < divider * 5 ? 1 : 0) + letter;
 
 export function kFormatter(_num: number | NumberValue | string, maxVal = 0) {
   let num: number;
