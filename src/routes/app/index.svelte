@@ -30,7 +30,13 @@
   const handleVisit = () => {
     if (walletId) {
       debugLog('[app index] redirecting to wallet', { walletId, jointWalletId });
-      goto($rootWalletPath(walletId));
+      const resultPath = $rootWalletPath(walletId);
+      if (resultPath == appPath) {
+        debugLog('[app index] no default search yet');
+        window.setTimeout(handleVisit, 100);
+      } else {
+        goto(resultPath);
+      }
     } else if (jointWalletId) {
       debugLog('[app index] redirecting to joint wallet', { walletId, jointWalletId });
       goto($rootJointWalletPath(jointWalletId));

@@ -42,8 +42,10 @@
   $: user = $userEncrStore!;
   $: shouldShow && $initApplicationLogic;
 
-  $: hasWallets = !!Object.keys($walletStore || {}).length;
-  $: hasWalletData = !!Object.keys($walletDataStore || {}).length;
+  const hasKeys = (arr: Object | null) => !!Object.keys(arr || {}).length;
+
+  $: hasWallets = hasKeys($walletStore);
+  $: hasWalletData = hasKeys($walletDataStore);
 
   $: invite = atob($page.query.get('invite') || '');
 </script>
