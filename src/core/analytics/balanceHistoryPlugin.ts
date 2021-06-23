@@ -103,7 +103,9 @@ export const balanceHistoryPlugin = (
         maxDate = isAfter(periodEnd, now) ? now : periodEnd;
       }
 
-      let prevValue: number, currIndex: number;
+      // We set these values by default, because the first datapoint ever can be after minDate
+      let prevValue = fullHistory[0].value,
+        currIndex = 0;
       // We need to find starting item for the balance. It's the one right before minDate.
       for (let i = 0; i < fullHistory.length; i++) {
         const curr = fullHistory[i];
