@@ -20,7 +20,7 @@
   $: manualAddClasses = $media.mobile ? 'py-4 px-4 mb-3' : '';
 
   let shouldShow = false;
-  $: if ($getPageStats('dashboard') >= 2) {
+  $: if ($getPageStats('visit') >= 2) {
     if ($media.mobile && !$hasUserSeenOnboarding('howToAdd')) {
       setTimeout(() => {
         openMenu?.();

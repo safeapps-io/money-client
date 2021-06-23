@@ -19,6 +19,7 @@
   import { walletDataStore } from '$stores/decr/wallet';
   import { userDecrStore } from '$stores/decr/user';
   import { initApplicationLogic } from '$stores/init';
+  import { addVisit } from '$stores/visitRecorder';
   import { appPath, loginPath } from '$core/routes';
 
   let remoteCheckPerformed = false,
@@ -31,6 +32,12 @@
   $: if (remoteCheckPerformed && !$userEncrStore) goto(loginPath, { replaceState: true });
 
   $: shouldShow = remoteCheckPerformed && remoteCheckResult && $userEncrStore;
+
+  let tracked = false;
+  $: if (hasWalletData && !tracked) {
+    addVisit('visit');
+    tracked = true;
+  }
 
   $: user = $userEncrStore!;
   $: shouldShow && $initApplicationLogic;
