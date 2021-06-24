@@ -2,40 +2,32 @@
   import { get, writable } from 'svelte/store';
   import { planGuardStore } from '$stores/billing';
 
-  type CheckMode = 'user' | 'wallet';
-
   const stateStore = writable<{
-    checkMode: CheckMode;
     showModal: boolean;
     userCanBuy: boolean;
-  }>({ checkMode: 'wallet', showModal: false, userCanBuy: false });
+  }>({ showModal: false, userCanBuy: false });
 
   /**
    * We can run one of three checks here.
    * 'user' — we check if current user has a subscription;
    * 'wallet' — we check if current wallet has a subcription;
    */
-  const runCheck = (checkMode: CheckMode, e?: Event) => {
-    const planGuard = get(planGuardStore),
-      { userCanBuy, planActive } = planGuard(checkMode == 'user');
+  export const runCheck = (e?: Event) => {
+    const { userCanBuy, isActive } = get(planGuardStore);
 
     stateStore.set({
-      checkMode,
       userCanBuy,
-      showModal: !planActive,
+      showModal: !isActive,
     });
 
     // Useful for links and other clickable stuff
-    if (!planActive && e) {
+    if (!isActive && e) {
       e.preventDefault();
       e.stopPropagation();
     }
 
-    return planActive;
+    return isActive;
   };
-
-  export const runCurrentUserPlanCheck = (e?: Event) => runCheck('user', e),
-    runCurrentWalletPlanCheck = (e?: Event) => runCheck('wallet', e);
 </script>
 
 <script>

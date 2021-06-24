@@ -7,7 +7,7 @@
 
   import { addCategoryPath } from '$core/routes';
   import { categorySortedByTitleStore } from '$stores/decr/category';
-  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
+  import { runCheck } from '$components/billing/planOfferModal.svelte';
 
   let isIncome = false;
   $: sortedCategories = $categorySortedByTitleStore.filter(cat => cat.decr.isIncome === isIncome);
@@ -16,10 +16,7 @@
 <Page boxedView={false}>
   <div class="is-flex" slot="title">
     <h1 class="title is-3 mr-3">{$_('cmps.category.common.categories')}</h1>
-    <a
-      href="{$addCategoryPath}?income={isIncome}"
-      class="button is-success"
-      on:click={runCurrentWalletPlanCheck}>
+    <a href="{$addCategoryPath}?income={isIncome}" class="button is-success" on:click={runCheck}>
       {$_('common.form.create')}
     </a>
   </div>

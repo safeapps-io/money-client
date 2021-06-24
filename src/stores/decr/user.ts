@@ -16,6 +16,8 @@ export type OnboardingSteps =
   | 'contactUs'
   | 'howToAdd'
   | 'fileImport'
+  | 'searchFilter'
+  | 'periods'
   | 'setScheme'
   | 'csvQueue'
   | 'balance'
@@ -107,7 +109,7 @@ export const addUserScheme = async (data: BaseSimpleScheme) => {
 
 export const hasUserSeenOnboarding = derived(
   userDecrStore,
-  $user => (key: OnboardingSteps) => $user?.decr.settings?.onboarding?.[key],
+  $user => (key: OnboardingSteps) => !!$user?.decr.settings?.onboarding?.[key],
 );
 
 export const setUserSetting = <

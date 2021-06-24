@@ -9,7 +9,7 @@ export type MetaCategory = {
   isIncome: boolean;
   name: string;
   color: string;
-  assignedMcc: { code: string; weight: number }[];
+  assignedMcc: { code: string; weight: number }[] | null;
 };
 
 export const metaCategoryCacheKey = 'metaCategory',

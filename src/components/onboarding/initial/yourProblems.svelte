@@ -1,3 +1,11 @@
+<script context="module">
+  export const controlFinanceId = 1,
+    manageFamilyBudgetId = 2,
+    payoffDebtId = 3,
+    assetManagementId = 4,
+    longTermId = 5;
+</script>
+
 <script>
   import { createEventDispatcher } from 'svelte';
 
@@ -10,7 +18,21 @@
 
   const dispatch = createEventDispatcher();
 
-  export let problems: { id: number; text: string; tooltipText?: string }[];
+  const problems = [
+    { id: controlFinanceId, text: $_('cmps.billing.onboarding.problems.control') },
+    { id: manageFamilyBudgetId, text: $_('cmps.billing.onboarding.problems.family') },
+    { id: payoffDebtId, text: $_('cmps.billing.onboarding.problems.debt') },
+    {
+      id: assetManagementId,
+      text: $_('cmps.billing.onboarding.problems.asset.title'),
+      tooltipText: $_('cmps.billing.onboarding.problems.asset.tooltip'),
+    },
+    {
+      id: longTermId,
+      text: $_('cmps.billing.onboarding.problems.long.title'),
+      tooltipText: $_('cmps.billing.onboarding.problems.long.tooltip'),
+    },
+  ];
 
   const iconSize = 17,
     { memoized: contains } = memoize((arr: number[], id?: number) => arr.includes(id!)),
@@ -21,7 +43,7 @@
     next = async () => {
       loading = true;
       await delay(2000);
-      dispatch('next', checked);
+      dispatch('problems', checked);
     };
 
   let checked: number[] = [],

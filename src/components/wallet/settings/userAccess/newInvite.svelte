@@ -5,13 +5,11 @@
   import { _ } from 'svelte-i18n';
 
   import { InviteService } from '$services/invite/inviteService';
-  import { runCurrentUserPlanCheck } from '$components/billing/planOfferModal.svelte';
 
   export let walletId: string, userId: string;
 
   let inviteLinks: string[] = [];
-  const createNewInvite = async (e: Event) => {
-    if (!runCurrentUserPlanCheck(e)) return;
+  const createNewInvite = async () => {
     try {
       const res = await InviteService.generateWalletInvite({ userId, walletId });
       inviteLinks = [...inviteLinks, res];

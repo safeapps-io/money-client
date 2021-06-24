@@ -17,6 +17,7 @@
   export let plan: PlanFull;
 
   let page: number = 0;
+  // All strings are removed from lang files; you can look them up in git history
   const list = [
     $_('cmps.billing.onboarding.purchase.about.title'),
     $_('cmps.billing.onboarding.purchase.sec.title'),

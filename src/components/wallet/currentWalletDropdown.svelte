@@ -11,7 +11,6 @@
 
   import { rootJointWalletPath, rootWalletPath } from '$core/routes';
 
-  import { runCurrentUserPlanCheck } from '$components/billing/planOfferModal.svelte';
   import { selectedWalletStore, selectedJointWalletStore, walletStore } from '$stores/wallet';
   import { walletDataStore } from '$stores/decr/wallet';
   import { jointWalletsStore } from '$stores/wallet';
@@ -69,7 +68,7 @@
       class="dropdown-item has-text-success clickable"
       on:click={() => {
         hide();
-        active = runCurrentUserPlanCheck();
+        active = true;
       }}
       use:focusableShortcut>
       {$_('cmps.wallet.create.wallet')}

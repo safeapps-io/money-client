@@ -8,13 +8,13 @@
   import cssVars from 'svelte-css-vars';
 
   import { walletUserSortedByCreatedStore } from '$stores/decr/walletUser';
-  import { runCurrentWalletPlanCheck } from '$components/billing/planOfferModal.svelte';
+  import { runCheck } from '$components/billing/planOfferModal.svelte';
 
   let active = false,
     ent: FullEntity<WalletUser> | undefined = undefined;
 
   const handleClick = (newEnt: typeof ent) => (e: Event) => {
-    const res = runCurrentWalletPlanCheck(e);
+    const res = runCheck(e);
     if (res) {
       ent = newEnt;
       active = true;

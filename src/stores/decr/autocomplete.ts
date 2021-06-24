@@ -79,7 +79,7 @@ export const getCategoryIdsBasedOnMccAndMetaCategories = derived(
       const associatedMeta = metaCategories?.[category.decr.metaId || ''];
       if (!associatedMeta) continue;
 
-      associatedMeta.assignedMcc.forEach(({ code, weight }) => {
+      associatedMeta.assignedMcc?.forEach(({ code, weight }) => {
         const curr = mccToCatId.get(code) || [];
         curr.push({ id: category.id, weight });
         mccToCatId.set(code, curr);

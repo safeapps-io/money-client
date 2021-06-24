@@ -25,7 +25,7 @@
   import { userEncrStore } from '$stores/user';
   import { draftTransactionStore } from '$stores/decr/transaction';
 
-  export let openMenu: () => void;
+  export let openMenu: undefined | (() => void) = undefined;
 
   $: username = $userEncrStore?.username || '';
 

@@ -4,9 +4,7 @@
   import Modal from '$components/elements/modal.svelte';
 
   import { addHours } from 'date-fns/esm';
-  import { goto } from '$app/navigation';
 
-  import { appPath } from '$core/routes';
   import { setUserSetting } from '$stores/decr/user';
   import { plansStore } from '$stores/billing';
   import { walletStore } from '$stores/wallet';
@@ -18,7 +16,6 @@
   const resetOnboarding = async () => {
     await setUserSetting('onboarding', {});
     $visitCounterStore = {};
-    goto(appPath);
     location.reload();
   };
 

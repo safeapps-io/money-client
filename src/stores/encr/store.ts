@@ -23,6 +23,23 @@ type EncryptedState = {
 export const encryptedCacheKey = 'encryptedData',
   encryptedStore = writable<EncryptedState | null>(null);
 
+/**
+ * TODO: optimize me?
+ * I think it should be optimized at some point in future. Right now it seems to be too much operations.
+ * It iterates on all entities on each change to encrypted store (backend/client driven).
+ */
+export const entityCountByWallet = derived(encryptedStore, $encr => {
+  const result: { [walletId: string]: number } = {};
+
+  if (!$encr) return result;
+
+  for (const { walletId } of Object.values($encr)) {
+    if (typeof result[walletId] == 'undefined') result[walletId] = 0;
+    result[walletId] += 1;
+  }
+  return result;
+});
+
 export const resetEncryptedStore = () => resetStore(encryptedStore),
   bulkUpdateEncrEntity = (data: Array<EncrEntity | EncrEntityLocal>) =>
     encryptedStore.update($state => {

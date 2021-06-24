@@ -19,9 +19,6 @@ declare module 'svelte' {
   type AddNotification = (text: string) => void;
 
   export function getContext<T>(key: any): T;
-  export function getContext(
-    key: 'isPlanActive',
-  ): (currentUserCheck?: boolean) => (e?: Event) => boolean;
   export function getContext(key: 'success'): AddNotification;
   export function getContext(key: 'danger'): AddNotification;
   export function getContext(key: 'warning'): AddNotification;

@@ -56,10 +56,13 @@ export const selectedWalletCacheKey = 'selectedWallet',
 export const currentChestsStore = derived([walletStore, userEncrStore], ([$wallet, $user]) => {
   if (!$wallet || !$user) return [];
 
-  return Object.values($wallet).map(wallet => ({
-    walletId: wallet.id,
-    chest: wallet.users.find(user => user.id === $user.id)!.WalletAccess.chest,
-  }));
+  const result: { walletId: string; chest: string }[] = [];
+  for (const wallet of Object.values($wallet)) {
+    const user = wallet.users.find(user => user.id === $user.id);
+    if (user) result.push({ walletId: wallet.id, chest: user.WalletAccess.chest });
+  }
+
+  return result;
 });
 
 export const resetWalletStores = () => {
