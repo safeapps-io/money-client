@@ -78,6 +78,7 @@
     "letsStart": "Let's start!",
     "allClear": "All clear",
     "okDok": "Okey dokey",
+    "cool": "Cool",
     "date": {
       "yesterday": "Yesterday",
       "today": "Today"
@@ -276,8 +277,19 @@
           "cta": "Will do"
         },
         "importButton": {
-          "itsEasy": "It works best when you create transactions by uploading bank statements. Works fast, doesn't make any errors, and makes most of the work automatically after a while.",
-          "decision": "Press the \"{tagO}{buttonText}{tagC}\" button now or try later."
+          "header": "Add transactions",
+          "add": "You can either import transactions in bulk from bank statements or add them manually.",
+          "bulkAdvantage": "Keep in mind, bulk import will automate most of the routine after a while."
+        },
+        "search": {
+          "header": "Search filter",
+          "change": "You can filter what transactions you want to see in the analytics dashboard.",
+          "example": "It can be a certain tag, category, or just a custom search text.",
+          "save": "You can save these filters in the left menu."
+        },
+        "period": {
+          "header": "Period change",
+          "description": "You can change the period as well as check out the data in the past."
         }
       }
     },
@@ -374,7 +386,7 @@
         "wCat": "With these categories",
         "saveAsNew": "Save as new",
         "nwTag": "Without these tags",
-        "nwCat": "With these categories"
+        "nwCat": "Without these categories"
       },
       "allTransactions": "All transactions"
     },

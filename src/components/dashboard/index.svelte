@@ -12,7 +12,6 @@
   import SearchFilterReactiveForm from '$components/dashboard/reactiveForm.svelte';
   import SearchSummary from '$components/dashboard/searchSummary.svelte';
   import PeriodChanger from '$components/searchFilter/periodChanger.svelte';
-  import { Onboarding, Text } from '$components/onboarding';
 
   import { media } from 'svelte-match-media';
   import { setContext } from 'svelte';
@@ -22,8 +21,6 @@
 
   import { searchFilterUpdate } from '$stores/decr/searchFilter';
   import { getSearchFilterDates } from '$core/searchFilter/getSearchFilterDates';
-  import { accentTags, generateLinkTags } from '$utils/accentTags';
-  import { founderEmail } from '$services/config';
 
   export let ent: FullEntity<SearchFilter>;
 
@@ -58,25 +55,7 @@
   // Resetting page number when search filter is changed or the period
   $: $resetPageKeyStore = `${searchFilter.id}${dates.startDate}${dates.endDate}`;
   setContext('resetPageKeyStore', resetPageKeyStore);
-
-  $: textSlotWidth = $media.mobile ? 300 : 400;
 </script>
-
-<Onboarding noSlot shouldShow key="contactUs" {textSlotWidth} let:finishOnboarding>
-  <svelte:fragment slot="text">
-    <Text header>{$_('cmps.wallet.onboarding.contactUs.title')}</Text>
-    <Text
-      >{@html $_('cmps.wallet.onboarding.contactUs.text', {
-        values: {
-          ...accentTags,
-          ...generateLinkTags(`mailto:${founderEmail}`),
-          email: founderEmail,
-        },
-      })}</Text>
-    <button class="button mt-3" on:click={finishOnboarding}
-      >{$_('cmps.wallet.onboarding.contactUs.cta')}</button>
-  </svelte:fragment>
-</Onboarding>
 
 <Page boxedView={false} counterName="dashboard">
   <div class="flex-full" slot="title-block">
