@@ -186,7 +186,8 @@
 
 <style lang="scss">
   .slot {
-    &.active :global(.help, .label) {
+    &.active :global(.help),
+    :global(.label) {
       $shadow-size: 2px;
       $shadow-color: rgba(255, 255, 255, 0.7);
       $shadow: drop-shadow($shadow-size $shadow-size $shadow-size $shadow-color)
