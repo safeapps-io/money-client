@@ -238,6 +238,8 @@
 
   .prevent-click-overlay {
     @include z('onboarding-slot-overlay');
+
+    cursor: not-allowed;
   }
 
   .circle,

@@ -28,13 +28,12 @@
   const onbClickSlot = () => goto($importPath);
 </script>
 
-<Onboarding bottom {key} {shouldShow} let:finishOnboarding let:show>
+<Onboarding preventSlotClick bottom {key} {shouldShow} let:finishOnboarding let:show>
   <div class="has-text-centered">
     <a
       class="button is-success"
       class:is-light={mobileMode}
       class:is-fullwidth={mobileMode}
-      class:no-click={show}
       href={$importPath}
       on:click={e => runCheck(e) && finishOnboarding().then(onbClickSlot)}
       >{$_('cmps.transaction.import')}</a>
@@ -55,9 +54,3 @@
     <button class="button is-small my-3" on:click={finishOnboarding}>{$_('common.form.ok')}</button>
   </svelte:fragment>
 </Onboarding>
-
-<style lang="scss">
-  .no-click {
-    pointer-events: none;
-  }
-</style>
