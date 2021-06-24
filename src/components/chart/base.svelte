@@ -1,7 +1,7 @@
 <script>
   export let marginTop = 30,
     marginBottom = 30,
-    marginLeft = 30,
+    marginLeft = 40,
     marginRight = 30;
 
   export let svgHeight: number;
@@ -30,6 +30,11 @@
   svg {
     :global(text) {
       font-family: $family-monospace;
+    }
+
+    :global(tspan.value) {
+      font-size: 110%;
+      font-weight: bold;
     }
   }
 </style>

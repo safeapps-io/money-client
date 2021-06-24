@@ -19,6 +19,7 @@
   import { walletDataStore } from '$stores/decr/wallet';
   import { userDecrStore } from '$stores/decr/user';
   import { initApplicationLogic } from '$stores/init';
+  import { addVisit } from '$stores/visitRecorder';
   import { appPath, loginPath } from '$core/routes';
 
   let remoteCheckPerformed = false,
@@ -32,11 +33,19 @@
 
   $: shouldShow = remoteCheckPerformed && remoteCheckResult && $userEncrStore;
 
+  let tracked = false;
+  $: if (hasWalletData && !tracked) {
+    addVisit('visit');
+    tracked = true;
+  }
+
   $: user = $userEncrStore!;
   $: shouldShow && $initApplicationLogic;
 
-  $: hasWallets = !!Object.keys($walletStore || {}).length;
-  $: hasWalletData = !!Object.keys($walletDataStore || {}).length;
+  const hasKeys = (arr: Object | null) => !!Object.keys(arr || {}).length;
+
+  $: hasWallets = hasKeys($walletStore);
+  $: hasWalletData = hasKeys($walletDataStore);
 
   $: invite = atob($page.query.get('invite') || '');
 </script>

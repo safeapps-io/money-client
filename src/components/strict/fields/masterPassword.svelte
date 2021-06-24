@@ -36,14 +36,6 @@
   };
 </script>
 
-<div class="field">
-  <Field {field}>
-    <TextInput type="text" placeholder="correct-horse-staple-battery" />
-  </Field>
-</div>
-
-<style>
-  .field :global(input) {
-    -webkit-text-security: disc;
-  }
-</style>
+<Field {field}>
+  <TextInput type="password" placeholder="correct-horse-staple-battery" />
+</Field>

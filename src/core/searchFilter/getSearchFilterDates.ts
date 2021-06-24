@@ -14,6 +14,10 @@ import {
 } from 'date-fns/esm';
 import { SearchFilterDatePeriods } from '$stores/decr/types';
 
+/**
+ * Returns start/end of the month/quarter/year.
+ * For all time returns minTime and maxTime to include everything.
+ */
 export const getSearchFilterDates = ({
   group,
   page,

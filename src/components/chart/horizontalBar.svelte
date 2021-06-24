@@ -42,7 +42,7 @@
           style="fill: {color}" />
         <text x={10} y={(y(id) || 0) + y.bandwidth() / 2}>
           {label}
-          <tspan style={id == hoveredId ? '' : 'display: none'}>
+          <tspan class="value" style={id == hoveredId ? '' : 'display: none'}>
             {'  ' + displayValue(value)}
           </tspan>
         </text>
@@ -64,10 +64,5 @@
     text-anchor: start;
     dominant-baseline: middle;
     font-size: 75%;
-
-    tspan {
-      font-size: 110%;
-      font-weight: bold;
-    }
   }
 </style>

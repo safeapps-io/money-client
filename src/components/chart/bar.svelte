@@ -11,7 +11,7 @@
 
   export let padding = 0.3;
 
-  export let displayValue: (val: number) => string
+  export let displayValue: (val: number) => string;
 
   let y: YValue | undefined, x: XBand | undefined;
 
@@ -45,7 +45,8 @@
         <text
           x={(x(id) || 0) + x.bandwidth() / 2}
           y={getY(value) - 10}
-          style={id == hoveredId ? '' : 'display: none'}>{displayValue(value)}</text>
+          style={id == hoveredId ? '' : 'display: none'}>
+          <tspan class="value">{displayValue(value)}</tspan></text>
       </g>
     {/each}
   {/if}

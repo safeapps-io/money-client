@@ -20,10 +20,10 @@
   let minValue: number, maxValue: number, allMax: number;
   $: {
     const minDataSetValue = Math.min(...valueArr);
-    minValue = minDataSetValue < 0 ? minDataSetValue : 0;
+    minValue = minDataSetValue < 0 ? minDataSetValue * 0.9 : 0;
 
     const maxDataSetValue = Math.max(...valueArr);
-    maxValue = maxDataSetValue > 0 ? maxDataSetValue : 0;
+    maxValue = maxDataSetValue > 0 ? maxDataSetValue * 1.1 : 0;
 
     allMax = Math.max(Math.abs(minValue), Math.abs(maxValue));
   }

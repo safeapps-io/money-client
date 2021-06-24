@@ -1,6 +1,6 @@
 import { derived, writable } from 'svelte/store';
 
-export type VisitPages = 'dashboard';
+export type VisitPages = 'visit' | 'dashboard';
 
 export const visitCounterStoreKey = 'visitCounterStore',
   visitCounterStore = writable<{ [key in VisitPages]?: number }>({});

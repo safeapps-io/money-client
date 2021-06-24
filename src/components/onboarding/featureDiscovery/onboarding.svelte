@@ -97,6 +97,8 @@
   }
 
   // IDEA: Do this using SVG blobs. Will look cooler (probably).
+  // IDEA: We add a button inside text-slot a lot, and it often either finishes the onboarding,
+  // or goes to the next step. Should we put the button here?
 
   // Setting figures variables
   const getEvenCoordsByCenterPoint = (x: number, y: number, neededSize: number) =>
@@ -173,22 +175,30 @@
   {/if}
 {/if}
 
-<div class="slot" bind:this={slotEl} bind:clientHeight={slotHeight} use:resize={slotResized}>
-  <slot {finishOnboarding} />
+<div
+  class="slot"
+  class:active={show}
+  bind:this={slotEl}
+  bind:clientHeight={slotHeight}
+  use:resize={slotResized}>
+  <slot {show} {finishOnboarding} />
 </div>
 
 <style lang="scss">
   .slot {
-    :global {
-      .help,
-      .label {
-        text-shadow: 0 0 3px white;
-      }
+    &.active :global(.help),
+    :global(.label) {
+      $shadow-size: 2px;
+      $shadow-color: rgba(255, 255, 255, 0.7);
+      $shadow: drop-shadow($shadow-size $shadow-size $shadow-size $shadow-color)
+        drop-shadow($shadow-size * -1 $shadow-size * -1 $shadow-size $shadow-color);
 
-      .slot-above {
-        position: relative;
-        @include z('onboarding-slot');
-      }
+      filter: $shadow $shadow;
+    }
+
+    :global(.slot-above) {
+      position: relative;
+      @include z('onboarding-slot');
     }
   }
 
@@ -228,6 +238,8 @@
 
   .prevent-click-overlay {
     @include z('onboarding-slot-overlay');
+
+    cursor: not-allowed;
   }
 
   .circle,

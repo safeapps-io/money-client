@@ -18,9 +18,8 @@
   export let currStats: CategorySplitReturn['curr'] = [],
     isIncome: boolean;
 
-  // Index 9 of the array means the maximum of 10 categories to be shown
-  const categoryShowCountToIndex = 9;
-
+  // Max amount of categories to be shown. All the rest will be dumped into a single category.
+  const countCategoriesToShow = 6;
   let limitShows = true;
 
   const checkIfNoCategory = (id: any) => Object.values(NoCategoryObjectKey).includes(id);
@@ -41,20 +40,18 @@
   $: {
     data = [];
     for (const datapoint of isIncomeFiltered) {
-      if (limitShows && data.length === categoryShowCountToIndex + 1) {
-        if (!data[categoryShowCountToIndex])
-          data[categoryShowCountToIndex] = {
-            color: noCategoryColor,
-            id: '',
-            label: $_('cmps.dashboard.categoryChart.rest'),
-            value: 0,
-          };
-        data[categoryShowCountToIndex].value += datapoint.value;
+      if (limitShows && data.length == countCategoriesToShow) {
+        data[countCategoriesToShow - 1] = {
+          color: restCategoryColor,
+          id: '',
+          label: $_('cmps.dashboard.categoryChart.rest'),
+          value: data[countCategoriesToShow - 1].value + datapoint.value,
+        };
       } else {
         if (checkIfNoCategory(datapoint.id))
           data.push({
             ...datapoint,
-            color: restCategoryColor,
+            color: noCategoryColor,
             label: $_('cmps.category.common.noCategory'),
           });
         else {
@@ -82,7 +79,7 @@
   <ZeroData text={$_('cmps.dashboard.categoryChart.zeroData')} />
 {/if}
 
-{#if isIncomeFiltered.length >= categoryShowCountToIndex + 1}
+{#if isIncomeFiltered.length > countCategoriesToShow}
   <button class="button is-fullwidth is-text" on:click={() => (limitShows = !limitShows)}>
     {#if limitShows}
       {$_('cmps.dashboard.categoryChart.showAll')}
