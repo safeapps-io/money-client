@@ -16,13 +16,13 @@
   import type { FormStore } from '$strict/base';
   import type { TransactionFieldsForm } from '$core/transaction/setCorrectAmount';
 
-  import { createEventDispatcher } from 'svelte';
-  import { slide } from 'svelte/transition';
-
   import TransactionFields from '$components/transaction/form/fields.svelte';
   import AutocompleteTable from '$components/transaction/card/autocompleteTable.svelte';
   import TransactionCard from '$components/transaction/card/transactionCard.svelte';
   import { Form } from '$strict';
+
+  import { createEventDispatcher } from 'svelte';
+  import { slide } from 'svelte/transition';
 
   import { setCorrectAmount } from '$core/transaction/setCorrectAmount';
 

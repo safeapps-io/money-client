@@ -4,9 +4,15 @@
   import { _ } from 'svelte-i18n';
   import { getContext } from 'svelte';
 
+  type Item = $$Generic;
+
+  interface $$Slots {
+    default: { item: Item; index: number; originalIndex: number };
+  }
+
   export let page = 1,
     limit = 10,
-    items: any[];
+    items: Item[];
 
   const resetPageKeyStore = getContext<Writable<string | null> | undefined>('resetPageKeyStore');
 

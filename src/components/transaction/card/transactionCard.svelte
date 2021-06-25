@@ -5,6 +5,7 @@
     WalletUser,
     Category,
     OmitCommonFields,
+    CorrectionTransaction,
   } from '$stores/decr/types';
 
   import FullAmountDisplay from './fullAmountDisplay.svelte';
@@ -13,7 +14,10 @@
 
   import { relativeDate } from '$core/i18n/relativeDate';
 
-  export let transaction: Transaction | OmitCommonFields<Transaction>,
+  export let transaction:
+      | Transaction
+      | OmitCommonFields<Transaction>
+      | OmitCommonFields<CorrectionTransaction>,
     walletUser: FullEntity<WalletUser> | undefined = undefined,
     category: FullEntity<Category> | undefined = undefined;
 </script>

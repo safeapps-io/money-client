@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "svelte-kit dev",
-    "type": "tsc --noEmit && svelte-check",
+    "type": "tsc --noEmit && svelte-check --compiler-warnings \"module-script-reactive-declaration:ignore\"",
     "build:common": "rm -rf ./build && find . -name .DS_Store | xargs rm",
     "build:stage": "yarn build:common && STAGE=yep svelte-kit build",
     "build:prod": "yarn build:common && svelte-kit build"
@@ -43,7 +43,7 @@
     "sass": "^1.29.0",
     "sass-mq": "^5.0.1",
     "svelte": "^3.17.3",
-    "svelte-check": "^1.1.32",
+    "svelte-check": "^2.2.0",
     "svelte-preprocess": "^4.6.1",
     "tslib": "^2.0.1",
     "typescript": "^4.0.3"

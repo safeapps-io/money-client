@@ -269,16 +269,15 @@
     :global(mark) {
       padding: 1px 3px;
       font-weight: bold;
-
-      &.red {
-        background-color: $red;
-      }
-      &.blue {
-        background-color: $blue;
-      }
-      &.green {
-        background-color: $green;
-      }
+    }
+    :global(mark.red) {
+      background-color: $red;
+    }
+    :global(mark.blue) {
+      background-color: $blue;
+    }
+    :global(mark.green) {
+      background-color: $green;
     }
   }
 
