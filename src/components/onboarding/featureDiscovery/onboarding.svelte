@@ -1,9 +1,14 @@
 <script>
+  // IDEA: Do this using SVG blobs. Will look cooler (probably).
+  // IDEA: We add a button inside text-slot a lot, and it often either finishes the onboarding,
+  // or goes to the next step. Should we put the button here?
+
   import type { OnboardingSteps } from '$stores/decr/user';
 
   import { fade, fly, scale } from 'svelte/transition';
   import cssVars from 'svelte-css-vars';
   import { browser } from '$app/env';
+  import { onDestroy } from 'svelte';
 
   import { randBetween } from '$utils/random';
   import { range } from '$utils/array';
@@ -27,27 +32,29 @@
   // Otherwise we lookup in the settings.
   $: shownKeyBefore = typeof key != 'undefined' && $hasUserSeenOnboarding(key);
 
-  let show = false,
+  /**
+   * We lock the scroll immediately, but delay showing the onboarding.
+   * This way the onboarding does not break.
+   */
+  let startShowing = false,
+    isShowing = false,
     timeout: number | undefined;
-  $: if (!shouldShow) show = false;
-  $: if (browser && !show) {
+  $: if (browser) {
     clearTimeout(timeout);
-    if (shouldShow && !shownKeyBefore) timeout = window.setTimeout(() => (show = true), delay);
+    if (shouldShow && !shownKeyBefore) {
+      startShowing = true;
+      timeout = window.setTimeout(() => (isShowing = true), delay);
+    } else isShowing = false;
   }
-  export const finishOnboarding = async () => {
+  onDestroy(() => clearTimeout(timeout));
+
+  const finishOnboarding = async () => {
     if (key) {
       debugLog('[onboarding] saving onboarding as seen', key);
       await setUserOnboardingSetting(key);
     }
-    show = false;
+    startShowing = false;
   };
-
-  $: if (slotEl) {
-    for (const el of Array.from(slotEl.children)) {
-      if (show) el.classList.add('slot-above');
-      else el.classList.remove('slot-above');
-    }
-  }
 
   let slotHeight: number | undefined,
     innerWidth: number | undefined,
@@ -86,7 +93,7 @@
   };
 
   $: originalSlotRect =
-    show && slotEl && slotHeight && innerHeight && innerWidth
+    startShowing && slotEl && slotHeight && innerHeight && innerWidth
       ? (slotEl.firstChild as HTMLElement)?.getBoundingClientRect()
       : null;
 
@@ -95,10 +102,6 @@
     const { x, y, width, height } = originalSlotRect;
     slotVars = getPositionalVars(scrollY + y, scrollX + x, width, height);
   }
-
-  // IDEA: Do this using SVG blobs. Will look cooler (probably).
-  // IDEA: We add a button inside text-slot a lot, and it often either finishes the onboarding,
-  // or goes to the next step. Should we put the button here?
 
   // Setting figures variables
   const getEvenCoordsByCenterPoint = (x: number, y: number, neededSize: number) =>
@@ -153,8 +156,9 @@
 
 <svelte:window bind:innerWidth bind:innerHeight />
 
-{#if show}
-  <div class="overlay" transition:fade|local use:restrictBodyScroll />
+<div style="display: none" use:restrictBodyScroll={startShowing} />
+{#if isShowing}
+  <div class="overlay" transition:fade|local />
   <div class="figures" class:centered={noSlot} transition:scale|local={{ delay: 300 }}>
     <div class="circle" use:cssVars={circleVars} />
     <div class="square" use:cssVars={squareVars} />
@@ -177,16 +181,19 @@
 
 <div
   class="slot"
-  class:active={show}
+  class:active={startShowing}
   bind:this={slotEl}
   bind:clientHeight={slotHeight}
   use:resize={slotResized}>
-  <slot {show} {finishOnboarding} />
+  <slot show={isShowing} {finishOnboarding} />
 </div>
 
 <style lang="scss">
-  .slot {
-    &.active :global(.help),
+  .slot.active {
+    position: relative;
+    @include z(onboarding-slot);
+
+    :global(.help),
     :global(.label) {
       $shadow-size: 2px;
       $shadow-color: rgba(255, 255, 255, 0.7);
@@ -194,11 +201,6 @@
         drop-shadow($shadow-size * -1 $shadow-size * -1 $shadow-size $shadow-color);
 
       filter: $shadow $shadow;
-    }
-
-    :global(.slot-above) {
-      position: relative;
-      @include z('onboarding-slot');
     }
   }
 
@@ -237,7 +239,7 @@
   }
 
   .prevent-click-overlay {
-    @include z('onboarding-slot-overlay');
+    @include z(onboarding-slot-overlay);
 
     cursor: not-allowed;
   }
