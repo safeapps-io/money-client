@@ -122,8 +122,6 @@ export const balanceHistoryPlugin = (
         const currDate = addDays(minDate, i),
           currentDataPoint = fullHistory[currIndex!];
 
-        // console.log(JSON.stringify({ i, currentDataPoint, currDate }, null, 2));
-
         if (!currentDataPoint || isAfter(currentDataPoint.date, currDate))
           resultHistory.push({ date: currDate, value: prevValue! });
         else {
