@@ -36,6 +36,6 @@
 
     width: 270px;
 
-    @include z('notification-toast');
+    @include z(notification-toast);
   }
 </style>
