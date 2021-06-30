@@ -7,7 +7,7 @@
   import { userEncrStore } from '$stores/user';
 </script>
 
-{#if $userEncrStore?.isAdmin || dev}
+{#if $userEncrStore?.isAdmin || dev || process.env.STAGE}
   {#await import('$components/admin/settings.svelte') then Cmp}
     <Cmp.default />
   {/await}

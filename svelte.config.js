@@ -24,6 +24,7 @@ const envKeys = [
     'SITE_HOST',
     'SITE_PORT',
     'ROOT_HOST',
+    'STAGE',
   ],
   apiHost = `${process.env.API_SCHEME}://${process.env.API_HOST}:${process.env.API_PORT}`,
   analyticsHost = `sa.${process.env.ROOT_HOST}`;

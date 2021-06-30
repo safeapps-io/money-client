@@ -65,9 +65,11 @@
 
   <p>Plan expiry time</p>
 
-  <button class="button" on:click={() => changeBilling('-1h')}>1 hour ago</button>
-  <button class="button" on:click={() => changeBilling('1h')}>In 1 hour</button>
-  <button class="button" on:click={() => changeBilling('1m')}>In 1 month</button>
+  <div class="buttons">
+    <button class="button" on:click={() => changeBilling('-1h')}>1 hour ago</button>
+    <button class="button" on:click={() => changeBilling('1h')}>In 1 hour</button>
+    <button class="button" on:click={() => changeBilling('1m')}>In 1 month</button>
+  </div>
 
   <hr />
 
@@ -88,5 +90,7 @@
     left: 0px;
     top: 50%;
     transform: translateY(-50%);
+
+    z-index: 1000;
   }
 </style>
