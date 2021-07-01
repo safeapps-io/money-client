@@ -62,7 +62,7 @@
     {#if !$media.mobile}
       <div class="profile mr-2">
         <div class="mr-2">
-          <GenericTroubleshoot right />
+          <GenericTroubleshoot />
         </div>
 
         <Profile />

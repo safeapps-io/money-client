@@ -17,12 +17,13 @@
   $: manualAddClasses = $media.mobile ? 'py-4 px-4 mb-3' : 'px-4 py-2';
 
   let shouldShow = false;
-  $: if (!shouldShow && $hasUserSeenOnboarding('contactUs'))
+  // We do not show contactUs on mobile
+  $: if (!shouldShow && ($hasUserSeenOnboarding('contactUs') || $media.mobile))
     if ($media.mobile && !$hasUserSeenOnboarding(key)) {
       setTimeout(() => {
         openMenu?.();
         shouldShow = true;
-      }, 500);
+      }, 1000);
     } else shouldShow = true;
 
   const onbClickSlot = () => goto($importPath);

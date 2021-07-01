@@ -204,4 +204,8 @@ export class AuthService {
 
     dropUserData();
   }
+
+  static async leaveFeedback(data: { email?: string; description: string }) {
+    return request({ method: post, path: `${this.userPrefix}feedback`, data });
+  }
 }
