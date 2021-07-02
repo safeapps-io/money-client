@@ -14,6 +14,10 @@
   top: 0;
 }
 
+.fake-transform {
+  transform: rotate(0);
+}
+
 .is-flex {
   display: flex;
 }

@@ -24,6 +24,7 @@
     textSlotWidth = 300,
     preventSlotClick = false,
     noSlot = false,
+    hideFigures = false,
     bottom = false,
     right = false;
 
@@ -43,7 +44,10 @@
     if (shouldShow && !shownKeyBefore) {
       startShowing = true;
       timeout = window.setTimeout(() => (isShowing = true), delay);
-    } else isShowing = false;
+    } else {
+      isShowing = false;
+      startShowing = false;
+    }
   }
   onDestroy(() => clearTimeout(timeout));
 
@@ -76,7 +80,7 @@
       class:left={!right}
       class:bottom
       class:top={!bottom}
-      style="--width: {textSlotWidth}px"
+      style="--width: {textSlotWidth}px; {hideFigures ? 'display: none' : ''}"
       transition:scale|local={{ delay: 300 }}>
       <div class="circle" use:cssVars={{ ...circleColors, size: `${randBetween(150, 250)}px` }} />
       <div class="square" use:cssVars={{ ...squareColors, size: `${randBetween(200, 300)}px` }} />

@@ -200,7 +200,7 @@
               values: { tagO: '<code>', tagC: '</code>' },
             })}
           </Text>
-          <button class="button is-small" on:click={finishOnboarding}
+          <button class="button is-small mt-3" on:click={finishOnboarding}
             >{$_('common.tryLater')}</button>
         </svelte:fragment>
       </Onboarding>
