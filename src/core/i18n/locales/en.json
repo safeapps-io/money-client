@@ -605,11 +605,7 @@
         "prev": "Previous",
         "page": "Page {curr} of {last}"
       },
-      "defZeroData": "Nothing here yet",
-      "chartTooltip": {
-        "date": "Date: {date, date, short}",
-        "val": "Value: {value}"
-      }
+      "defZeroData": "Nothing here yet"
     }
   },
   "routes": {

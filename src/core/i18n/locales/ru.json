@@ -460,11 +460,7 @@
         "page": "Страница {curr} из {last}"
       },
       "copy": "Копировать",
-      "defZeroData": "Здесь пока ничего нет",
-      "chartTooltip": {
-        "val": "Значение: {value}",
-        "date": "Дата: {date, date, short}"
-      }
+      "defZeroData": "Здесь пока ничего нет"
     },
     "import": {
       "cache": {

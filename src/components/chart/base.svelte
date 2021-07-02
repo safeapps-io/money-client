@@ -19,7 +19,7 @@
       </g>
     </svg>
   {/if}
-  <slot name="overlay-div" />
+  <slot name="overlay-div" {marginTop} {marginLeft} />
 </div>
 
 <style lang="scss">
@@ -35,6 +35,10 @@
     :global(tspan.value) {
       font-size: 110%;
       font-weight: bold;
+    }
+
+    :global(.axis) {
+      color: grey;
     }
   }
 </style>
