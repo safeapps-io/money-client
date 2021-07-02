@@ -1,12 +1,19 @@
 <script>
   import Generic from '$components/elements/dropdown/generic.svelte';
   import { Onboarding, Text } from '$components/onboarding';
-  import { Form, EmailField, Field, TextareaInput } from '$strict';
+  import { Form, EmailField, Field, TextareaInput, TextInput } from '$strict';
 
   import { _ } from 'svelte-i18n';
 
   import { createFormStore } from '$strict/base';
-  import { ensureString, maxLength, minLength, trim } from '$validators';
+  import {
+    emailFormat,
+    ensureString,
+    maxLength,
+    minLength,
+    optionalString,
+    trim,
+  } from '$validators';
 
   import { userEncrStore } from '$stores/user';
   import { AuthService } from '$services/auth/authService';
@@ -18,12 +25,30 @@
 
   const formStore = createFormStore();
 
-  $: field = {
+  let descriptionCachedValue: string, emailCachedValue: string | undefined;
+
+  // Caching the value when the form gets hidden
+  $: if (!show) {
+    descriptionCachedValue = $formStore.fields?.description?.inputValue;
+    emailCachedValue = $formStore.fields?.email?.inputValue;
+  }
+
+  $: descriptionField = {
     name: 'description',
     label: $_('cmps.nav.feedback.textLabel'),
+    inputValue: descriptionCachedValue,
     required: true,
     clean: [ensureString, trim],
     validate: [minLength(10), maxLength(2000)],
+  };
+
+  $: emailField = {
+    name: 'email',
+    label: 'Email',
+    inputValue: emailCachedValue,
+    help: $_('cmps.nav.feedback.email'),
+    clean: [optionalString, trim],
+    validate: [emailFormat],
   };
 
   const success = async (data: { description: string; email?: string }) => {
@@ -85,9 +110,11 @@
         buttonText={$_('common.form.submit')}
         notificationText={$_('common.form.okNotif')}>
         {#if showEmailField}
-          <EmailField help={$_('cmps.nav.feedback.email')} />
+          <Field field={emailField}>
+            <TextInput type="email" autocomplete="email" />
+          </Field>
         {/if}
-        <Field {field}>
+        <Field field={descriptionField}>
           <TextareaInput rows={3} placeholder={$_('cmps.nav.feedback.text')} />
         </Field>
       </Form>

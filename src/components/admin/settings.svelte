@@ -41,8 +41,36 @@
   };
 </script>
 
+<div class="wrapper">
+  <Modal bind:active>
+    <button class="button" on:click={resetOnboarding}>Reset onboarding</button>
+
+    <hr />
+
+    <p>Plan expiry time</p>
+
+    <div class="buttons">
+      <button class="button" on:click={() => changeBilling('-1h')}>1 hour ago</button>
+      <button class="button" on:click={() => changeBilling('1h')}>In 1 hour</button>
+      <button class="button" on:click={() => changeBilling('1m')}>In 1 month</button>
+    </div>
+
+    <hr />
+
+    <button class="button" on:click={() => (showButton = false)}>Hide admin button</button>
+
+    <hr />
+
+    <button
+      class="button is-danger"
+      on:click={() => {
+        throw new Error('Admin error trigger');
+      }}>Trigger error</button>
+  </Modal>
+</div>
+
 {#if showButton}
-  <button class="button trigger is-small is-danger" on:click={() => (active = true)}>
+  <button class="button trigger is-small is-danger" on:click={() => (active = !active)}>
     <!-- © https://teenyicons.com/ compass -->
     <span class="icon"
       ><svg
@@ -58,39 +86,17 @@
   </button>
 {/if}
 
-<Modal bind:active>
-  <button class="button" on:click={resetOnboarding}>Reset onboarding</button>
-
-  <hr />
-
-  <p>Plan expiry time</p>
-
-  <div class="buttons">
-    <button class="button" on:click={() => changeBilling('-1h')}>1 hour ago</button>
-    <button class="button" on:click={() => changeBilling('1h')}>In 1 hour</button>
-    <button class="button" on:click={() => changeBilling('1m')}>In 1 month</button>
-  </div>
-
-  <hr />
-
-  <button class="button" on:click={() => (showButton = false)}>Hide admin button</button>
-
-  <hr />
-
-  <button
-    class="button is-danger"
-    on:click={() => {
-      throw new Error('Admin error trigger');
-    }}>Trigger error</button>
-</Modal>
-
 <style>
+  .wrapper :global(.modal-content),
+  .wrapper :global(.modal),
+  .trigger {
+    z-index: 1000 !important;
+  }
+
   .trigger {
     position: fixed;
     left: 0px;
     top: 50%;
     transform: translateY(-50%);
-
-    z-index: 1000;
   }
 </style>

@@ -16,15 +16,13 @@
       runValidation(formStore, fieldState);
     };
 
-  $: if (!$formStore.fields[field.name]) {
-    $formStore.fields[field.name] = {
-      errors: [],
-      clean: [],
-      validate: [],
-      id,
-      ...field,
-    } as FieldState;
-  }
+  $: $formStore.fields[field.name] = {
+    errors: [],
+    clean: [],
+    validate: [],
+    id,
+    ...field,
+  } as FieldState;
 
   setContext('runChecks', runChecks);
   setContext('fieldname', field.name);
