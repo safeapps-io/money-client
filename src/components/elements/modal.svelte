@@ -22,7 +22,8 @@
    */
   export let forceScale = false,
     noBox = false,
-    noExitAnimation = false;
+    noExitAnimation = false,
+    allowOverflow = false;
 
   const close = () => (active = false);
 
@@ -44,6 +45,7 @@
       class:no-box={noBox || isMobile}
       class:box={!noBox}
       class:mobile-content={isMobile}
+      class:allowOverflow
       use:restrictBodyScroll
       in:transition
       out:transition={transitionSettings}>
@@ -79,5 +81,8 @@
 
     margin: 0;
     @include safeAreaPaddingMixin(bottom, 2em);
+  }
+  .allowOverflow {
+    overflow: visible !important;
   }
 </style>

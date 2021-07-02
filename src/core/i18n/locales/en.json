@@ -273,7 +273,7 @@
         },
         "contactUs": {
           "title": "Any questions get answered",
-          "text": "If you have {tagO}any{tagC} difficulties, please write to our founder Dan at {linkO}{email}{linkC}. We want to make sure you're okay.",
+          "text": "If you have {tagO}any{tagC} difficulties or ideas, please contact us. We {tagO}honestly{tagC} appreciate your opinion.",
           "cta": "Will do"
         },
         "importButton": {
@@ -407,18 +407,9 @@
       },
       "feedback": {
         "cta": "Feedback",
-        "bug": {
-          "title": "Found a bug?",
-          "main": "We'd really appreciate if you reported it here. Help us become better!"
-        },
-        "help": {
-          "title": "Don't understand something?",
-          "main": "Don't hesitate to drop a message here. We'll help."
-        },
-        "featureReq": {
-          "title": "Enhancement proposal",
-          "main": "We value all your ideas. Please share all of them with us here."
-        }
+        "email": "Optional. We need that so we can contact you about your feedback.",
+        "text": "Your idea, suggestion, or a bug you encountered…",
+        "textLabel": "Message"
       },
       "menu": {
         "users": "Users",
@@ -614,11 +605,7 @@
         "prev": "Previous",
         "page": "Page {curr} of {last}"
       },
-      "defZeroData": "Nothing here yet",
-      "chartTooltip": {
-        "date": "Date: {date, date, short}",
-        "val": "Value: {value}"
-      }
+      "defZeroData": "Nothing here yet"
     }
   },
   "routes": {

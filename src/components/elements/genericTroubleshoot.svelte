@@ -1,77 +1,129 @@
 <script>
-  import Troubleshoot from '$components/elements/dropdown/troubleshoot.svelte';
+  import Generic from '$components/elements/dropdown/generic.svelte';
+  import { Onboarding, Text } from '$components/onboarding';
+  import { Form, EmailField, Field, TextareaInput, TextInput } from '$strict';
 
   import { _ } from 'svelte-i18n';
 
-  import { forumBugsPath, forumHelpPath, forumIdeasPath } from '$core/routes';
+  import { createFormStore } from '$strict/base';
+  import {
+    emailFormat,
+    ensureString,
+    maxLength,
+    minLength,
+    optionalString,
+    trim,
+  } from '$validators';
+
+  import { userEncrStore } from '$stores/user';
+  import { AuthService } from '$services/auth/authService';
+  import { accentTags } from '$utils/accentTags';
+  import { media } from 'svelte-match-media';
+
+  let show: boolean;
+  $: showEmailField = !$userEncrStore?.email;
+
+  const formStore = createFormStore();
+
+  let descriptionCachedValue: string, emailCachedValue: string | undefined;
+
+  // Caching the value when the form gets hidden
+  $: if (!show) {
+    descriptionCachedValue = $formStore.fields?.description?.inputValue;
+    emailCachedValue = $formStore.fields?.email?.inputValue;
+  }
+
+  $: descriptionField = {
+    name: 'description',
+    label: $_('cmps.nav.feedback.textLabel'),
+    inputValue: descriptionCachedValue,
+    required: true,
+    clean: [ensureString, trim],
+    validate: [minLength(10), maxLength(2000)],
+  };
+
+  $: emailField = {
+    name: 'email',
+    label: 'Email',
+    inputValue: emailCachedValue,
+    help: $_('cmps.nav.feedback.email'),
+    clean: [optionalString, trim],
+    validate: [emailFormat],
+  };
+
+  const success = async (data: { description: string; email?: string }) => {
+    await AuthService.leaveFeedback(data);
+    show = false;
+  };
 </script>
 
-<div class="wrapper is-size-7">
-  <Troubleshoot text={$_('cmps.nav.feedback.cta')} {...$$restProps}>
-    <a href={forumBugsPath} class="dropdown-item">
-      <p class="has-text-danger is-size-6">
-        <!-- © https://teenyicons.com/ bug -->
-        <span class="icon"
-          ><svg
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
-            ><path
-              d="M4.5 4.5h6m-6 0l-.367.733A6 6 0 003.5 7.916V10.5a4 4 0 008 0V7.916a6 6 0 00-.633-2.683L10.5 4.5m-6 0v-1a3 3 0 016 0v1M0 8.5h3.5m11.5 0h-3.5M1 14l3-1.5M14 14l-3-1.5M1 3l3 1.5M14 3l-3 1.5"
-              stroke="currentColor" /></svg
-          ></span>
-        {$_('cmps.nav.feedback.bug.title')}
-      </p>
-      <p>{$_('cmps.nav.feedback.bug.main')}</p>
-    </a>
-    <a href={forumHelpPath} class="dropdown-item">
-      <p class="has-text-warning is-size-6">
-        <!-- © https://teenyicons.com/ info -->
-        <span class="icon"
-          ><svg
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
-            ><path
-              d="M7 1.5V2h1v-.5H7zm1-.01v-.5H7v.5h1zM8 13.5V4H7v9.5h1zm0-12v-.01H7v.01h1zM4 5h3.5V4H4v1zm-2 9h11v-1H2v1z"
-              fill="currentColor" /></svg
-          ></span>
-        {$_('cmps.nav.feedback.help.title')}
-      </p>
-      <p>{$_('cmps.nav.feedback.help.main')}</p>
-    </a>
-    <a href={forumIdeasPath} class="dropdown-item">
-      <p class="has-text-success is-size-6">
-        <!-- © https://teenyicons.com/ message-plus -->
-        <span class="icon"
-          ><svg
-            viewBox="0 0 15 15"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            width="15"
-            height="15"
-            ><path
-              d="M5.5 11.493l.416-.278a.5.5 0 00-.416-.222v.5zm2 2.998l-.416.277a.5.5 0 00.832 0l-.416-.277zm2-2.998v-.5a.5.5 0 00-.416.222l.416.278zm-4.416.277l2 2.998.832-.555-2-2.998-.832.555zm2.832 2.998l2-2.998-.832-.555-2 2.998.832.555zM9.5 11.993h4v-1h-4v1zm4 0c.829 0 1.5-.67 1.5-1.5h-1c0 .277-.223.5-.5.5v1zm1.5-1.5V1.5h-1v8.994h1zM15 1.5c0-.83-.671-1.5-1.5-1.5v1c.277 0 .5.223.5.5h1zM13.5 0h-12v1h12V0zm-12 0C.671 0 0 .67 0 1.5h1c0-.277.223-.5.5-.5V0zM0 1.5v8.993h1V1.5H0zm0 8.993c0 .83.671 1.5 1.5 1.5v-1a.499.499 0 01-.5-.5H0zm1.5 1.5h4v-1h-4v1zM7 4v5h1V4H7zM5 7h5V6H5v1z"
-              fill="currentColor" /></svg
-          ></span>
-        {$_('cmps.nav.feedback.featureReq.title')}
-      </p>
-      <p>{$_('cmps.nav.feedback.featureReq.main')}</p>
-    </a>
-  </Troubleshoot>
+<div class="wrapper">
+  <Generic bind:show right>
+    <svelte:fragment slot="trigger" let:id let:onTriggerClick>
+      <Onboarding
+        right
+        bottom
+        preventSlotClick
+        key="contactUs"
+        shouldShow={!$media.mobile}
+        let:finishOnboarding
+        let:show={onbShow}>
+        <button
+          class="button is-ghost is-small"
+          class:has-background-white={onbShow}
+          class:is-focused={show}
+          aria-haspopup="true"
+          aria-controls={id}
+          on:click={onTriggerClick}>
+          <span class="icon">
+            <!-- © https://teenyicons.com/ question-circle -->
+            <svg
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              width="15"
+              height="15"
+              ><path
+                d="M7.5 9V7.5H8A1.5 1.5 0 009.5 6v-.1a1.4 1.4 0 00-1.4-1.4h-.6A1.5 1.5 0 006 6m1 4.5h1m-.5 4a7 7 0 110-14 7 7 0 010 14z"
+                stroke="currentColor" /></svg>
+          </span>
+          <span>{$_('cmps.nav.feedback.cta')}</span>
+        </button>
+
+        <svelte:fragment slot="text">
+          <Text header>{$_('cmps.wallet.onboarding.contactUs.title')}</Text>
+          <Text
+            >{@html $_('cmps.wallet.onboarding.contactUs.text', {
+              values: accentTags,
+            })}</Text>
+          <button class="button mt-3" on:click={finishOnboarding}
+            >{$_('cmps.wallet.onboarding.contactUs.cta')}</button>
+        </svelte:fragment>
+      </Onboarding>
+    </svelte:fragment>
+
+    <div class="py-3 px-4">
+      <Form
+        cleanup
+        {formStore}
+        {success}
+        buttonText={$_('common.form.submit')}
+        notificationText={$_('common.form.okNotif')}>
+        {#if showEmailField}
+          <Field field={emailField}>
+            <TextInput type="email" autocomplete="email" />
+          </Field>
+        {/if}
+        <Field field={descriptionField}>
+          <TextareaInput rows={3} placeholder={$_('cmps.nav.feedback.text')} />
+        </Field>
+      </Form>
+    </div>
+  </Generic>
 </div>
 
 <style lang="scss">
   .wrapper {
     --dropdown-min-width: 340px;
-
-    a {
-      /* Resetting bulma's behavoir */
-      white-space: normal !important;
-    }
   }
 </style>

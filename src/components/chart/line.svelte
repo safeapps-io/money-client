@@ -6,7 +6,7 @@
   import ValueAxis from './axis/valueAxis.svelte';
   import HoverTracker from './axis/hoverTracker.svelte';
 
-  import { _ } from 'svelte-i18n';
+  import { date, _ } from 'svelte-i18n';
   import { axisLeft } from 'd3-axis';
 
   import { setLine, line } from './common';
@@ -55,7 +55,7 @@
       stroke-width={fixedPosition ? 2 : 1}
       fill="white" />
   {:else}
-    <g use:setLine={{ getLine, data }} />
+    <g class="line" use:setLine={{ getLine, data }} />
   {/if}
   <!-- svelte-ignore component-name-lowercase -->
   {#if focusPoint && focusPointY && focusPointX}
@@ -92,14 +92,16 @@
     bind:yVal={focusPointY}
     bind:xVal={focusPointX} />
 
-  <svelte:fragment slot="overlay-div">
-    {#if focusPoint}
-      <div class="tooltip px-3 py-2">
-        <p>{$_('cmps.elements.chartTooltip.date', { values: { date: focusPoint.date } })}</p>
-        <p>
-          {$_('cmps.elements.chartTooltip.val', {
-            values: { value: displayValue(focusPoint.value) },
-          })}
+  <svelte:fragment slot="overlay-div" let:marginTop let:marginLeft>
+    {#if focusPoint && x && y}
+      <div class="tooltip is-size-7" class:fixedPosition>
+        <p
+          class="x"
+          style="--top: {y(0) + marginTop}px; --left: {x(focusPoint.date) + marginLeft}px">
+          {$date(focusPoint.date)}
+        </p>
+        <p class="y" style="--top: {y(focusPoint.value) + marginTop}px; --left: {marginLeft}px">
+          {displayValue(focusPoint.value)}
         </p>
       </div>
     {/if}
@@ -107,7 +109,7 @@
 </Base>
 
 <style lang="scss">
-  g {
+  .line {
     :global(path),
     :global(circle),
     :global(line) {
@@ -119,11 +121,28 @@
   }
 
   .tooltip {
-    position: absolute;
-    top: 30px;
-    left: 45px;
+    // Making it possible to move mouse over numbers and copy, when position is fixed.
+    pointer-events: none;
+    &.fixedPosition {
+      pointer-events: unset;
+    }
 
-    font-size: 75%;
-    background-color: $white;
+    p {
+      position: absolute;
+      top: var(--top);
+      left: var(--left);
+
+      $text-shadow: 0 0 3px white;
+      text-shadow: $text-shadow, $text-shadow, $text-shadow, $text-shadow, $text-shadow,
+        $text-shadow;
+
+      &.x {
+        transform: translate(-50%, -100%);
+      }
+
+      &.y {
+        transform: translate(-100%, -50%);
+      }
+    }
   }
 </style>

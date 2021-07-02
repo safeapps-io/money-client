@@ -31,6 +31,7 @@
 <Modal
   bind:active
   canBeVoluntarilyClosed={!firstWallet}
+  allowOverflow={firstWallet}
   noBox={firstWallet}
   forceScale={firstWallet}>
   {#if !firstWallet}

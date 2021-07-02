@@ -60,7 +60,7 @@
         </div>
       {:else}
         <!-- We only show onboarding on the first item -->
-        <Onboarding bottom preventSlotClick shouldShow={currentStep == 'main'}>
+        <Onboarding bottom preventSlotClick hideFigures shouldShow={currentStep == 'main'}>
           <div class="select is-small is-fullwidth">
             <select bind:value={columnData.value}>
               <Choices choices={columnData.choices} />

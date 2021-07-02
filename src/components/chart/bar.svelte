@@ -67,7 +67,7 @@
   }
 
   text {
-    z-index: 2;
+    @include z(text-on-barchart);
     text-anchor: middle;
     font-size: 76%;
   }

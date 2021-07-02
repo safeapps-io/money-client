@@ -1,14 +1,18 @@
 <script>
+  // IDEA: Do this using SVG blobs. Will look cooler (probably).
+  // IDEA: We add a button inside text-slot a lot, and it often either finishes the onboarding,
+  // or goes to the next step. Should we put the button here?
+
   import type { OnboardingSteps } from '$stores/decr/user';
 
   import { fade, fly, scale } from 'svelte/transition';
   import cssVars from 'svelte-css-vars';
   import { browser } from '$app/env';
+  import { onDestroy } from 'svelte';
 
   import { randBetween } from '$utils/random';
   import { range } from '$utils/array';
   import { generateRandomColor } from '$utils/color';
-  import { resize } from '$utils/actions/resize';
   import { restrictBodyScroll } from '$utils/actions/restrictBodyScroll';
 
   import { hasUserSeenOnboarding, setUserOnboardingSetting } from '$stores/decr/user';
@@ -20,6 +24,7 @@
     textSlotWidth = 300,
     preventSlotClick = false,
     noSlot = false,
+    hideFigures = false,
     bottom = false,
     right = false;
 
@@ -27,183 +32,99 @@
   // Otherwise we lookup in the settings.
   $: shownKeyBefore = typeof key != 'undefined' && $hasUserSeenOnboarding(key);
 
-  let show = false,
+  /**
+   * We lock the scroll immediately, but delay showing the onboarding.
+   * This way the onboarding does not break.
+   */
+  let startShowing = false,
+    isShowing = false,
     timeout: number | undefined;
-  $: if (!shouldShow) show = false;
-  $: if (browser && !show) {
+  $: if (browser) {
     clearTimeout(timeout);
-    if (shouldShow && !shownKeyBefore) timeout = window.setTimeout(() => (show = true), delay);
+    if (shouldShow && !shownKeyBefore) {
+      startShowing = true;
+      timeout = window.setTimeout(() => (isShowing = true), delay);
+    } else {
+      isShowing = false;
+      startShowing = false;
+    }
   }
-  export const finishOnboarding = async () => {
+  onDestroy(() => clearTimeout(timeout));
+
+  const finishOnboarding = async () => {
     if (key) {
       debugLog('[onboarding] saving onboarding as seen', key);
       await setUserOnboardingSetting(key);
     }
-    show = false;
+    startShowing = false;
   };
 
-  $: if (slotEl) {
-    for (const el of Array.from(slotEl.children)) {
-      if (show) el.classList.add('slot-above');
-      else el.classList.remove('slot-above');
-    }
-  }
-
-  let slotHeight: number | undefined,
-    innerWidth: number | undefined,
-    innerHeight: number | undefined,
-    slotEl: HTMLDivElement | undefined,
-    textSlotEl: HTMLDivElement | undefined;
-
-  const getPositionalVars = (top: number, left: number, width?: number, height?: number) => ({
-      top: top + 'px',
-      left: left + 'px',
-      width: width ? width + 'px' : 'auto',
-      height: height ? height + 'px' : 'auto',
-    }),
-    [circleColors, squareColors] = range(2).map(() =>
-      Object.fromEntries(
-        ['bg1', 'bg2', 'bg3', 'shadow'].map(color => [color, generateRandomColor()]),
-      ),
+  const [circleColors, squareColors] = range(2).map(() =>
+    Object.fromEntries(
+      ['bg1', 'bg2', 'bg3', 'shadow'].map(color => [color, generateRandomColor()]),
     ),
-    circleSize = randBetween(150, 250),
-    squareSize = randBetween(300, 400);
-
-  let slotVars = {},
-    squareVars = {},
-    circleVars = {},
-    textVars = {};
-
-  /**
-   * `bind:clientHeight` failed in cases, when the content of the slot changes.
-   * I didn't really catch when and why.
-   *
-   * (same in `crossfadeWrapper.svelte`)
-   */
-  const slotResized = (e: Element) => {
-    const { height } = e.getBoundingClientRect();
-    if (height) slotHeight = height;
-  };
-
-  $: originalSlotRect =
-    show && slotEl && slotHeight && innerHeight && innerWidth
-      ? (slotEl.firstChild as HTMLElement)?.getBoundingClientRect()
-      : null;
-
-  // Setting slot copy variables
-  $: if (originalSlotRect) {
-    const { x, y, width, height } = originalSlotRect;
-    slotVars = getPositionalVars(scrollY + y, scrollX + x, width, height);
-  }
-
-  // IDEA: Do this using SVG blobs. Will look cooler (probably).
-  // IDEA: We add a button inside text-slot a lot, and it often either finishes the onboarding,
-  // or goes to the next step. Should we put the button here?
-
-  // Setting figures variables
-  const getEvenCoordsByCenterPoint = (x: number, y: number, neededSize: number) =>
-    getPositionalVars(bottom ? y : y - neededSize / 2, x - neededSize / 2, neededSize, neededSize);
-  $: if (originalSlotRect) {
-    const { x, y, width, height } = originalSlotRect,
-      centerCoords: [number, number] = [scrollX + x + width / 2, scrollY + y + height / 2];
-
-    circleVars = {
-      ...getEvenCoordsByCenterPoint(...centerCoords, squareSize),
-      ...circleColors,
-    };
-    squareVars = {
-      ...getEvenCoordsByCenterPoint(...centerCoords, circleSize),
-      ...squareColors,
-    };
-  }
-  $: if (noSlot && innerHeight && innerWidth) {
-    const vertCenter = innerHeight / 2,
-      horCenter = innerWidth / 2;
-    circleVars = {
-      ...getEvenCoordsByCenterPoint(horCenter, vertCenter, squareSize),
-      ...circleColors,
-    };
-    squareVars = {
-      ...getEvenCoordsByCenterPoint(horCenter, vertCenter, circleSize),
-      ...squareColors,
-    };
-  }
-
-  // Setting text variables
-  $: if (originalSlotRect && textSlotEl) {
-    const margin = 30,
-      { scrollY, scrollX } = window,
-      { x, y, width, height } = originalSlotRect,
-      { height: textSlotHeight } = textSlotEl.getBoundingClientRect();
-
-    const top = bottom ? scrollY + y + height + margin : scrollY + y - textSlotHeight - margin,
-      left = right ? scrollX + x + width - textSlotWidth : scrollX + x;
-
-    textVars = getPositionalVars(top, left);
-  }
-
-  $: if (textSlotEl && noSlot && innerHeight && innerWidth) {
-    const { height: textSlotHeight } = textSlotEl.getBoundingClientRect();
-    textVars = getPositionalVars(
-      innerHeight / 2 - textSlotHeight / 2,
-      innerWidth / 2 - textSlotWidth / 2,
-    );
-  }
+  );
 </script>
 
-<svelte:window bind:innerWidth bind:innerHeight />
-
-{#if show}
-  <div class="overlay" transition:fade|local use:restrictBodyScroll />
-  <div class="figures" class:centered={noSlot} transition:scale|local={{ delay: 300 }}>
-    <div class="circle" use:cssVars={circleVars} />
-    <div class="square" use:cssVars={squareVars} />
-  </div>
-  <div
-    class="text"
-    class:centered={noSlot}
-    class:has-text-right={right}
-    class:has-text-left={!right}
-    bind:this={textSlotEl}
-    use:cssVars={{ ...textVars, width: `${textSlotWidth}px` }}
-    in:fly|local={{ delay: 600, y: 100 }}
-    out:fade|local>
-    <slot name="text" />
-  </div>
-  {#if preventSlotClick}
-    <div class="prevent-click-overlay" use:cssVars={slotVars} />
-  {/if}
+{#if isShowing}
+  <div class="overlay" transition:fade|local />
 {/if}
 
-<div
-  class="slot"
-  class:active={show}
-  bind:this={slotEl}
-  bind:clientHeight={slotHeight}
-  use:resize={slotResized}>
-  <slot {show} {finishOnboarding} />
+<div class="slot" class:active={startShowing}>
+  <div style="display: none" use:restrictBodyScroll={startShowing} />
+  {#if isShowing}
+    <div
+      class="figures"
+      class:noSlot
+      class:right
+      class:left={!right}
+      class:bottom
+      class:top={!bottom}
+      style="--width: {textSlotWidth}px; {hideFigures ? 'display: none' : ''}"
+      transition:scale|local={{ delay: 300 }}>
+      <div class="circle" use:cssVars={{ ...circleColors, size: `${randBetween(150, 250)}px` }} />
+      <div class="square" use:cssVars={{ ...squareColors, size: `${randBetween(200, 300)}px` }} />
+    </div>
+    <div
+      class="text"
+      class:noSlot
+      class:right
+      class:left={!right}
+      class:bottom
+      class:top={!bottom}
+      style="--width: {textSlotWidth}px"
+      in:fly|local={{ delay: 600, y: bottom ? 100 : -100 }}
+      out:fade|local>
+      <slot name="text" />
+    </div>
+    {#if preventSlotClick}
+      <div class="prevent-click-overlay" />
+    {/if}
+  {/if}
+
+  <slot show={isShowing} {finishOnboarding} />
 </div>
 
 <style lang="scss">
   .slot {
-    &.active :global(.help),
-    :global(.label) {
-      $shadow-size: 2px;
-      $shadow-color: rgba(255, 255, 255, 0.7);
-      $shadow: drop-shadow($shadow-size $shadow-size $shadow-size $shadow-color)
-        drop-shadow($shadow-size * -1 $shadow-size * -1 $shadow-size $shadow-color);
+    position: relative;
 
-      filter: $shadow $shadow;
-    }
+    &.active {
+      @include z(onboarding);
 
-    :global(.slot-above) {
-      position: relative;
-      @include z('onboarding-slot');
+      :global(.help),
+      :global(.label) {
+        $shadow-size: 2px;
+        $shadow-color: rgba(255, 255, 255, 0.7);
+        $shadow: drop-shadow($shadow-size $shadow-size $shadow-size $shadow-color)
+          drop-shadow($shadow-size * -1 $shadow-size * -1 $shadow-size $shadow-color);
+
+        filter: $shadow $shadow;
+      }
     }
   }
 
-  .overlay,
-  .figures {
+  .overlay {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -211,9 +132,7 @@
     right: 0;
 
     @include z(onboarding);
-  }
 
-  .overlay {
     background: rgba(255, 255, 255, 0.85);
     filter: grayscale(1);
 
@@ -223,27 +142,62 @@
     }
   }
 
-  .prevent-click-overlay,
-  .text,
-  .square,
-  .circle {
-    position: fixed;
-    top: var(--top);
-    left: var(--left);
-    width: var(--width);
-    height: var(--height);
-
-    @include z(onboarding);
-  }
-
   .prevent-click-overlay {
-    @include z('onboarding-slot-overlay');
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+
+    @include z(onboarding-slot-overlay);
 
     cursor: not-allowed;
   }
 
+  .figures {
+    height: var(--width);
+    --base-translate: 50%;
+  }
+  .text {
+    --base-translate: 100%;
+  }
+
+  .text,
+  .figures {
+    position: absolute;
+    width: var(--width);
+
+    &.left {
+      left: 0;
+    }
+    &.right {
+      right: 0;
+      text-align: right;
+    }
+    &.bottom {
+      bottom: -10px;
+      transform: translateY(var(--base-translate));
+    }
+    &.top {
+      top: -10px;
+      transform: translateY(calc(var(--base-translate) * -1));
+    }
+
+    &.noSlot {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
   .circle,
   .square {
+    position: absolute;
+    left: 0;
+
+    width: 90%;
+    height: var(--size);
     background: linear-gradient(217deg, var(--bg1), rgba(255, 0, 0, 0) 70.71%),
       linear-gradient(127deg, var(--bg2), rgba(0, 255, 0, 0) 70.71%),
       linear-gradient(336deg, var(--bg3), rgba(0, 0, 255, 0) 70.71%);

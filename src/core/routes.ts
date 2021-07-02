@@ -101,6 +101,4 @@ export const aboutPath = `${content}/about`,
 
 export const forumPath = 'https://forum.safeapps.io',
   forumHelpPath = `${forumPath}/c/help/6`,
-  forumBugsPath = `${forumPath}/c/bugs/5`,
-  forumIdeasPath = `${forumPath}/c/ideas/7`,
   forumBankHelpPath = `${forumPath}/c/support-for-banks/8`;

@@ -43,7 +43,11 @@
 
 {#if transactionToResolve}
   <div class="wrapper">
-    <Onboarding preventSlotClick bottom shouldShow={showOnboarding && currentStep == 'submit'}>
+    <Onboarding
+      preventSlotClick
+      bottom
+      shouldShow={showOnboarding && currentStep == 'submit'}
+      let:show>
       <div class="mb-5">
         <SubmitButtons {submitDisabled} on:submit={submit} />
       </div>
@@ -56,8 +60,12 @@
     </Onboarding>
 
     <CrossfadeWrapper key={JSON.stringify(transactionToResolve)}>
-      <Onboarding preventSlotClick shouldShow={showOnboarding && currentStep == 'card'}>
-        <div class="box" class:box--hoverable={!showEdit} class:my-4={showEdit}>
+      <Onboarding preventSlotClick shouldShow={showOnboarding && currentStep == 'card'} let:show>
+        <div
+          class="box"
+          class:fake-transform={show}
+          class:box--hoverable={!showEdit}
+          class:my-4={showEdit}>
           <ParsedTransactionData
             {suggestedCategoryIds}
             {category}

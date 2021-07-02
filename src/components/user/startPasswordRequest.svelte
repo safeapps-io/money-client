@@ -27,7 +27,7 @@
   $: active = !$encryptionKeysStateStore.encryptionKeySet;
 </script>
 
-<Modal bind:active noBox forceScale canBeVoluntarilyClosed={false}>
+<Modal bind:active noBox forceScale allowOverflow canBeVoluntarilyClosed={false}>
   {#if userHasSetPasswordInPast}
     <h1 class="title">
       {$_('cmps.masterPassword.old.hey', { values: { username: user.username } })}

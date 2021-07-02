@@ -14,22 +14,22 @@
   const key = 'howToAdd';
 
   $: mobileMode = $media.mobile;
-  $: manualAddClasses = $media.mobile ? 'py-4 px-4 mb-3' : 'px-4 py-2';
 
   let shouldShow = false;
-  $: if (!shouldShow && $hasUserSeenOnboarding('contactUs'))
+  // We do not show contactUs on mobile
+  $: if (!shouldShow && ($hasUserSeenOnboarding('contactUs') || $media.mobile))
     if ($media.mobile && !$hasUserSeenOnboarding(key)) {
       setTimeout(() => {
         openMenu?.();
         shouldShow = true;
-      }, 500);
+      }, 1000);
     } else shouldShow = true;
 
   const onbClickSlot = () => goto($importPath);
 </script>
 
 <Onboarding preventSlotClick bottom {key} {shouldShow} let:finishOnboarding let:show>
-  <div class="has-text-centered">
+  <div class="is-flex flex-columns flex-centered">
     <a
       class="button is-success"
       class:is-light={mobileMode}
@@ -38,13 +38,11 @@
       on:click={e => runCheck(e) && finishOnboarding().then(onbClickSlot)}
       >{$_('cmps.transaction.import')}</a>
 
-    <div class={manualAddClasses}>
-      <a
-        class="is-size-7 is-underlined {manualAddClasses}"
-        class:has-background-white={show}
-        href={$addTransactionPath}
-        on:click={runCheck}>{$_('cmps.transaction.add')}</a>
-    </div>
+    <a
+      class="button is-ghost is-small mt-4"
+      class:has-background-white={show}
+      href={$addTransactionPath}
+      on:click={runCheck}>{$_('cmps.transaction.add')}</a>
   </div>
 
   <svelte:fragment slot="text">

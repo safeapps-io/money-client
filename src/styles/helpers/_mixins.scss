@@ -39,14 +39,14 @@
 /// @prop {String} key - Layer’s name
 /// @prop {Number} value - Z value mapped to the key
 $z-indexes: (
-  'onboarding-slot-overlay': 111,
-  'onboarding-slot': 110,
+  'onboarding-slot-overlay': 101,
   'onboarding': 100,
   'notification-toast': 60,
   'loading-button': 50,
   'menu-back-and-trigger-button': 20,
   'settings-button-popover': 5,
   'sticky-tabs': 2,
+  'text-on-barchart': 2,
   'tooltip-content': 2,
   'tag-choices-dropdown': 2,
   'hover-box': 2,
