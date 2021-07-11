@@ -42,9 +42,9 @@
       out:fade={transitionSettings} />
     <div
       class="modal-content"
-      class:no-box={noBox || isMobile}
+      class:noBox={noBox || isMobile}
       class:box={!noBox}
-      class:mobile-content={isMobile}
+      class:isMobile
       class:allowOverflow
       use:restrictBodyScroll
       in:transition
@@ -69,11 +69,11 @@
     padding: 2.7em 3em;
   }
 
-  .no-box {
+  .noBox {
     padding: 0.7em;
   }
 
-  .mobile-content {
+  .isMobile {
     position: fixed;
     bottom: 0;
     left: 0;

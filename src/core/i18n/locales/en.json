@@ -75,6 +75,7 @@
     "yes": "Yes",
     "no": "No",
     "next": "Next",
+    "back": "Back",
     "letsStart": "Let's start!",
     "allClear": "All clear",
     "okDok": "Okey dokey",
@@ -165,11 +166,19 @@
       "setNew": {
         "onboarding": {
           "header": "The most important password",
-          "main": "We use your master-password to encrypt your data. {boldO}It cannot be restored{boldC}, so do remember it!"
+          "main": "We use your master-password to encrypt your data. {tagO}It cannot be restored{tagC}, so do remember it!"
         },
         "help": {
           "common": "12 chars minimum, but we recommend using longer passwords.",
           "invite": "All unaccepted wallet invites will become obsolete once you change your master password."
+        },
+        "failproof": {
+          "attention": "Pay attention!",
+          "cantRestore": "Your browser {tagO}won't save{tagC} this password. You {tagO}won't be able to restore it{tagC} if you lose it.",
+          "cantAccess": "If you lose this password you {tagO}won't be able to access{tagC} your data, as it will be encrypted.",
+          "writeDown": "{tagO}Do write it down{tagC} somewhere. Your best option would be a password manager of some kind.",
+          "label": "Your password",
+          "agree": "I understand that I must remember this password and I cannot lose it"
         }
       },
       "old": {
@@ -266,13 +275,13 @@
         }
       },
       "onboarding": {
-        "main": "We do not use accounts in our app. The main entity is a wallet. Wallet unites all the accounts, assets and debts that correspond to a single idea: family, business, individual.",
+        "main": "We do not use bank accounts in our app. The main entity is a wallet. Wallet unites all the bank accounts, assets and debts that correspond to a single idea: family, business, individual.",
         "importFile": {
           "title": "Find a file",
           "main": "Upload a statement from your bank. We accept {tagO}.csv{tagC} and {tagO}.ofx{tagC} files."
         },
         "contactUs": {
-          "title": "Any questions get answered",
+          "title": "We're always here to help",
           "text": "If you have {tagO}any{tagC} difficulties or ideas, please contact us. We {tagO}honestly{tagC} appreciate your opinion.",
           "cta": "Will do"
         },
@@ -286,10 +295,6 @@
           "change": "You can filter what transactions you want to see in the analytics dashboard.",
           "example": "It can be a certain tag, category, or just a custom search text.",
           "save": "You can save these filters in the left menu."
-        },
-        "period": {
-          "header": "Period change",
-          "description": "You can change the period as well as check out the data in the past."
         }
       }
     },
@@ -391,7 +396,7 @@
       "allTransactions": "All transactions"
     },
     "dashboard": {
-      "zeroData": "You haven't created transactions yet. Go ahead and do that!",
+      "zeroData": "You haven't added transactions yet. Go ahead and do that!",
       "categoryChart": {
         "showLess": "Show less",
         "showAll": "Show all",

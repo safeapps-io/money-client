@@ -1,6 +1,5 @@
 <script>
   import Dropdown from '$components/elements/dropdown/generic.svelte';
-  import { Onboarding, Text } from '$components/onboarding';
 
   import { slide } from 'svelte/transition';
   import { _ } from 'svelte-i18n';
@@ -9,7 +8,6 @@
   import { getMonthName } from '$utils/date';
 
   import { SearchFilterDatePeriods } from '$stores/decr/types';
-  import { hasUserSeenOnboarding } from '$stores/decr/user';
   import { relativeDate } from '$core/i18n/relativeDate';
 
   export let group: SearchFilterDatePeriods,
@@ -56,45 +54,28 @@
 </script>
 
 <div class="is-flex flex-centered">
-  <Onboarding
-    preventSlotClick
-    shouldShow={$hasUserSeenOnboarding('searchFilter')}
-    bottom
-    key="periods"
-    let:finishOnboarding>
-    <div class="is-flex flex-centered">
-      <button class="button is-light" on:click={() => page++} disabled={disablePeriods}
-        >{'<'}</button>
-      <div class="has-text-centered mx-3">
-        <Dropdown triggerText={buttonText} centered>
-          {#each filteredChoices as { value, label } (value)}
-            <div
-              class="dropdown-item"
-              on:click={() => (group = value)}
-              role="button"
-              tabindex="0"
-              use:focusableShortcut>
-              {label}
-            </div>
-          {/each}
-        </Dropdown>
+  <button class="button is-light" on:click={() => page++} disabled={disablePeriods}>
+    {'<'}
+  </button>
+  <div class="has-text-centered mx-3">
+    <Dropdown triggerText={buttonText} centered>
+      {#each filteredChoices as { value, label } (value)}
+        <div
+          class="dropdown-item"
+          on:click={() => (group = value)}
+          role="button"
+          tabindex="0"
+          use:focusableShortcut>
+          {label}
+        </div>
+      {/each}
+    </Dropdown>
 
-        {#if periodDescription}
-          <div class="is-size-7" transition:slide|local>{periodDescription}</div>
-        {/if}
-      </div>
-      <button
-        class="button is-light"
-        disabled={disablePeriods || page === 0}
-        on:click={() => page--}>
-        {'>'}
-      </button>
-    </div>
-
-    <svelte:fragment slot="text">
-      <Text header>{$_('cmps.wallet.onboarding.period.header')}</Text>
-      <Text>{$_('cmps.wallet.onboarding.period.description')}</Text>
-      <button class="button is-small my-3" on:click={finishOnboarding}>{$_('common.cool')}</button>
-    </svelte:fragment>
-  </Onboarding>
+    {#if periodDescription}
+      <div class="is-size-7" transition:slide|local>{periodDescription}</div>
+    {/if}
+  </div>
+  <button class="button is-light" disabled={disablePeriods || page === 0} on:click={() => page--}>
+    {'>'}
+  </button>
 </div>
